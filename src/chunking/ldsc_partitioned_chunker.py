@@ -111,6 +111,9 @@ def chunk_ldsc_partitioned(
     for identity, group_key, row, source_row, biosample_status in sorted(records, key=lambda r: r[0]):
         phenotype_label, label_confidence = glossary.get_label(row["phenotype"])
         biosample_text = row["biosample"] if biosample_status == "provided" else f"[{biosample_status}]"
+        biosample_display = biosample_text
+        if biosample_status == "provided" and "_" in biosample_text:
+            biosample_display += f" ({biosample_text.replace('_', ' ')})"
         chunk_id = _identifier("ldsc_partitioned:", identity)
         group_id = _identifier("ldsc_partitioned_group:", group_key)
         content = "\n".join([
@@ -118,7 +121,7 @@ def chunk_ldsc_partitioned(
             f"Phenotype: {phenotype_label} ({row['phenotype']}).",
             f"Annotation: {row['annotation']} ({row['annotation'].replace('_', ' ')}). "
             f"Tissue: {row['tissue']} ({row['tissue'].replace('_', ' ')}). "
-            f"Biosample: {biosample_text}.",
+            f"Biosample: {biosample_display}.",
             "Source-reported statistics (4 significant digits):",
             *[f"- {field}={row[field]:.4g}" for field in STATISTIC_FIELDS],
             "Population-level estimates, not causal evidence or individual measurements. "

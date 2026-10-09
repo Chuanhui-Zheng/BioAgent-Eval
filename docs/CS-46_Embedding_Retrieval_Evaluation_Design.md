@@ -1,9 +1,9 @@
 # CS-46 Embedding and Retrieval Evaluation Design
 
 **Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery
-**Document version:** v1.2
+**Document version:** v1.3
 **Date:** 2026-09-21
-**Last updated:** 2026-10-09
+**Last updated:** 2026-10-10
 **Scope:** Sparse, dense, and hybrid retrieval over normalized chunks; retrieval-only evaluation
 
 ---
@@ -567,10 +567,10 @@ can be reported.
 
 ### 10.4 Expanded 100-Query Test Results
 
-This run evaluates only the three collections added on 2026-10-09. It does not replace Section 10.2, and `data/evaluation/retrieval_test.jsonl` was not modified. The benchmark file is `data/evaluation/retrieval_expanded_test.jsonl`.
+This run evaluates the three collections added on 2026-10-09 and cross-collection queries against the rebuilt seven-collection corpus after the Partitioned biosample text correction on 2026-10-10. It does not replace Section 10.2, and `data/evaluation/retrieval_test.jsonl` was not modified. The benchmark file is `data/evaluation/retrieval_expanded_test.jsonl`.
 
 ```text
-SHA-256: 7dfe1284c179087420819de9fd99dbb8bd669c815348b16b2d40cdc2c9145117
+SHA-256: 1f4e00aa55160d09533d13551838088368ba8ed0e6ebbabe7cee90b8062877d0
 ```
 
 The set has 90 answerable and 10 unanswerable queries. Difficulty is 35 easy, 40 medium, and 25 hard; the 10 unanswerable queries are part of the hard group.
@@ -588,32 +588,34 @@ Clumped queries paraphrase all seven supplied regions. Those regions also appear
 
 Judgments are a conservative 0/2 pass. Each answerable query keeps its designated evidence chunk or chunks at grade 2. The other top-10 candidates from BM25, dense, and hybrid were pooled and recorded as grade 0. The file contains 95 grade-2 judgments and no grade-1 judgments. There is no independent second review.
 
-All three methods used the existing 142,977-chunk indexes and the frozen hybrid settings (`candidate_k=50`, `rrf_k=60`, equal weights). The harness averages include the 10 unanswerable queries, which score zero under forced retrieval.
+All three methods used the matching rebuilt 142,977-chunk indexes and the frozen hybrid settings (`candidate_k=50`, `rrf_k=60`, equal weights). The harness averages include the 10 unanswerable queries, which score zero under forced retrieval.
 
 | Method | TargetHit@10 | Recall@10 | nDCG@10 | MRR@10 |
 |---|---:|---:|---:|---:|
-| BM25 | 0.780 | 0.780 | **0.7415** | **0.7297** |
-| Dense | 0.800 | 0.775 | 0.5344 | 0.4712 |
-| Hybrid (RRF) | **0.850** | **0.850** | 0.7232 | 0.6862 |
+| BM25 | 0.9000 | 0.9000 | 0.8822 | 0.8768 |
+| Dense | 0.8600 | 0.8350 | 0.6138 | 0.5564 |
+| Hybrid (RRF) | 0.9000 | 0.9000 | 0.8468 | 0.8317 |
 
-Hybrid retrieval has the highest top-10 hit and recall. BM25 has the highest nDCG@10 and MRR@10. Dense retrieval reaches a similar top-10 hit rate but ranks the designated chunks later.
+BM25 and Hybrid both recover all designated targets for all 90 answerable queries. With 10 unanswerable queries scored zero, their full-set Recall@10 is 0.900. BM25 has the highest aggregate nDCG@10 and MRR@10. Dense retrieval recovers all targets for 81/90 answerable queries and continues to rank many designated chunks later.
 
 | Query type | BM25 Recall@10 | Dense Recall@10 | Hybrid Recall@10 | BM25 nDCG@10 | Dense nDCG@10 | Hybrid nDCG@10 |
 |---|---:|---:|---:|---:|---:|---:|
-| Partitioned heritability | 0.684 | 0.816 | 0.868 | 0.6306 | 0.4915 | 0.5981 |
-| WES association | 1.000 | 0.925 | 1.000 | 0.9708 | 0.6377 | 0.9572 |
-| Clumped region | 1.000 | 1.000 | 1.000 | 0.9080 | 1.0000 | 0.9286 |
-| Cross-collection | 1.000 | 0.500 | 1.000 | 1.0000 | 0.4503 | 0.9613 |
+| Partitioned heritability | 1.0000 | 0.9737 | 1.0000 | 1.0000 | 0.7016 | 0.9199 |
+| WES association | 1.0000 | 0.9250 | 1.0000 | 0.9708 | 0.6366 | 0.9572 |
+| Clumped region | 1.0000 | 1.0000 | 1.0000 | 0.9124 | 1.0000 | 0.9473 |
+| Cross-collection | 1.0000 | 0.5000 | 1.0000 | 1.0000 | 0.4503 | 0.9613 |
 
-Partitioned heritability is the main answerable error source. BM25 misses more of these ancestry-specific records at rank 10 than dense or hybrid retrieval. Dense retrieval recovers only one of the two designated chunks for cross-collection queries, so its Recall@10 on that slice is 0.500. Clumped retrieval is saturated at top-10 for every method because only seven regions are indexed. The router matched the recorded target collection set on all 100 queries (exact-set accuracy 1.00, collection precision 1.00, collection recall 1.00), including unanswerable queries whose wording selects one added collection.
+BM25 ranks all 38 designated Partitioned records first. Hybrid retrieves all 38 within the top five (nDCG@10 0.9199, MRR@10 0.8925); Dense retrieves 37/38 at rank 10 and misses `test-partitioned-038`. Dense recovers only one of the two designated chunks for each cross-collection query, so its Recall@10 on that slice remains 0.500. Clumped retrieval is saturated at top-10 for all methods because only seven regions are indexed. Hybrid clumped MRR@10 is 0.9286, so perfect recall does not imply first-place ranking. The router matches the recorded target collection set on all 100 queries.
+
+The examples and relevance judgments were checked unchanged against the previous run. This is a regression diagnostic on an already inspected benchmark, not independent final validation; no retrieval parameters or judgments were adjusted during the run.
 
 Unanswerable queries are reported under forced retrieval. Their zero scores do not measure abstention. No confidence threshold was fit on this test set.
 
 Outputs:
 
-- `artifacts/evaluation/retrieval_expanded_test/bm25/`
-- `artifacts/evaluation/retrieval_expanded_test/dense/`
-- `artifacts/evaluation/retrieval_expanded_test/hybrid/`
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/bm25/`
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/dense/`
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/hybrid/`
 - `artifacts/evaluation/retrieval_expanded_test/pooled_candidates.jsonl`
 
 ---
@@ -747,11 +749,4 @@ These extensions must not be added silently to the MVP baseline.
 | v1.0 | 2026-09-16 | Initial sparse, dense, hybrid retrieval and retrieval-only evaluation design |
 | v1.1 | 2026-09-21 | Added the finalized 100-query benchmark, manual-audit records, graded judgments, final retrieval results, latency percentiles, and serialized index-size summary |
 | v1.2 | 2026-10-09 | Added a separate 100-query benchmark for partitioned heritability, clumped regions, and WES, with pooled 0/2 judgments and BM25, dense, and hybrid results |
-
-### Partitioned ranking-text rebuild (2026-10-10)
-
-The approved candidate text is now generated by `src/chunking/ldsc_partitioned_chunker.py`. The 7,924 Partitioned content fields change. IDs, titles, parsed source values and citation row references remain unchanged; source-file hashes are reconciled with the current CRLF raw bytes. The other six chunk files remain unchanged. BM25 must be rebuilt over the full corpus. Dense embeddings for unchanged records may be reused only after verifying the previous chunk hashes, document order, model snapshot, dimension and encoding settings; changed content must be re-encoded. The resulting FAISS index and metadata must describe the complete matching 142,977-record corpus.
-
-The 38-query comparison in `artifacts/experiments/partitioned_text_probe/test38_diagnostic/summary.md` is diagnostic of an already inspected test set, not independent final validation. Multi-ancestry comparison regressions observed in the separate development experiment remain unresolved. Rebuilt artifacts are for teammate evaluation and do not authorize or constitute a release. Existing release archives must be regenerated only after selecting the matching code, chunks and indexes.
-
-Source-hash reconciliation during this rebuild: the current Partitioned raw file uses CRLF while the previous citations hashed its LF representation. All 7,924 parsed source records and physical row numbers match; metadata and citation source hashes now reflect the current raw bytes. No raw file was edited.
+| v1.3 | 2026-10-10 | Updated existing expanded 100-query results after the Partitioned biosample spelling correction |

@@ -1,6 +1,6 @@
 {
   "pipeline_version": "1.1.0.expanded-dev",
-  "created_at": "2026-10-09T13:29:11.732141+00:00",
+  "created_at": "2026-10-09T14:48:23.591113+00:00",
   "scope": "expanded-development-corpus-not-an-index-release",
   "sources": {
     "gene_info": {
@@ -62,7 +62,7 @@
     },
     "partitioned_build_manifest": {
       "path": "artifacts/ingestion_dev/ldsc_partitioned/manifest.json",
-      "sha256": "841ad63630e543b78e8efc33a2b0d30d51058d1037e86a53e6bab2f4d44e45df"
+      "sha256": "95f7b1931d2673097e2d0da1dfbf3b9e6c3e01c8ad71893033447aa1710202f4"
     },
     "clumped_build_manifest": {
       "path": "artifacts/ingestion_dev/clumped/manifest.json",
@@ -102,7 +102,7 @@
       "collection": "ldsc_partitioned_heritability",
       "path": "artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl",
       "chunks": 7924,
-      "sha256": "933c768c5cd092621a79b1366f42003d3d09626fc5decf8430e3006a192050ef"
+      "sha256": "221dba919fa7e7323bd970d8a591e6ea4018c12d988b3eb4ca2b9c42390db258"
     },
     "metaanalysis_clumped_2hrG_EU.chunks.jsonl": {
       "collection": "variant_association_clumped",

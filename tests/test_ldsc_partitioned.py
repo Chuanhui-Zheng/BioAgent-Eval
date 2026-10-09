@@ -98,6 +98,29 @@ class PartitionedChunkingTests(unittest.TestCase):
         self.assertTrue(any(":a%3Ab:EA" in value for value in identifiers))
         self.assertTrue(any(":a%253Ab:EA" in value for value in identifiers))
 
+    def test_biosample_supports_spaced_and_source_tokens(self):
+        from retrieval.tokenizer import tokenize
+
+        row = sample(biosample="vein_endothelial_cell")
+        chunk = self.chunks([row])[0]
+        self.assertIn("Biosample: vein_endothelial_cell (vein endothelial cell).", chunk.content)
+        tokens = set(tokenize(chunk.content))
+        self.assertTrue(set(tokenize("vein endothelial cell")).issubset(tokens))
+        self.assertIn("vein_endothelial_cell", tokens)
+        self.assertEqual(chunk.metadata["raw_record"], row)
+        self.assertEqual(chunk.metadata["biosample"], "vein_endothelial_cell")
+        self.assertTrue(chunk.chunk_id.endswith(":vein_endothelial_cell:EA"))
+
+    def test_biosample_without_underscores_or_value_has_no_redundant_alias(self):
+        missing = sample()
+        del missing["biosample"]
+        chunks = self.chunks([missing, sample(biosample=None), sample(biosample="cell")])
+        for chunk in chunks:
+            expected = {"missing": "[missing]", "null": "[null]", "provided": "cell"}[
+                chunk.metadata["biosample_status"]]
+            self.assertIn(f"Biosample: {expected}.", chunk.content)
+            self.assertNotIn(f"Biosample: {expected} (", chunk.content)
+
     def test_complete_raw_record_and_precision_are_preserved(self):
         row = sample(extra={"release": None, "codes": ["a", "b"]})
         chunk = self.chunks([row])[0]
