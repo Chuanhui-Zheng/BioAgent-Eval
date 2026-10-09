@@ -49,9 +49,12 @@ def record_identifier_keys(record: ChunkRecord) -> set[str]:
         if normalized:
             keys.add(normalized)
 
-    last = normalize_text(record.chunk_id.split(":")[-1])
-    if last and last not in ANCHOR_CODES:
-        keys.add(last)
+    # Partitioned IDs end in ancestry, shared by many unrelated tissues.
+    # Pinning that suffix bypasses text relevance and sorts those records by ID.
+    if record.collection != "ldsc_partitioned_heritability":
+        last = normalize_text(record.chunk_id.split(":")[-1])
+        if last and last not in ANCHOR_CODES:
+            keys.add(last)
     return keys
 
 

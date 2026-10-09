@@ -5,6 +5,9 @@ project_root: "."
 raw:
   gene_info: "data/raw/gene_info/genes_function_info.json"
   ldsc_2hri: "data/raw/ldsc/genetic_correlation/2hrI/2hrI.json"
+  ldsc_partitioned_2hrg: "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json"
+  metaanalysis_clumped_2hrg_eu: "data/raw/metaanalysis/bottom-line/ancestry-clumped/2hrG/ancestry=EU/part-00000-ddaf2613-61d9-48db-b24e-3c0a67a82ad8-c000.json"
+  wes_2hrg: "data/raw/wes/2hrG/part-00000.json"
   gene_id_map: "data/raw/reference/gene_id_map/genes.jsonl"
   gene_association_common_2hrg: "data/raw/gene_association/common/2hrG/2hrG.common.jsonl"
   gene_association_rare_2hrg: "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl"
@@ -12,6 +15,9 @@ raw:
 artifacts:
   chunks_dir: "artifacts/chunks"
   manifest: "artifacts/manifest.json"
+  wes_validation_dir: "artifacts/ingestion_dev/wes"
+  clumped_validation_dir: "artifacts/ingestion_dev/clumped"
+  partitioned_manifest: "artifacts/manifest_partitioned.json"
 
 config:
   phenotype_glossary: "config/phenotype_glossary.json"

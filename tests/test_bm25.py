@@ -11,6 +11,7 @@ sys.path.insert(0, str(SRC_ROOT))
 
 from retrieval.bm25_retriever import build_bm25_index, load_bm25_index, save_bm25_index
 from retrieval.corpus import LoadedCorpus
+from retrieval.identifiers import record_identifier_keys
 from retrieval.schema import ChunkRecord
 from retrieval.tokenizer import tokenize, tokenize_query
 
@@ -142,6 +143,42 @@ class BM25RetrieverTests(unittest.TestCase):
             loaded = load_bm25_index(path, self.records)
         after = [item.chunk_id for item in loaded.search(query, top_k=3)]
         self.assertEqual(before, after)
+
+    def test_partitioned_ancestry_is_not_an_exact_identifier(self) -> None:
+        for ancestry in ("EA", "EU", "HS", "Mixed"):
+            with self.subTest(ancestry=ancestry):
+                record = ChunkRecord(
+                    chunk_id=f"ldsc_partitioned:2hrG:accessible_chromatin:bile_duct:cholangiocyte:{ancestry}",
+                    collection="ldsc_partitioned_heritability",
+                    entity_type="partitioned_heritability",
+                    title="LDSC partitioned heritability",
+                    content=f"Bile duct cholangiocyte ancestry {ancestry}",
+                    metadata={"ancestry": ancestry}, citation={},
+                )
+                self.assertNotIn(ancestry.lower(), record_identifier_keys(record))
+
+    def test_partitioned_tissue_ranking_survives_index_reload(self) -> None:
+        records = [
+            ChunkRecord(
+                chunk_id=f"ldsc_partitioned:2hrG:accessible_chromatin:{tissue}:{biosample}:EA",
+                collection="ldsc_partitioned_heritability",
+                entity_type="partitioned_heritability",
+                title=f"LDSC partitioned heritability {tissue} {biosample}",
+                content=f"2hrG accessible_chromatin tissue {tissue} biosample {biosample} ancestry EA",
+                metadata={"ancestry": "EA", "tissue": tissue, "biosample": biosample},
+                citation={},
+            )
+            for tissue, biosample in [("adipose_tissue", "[null]"), ("bile_duct", "cholangiocyte")]
+        ]
+        index = build_bm25_index(LoadedCorpus(records, {}, {}), ("title", "content"))
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "bm25"
+            save_bm25_index(index, path)
+            loaded = load_bm25_index(path, records)
+            for searcher in (index, loaded):
+                hits = searcher.search("2hrG bile_duct cholangiocyte ancestry EA", top_k=2)
+                self.assertEqual(hits[0].chunk_id, records[1].chunk_id)
+                self.assertEqual(hits[0].component_scores["exact_match"], 0)
 
 
 if __name__ == "__main__":

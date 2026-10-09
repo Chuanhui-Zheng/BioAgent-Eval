@@ -184,7 +184,7 @@ def main() -> int:
     candidate_k = retriever.candidate_k
     for example in examples:
         query = example["query"]
-        route = route_query(query)
+        route = route_query(query, available_collections=[s.collection for s in config.chunk_sources])
         started = time.perf_counter()
         routed_bm25 = bm25_index.search(query, top_k=candidate_k, collections=route.collections)
         routed_dense = dense_index.search(query, top_k=candidate_k, collections=route.collections)

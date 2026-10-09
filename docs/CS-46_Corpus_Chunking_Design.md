@@ -3,7 +3,8 @@
 **Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery  
 **Document version:** v1.1  
 **Date:** 2026-09-16  
-**Scope:** Structured JSON corpora under `data/raw/` (Gene Info, LDSC, HuGE Gene Association; reference `gene_id_map` is provenance-only and not chunked)
+**Last updated:** 2026-10-09
+**Scope:** Structured JSON corpora under `data/raw/` (Gene Info, LDSC genetic correlation and partitioned heritability, HuGE Gene Association, clumped variant regions and WES; reference `gene_id_map` is not chunked)
 
 ---
 
@@ -20,7 +21,7 @@ This document defines how the CS-46 prototype RAG system **splits, textifies, an
 
 ## 2. Data Sources Overview
 
-### 2.1 File Inventory
+### 2.1 Baseline File Inventory
 
 | File path | Format | Entity type | Scale (measured) |
 |-----------|--------|-------------|------------------|
@@ -30,7 +31,9 @@ This document defines how the CS-46 prototype RAG system **splits, textifies, an
 | `data/raw/gene_association/common/2hrG/2hrG.common.jsonl` | JSONL | Gene × phenotype (common) | **11,383** rows |
 | `data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl` | JSONL | Gene × phenotype (rare) | **4,114** rows |
 
-> LDSC anchor phenotype is `2hrI`; HuGE gene association anchor phenotype is `2hrG`. Indexing and citations must use the `phenotype` field value.
+> Baseline LDSC genetic correlation uses anchor `2hrI`; HuGE gene association uses `2hrG`. The added partitioned, clumped and WES sources use `2hrG`. Indexing and citations must use the source `phenotype` field value.
+
+The active seven-collection corpus adds 7,924 partitioned-heritability chunks, seven clumped-region chunks and 93,943 WES summary/mask chunks to the 41,103-record baseline, giving 142,977 total. Their source paths, evidence units and validation rules are specified in Sections 5.14-5.16.
 
 ### 2.2 Semantic Layers
 
@@ -475,6 +478,57 @@ gassoc_rare:{phenotype}:{gene}
 
 ---
 
+## 5.14 Collection E: `ldsc_partitioned_heritability` (2026-10-09 extension)
+
+Source: `data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json`. This extension is prepared for indexing; it does not change the four-collection baseline results.
+
+**Split rule:** one `phenotype + annotation + tissue + biosample + ancestry` record per chunk. The supplied file produces 7,924 chunks, grouped into 1,981 annotation/tissue/biosample units. Do not combine this evidence with genetic-correlation chunks or merge distinct biosamples.
+
+**Readable ID:**
+
+```text
+ldsc_partitioned:{phenotype}:{annotation}:{tissue}:{biosample}:{ancestry}
+ldsc_partitioned_group:{phenotype}:{annotation}:{tissue}:{biosample}
+```
+
+Each source string is UTF-8 percent-encoded using `urllib.parse.quote` with `safe="-_."`; unreserved characters remain readable. Colon, percent, brackets and whitespace are escaped. Null and absent biosample use unescaped `[null]` and `[missing]` markers; a literal source string `[null]` is `%5Bnull%5D`, so the identities remain distinct. Duplicate identities fail validation. IDs are independent of row order and numeric estimates; source version is recorded separately in citation hashes. `group_id` is metadata only and does not implement automatic group retrieval.
+
+**Content and provenance:** all ten source statistics appear in content to four significant digits; complete original fields and parsed numeric precision remain in `metadata.raw_record`. Citation retains source file, physical source row, SHA-256 and chunk ID. All final content is token-checked without truncation against the configured 512-token limit. No significance label, ancestry expansion or causal interpretation is inferred while field definitions and release remain unconfirmed.
+
+**Output:** `artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl`. Register the raw path in `config/paths.yaml`; run `python scripts/chunk_corpus.py --partitioned-only` to build only this collection. Validation/build records stay under `artifacts/ingestion_dev/ldsc_partitioned/`. The active seven-collection manifest is `artifacts/manifest_partitioned.json`; `artifacts/manifest.json` remains the four-collection baseline. Explicit `--include-partitioned` rebuilds the baseline too and is not used for this migration. The existing default command retains its baseline behavior.
+
+---
+
+## 5.15 Collection F: `variant_association_clumped` (2026-10-09 extension)
+
+Source: the 2hrG `ancestry=EU` JSONL under `data/raw/metaanalysis/bottom-line/ancestry-clumped/`. The supplied 68 variant records form seven chromosome/clump groups. This is regional association evidence, distinct from gene-level common association and from un-clumped GWAS summary statistics.
+
+**Unit and identity:** one supplied phenotype/ancestry/chromosome/clump region per chunk; `entity_type=variant_association_region`. ID format: `clumped:<phenotype>:<ancestry>:<chromosome>:<clump>:<start>-<end>`, using the same percent-encoding convention as Section 5.14. Bounds come from the export; genome build and interval conventions remain unconfirmed. Ancestry comes from the directory, explicitly recorded as such. Source versions belong in citation hashes; simultaneous different releases require a separate identity/version decision.
+
+**Ranking text:** phenotype, ancestry code, chromosome, source clump and bounds, supplied member count, the source-designated lead variant and its beta/stdErr/pValue/n/alignment (four significant digits), and interpretation limitations. Lead status is not causal proof. Do not flip beta from alignment or infer clumping thresholds/reference panels. This summary supports region/lead questions; it does not support indexed lookup of non-lead member IDs or statistics.
+
+**Metadata and citation:** all original member records and parsed numeric precision in `metadata.members`, in deterministic position/varId order; matching physical `source_rows`, member count, source hash and region identifiers. Citation retains file, all source rows, hash and chunk ID. Member n values may differ; no region-wide n is inferred. Genome build, effect scale/allele, n, alignment, clumping rules, meta selection and release remain explicitly unconfirmed. Metadata is returned with retrieved evidence but is not embedded; no structured member-query or answer-generation adapter is added here.
+
+**Validation and publication:** strict JSON, required types, finite statistics, positive SE/n, pValue bounds, varId/coordinate consistency, unique variants, consistent group context/bounds and exactly one source lead with minimum supplied pValue. Run `python scripts/chunk_corpus.py --clumped-only`; existing five chunk files remain unchanged. Output: `artifacts/chunks/metaanalysis_clumped_2hrG_EU.chunks.jsonl`. All seven final contents are 313-322 Qwen tokens, with special tokens and no truncation, below 512. Separate build/validation records live in `artifacts/ingestion_dev/clumped/`; cross-collection metadata collisions are rejected before writing. The active expanded manifest/config covers seven collections, 142,977 chunks, including WES; this chunking command does not rebuild indexes.
+
+---
+
+## 5.16 Collection G: `gene_association_wes` (2026-10-09 extension)
+
+Source: `data/raw/wes/2hrG/part-00000.json`. Retain every valid gene's source-reported top-level summary and every supplied mask result, including numeric overlap with existing rare evidence. The source has 15,361 rows: 15,360 valid gene identities and one invalid bare NaN gene on physical row 1,845. The invalid row is excluded from chunks and preserved verbatim as a string with its physical row/reason in the validation report; raw remains unchanged.
+
+**Units:** 15,360 gene-summary chunks (`entity_type=gene_phenotype_summary`) and 78,583 gene-mask chunks (`entity_type=gene_mask_association`), total 93,943. Empty masks still produce a summary explicitly noting absent supplied detail; an empty list is not proof of no association/analysis. Do not collapse differently named masks just because values match.
+
+**IDs:** `wes:<phenotype>:<gene>:summary` and `wes:<phenotype>:<gene>:mask:<mask>`, with UTF-8 percent encoding as in Section 5.14. Source records are sorted by phenotype/gene; summary precedes masks sorted by raw mask label. The metadata/citation mask index retains the original zero-based source position, not the sorted position. Same-input builds are deterministic. Source release is unconfirmed; concurrent releases require a separate versioned identity decision.
+
+**Content/metadata:** summary text displays source top-level pValue/beta and supplied mask count; mask text displays original mask label and pValue/beta/stdErr/n/combinedAF/singleVariants/passingVariants, at four significant digits. Exact parsed originals live in summary `metadata.raw_record` (including all masks), and mask `metadata.raw_parent` plus `metadata.raw_mask`. Citation retains physical source row, original mask index where applicable, file hash and ID. Extra supplied fields remain preserved. Top-level test/aggregation is unconfirmed: do not treat it as the minimum mask pValue or borrow a mask SE. No inferred significance, units, effect direction interpretation or mask-selection definitions.
+
+**Overlap:** link same gene/phenotype to old rare via `related_baseline_chunk_id`; `top_level_matches_baseline` separately compares pValue/beta. All 4,113 numerically matching gene summaries remain in WES. `baseline_reference` records compared fields and old chunk-file hash. A same-identity reference does not imply numeric equality, and equality does not establish the same study/version. Links are provenance only; no automatic retrieval expansion, deduplication or score adjustment is implemented. Summary/mask results and repeated exports must not be counted as independent corroboration.
+
+**Validation/output:** finite statistics, pValue bounds, positive SE and integer n, nonnegative count/frequency fields, unique valid gene/phenotype and mask names. Known invalid gene records are quarantined; malformed JSON or invalid statistics in valid genes fail the build. Unconfirmed semantics are explicitly listed in metadata. Reuse `python scripts/chunk_corpus.py --wes-only`, with source/validation paths in paths.yaml. Output: `artifacts/chunks/wes_2hrG.chunks.jsonl`; reports in `artifacts/ingestion_dev/wes/`. Every final content is 132-245 Qwen tokens, no truncation, below 512. The WES chunking step preserves the other six chunk files and raw inputs. Expanded manifest/config covers seven collections, 142,977 chunks. Matching BM25/Dense indexes have subsequently been rebuilt and verified at artifacts/indexes/bm25_title_content/ and artifacts/indexes/dense_qwen3_06b/. New index release packaging and publication remain pending.
+
+---
+
 ## 6. Unified Chunk Envelope Schema
 
 All collections emit the same JSON shape for indexing, API, and evaluation:
@@ -482,8 +536,8 @@ All collections emit the same JSON shape for indexing, API, and evaluation:
 ```json
 {
   "chunk_id": "string, globally unique",
-  "collection": "gene_info | ldsc_genetic_correlation | gene_association_common | gene_association_rare | ldsc_summary",
-  "entity_type": "gene | genetic_correlation | gene_phenotype_association | genetic_correlation_summary",
+  "collection": "gene_info | ldsc_genetic_correlation | gene_association_common | gene_association_rare | ldsc_partitioned_heritability | variant_association_clumped | gene_association_wes | ldsc_summary",
+  "entity_type": "gene | genetic_correlation | gene_phenotype_association | partitioned_heritability | variant_association_region | gene_mask_association | gene_phenotype_summary | genetic_correlation_summary",
   "title": "human-readable short title",
   "content": "embedding + generation context text",
   "metadata": { },

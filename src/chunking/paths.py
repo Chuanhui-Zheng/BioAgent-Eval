@@ -19,6 +19,12 @@ class ProjectPaths:
     manifest_file: Path
     pipeline_version: str
     config_file: Path
+    ldsc_partitioned_2hrg_file: Path | None = None
+    partitioned_manifest_file: Path | None = None
+    metaanalysis_clumped_2hrg_eu_file: Path | None = None
+    clumped_validation_dir: Path | None = None
+    wes_2hrg_file: Path | None = None
+    wes_validation_dir: Path | None = None
 
 
 def _resolve(project_root: Path, value: str) -> Path:
@@ -65,4 +71,22 @@ def load_paths(
         manifest_file=_resolve(resolved_root, artifacts["manifest"]),
         pipeline_version=str(data.get("pipeline_version", "1.0.0")),
         config_file=config_path,
+        ldsc_partitioned_2hrg_file=(
+            _resolve(resolved_root, raw["ldsc_partitioned_2hrg"])
+            if raw.get("ldsc_partitioned_2hrg") else None
+        ),
+        partitioned_manifest_file=(
+            _resolve(resolved_root, artifacts["partitioned_manifest"])
+            if artifacts.get("partitioned_manifest") else None
+        ),
+        metaanalysis_clumped_2hrg_eu_file=(
+            _resolve(resolved_root, raw["metaanalysis_clumped_2hrg_eu"])
+            if raw.get("metaanalysis_clumped_2hrg_eu") else None
+        ),
+        wes_2hrg_file=(_resolve(resolved_root, raw["wes_2hrg"]) if raw.get("wes_2hrg") else None),
+        wes_validation_dir=(_resolve(resolved_root, artifacts["wes_validation_dir"]) if artifacts.get("wes_validation_dir") else None),
+        clumped_validation_dir=(
+            _resolve(resolved_root, artifacts["clumped_validation_dir"])
+            if artifacts.get("clumped_validation_dir") else None
+        ),
     )

@@ -1,0 +1,9 @@
+{
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/gene_info.chunks.jsonl": "cc8cc665abf9384b94d02c8cb1c37e3fe451c2ef7f7f8ebdbb44edef643f65b9",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/ldsc_2hrI.chunks.jsonl": "f6a4ffeeb4f94e1c4e40ec4c8c98ab5ea2b7ece75226a130059268b7c0551b1e",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/gene_association_common_2hrG.chunks.jsonl": "6e64be8811fdc13088a033e345352142cf8f862de209737cf30598b46c9416f4",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl": "afdee9285776f3ea75e85cb8e66e67d315b850a3b325a1c3d96c2c5716cec9c0",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl": "f170f83f77d016afd5a3dd6196e3e5404933a30976be4c33fd37171944163c8e",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/metaanalysis_clumped_2hrG_EU.chunks.jsonl": "e26faf32f4ab0dc2c19cee0970c161778113a0e636f6103f533eaa0a76e6b3aa",
+  "D:/1_USYD/26S2/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery/artifacts/chunks/wes_2hrG.chunks.jsonl": "333e08085e6bea275444c5279d996bfcba2112bdd923652aa5f6916bf14f5a6d"
+}

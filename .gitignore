@@ -14,3 +14,4 @@ __pycache__/
 
 # Retrieval artifacts
 artifacts/indexes/
+artifacts/ingestion_dev/

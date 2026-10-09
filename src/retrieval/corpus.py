@@ -17,10 +17,10 @@ class LoadedCorpus:
     collection_counts: dict[str, int]
 
 
-def load_manifest_counts(manifest_file: Path) -> dict[str, int]:
+def _manifest_entries(manifest_file: Path) -> dict[str, dict[str, Any]]:
     with manifest_file.open("r", encoding="utf-8") as handle:
         manifest = json.load(handle)
-    counts: dict[str, int] = {}
+    entries: dict[str, dict[str, Any]] = {}
     filename_to_collection = {
         "gene_info.chunks.jsonl": "gene_info",
         "ldsc_2hrI.chunks.jsonl": "ldsc_genetic_correlation",
@@ -28,10 +28,21 @@ def load_manifest_counts(manifest_file: Path) -> dict[str, int]:
         "gene_association_rare_2hrG.chunks.jsonl": "gene_association_rare",
     }
     for filename, payload in manifest.get("outputs", {}).items():
-        collection = filename_to_collection.get(filename)
-        if collection:
-            counts[collection] = int(payload["chunks"])
-    return counts
+        collection = payload.get("collection") or filename_to_collection.get(filename)
+        if not isinstance(collection, str) or not collection:
+            raise ValueError(f"Manifest output has no recognized collection: {filename}")
+        if collection in entries:
+            raise ValueError(f"Duplicate collection in manifest: {collection}")
+        if type(payload.get("chunks")) is not int or payload["chunks"] < 0:
+            raise ValueError(f"Invalid manifest count for {collection}")
+        entries[collection] = payload
+    if not entries:
+        raise ValueError(f"Manifest has no indexed outputs: {manifest_file}")
+    return entries
+
+
+def load_manifest_counts(manifest_file: Path) -> dict[str, int]:
+    return {collection: entry["chunks"] for collection, entry in _manifest_entries(manifest_file).items()}
 
 
 def load_corpus(
@@ -39,16 +50,30 @@ def load_corpus(
     *,
     manifest_file: Path | None = None,
     expected_total: int | None = 41103,
+    project_root: Path | None = None,
 ) -> LoadedCorpus:
     records: list[ChunkRecord] = []
     chunk_hashes: dict[str, str] = {}
     collection_counts: dict[str, int] = {}
     seen_ids: set[str] = set()
+    entries = _manifest_entries(manifest_file) if manifest_file else {}
+    if entries and set(entries) != {source.collection for source in sources}:
+        raise ValueError("Manifest collections do not match configured source collections")
 
     for source in sources:
         if not source.path.exists():
             raise FileNotFoundError(f"Chunk artifact not found: {source.path}")
         chunk_hashes[source.path.as_posix()] = file_sha256(source.path)
+        if entries:
+            entry = entries[source.collection]
+            expected_hash = entry.get("sha256")
+            if expected_hash and expected_hash != chunk_hashes[source.path.as_posix()]:
+                raise ValueError(f"Manifest hash mismatch for {source.collection}")
+            if entry.get("path"):
+                root = project_root or manifest_file.parent
+                expected_path = (root / entry["path"]).resolve()
+                if source.path.resolve() != expected_path:
+                    raise ValueError(f"Manifest path mismatch for {source.collection}")
         count = 0
         for payload in load_jsonl(source.path):
             record = ChunkRecord.from_dict(payload)
@@ -66,9 +91,9 @@ def load_corpus(
     if expected_total is not None and len(records) != expected_total:
         raise ValueError(f"Expected {expected_total} chunks, loaded {len(records)}")
 
-    if manifest_file and manifest_file.exists():
-        expected = load_manifest_counts(manifest_file)
-        for collection, count in expected.items():
+    if entries:
+        for collection, entry in entries.items():
+            count = entry["chunks"]
             actual = collection_counts.get(collection)
             if actual != count:
                 raise ValueError(
@@ -82,11 +107,16 @@ def load_corpus(
     )
 
 
-def load_corpus_from_config(config: RetrievalConfig, *, expected_total: int | None = 41103) -> LoadedCorpus:
+def load_corpus_from_config(config: RetrievalConfig, *, expected_total: int | None = None) -> LoadedCorpus:
+    # A configured corpus is validated against its versioned manifest, not a
+    # global baseline count. Explicit totals remain an additional assertion.
+    if expected_total is None:
+        expected_total = sum(load_manifest_counts(config.manifest_file).values())
     return load_corpus(
         config.chunk_sources,
         manifest_file=config.manifest_file,
         expected_total=expected_total,
+        project_root=config.project_root,
     )
 
 
