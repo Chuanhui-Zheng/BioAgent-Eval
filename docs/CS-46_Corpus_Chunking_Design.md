@@ -495,6 +495,8 @@ Each source string is UTF-8 percent-encoded using `urllib.parse.quote` with `saf
 
 **Content and provenance:** all ten source statistics appear in content to four significant digits; complete original fields and parsed numeric precision remain in `metadata.raw_record`. Citation retains source file, physical source row, SHA-256 and chunk ID. All final content is token-checked without truncation against the configured 512-token limit. No significance label, ancestry expansion or causal interpretation is inferred while field definitions and release remain unconfirmed.
 
+**Ranking-text revision (2026-10-10):** content starts with ancestry code and phenotype, followed by annotation, tissue and biosample. Annotation and tissue also include their underscore-to-space spellings; these are spelling variants, not inferred biological definitions. All ten displayed statistics and interpretation boundaries remain. Repeated provenance prose is shortened because complete provenance remains in metadata and citation. IDs, titles, evidence units, source records and citation row references are unchanged; source-file hashes are refreshed for the current raw bytes. This is the previously evaluated candidate text; multi-ancestry comparison regressions remain under review. Rebuild both retrieval indexes whenever this content changes.
+
 **Output:** `artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl`. Register the raw path in `config/paths.yaml`; run `python scripts/chunk_corpus.py --partitioned-only` to build only this collection. Validation/build records stay under `artifacts/ingestion_dev/ldsc_partitioned/`. The active seven-collection manifest is `artifacts/manifest_partitioned.json`; `artifacts/manifest.json` remains the four-collection baseline. Explicit `--include-partitioned` rebuilds the baseline too and is not used for this migration. The existing default command retains its baseline behavior.
 
 ---
@@ -739,3 +741,5 @@ All collections emit the same JSON shape for indexing, API, and evaluation:
 |---------|------|-------|
 | v1.0 | 2026-09-11 | Initial release from sample JSON measurements and CS-46 requirements |
 | v1.1 | 2026-09-16 | HuGE gene association (common/rare 2hrG); `gene_id_map` not chunked; raw layout scheme A |
+
+Source-hash reconciliation during this rebuild: the current Partitioned raw file uses CRLF while the previous citations hashed its LF representation. All 7,924 parsed source records and physical row numbers match; metadata and citation source hashes now reflect the current raw bytes. No raw file was edited.

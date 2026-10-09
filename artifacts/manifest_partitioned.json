@@ -1,6 +1,6 @@
 {
   "pipeline_version": "1.1.0.expanded-dev",
-  "created_at": "2026-10-08T17:10:56.716385+00:00",
+  "created_at": "2026-10-09T13:29:11.732141+00:00",
   "scope": "expanded-development-corpus-not-an-index-release",
   "sources": {
     "gene_info": {
@@ -32,7 +32,7 @@
     "paths_config": "config/paths.yaml",
     "ldsc_partitioned_2hrG": {
       "path": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
-      "sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e"
+      "sha256": "0a37dafb4542c0fba913955d5f73d99a18336ae2a263fe89693afd9db0f607d4"
     },
     "metaanalysis_clumped_2hrG_EU": {
       "path": "data/raw/metaanalysis/bottom-line/ancestry-clumped/2hrG/ancestry=EU/part-00000-ddaf2613-61d9-48db-b24e-3c0a67a82ad8-c000.json",
@@ -62,7 +62,7 @@
     },
     "partitioned_build_manifest": {
       "path": "artifacts/ingestion_dev/ldsc_partitioned/manifest.json",
-      "sha256": "5687b8905d864e46bf8261582cbcf08b393f5a4f6bd6914cf2e2736881a62466"
+      "sha256": "841ad63630e543b78e8efc33a2b0d30d51058d1037e86a53e6bab2f4d44e45df"
     },
     "clumped_build_manifest": {
       "path": "artifacts/ingestion_dev/clumped/manifest.json",
@@ -102,7 +102,7 @@
       "collection": "ldsc_partitioned_heritability",
       "path": "artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl",
       "chunks": 7924,
-      "sha256": "f170f83f77d016afd5a3dd6196e3e5404933a30976be4c33fd37171944163c8e"
+      "sha256": "933c768c5cd092621a79b1366f42003d3d09626fc5decf8430e3006a192050ef"
     },
     "metaanalysis_clumped_2hrG_EU.chunks.jsonl": {
       "collection": "variant_association_clumped",

@@ -72,6 +72,19 @@ class PartitionedChunkingTests(unittest.TestCase):
         self.assertEqual(chunk.metadata["group_id"],
                          "ldsc_partitioned_group:2hrG:accessible_chromatin:adipose_tissue:adipose_tissue")
 
+    def test_ranking_text_frontloads_identity_without_guessing_definitions(self):
+        chunks = self.chunks([sample(ancestry="EA"), sample(ancestry="EU")])
+        for chunk in chunks:
+            self.assertTrue(chunk.content.startswith(
+                f"LDSC partitioned heritability. Ancestry code: {chunk.metadata['ancestry']}."))
+            self.assertIn("accessible_chromatin (accessible chromatin)", chunk.content)
+            self.assertIn("adipose_tissue (adipose tissue)", chunk.content)
+            self.assertIn("not causal evidence or individual measurements", chunk.content)
+            self.assertIn("ancestry-code meanings, pValue test and source release are unconfirmed", chunk.content)
+            statistics = [line for line in chunk.content.splitlines() if line.startswith("- ")]
+            self.assertEqual(len(statistics), 10)
+            self.assertEqual(chunk.metadata["raw_record"]["enrichment_beta"], 71.80752511333449)
+
     def test_reserved_missing_markers_and_percent_escapes_are_distinct(self):
         missing = sample()
         del missing["biosample"]
