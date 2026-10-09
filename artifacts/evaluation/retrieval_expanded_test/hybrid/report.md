@@ -1,0 +1,197 @@
+# Hybrid RRF test evaluation
+
+- queries: 100
+- top_k: 10
+- report_ks: [1, 3, 5, 10]
+- candidate_k: 50
+- rrf_k: 60
+- weight_bm25: 1.0
+- weight_dense: 1.0
+- fusion: existing BM25 (title+content, identifier pin) + dense (content only); no new index
+- labeling: TargetHit@k is 1 if any grade-2 gold chunk_id appears in the top-k results. Recall@k counts all grade-2 labels, while nDCG@k uses grades 0-2. Unpooled labels should not be interpreted as corpus-level Recall.
+
+## Routed retrieval
+
+TargetHit@1: 0.62
+TargetHit@3: 0.74
+TargetHit@5: 0.77
+TargetHit@10: 0.85
+Recall@1: 0.595
+Recall@3: 0.735
+Recall@5: 0.765
+Recall@10: 0.85
+nDCG@1: 0.62
+nDCG@3: 0.6827
+nDCG@5: 0.6952
+nDCG@10: 0.7232
+MRR@10: 0.6862
+
+### Router
+
+exact_set_accuracy: 1.0
+collection_precision: 1.0
+collection_recall: 1.0
+
+### By query type
+
+cross_collection:
+  TargetHit@1: 1.0
+  TargetHit@3: 1.0
+  TargetHit@5: 1.0
+  TargetHit@10: 1.0
+  Recall@1: 0.5
+  Recall@3: 0.9
+  Recall@5: 0.9
+  Recall@10: 1.0
+  nDCG@1: 1.0
+  nDCG@3: 0.9226
+  nDCG@5: 0.9226
+  nDCG@10: 0.9613
+  MRR@10: 1.0
+  n: 5
+gene_association_wes:
+  TargetHit@1: 0.925
+  TargetHit@3: 0.95
+  TargetHit@5: 0.975
+  TargetHit@10: 1.0
+  Recall@1: 0.925
+  Recall@3: 0.95
+  Recall@5: 0.975
+  Recall@10: 1.0
+  nDCG@1: 0.925
+  nDCG@3: 0.9375
+  nDCG@5: 0.9483
+  nDCG@10: 0.9572
+  MRR@10: 0.9437
+  n: 40
+ldsc_partitioned_heritability:
+  TargetHit@1: 0.3684
+  TargetHit@3: 0.6316
+  TargetHit@5: 0.6842
+  TargetHit@10: 0.8684
+  Recall@1: 0.3684
+  Recall@3: 0.6316
+  Recall@5: 0.6842
+  Recall@10: 0.8684
+  nDCG@1: 0.3684
+  nDCG@3: 0.5172
+  nDCG@5: 0.5387
+  nDCG@10: 0.5981
+  MRR@10: 0.5142
+  n: 38
+unanswerable:
+  TargetHit@1: 0.0
+  TargetHit@3: 0.0
+  TargetHit@5: 0.0
+  TargetHit@10: 0.0
+  Recall@1: 0.0
+  Recall@3: 0.0
+  Recall@5: 0.0
+  Recall@10: 0.0
+  nDCG@1: 0.0
+  nDCG@3: 0.0
+  nDCG@5: 0.0
+  nDCG@10: 0.0
+  MRR@10: 0.0
+  n: 10
+variant_association_clumped:
+  TargetHit@1: 0.8571
+  TargetHit@3: 1.0
+  TargetHit@5: 1.0
+  TargetHit@10: 1.0
+  Recall@1: 0.8571
+  Recall@3: 1.0
+  Recall@5: 1.0
+  Recall@10: 1.0
+  nDCG@1: 0.8571
+  nDCG@3: 0.9286
+  nDCG@5: 0.9286
+  nDCG@10: 0.9286
+  MRR@10: 0.9048
+  n: 7
+
+## Oracle-collection diagnostic
+
+TargetHit@1: 0.62
+TargetHit@3: 0.74
+TargetHit@5: 0.77
+TargetHit@10: 0.85
+Recall@1: 0.595
+Recall@3: 0.735
+Recall@5: 0.765
+Recall@10: 0.85
+nDCG@1: 0.62
+nDCG@3: 0.6827
+nDCG@5: 0.6952
+nDCG@10: 0.7232
+MRR@10: 0.6862
+
+## Comparison (same 100 queries, same router)
+
+| metric | BM25 | Dense | Hybrid |
+| --- | --- | --- | --- |
+| TargetHit@5 | 0.75 | 0.63 | 0.77 |
+| TargetHit@10 | 0.78 | 0.8 | 0.85 |
+| Recall@10 | 0.78 | 0.775 | 0.85 |
+| nDCG@10 | 0.7415 | 0.5344 | 0.7232 |
+| MRR@10 | 0.7297 | 0.4712 | 0.6862 |
+
+## Offline RRF grid (candidates retrieved once)
+
+- weight_bm25: 1.0
+  weight_dense: 1.0
+  rrf_k: 60
+  candidate_k: 50
+  routed:
+    TargetHit@1: 0.62
+    TargetHit@3: 0.74
+    TargetHit@5: 0.77
+    TargetHit@10: 0.85
+    Recall@1: 0.595
+    Recall@3: 0.735
+    Recall@5: 0.765
+    Recall@10: 0.85
+    nDCG@1: 0.62
+    nDCG@3: 0.6827
+    nDCG@5: 0.6952
+    nDCG@10: 0.7232
+    MRR@10: 0.6862
+- weight_bm25: 1.2
+  weight_dense: 0.8
+  rrf_k: 60
+  candidate_k: 50
+  routed:
+    TargetHit@1: 0.61
+    TargetHit@3: 0.73
+    TargetHit@5: 0.75
+    TargetHit@10: 0.8
+    Recall@1: 0.585
+    Recall@3: 0.725
+    Recall@5: 0.745
+    Recall@10: 0.8
+    nDCG@1: 0.61
+    nDCG@3: 0.6766
+    nDCG@5: 0.6843
+    nDCG@10: 0.7029
+    MRR@10: 0.6745
+- weight_bm25: 0.8
+  weight_dense: 1.2
+  rrf_k: 60
+  candidate_k: 50
+  routed:
+    TargetHit@1: 0.62
+    TargetHit@3: 0.72
+    TargetHit@5: 0.78
+    TargetHit@10: 0.84
+    Recall@1: 0.595
+    Recall@3: 0.705
+    Recall@5: 0.765
+    Recall@10: 0.83
+    nDCG@1: 0.62
+    nDCG@3: 0.6663
+    nDCG@5: 0.6899
+    nDCG@10: 0.7119
+    MRR@10: 0.6845
+
+Grid results are diagnostic only; YAML defaults are not auto-updated.
+

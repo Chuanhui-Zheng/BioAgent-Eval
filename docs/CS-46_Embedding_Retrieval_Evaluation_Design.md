@@ -1,7 +1,7 @@
 # CS-46 Embedding and Retrieval Evaluation Design
 
 **Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery
-**Document version:** v1.1
+**Document version:** v1.2
 **Date:** 2026-09-21
 **Last updated:** 2026-10-09
 **Scope:** Sparse, dense, and hybrid retrieval over normalized chunks; retrieval-only evaluation
@@ -55,6 +55,8 @@ The additions use the evidence units and readable IDs in Chunking Design Section
 For partitioned records, `record_identifier_keys()` no longer treats the final ancestry segment as an exact identifier. The existing gene/alias identifiers and other collections retain their matching behavior. This is a query-time ranking change; chunks and index data are unchanged.
 
 `data/evaluation/retrieval_expanded_dev.jsonl` contains 25 provisional source-derived engineering questions: 12 partitioned, seven clumped and six WES. Results after the ranking fix are under `artifacts/evaluation/retrieval_expanded_dev/{bm25,dense,hybrid}/`. TargetHit@10 is 25/25, 23/25 and 25/25 respectively; these are small engineering checks, not a frozen scientific quality benchmark. Independent relevance review and pooled judging remain pending, including WES summary/mask and rare-source overlap. The original development and frozen test sets remain unchanged and were not rerun in this check.
+
+`data/evaluation/retrieval_expanded_test.jsonl` is a separate 100-query benchmark for the three added collections. Section 10.4 reports its BM25, dense, and hybrid results.
 
 Evaluation snapshots retain their original paths as historical records. The expanded benchmark and result directory were renamed without changing query, label, metric or per-query-result bytes; stored benchmark hashes still match. Source build reports remain in `artifacts/ingestion_dev/` as provenance.
 
@@ -563,6 +565,57 @@ retrieval-quality scores do not measure abstention quality; a calibrated
 confidence threshold is still required before false-positive rate and coverage
 can be reported.
 
+### 10.4 Expanded 100-Query Test Results
+
+This run evaluates only the three collections added on 2026-10-09. It does not replace Section 10.2, and `data/evaluation/retrieval_test.jsonl` was not modified. The benchmark file is `data/evaluation/retrieval_expanded_test.jsonl`.
+
+```text
+SHA-256: 7dfe1284c179087420819de9fd99dbb8bd669c815348b16b2d40cdc2c9145117
+```
+
+The set has 90 answerable and 10 unanswerable queries. Difficulty is 35 easy, 40 medium, and 25 hard; the 10 unanswerable queries are part of the hard group.
+
+| Query type | Count | Primary target |
+|---|---:|---|
+| Partitioned heritability | 38 | `ldsc_partitioned_heritability` |
+| WES gene summary or mask | 40 | `gene_association_wes` |
+| Clumped association region | 7 | `variant_association_clumped` |
+| Cross-collection | 5 | `gene_info` plus WES or clumped |
+| Unanswerable | 10 | No relevant chunks |
+| **Total** | **100** | |
+
+Clumped queries paraphrase all seven supplied regions. Those regions also appear in the 25-query engineering set, because the corpus contains no other clumped chunks. Partitioned targets avoid the engineering-set accessible-chromatin groups, and WES targets avoid HIF3A, ACTR1B, FAM120AOS, and C16orf13.
+
+Judgments are a conservative 0/2 pass. Each answerable query keeps its designated evidence chunk or chunks at grade 2. The other top-10 candidates from BM25, dense, and hybrid were pooled and recorded as grade 0. The file contains 95 grade-2 judgments and no grade-1 judgments. There is no independent second review.
+
+All three methods used the existing 142,977-chunk indexes and the frozen hybrid settings (`candidate_k=50`, `rrf_k=60`, equal weights). The harness averages include the 10 unanswerable queries, which score zero under forced retrieval.
+
+| Method | TargetHit@10 | Recall@10 | nDCG@10 | MRR@10 |
+|---|---:|---:|---:|---:|
+| BM25 | 0.780 | 0.780 | **0.7415** | **0.7297** |
+| Dense | 0.800 | 0.775 | 0.5344 | 0.4712 |
+| Hybrid (RRF) | **0.850** | **0.850** | 0.7232 | 0.6862 |
+
+Hybrid retrieval has the highest top-10 hit and recall. BM25 has the highest nDCG@10 and MRR@10. Dense retrieval reaches a similar top-10 hit rate but ranks the designated chunks later.
+
+| Query type | BM25 Recall@10 | Dense Recall@10 | Hybrid Recall@10 | BM25 nDCG@10 | Dense nDCG@10 | Hybrid nDCG@10 |
+|---|---:|---:|---:|---:|---:|---:|
+| Partitioned heritability | 0.684 | 0.816 | 0.868 | 0.6306 | 0.4915 | 0.5981 |
+| WES association | 1.000 | 0.925 | 1.000 | 0.9708 | 0.6377 | 0.9572 |
+| Clumped region | 1.000 | 1.000 | 1.000 | 0.9080 | 1.0000 | 0.9286 |
+| Cross-collection | 1.000 | 0.500 | 1.000 | 1.0000 | 0.4503 | 0.9613 |
+
+Partitioned heritability is the main answerable error source. BM25 misses more of these ancestry-specific records at rank 10 than dense or hybrid retrieval. Dense retrieval recovers only one of the two designated chunks for cross-collection queries, so its Recall@10 on that slice is 0.500. Clumped retrieval is saturated at top-10 for every method because only seven regions are indexed. The router matched the recorded target collection set on all 100 queries (exact-set accuracy 1.00, collection precision 1.00, collection recall 1.00), including unanswerable queries whose wording selects one added collection.
+
+Unanswerable queries are reported under forced retrieval. Their zero scores do not measure abstention. No confidence threshold was fit on this test set.
+
+Outputs:
+
+- `artifacts/evaluation/retrieval_expanded_test/bm25/`
+- `artifacts/evaluation/retrieval_expanded_test/dense/`
+- `artifacts/evaluation/retrieval_expanded_test/hybrid/`
+- `artifacts/evaluation/retrieval_expanded_test/pooled_candidates.jsonl`
+
 ---
 
 ## 11. Configuration and Artifacts
@@ -693,3 +746,4 @@ These extensions must not be added silently to the MVP baseline.
 |---|---|---|
 | v1.0 | 2026-09-16 | Initial sparse, dense, hybrid retrieval and retrieval-only evaluation design |
 | v1.1 | 2026-09-21 | Added the finalized 100-query benchmark, manual-audit records, graded judgments, final retrieval results, latency percentiles, and serialized index-size summary |
+| v1.2 | 2026-10-09 | Added a separate 100-query benchmark for partitioned heritability, clumped regions, and WES, with pooled 0/2 judgments and BM25, dense, and hybrid results |
