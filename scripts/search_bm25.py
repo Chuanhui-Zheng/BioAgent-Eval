@@ -38,7 +38,7 @@ def main() -> int:
     collections = args.collections
     matched_rules: list[str] = []
     if collections is None and not args.no_router:
-        decision = route_query(args.query)
+        decision = route_query(args.query, available_collections=[s.collection for s in config.chunk_sources])
         collections = decision.collections
         matched_rules = decision.matched_rules
 

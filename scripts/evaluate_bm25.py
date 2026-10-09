@@ -112,7 +112,7 @@ def main() -> int:
     latencies = []
     for example in examples:
         query = example["query"]
-        route = route_query(query)
+        route = route_query(query, available_collections=[s.collection for s in config.chunk_sources])
         started = time.perf_counter()
         routed_results = index.search(query, top_k=top_k, collections=route.collections)
         latencies.append(time.perf_counter() - started)

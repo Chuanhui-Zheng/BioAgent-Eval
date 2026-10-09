@@ -1,0 +1,6 @@
+# Canonical new chunks via paths.yaml; validation artifacts remain in ingestion_dev.
+raw_file: data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json
+glossary_file: config/phenotype_glossary.json
+retrieval_config: config/retrieval.yaml
+output_dir: artifacts/ingestion_dev/ldsc_partitioned
+paths_config: config/paths.yaml

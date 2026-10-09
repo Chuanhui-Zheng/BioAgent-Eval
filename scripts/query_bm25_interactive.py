@@ -71,7 +71,7 @@ def main() -> int:
         matched_rules: list[str] = []
         collections = None
         if not args.no_router:
-            decision = route_query(raw)
+            decision = route_query(raw, available_collections=[s.collection for s in config.chunk_sources])
             collections = decision.collections
             matched_rules = decision.matched_rules
         results = index.search(raw, top_k=top_k, collections=collections)

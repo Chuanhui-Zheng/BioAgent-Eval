@@ -3,6 +3,10 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import os
+import subprocess
+import tempfile
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
@@ -12,6 +16,20 @@ CODING_SEQUENCE_RE = re.compile(
     r"^(?:(?:chr)?([^:]+):)?(\d+)-(\d+)$|^(HSCHR[^:]+):(\d+)-(\d+)$",
     re.IGNORECASE,
 )
+
+
+@contextmanager
+def artifact_staging_directory(parent: Path, prefix: str):
+    """Stage artifacts with parent access on Windows before atomic replacement.
+
+    Python 3.13 creates private Windows temporary directories. Renamed files
+    retain those ACLs, so enable normal inheritance before creating artifacts.
+    """
+    with tempfile.TemporaryDirectory(prefix=prefix, dir=parent) as directory:
+        if os.name == "nt":
+            subprocess.run(["icacls.exe", directory, "/inheritance:e"],
+                           check=True, capture_output=True)
+        yield Path(directory)
 
 
 def file_sha256(path: Path) -> str:
