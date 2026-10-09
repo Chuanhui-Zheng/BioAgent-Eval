@@ -72,6 +72,19 @@ class PartitionedChunkingTests(unittest.TestCase):
         self.assertEqual(chunk.metadata["group_id"],
                          "ldsc_partitioned_group:2hrG:accessible_chromatin:adipose_tissue:adipose_tissue")
 
+    def test_ranking_text_frontloads_identity_without_guessing_definitions(self):
+        chunks = self.chunks([sample(ancestry="EA"), sample(ancestry="EU")])
+        for chunk in chunks:
+            self.assertTrue(chunk.content.startswith(
+                f"LDSC partitioned heritability. Ancestry code: {chunk.metadata['ancestry']}."))
+            self.assertIn("accessible_chromatin (accessible chromatin)", chunk.content)
+            self.assertIn("adipose_tissue (adipose tissue)", chunk.content)
+            self.assertIn("not causal evidence or individual measurements", chunk.content)
+            self.assertIn("ancestry-code meanings, pValue test and source release are unconfirmed", chunk.content)
+            statistics = [line for line in chunk.content.splitlines() if line.startswith("- ")]
+            self.assertEqual(len(statistics), 10)
+            self.assertEqual(chunk.metadata["raw_record"]["enrichment_beta"], 71.80752511333449)
+
     def test_reserved_missing_markers_and_percent_escapes_are_distinct(self):
         missing = sample()
         del missing["biosample"]
@@ -84,6 +97,29 @@ class PartitionedChunkingTests(unittest.TestCase):
         self.assertTrue(any(":%5Bnull%5D:EA" in value for value in identifiers))
         self.assertTrue(any(":a%3Ab:EA" in value for value in identifiers))
         self.assertTrue(any(":a%253Ab:EA" in value for value in identifiers))
+
+    def test_biosample_supports_spaced_and_source_tokens(self):
+        from retrieval.tokenizer import tokenize
+
+        row = sample(biosample="vein_endothelial_cell")
+        chunk = self.chunks([row])[0]
+        self.assertIn("Biosample: vein_endothelial_cell (vein endothelial cell).", chunk.content)
+        tokens = set(tokenize(chunk.content))
+        self.assertTrue(set(tokenize("vein endothelial cell")).issubset(tokens))
+        self.assertIn("vein_endothelial_cell", tokens)
+        self.assertEqual(chunk.metadata["raw_record"], row)
+        self.assertEqual(chunk.metadata["biosample"], "vein_endothelial_cell")
+        self.assertTrue(chunk.chunk_id.endswith(":vein_endothelial_cell:EA"))
+
+    def test_biosample_without_underscores_or_value_has_no_redundant_alias(self):
+        missing = sample()
+        del missing["biosample"]
+        chunks = self.chunks([missing, sample(biosample=None), sample(biosample="cell")])
+        for chunk in chunks:
+            expected = {"missing": "[missing]", "null": "[null]", "provided": "cell"}[
+                chunk.metadata["biosample_status"]]
+            self.assertIn(f"Biosample: {expected}.", chunk.content)
+            self.assertNotIn(f"Biosample: {expected} (", chunk.content)
 
     def test_complete_raw_record_and_precision_are_preserved(self):
         row = sample(extra={"release": None, "codes": ["a", "b"]})

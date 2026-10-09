@@ -1,9 +1,10 @@
 # CS-46 Corpus Chunking Design
 
 **Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery  
-**Document version:** v1.1  
+**Document version:** v1.2
+
 **Date:** 2026-09-16  
-**Last updated:** 2026-10-09
+**Last updated:** 2026-10-10
 **Scope:** Structured JSON corpora under `data/raw/` (Gene Info, LDSC genetic correlation and partitioned heritability, HuGE Gene Association, clumped variant regions and WES; reference `gene_id_map` is not chunked)
 
 ---
@@ -495,6 +496,8 @@ Each source string is UTF-8 percent-encoded using `urllib.parse.quote` with `saf
 
 **Content and provenance:** all ten source statistics appear in content to four significant digits; complete original fields and parsed numeric precision remain in `metadata.raw_record`. Citation retains source file, physical source row, SHA-256 and chunk ID. All final content is token-checked without truncation against the configured 512-token limit. No significance label, ancestry expansion or causal interpretation is inferred while field definitions and release remain unconfirmed.
 
+**Retrieval text correction (2026-10-10):** content starts with ancestry code and phenotype, followed by annotation, tissue and biosample. Annotation, tissue and provided underscore-containing biosample values include their space-separated spelling, for example `vein_endothelial_cell (vein endothelial cell)`. These are literal spelling variants, not biological definitions. Null/missing markers have no added spelling variant. All ten statistics retain four-significant-digit display; complete parsed values and provenance remain in metadata and citation. IDs and titles remain unchanged. After rebuilding, the 7,924 chunks span 222–270 tokens (median 237), with no truncation at the 512-token limit. BM25 must be rebuilt when content changes; changed Dense records must be re-encoded. See Retrieval Evaluation Design Section 10.4 for the updated 100-query regression results.
+
 **Output:** `artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl`. Register the raw path in `config/paths.yaml`; run `python scripts/chunk_corpus.py --partitioned-only` to build only this collection. Validation/build records stay under `artifacts/ingestion_dev/ldsc_partitioned/`. The active seven-collection manifest is `artifacts/manifest_partitioned.json`; `artifacts/manifest.json` remains the four-collection baseline. Explicit `--include-partitioned` rebuilds the baseline too and is not used for this migration. The existing default command retains its baseline behavior.
 
 ---
@@ -739,3 +742,4 @@ All collections emit the same JSON shape for indexing, API, and evaluation:
 |---------|------|-------|
 | v1.0 | 2026-09-11 | Initial release from sample JSON measurements and CS-46 requirements |
 | v1.1 | 2026-09-16 | HuGE gene association (common/rare 2hrG); `gene_id_map` not chunked; raw layout scheme A |
+| v1.2 | 2026-10-10 | Documented Partitioned ranking text, biosample space-separated spelling and matching index rebuild |

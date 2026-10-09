@@ -111,22 +111,22 @@ def chunk_ldsc_partitioned(
     for identity, group_key, row, source_row, biosample_status in sorted(records, key=lambda r: r[0]):
         phenotype_label, label_confidence = glossary.get_label(row["phenotype"])
         biosample_text = row["biosample"] if biosample_status == "provided" else f"[{biosample_status}]"
+        biosample_display = biosample_text
+        if biosample_status == "provided" and "_" in biosample_text:
+            biosample_display += f" ({biosample_text.replace('_', ' ')})"
         chunk_id = _identifier("ldsc_partitioned:", identity)
         group_id = _identifier("ldsc_partitioned_group:", group_key)
         content = "\n".join([
-            f"LDSC partitioned heritability: {phenotype_label} ({row['phenotype']})",
-            f"Annotation: {row['annotation']}",
-            f"Tissue: {row['tissue']}",
-            f"Biosample: {biosample_text}",
-            f"Ancestry code: {row['ancestry']}",
-            "Source-reported statistics (displayed to 4 significant digits):",
+            f"LDSC partitioned heritability. Ancestry code: {row['ancestry']}. "
+            f"Phenotype: {phenotype_label} ({row['phenotype']}).",
+            f"Annotation: {row['annotation']} ({row['annotation'].replace('_', ' ')}). "
+            f"Tissue: {row['tissue']} ({row['tissue'].replace('_', ' ')}). "
+            f"Biosample: {biosample_display}.",
+            "Source-reported statistics (4 significant digits):",
             *[f"- {field}={row[field]:.4g}" for field in STATISTIC_FIELDS],
-            "Interpretation boundaries:",
-            "- Population-level results; not causal evidence or individual measurements.",
-            "- Field definitions, ancestry mapping and the pValue test target remain unconfirmed.",
-            "- Complete source values are retained in metadata.raw_record.",
-            "Source: Client-provided LDSC partitioned heritability results; release unconfirmed.",
-            f"Provenance: {source_file}",
+            "Population-level estimates, not causal evidence or individual measurements. "
+            "Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. "
+            "Complete values and provenance are retained in metadata and citation.",
         ])
         metadata = {
             "entity_type": "partitioned_heritability",
