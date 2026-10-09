@@ -6,6 +6,7 @@ as an explicit grade-0 review. Chunks that were not retrieved are left unchanged
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -24,8 +25,13 @@ def load_jsonl(path: Path) -> list[dict]:
 
 
 def main() -> None:
-    examples = {row["query_id"]: row for row in load_jsonl(BENCHMARK)}
-    pooled = load_jsonl(POOL)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--benchmark", type=Path, default=BENCHMARK)
+    parser.add_argument("--pool", type=Path, default=POOL)
+    args = parser.parse_args()
+    benchmark = args.benchmark
+    examples = {row["query_id"]: row for row in load_jsonl(benchmark)}
+    pooled = load_jsonl(args.pool)
     if len(pooled) != len(examples):
         raise SystemExit(f"pool has {len(pooled)} queries, benchmark has {len(examples)}")
     for item in pooled:
@@ -44,10 +50,10 @@ def main() -> None:
             {"chunk_id": chunk_id, "grade": grade} for chunk_id, grade in grades.items()
         ]
         example["assessed_chunk_ids"] = list(grades)
-    with BENCHMARK.open("w", encoding="utf-8", newline="\n") as handle:
+    with benchmark.open("w", encoding="utf-8", newline="\n") as handle:
         for example in examples.values():
             handle.write(json.dumps(example, ensure_ascii=False) + "\n")
-    print(f"updated {len(examples)} queries -> {BENCHMARK}")
+    print(f"updated {len(examples)} queries -> {benchmark}")
 
 
 if __name__ == "__main__":
