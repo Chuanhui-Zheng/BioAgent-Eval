@@ -1,0 +1,6 @@
+{
+  "artifacts/chunks/gene_info.chunks.jsonl": "cc8cc665abf9384b94d02c8cb1c37e3fe451c2ef7f7f8ebdbb44edef643f65b9",
+  "artifacts/chunks/ldsc_2hrI.chunks.jsonl": "f6a4ffeeb4f94e1c4e40ec4c8c98ab5ea2b7ece75226a130059268b7c0551b1e",
+  "artifacts/chunks/gene_association_common_2hrG.chunks.jsonl": "6e64be8811fdc13088a033e345352142cf8f862de209737cf30598b46c9416f4",
+  "artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl": "afdee9285776f3ea75e85cb8e66e67d315b850a3b325a1c3d96c2c5716cec9c0"
+}

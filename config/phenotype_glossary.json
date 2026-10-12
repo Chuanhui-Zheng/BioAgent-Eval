@@ -42,5 +42,2312 @@
   "AnyCVD": {
     "label": "Any cardiovascular disease",
     "category": "disease"
+  },
+  "AAC": {
+    "label": "Abdominal aortic calcification"
+  },
+  "ADFather": {
+    "label": "Biological Father: Alzheimer's / Other Dementia"
+  },
+  "AD_or_AD_history": {
+    "label": "Alzheimer's disease or family history of Alzheimer's disease"
+  },
+  "AFR": {
+    "label": "Arm fat ratio"
+  },
+  "AFlutter": {
+    "label": "Atrial flutter (PheCode 427.22)"
+  },
+  "AHI": {
+    "label": "Apnea-Hypopnea Index (AHI)"
+  },
+  "AIpredictedAF": {
+    "label": "ECG-AI model predicted atrial fibrillation risk"
+  },
+  "ALLOA": {
+    "label": "Any osteoarthritis"
+  },
+  "ALLOA_add": {
+    "label": "Any osteoarthritis (additive model)"
+  },
+  "ALLOA_dom": {
+    "label": "Any osteoarthritis (dominant model)"
+  },
+  "ALLOA_het": {
+    "label": "Any osteoarthritis (heterodominant model)"
+  },
+  "ALLOA_rec": {
+    "label": "Any osteoarthritis (recessive model)"
+  },
+  "AMD": {
+    "label": "Age-related macular degeneration (AMD)"
+  },
+  "AMD_add": {
+    "label": "Age-related macular degeneration (additive model)"
+  },
+  "AMD_dom": {
+    "label": "Age-related macular degeneration (dominant model)"
+  },
+  "AMD_het": {
+    "label": "Age-related macular degeneration (heterodominant model)"
+  },
+  "AMD_rec": {
+    "label": "Age-related macular degeneration (recessive model)"
+  },
+  "AM_broad_heavy": {
+    "label": "Broad vs. Heavy alcohol consumption"
+  },
+  "AM_broad_int": {
+    "label": "Broad vs. Int alcohol consumption"
+  },
+  "AM_broad_low": {
+    "label": "Broad vs. Low alcohol consumption"
+  },
+  "AM_heavy_int": {
+    "label": "Heavy vs. Int alcohol consumption"
+  },
+  "AM_heavy_low": {
+    "label": "Heavy vs. Low alcohol consumption"
+  },
+  "AM_int_low": {
+    "label": "Int vs. Low alcohol consumption"
+  },
+  "ASAT": {
+    "label": "Abdominal subcutaneous adipose tissue volume"
+  },
+  "AST": {
+    "label": "Aspartate aminotransferase (AST)"
+  },
+  "ATMFI": {
+    "label": "Anterior thigh muscle fat infiltration percentage"
+  },
+  "ATMV": {
+    "label": "Anterior thigh muscle volume"
+  },
+  "AVAP_AVRT": {
+    "label": "Atrioventricular accessory pathways or atrioventricular reciprocating tachycardia (AVAPs/AVRT)"
+  },
+  "AVNRT": {
+    "label": "Atrioventricular nodal reentrant tachycardia (AVNRT)"
+  },
+  "AbAA": {
+    "label": "Abdominal aortic aneurysm"
+  },
+  "AbAge": {
+    "label": "Abdominal age"
+  },
+  "AbFR": {
+    "label": "Abdominal fat ratio"
+  },
+  "AcAce": {
+    "label": "Acetoacetate"
+  },
+  "AcidRefluxGERD": {
+    "label": "Acid reflux/GERD"
+  },
+  "Acne": {
+    "label": "Acne"
+  },
+  "AcuteRenalFail": {
+    "label": "Acute renal failure (PheCode 585.1)"
+  },
+  "Addison": {
+    "label": "Autoimmune Addison's disease"
+  },
+  "Adiponectin": {
+    "label": "Adiponectin"
+  },
+  "AdrenalHypo": {
+    "label": "Adrenal hypofunction"
+  },
+  "AfibFlutter": {
+    "label": "Atrial fibrillation or flutter"
+  },
+  "AgingGIP1": {
+    "label": "Aging-GIP1 principal component"
+  },
+  "AgingGIP1AdjSocioEcon": {
+    "label": "Aging-GIP1 principal component adj socioeconomic status"
+  },
+  "Alb": {
+    "label": "Serum albumin"
+  },
+  "AlcoholConsumption": {
+    "label": "Alcoholic drinks per week"
+  },
+  "AllDKDvControl_DM": {
+    "label": "All diabetic kidney disease vs. controls in diabetes"
+  },
+  "AllergicRhinitis": {
+    "label": "Allergic rhinitis"
+  },
+  "AllergicRhinitis_add": {
+    "label": "Allergic rhinitis (additive model)"
+  },
+  "AllergicRhinitis_dom": {
+    "label": "Allergic rhinitis (dominant model)"
+  },
+  "AllergicRhinitis_rec": {
+    "label": "Allergic rhinitis (recessive model)"
+  },
+  "Alopecia": {
+    "label": "Alopecia (PheCode 704.1)"
+  },
+  "AnorexiaNervosa": {
+    "label": "Anorexia nervosa"
+  },
+  "AntepartumBleed": {
+    "label": "Antepartum bleeding in pregnancy"
+  },
+  "AnyCVD_add": {
+    "label": "Any cardiovascular disease (additive model)"
+  },
+  "AnyCVD_dom": {
+    "label": "Any cardiovascular disease (dominant model)"
+  },
+  "AnyCVD_het": {
+    "label": "Any cardiovascular disease (heterodominant model)"
+  },
+  "AnyCVD_rec": {
+    "label": "Any cardiovascular disease (recessive model)"
+  },
+  "AnyCVDinT2D": {
+    "label": "Cardiovascular disease in type 2 diabetes (T2D)"
+  },
+  "AorticStenosis": {
+    "label": "Calcific aortic stenosis"
+  },
+  "Ap-LM": {
+    "label": "Appendicular lean body mass"
+  },
+  "ApoA": {
+    "label": "Serum ApoA"
+  },
+  "ApoB": {
+    "label": "Serum ApoB"
+  },
+  "AscAortaDiam": {
+    "label": "Ascending aorta diameter"
+  },
+  "AscAortaDiamInd": {
+    "label": "Maximum ascending aorta diameter, BSA indexed"
+  },
+  "AscAortaDisten": {
+    "label": "Ascending aorta distensibility"
+  },
+  "AscAortaStrain": {
+    "label": "Ascending aorta strain"
+  },
+  "Asthma_AdultOnset": {
+    "label": "Adult-onset asthma"
+  },
+  "Asthma_ChildhoodOnset": {
+    "label": "Childhood-onset asthma"
+  },
+  "Asthma_add": {
+    "label": "Asthma (additive model)"
+  },
+  "Asthma_dom": {
+    "label": "Asthma (dominant model)"
+  },
+  "Atherosclerosis": {
+    "label": "Atherosclerosis (PheCode 440)"
+  },
+  "BFP": {
+    "label": "Body fat percentage"
+  },
+  "BG_PVS": {
+    "label": "Extensive basal ganglia perivascular space burden"
+  },
+  "BIGTT-AIR": {
+    "label": "BIGTT acute insulin response"
+  },
+  "BIP2": {
+    "label": "Bipolar II disorder"
+  },
+  "BIPSibling": {
+    "label": "Biological Sibling: Bipolar Disorder"
+  },
+  "BIP_NoPsychosis": {
+    "label": "Bipolar disorder without psychosis"
+  },
+  "BIP_Psychosis": {
+    "label": "Bipolar disorder with psychosis"
+  },
+  "BIP_Schizoaffective": {
+    "label": "Schizoaffective disorder bipolar type"
+  },
+  "BMI1_5yrs": {
+    "label": "Body mass index (BMI) at 1.5 years"
+  },
+  "BMI1yr": {
+    "label": "Body mass index (BMI) at 1 year"
+  },
+  "BMI5yrs": {
+    "label": "Body mass index (BMI) at 5 years"
+  },
+  "BMI7yrs": {
+    "label": "Body mass index (BMI) at 7 years"
+  },
+  "BMI8yrs": {
+    "label": "Body mass index (BMI) at 8 years"
+  },
+  "BSadjFastingTime": {
+    "label": "Random glucose adj fasting time"
+  },
+  "BSandFG": {
+    "label": "Random and fasting glucose"
+  },
+  "BUN": {
+    "label": "Blood urea nitrogen"
+  },
+  "BasoCount": {
+    "label": "Basophil count"
+  },
+  "BasoPerc": {
+    "label": "Basophil percentage"
+  },
+  "Bicarbonate": {
+    "label": "Bicarbonate levels"
+  },
+  "BrainVol_TownsendHeightCorr": {
+    "label": "Brain volume adj TDI and height"
+  },
+  "BreakfastSkipping": {
+    "label": "Frequency of breakfast skipping"
+  },
+  "BreastCancer": {
+    "label": "Breast cancer"
+  },
+  "BreastCancer_ERN": {
+    "label": "Breast cancer (estrogen-receptor negative)"
+  },
+  "C12_0": {
+    "label": "Lauric acid"
+  },
+  "C18_0": {
+    "label": "Stearic acid"
+  },
+  "C18_1trans": {
+    "label": "Elaidic and trans-vaccenic acids"
+  },
+  "C19vAll": {
+    "label": "COVID-19 vs population"
+  },
+  "C20_3n_6": {
+    "label": "Dihomo-gamma-linolenic acid (DGLA)"
+  },
+  "C20_4n_6": {
+    "label": "Arachidonic acid (AA)"
+  },
+  "C20_5n_3": {
+    "label": "Eicosapentaenoic acid (EPA)"
+  },
+  "C22_4n_6": {
+    "label": "Adrenic acid"
+  },
+  "C22_5n_3": {
+    "label": "Docosapentaenoic acid (DPA)"
+  },
+  "CAC": {
+    "label": "Conorary artery calcification"
+  },
+  "CAD": {
+    "label": "Coronary artery disease (CAD)"
+  },
+  "CADinT2D": {
+    "label": "Coronary artery disease in type 2 diabetes (CAD in T2D)"
+  },
+  "CCScCEmajor": {
+    "label": "CCS causative cardio-aortic embolism major"
+  },
+  "CCScCRYPTCE": {
+    "label": "CCS causative cryptogenic with cardioembolism minor"
+  },
+  "CCScINCUNC": {
+    "label": "CCS causative incomplete and unclassified"
+  },
+  "CCScLAA": {
+    "label": "CCS causative large artery atherosclerosis"
+  },
+  "CCScSAO": {
+    "label": "CCS causative small artery occlusion"
+  },
+  "CCScUNDETER": {
+    "label": "CCS causative undetermined"
+  },
+  "CCSpCEmajincl": {
+    "label": "CCS phenotypic cardio-aortic embolism major"
+  },
+  "CCSpCryptoincl": {
+    "label": "CCS phenotypic cryptogenic"
+  },
+  "CCSpLAAmajincl": {
+    "label": "CCS phenotypic cryptogenic large artery atherosclerosis major"
+  },
+  "CCSpSAOmajincl": {
+    "label": "CCS phenotypic cryptogenic small artery occlusion major"
+  },
+  "CD": {
+    "label": "Crohn's disease"
+  },
+  "CFH4_levels": {
+    "label": "Complement factor H-related protein 4A levels"
+  },
+  "CFH5_levels": {
+    "label": "Complement factor H-related protein 5 levels"
+  },
+  "CFH_levels": {
+    "label": "Complement factor H levels"
+  },
+  "CHIP": {
+    "label": "Clonal haematopoiesis of indeterminate potential (with or without mosaic chromosomal alteration)"
+  },
+  "CHIP_ASXL1": {
+    "label": "Clonal haematopoiesis of indeterminate potential (ASXL1 mutation)"
+  },
+  "CHIP_DNMT3A": {
+    "label": "Clonal haematopoiesis of indeterminate potential (DNMT3A mutation)"
+  },
+  "CHIP_JAK2": {
+    "label": "Clonal haematopoiesis of indeterminate potential (JAK2 mutation)"
+  },
+  "CHIP_SF3B1": {
+    "label": "Clonal haematopoiesis of indeterminate potential (SF3B1 mutation)"
+  },
+  "CHIP_SRSF2": {
+    "label": "Clonal haematopoiesis of indeterminate potential (SRSF2 mutation)"
+  },
+  "CHIP_TET2": {
+    "label": "Clonal haematopoiesis of indeterminate potential (TET2 mutation)"
+  },
+  "CHIP_TP53": {
+    "label": "Clonal haematopoiesis of indeterminate potential (TP53 mutation)"
+  },
+  "CHIPwithoutmCA": {
+    "label": "Clonal haematopoiesis of indeterminate potential (without mosaic chromosomal alteration)"
+  },
+  "CHOL": {
+    "label": "Total cholesterol"
+  },
+  "CIR": {
+    "label": "Corrected insulin response (CIR)"
+  },
+  "CKD_DM": {
+    "label": "Chronic kidney disease in diabetes"
+  },
+  "CKD_DNinT2D": {
+    "label": "Chronic kidney disease (CKD) and diabetic nephropathy in type 2 diabetes"
+  },
+  "CKD_EXT_vGFRinT2D": {
+    "label": "Extreme chronic kidney disease (CKD) vs. eGFR >= 60 in type 2 diabetes"
+  },
+  "CKDinT2D": {
+    "label": "Chronic kidney disease (CKD) in type 2 diabetes (T2D)"
+  },
+  "CKDpDKD_T1D": {
+    "label": "Chronic kidney disease and diabetic kidney disease (CKD and DKD) in type 1 diabetes"
+  },
+  "CKDpDKDinT2D": {
+    "label": "CKD and DKD in type 2 diabetes"
+  },
+  "COPD_ICD": {
+    "label": "COPD (ICD defined)"
+  },
+  "CRF": {
+    "label": "Corneal resistance factor"
+  },
+  "CRP": {
+    "label": "Plasma C-reactive protein"
+  },
+  "CSC": {
+    "label": "Central serous chorioretinopathy"
+  },
+  "CSI": {
+    "label": "CSI retinal layer thickness"
+  },
+  "CSSNS": {
+    "label": "Childhood steroid-sensitive nephrotic syndrome"
+  },
+  "CTS": {
+    "label": "Carpal tunnel syndrome"
+  },
+  "Ca": {
+    "label": "Calcium"
+  },
+  "Cancer": {
+    "label": "Any cancer"
+  },
+  "Cancer_dom": {
+    "label": "Any cancer (dominant model)"
+  },
+  "CarbIntake": {
+    "label": "Dietary carbohydrate intake"
+  },
+  "CarbIntakeBMIadj": {
+    "label": "Dietary carbohydrate intake adj BMI"
+  },
+  "Cardiomyopathy": {
+    "label": "Hypertrophic cardiomyopathy"
+  },
+  "CentralSleepApnea": {
+    "label": "Central/nonobstroctive sleep apnea (PheCode 327.31)"
+  },
+  "CerebellarVol": {
+    "label": "Total cerebellar volume"
+  },
+  "CerebralVol": {
+    "label": "Total cerebral volume"
+  },
+  "CervicalCancer": {
+    "label": "Cervical cancer"
+  },
+  "ChildObesity": {
+    "label": "Childhood obesity"
+  },
+  "ChildSleepDuration": {
+    "label": "Sleep duration in children"
+  },
+  "Cholelithiasis": {
+    "label": "Cholelithiasis (PheCode 574.1)"
+  },
+  "ChronotypeSingle": {
+    "label": "Chronotype (single question)"
+  },
+  "Cirrhosis": {
+    "label": "Cirrhosis"
+  },
+  "Cl": {
+    "label": "Chloride"
+  },
+  "CogPerformance": {
+    "label": "Cognitive performance"
+  },
+  "ColonCancer": {
+    "label": "Colon cancer"
+  },
+  "CongestiveHeartFail": {
+    "label": "Congestive heart failure"
+  },
+  "ConstipationInPD": {
+    "label": "Constipation in Parkinson's disease"
+  },
+  "Creatinine": {
+    "label": "Serum creatinine"
+  },
+  "CreatinineUrinary": {
+    "label": "Urinary creatinine"
+  },
+  "CystatinC": {
+    "label": "Cystatin C"
+  },
+  "CysticKD": {
+    "label": "Cystic kidney disease (PheCode 751.21)"
+  },
+  "DBP": {
+    "label": "Diastolic blood pressure"
+  },
+  "DCM": {
+    "label": "Dilated cardiomyopathy, strict definition"
+  },
+  "DDFather": {
+    "label": "Biological Father: Depression"
+  },
+  "DHEAS": {
+    "label": "Dehydroepiandrosterone sulfate levels"
+  },
+  "DIBIG": {
+    "label": "Disposition index calculated by BIGTT-AIR and BIGTT-S"
+  },
+  "DI_Kadowaki_Matsuda": {
+    "label": "Disposition index calculated by modified insulinogenic and Matsuda insulin sensitivity indexes"
+  },
+  "DPAcm": {
+    "label": "Short-axis diastolic pulmonary artery (cm)"
+  },
+  "DPAcmInd": {
+    "label": "Short-axis diastolic pulmonary artery (cm), BSA indexed"
+  },
+  "DayDozing": {
+    "label": "Daytime dozing (often/all the time vs. never/rarely/sometimes)"
+  },
+  "DaySleepInPD": {
+    "label": "Daytime sleepiness in Parkinson's disease"
+  },
+  "DeepVeinThrombosis": {
+    "label": "Blood clot / pulmonary embolism / deep vein thrombosis (DVT)"
+  },
+  "DepressionInPD": {
+    "label": "Depression in Parkinson's disease"
+  },
+  "DescAortaDiam": {
+    "label": "Descending aorta diameter"
+  },
+  "DescAortaDisten": {
+    "label": "Descending aorta distensibility"
+  },
+  "DescAortaStrain": {
+    "label": "Descending aorta strain"
+  },
+  "DiabeticNephro": {
+    "label": "Diabetic nephropathy"
+  },
+  "DiabeticRetino": {
+    "label": "Diabetic retinopathy"
+  },
+  "DiastolicHeartFail": {
+    "label": "Heart failure with preserved EF [Diastolic heart failure] (PheCode 428.4)"
+  },
+  "DirectBilirubin": {
+    "label": "Direct bilirubin"
+  },
+  "DiverticularDisease": {
+    "label": "Diverticular disease"
+  },
+  "DiverticularDiseaseAgeO": {
+    "label": "Diverticular disease age of onset"
+  },
+  "DyskinesiasInPD": {
+    "label": "Dyskinesias in Parkinson's disease"
+  },
+  "Dyslipid": {
+    "label": "Dyslipidemia"
+  },
+  "Dyslipid_add": {
+    "label": "Dyslipidemia (additive model)"
+  },
+  "Dyslipid_dom": {
+    "label": "Dyslipidemia (dominant model)"
+  },
+  "Dyslipid_het": {
+    "label": "Dyslipidemia (heterodominant model)"
+  },
+  "Dyslipid_rec": {
+    "label": "Dyslipidemia (recessive model)"
+  },
+  "EO_Stroke_ischemic": {
+    "label": "Early onset ischemic stroke"
+  },
+  "EPATarea": {
+    "label": "Combined epicardial and pericardial adipose tissue (EPAT) area"
+  },
+  "ESR": {
+    "label": "Erythrocyte sedimentation rate"
+  },
+  "ESRD": {
+    "label": "End-stage renal disease"
+  },
+  "ESRDvControlinT2D": {
+    "label": "End-stage renal disease (ESRD) vs. controls in type 2 diabetes (T2D)"
+  },
+  "ESRDvMacroinT2D": {
+    "label": "End-stage renal disease (ESRD) vs. macroalbuminuria in type 2 diabetes (T2D)"
+  },
+  "ESRDvNonESRDinT2D": {
+    "label": "End-stage renal disease vs. no ESRD in type 2 diabetes (T2D)"
+  },
+  "EarlyAMD": {
+    "label": "Early age-related macular degeneration"
+  },
+  "EarlyBleed": {
+    "label": "Early bleeding in pregnancy, with any outcome"
+  },
+  "EarlyBleedLiveBirth": {
+    "label": "Early bleeding in pregnancy, ending in live birth"
+  },
+  "Eczema": {
+    "label": "Atopic dermatitis"
+  },
+  "Emphysema": {
+    "label": "Emphysema (PheCode 496.1)"
+  },
+  "EndometrialCancer": {
+    "label": "Endometrial cancer"
+  },
+  "EndometrialCancer_EH": {
+    "label": "Endometrial cancer (endometrioid histology)"
+  },
+  "EosinCount": {
+    "label": "Eosinophil count"
+  },
+  "EosinPerc": {
+    "label": "Eosinophil percentage"
+  },
+  "Epilepsy_FocalHS": {
+    "label": "Focal epilepsy (with hippocampal sclerosis)"
+  },
+  "Epilepsy_GeneralizedTCS": {
+    "label": "Epilepsy (generalized, with tonic-clonic seizures alone)"
+  },
+  "EssentialHYPERTENSION": {
+    "label": "Essential hypertension (PheCode 401.1)"
+  },
+  "EssentialTremor": {
+    "label": "Essential tremor"
+  },
+  "ExtremeLongevity_90thPerc": {
+    "label": "Longevity (age >90th survival percentile)"
+  },
+  "ExtremeLongevity_99thPerc": {
+    "label": "Longevity (age >99th survival percentile)"
+  },
+  "FAinCSVD": {
+    "label": "Fractional anisotropy in cerebral small vessel disease"
+  },
+  "FBW": {
+    "label": "Fetal genetic effect on own birth weight"
+  },
+  "FBWadjMGen": {
+    "label": "Fetal genetic effect on own birth weight adj maternal genotype"
+  },
+  "FEV1": {
+    "label": "Forced expired volume in 1 second (FEV1)"
+  },
+  "FG": {
+    "label": "Fasting glucose"
+  },
+  "FGadjBMI": {
+    "label": "Fasting glucose adj BMI"
+  },
+  "FI": {
+    "label": "Fasting insulin"
+  },
+  "FIadjBMI": {
+    "label": "Fasting insulin adj BMI"
+  },
+  "FNBMD": {
+    "label": "Femoral neck bone mineral density"
+  },
+  "FNarea": {
+    "label": "Femoral neck area"
+  },
+  "FT3": {
+    "label": "Free triiodothyronine (FT3)"
+  },
+  "FT3overFT4": {
+    "label": "Free triiodothyronine to free thyroxine ratio"
+  },
+  "FT4": {
+    "label": "Free thyroxine (FT4)"
+  },
+  "FVC": {
+    "label": "Forced vital capacity (FVC)"
+  },
+  "FVCinIPF": {
+    "label": "Forced vital capacity (FVC) in idiopathic pulmonary fibrosis"
+  },
+  "FastFFA": {
+    "label": "Fasting plasma free fatty acids"
+  },
+  "FatIntake": {
+    "label": "Dietary fat intake"
+  },
+  "FatIntakeBMIadj": {
+    "label": "Dietary fat intake adj BMI"
+  },
+  "FemurToHeight": {
+    "label": "Femur length to body height ratio"
+  },
+  "Ferritin": {
+    "label": "Ferritin levels"
+  },
+  "ForearmBMD": {
+    "label": "Forearm bone mineral density"
+  },
+  "ForearmFracture": {
+    "label": "Forearm fracture"
+  },
+  "ForearmToHeight": {
+    "label": "Forearm length to body height ratio"
+  },
+  "Fracture": {
+    "label": "Bone fracture"
+  },
+  "FrailtyIndex": {
+    "label": "Frailty index"
+  },
+  "FriedFrailtyScore": {
+    "label": "Fried frailty score"
+  },
+  "GCC": {
+    "label": "GCC retinal layer thickness"
+  },
+  "GCIPL": {
+    "label": "Ganglion cell inner plexiform layer (GCIPL) thickness"
+  },
+  "GCL": {
+    "label": "GCL retinal layer thickness"
+  },
+  "GDM": {
+    "label": "Gestational diabetes"
+  },
+  "GERD": {
+    "label": "Gastroesophageal reflux disease (GERD)"
+  },
+  "GestationalDur": {
+    "label": "Gestational duration, maternal genotype effect"
+  },
+  "GestationalDurationFetal": {
+    "label": "Gestational age at birth (fetal GWAS)"
+  },
+  "Glaucoma": {
+    "label": "Glaucoma"
+  },
+  "GluCorticoidDef": {
+    "label": "Glucocorticoid deficiency"
+  },
+  "Gout": {
+    "label": "Gout"
+  },
+  "Gp": {
+    "label": "Glycoproteins"
+  },
+  "Graves": {
+    "label": "Graves' disease"
+  },
+  "HBA1C": {
+    "label": "Hemoglobin A1c"
+  },
+  "HBA1CadjBMI": {
+    "label": "HbA1c adj BMI"
+  },
+  "HDL": {
+    "label": "HDL cholesterol"
+  },
+  "HDL2chol": {
+    "label": "HDL2 cholesterol"
+  },
+  "HDL3chol": {
+    "label": "HDL3 cholesterol"
+  },
+  "HIPC": {
+    "label": "Hip circumference"
+  },
+  "HIPKNEEOA": {
+    "label": "Knee and-or hip osteoarthritis"
+  },
+  "HIPOA": {
+    "label": "Hip osteoarthritis"
+  },
+  "HIP_PVS": {
+    "label": "Extensive hippocampal perivascular space burden"
+  },
+  "HMB": {
+    "label": "Heavy menstrual bleeding"
+  },
+  "HOMAB": {
+    "label": "HOMA-B"
+  },
+  "HOMAIR": {
+    "label": "HOMA-IR"
+  },
+  "HR": {
+    "label": "Heart rate"
+  },
+  "HY3inPD": {
+    "label": "Hoehn and Yahr score of 3 or more in Parkinson's disease"
+  },
+  "HYPERTENSION": {
+    "label": "Hypertension"
+  },
+  "HYPERTENSION_add": {
+    "label": "Hypertension (additive model)"
+  },
+  "HYPERTENSION_dom": {
+    "label": "Hypertension (dominant model)"
+  },
+  "HYPERTENSION_het": {
+    "label": "Hypertension (heterodominant model)"
+  },
+  "HYPERTENSION_rec": {
+    "label": "Hypertension (recessive model)"
+  },
+  "Handedness": {
+    "label": "Ambidextrousness"
+  },
+  "HbConc": {
+    "label": "Hemoglobin concentration"
+  },
+  "Healthspan": {
+    "label": "Healthspan"
+  },
+  "Hematocrit": {
+    "label": "Hematocrit"
+  },
+  "Hemorrhoids_het": {
+    "label": "Hemorrhoids (Heterodominant model)"
+  },
+  "HerniaAbdomin": {
+    "label": "Hernia abdominopelvic cavity"
+  },
+  "HerniaAbdomin_add": {
+    "label": "Hernia abdominopelvic cavity (additive model)"
+  },
+  "HerniaAbdomin_dom": {
+    "label": "Hernia abdominopelvic cavity (dominant model)"
+  },
+  "HerniaAbdomin_het": {
+    "label": "Hernia abdominopelvic cavity (heterodominant model)"
+  },
+  "HerniaAbdomin_rec": {
+    "label": "Hernia abdominopelvic cavity (recessive model)"
+  },
+  "HighScatReticuloCount": {
+    "label": "Highlight scatter reticulocyte count"
+  },
+  "HighScatReticuloPerc": {
+    "label": "Highlight scatter reticulocyte percentage"
+  },
+  "HipFracture": {
+    "label": "Hip fracture"
+  },
+  "HipOAnoreplacement": {
+    "label": "Hip osteoarthritis without joint replacement"
+  },
+  "HiptoHeight": {
+    "label": "Hip width to body height ratio"
+  },
+  "HmPerc": {
+    "label": "Hematocrit percentage"
+  },
+  "HospC19vAll": {
+    "label": "Hospitalized COVID-19 vs population"
+  },
+  "HumerusToHeight": {
+    "label": "Humerus length to body height ratio"
+  },
+  "HyinPD": {
+    "label": "Hoehn and Yahr score in Parkinson's disease"
+  },
+  "HyperChol": {
+    "label": "High cholesterol"
+  },
+  "HyperParaThyroid": {
+    "label": "Hyperparathyroidism"
+  },
+  "HyperThyroid": {
+    "label": "Hyperthyroidism"
+  },
+  "Hyperaldosteronism": {
+    "label": "Hyperaldosteronism"
+  },
+  "Hyperglyceridemia": {
+    "label": "Hyperglyceridemia (PheCode 272.12)"
+  },
+  "Hyperlipidemia": {
+    "label": "Hyperlipidemia (PheCode 272.1)"
+  },
+  "HypertensiveCKD": {
+    "label": "Hypertensive chronic kidney disease (PheCode 401.22)"
+  },
+  "HypoThyroidNOS": {
+    "label": "Hypothyroidism, not otherwise specified"
+  },
+  "HyposmiaInPD": {
+    "label": "Hyposmia in Parkinson's disease"
+  },
+  "Hypotension": {
+    "label": "Hypotension (PheCode 458)"
+  },
+  "IBD": {
+    "label": "Inflammatory bowel disease (IBD)"
+  },
+  "IBS_add": {
+    "label": "Irritable bowel syndrome (additive model)"
+  },
+  "IBS_dom": {
+    "label": "Irritable bowel syndrome (dominant model)"
+  },
+  "IBS_het": {
+    "label": "Irritable bowel syndrome (heterodominant model)"
+  },
+  "IBS_rec": {
+    "label": "Irritable bowel syndrome (recessive model)"
+  },
+  "ICP": {
+    "label": "Intrahepatic cholestasis of pregnancy"
+  },
+  "IDLchol": {
+    "label": "IDL cholesterol"
+  },
+  "IDLpart": {
+    "label": "Concentration of IDL particles"
+  },
+  "IGF1": {
+    "label": "Insulin-like growth factor (IGF-1)"
+  },
+  "INL": {
+    "label": "INL retinal layer thickness"
+  },
+  "IPL": {
+    "label": "IPL retinal layer thickness"
+  },
+  "ISen": {
+    "label": "Insulin sensitivity"
+  },
+  "ISthickness": {
+    "label": "Photoreceptor cell inner segment thickness"
+  },
+  "ImReticuloFrac": {
+    "label": "Immature reticulocyte fraction"
+  },
+  "InfantHeadCir": {
+    "label": "Head circumference at 6-30 months"
+  },
+  "InsomniaInPD": {
+    "label": "Insomnia in Parkinson's disease"
+  },
+  "Insomnia_cont": {
+    "label": "Insomnia (continuous scale, e.g. 1;2;3)"
+  },
+  "Intelligence": {
+    "label": "Intelligence"
+  },
+  "IntertrochArea": {
+    "label": "Intertrochanteric-shaft area"
+  },
+  "Intraocular_pressure": {
+    "label": "Intraocular pressure"
+  },
+  "Iron": {
+    "label": "iron (mean, inv-norm transformed)"
+  },
+  "IronDef": {
+    "label": "Iron deficiency"
+  },
+  "IronDefAnemias": {
+    "label": "Iron deficiency anemias (PheCode 280)"
+  },
+  "IronDef_add": {
+    "label": "Iron deficiency (additive model)"
+  },
+  "IronDef_het": {
+    "label": "Iron deficiency (heterodominant model)"
+  },
+  "IronDef_rec": {
+    "label": "Iron deficiency (recessive model)"
+  },
+  "K": {
+    "label": "Potassium"
+  },
+  "KExcretion": {
+    "label": "Urinary potassium excretion"
+  },
+  "KNEEOA": {
+    "label": "Knee osteoarthritis"
+  },
+  "KSD": {
+    "label": "Kidney stone disease"
+  },
+  "KidneyCancer": {
+    "label": "Kidney cancer"
+  },
+  "Kidney_volume": {
+    "label": "Kidney volume"
+  },
+  "KneeOAnoreplacement": {
+    "label": "Knee osteoarthritis without joint replacement"
+  },
+  "KneeOAreplacement": {
+    "label": "Knee osteoarthritis with joint replacement"
+  },
+  "KneePain": {
+    "label": "Knee pain"
+  },
+  "LADA": {
+    "label": "Latent autoimmune diabetes in adults"
+  },
+  "LBD": {
+    "label": "Lewy body dementia"
+  },
+  "LDH_M51_1": {
+    "label": "Lumbar disc herniation (ICD-10:M51.1)"
+  },
+  "LDL": {
+    "label": "LDL cholesterol"
+  },
+  "LEP": {
+    "label": "Leptin"
+  },
+  "LEPadjBMI": {
+    "label": "Leptin adj BMI"
+  },
+  "LFR": {
+    "label": "Leg fat ratio"
+  },
+  "LPDFF": {
+    "label": "Liver proton density fat fraction"
+  },
+  "LSarea": {
+    "label": "Lumbar spine area"
+  },
+  "LVEDA": {
+    "label": "Left ventricular end diastole anterior wall thickness"
+  },
+  "LVEDAL": {
+    "label": "Left ventricular end diastole anterolateral wall thickness"
+  },
+  "LVEDAS": {
+    "label": "Left ventricular end diastole anterospetal wall thickness"
+  },
+  "LVEDI": {
+    "label": "Left ventricular end diastole inferior wall thickness"
+  },
+  "LVEDIL": {
+    "label": "Left ventricular end diastole inferolateral wall thickness"
+  },
+  "LVEDIS": {
+    "label": "Left ventricular end diastole inferoseptal wall thickness"
+  },
+  "LVEDV": {
+    "label": "Left ventricular end-diastolic volume"
+  },
+  "LVEDVI": {
+    "label": "Left ventricular end-diastolic volume (BSA-indexed)"
+  },
+  "LVEF": {
+    "label": "Left ventricular ejection fraction"
+  },
+  "LVESA": {
+    "label": "Left ventricular end systole anterior wall thickness"
+  },
+  "LVESAL": {
+    "label": "Left ventricular end systole anterolateral wall thickness"
+  },
+  "LVESAS": {
+    "label": "Left ventricular end systole anterospetal wall thickness"
+  },
+  "LVESI": {
+    "label": "Left ventricular end systole inferior wall thickness"
+  },
+  "LVESIL": {
+    "label": "Left ventricular end systole inferolateral wall thickness"
+  },
+  "LVESIS": {
+    "label": "Left ventricular end systole inferoseptal wall thickness"
+  },
+  "LVESV": {
+    "label": "Left ventricular end-systolic volume"
+  },
+  "LVESVI": {
+    "label": "Left ventricular end-systolic volume (BSA-indexed)"
+  },
+  "LVmass": {
+    "label": "Left ventricular mass"
+  },
+  "LVmass-EDVratio": {
+    "label": "Left ventricular mass to end-diastolic volume ratio"
+  },
+  "LateAD": {
+    "label": "Late-onset Alzheimer's disease"
+  },
+  "LipoproteinA": {
+    "label": "Lipoprotein(a)"
+  },
+  "LiverAge": {
+    "label": "Liver age"
+  },
+  "LiverFat": {
+    "label": "Liver fat content"
+  },
+  "LiverIron": {
+    "label": "Liver iron content"
+  },
+  "Liver_volume": {
+    "label": "Liver volume"
+  },
+  "LocalOA": {
+    "label": "Osteoarthritis, localized (PheCode 740.1)"
+  },
+  "LocalSystemicLupus": {
+    "label": "Lupus (localized and systemic) (PheCode 695.4)"
+  },
+  "LowGripEWGSOP": {
+    "label": "Low hand grip strength (EWGSOP definition)"
+  },
+  "LowGripFNIH": {
+    "label": "Low hand grip strength (FNIH definition)"
+  },
+  "LumbarDiscHerniation": {
+    "label": "Lumbar disc herniation"
+  },
+  "LungCancer": {
+    "label": "Lung cancer"
+  },
+  "Lung_volume": {
+    "label": "Lung volume"
+  },
+  "LymphLeukemia": {
+    "label": "Lymphocytic leukemia"
+  },
+  "LymphoCount": {
+    "label": "Lymphocyte count"
+  },
+  "LymphoPerc": {
+    "label": "Lymphocyte percentage"
+  },
+  "MA_DM": {
+    "label": "Microalbuminuria in diabetes"
+  },
+  "MA_T1D": {
+    "label": "Microalbuminuria in type 1 diabetes"
+  },
+  "MBWadjFGen": {
+    "label": "Maternal genetic effect on offspring birth weight adj fetal genotype"
+  },
+  "MDD": {
+    "label": "Major depressive disorder, strict definition (ICD and equivalent)"
+  },
+  "MDD1_depressed": {
+    "label": "MDD1: Depressed mood most of the day, nearly every day"
+  },
+  "MDD4a_sleepProb": {
+    "label": "MDD4a: Insomnia nearly every day"
+  },
+  "MDD5b_psychomotorSlow": {
+    "label": "MDD5b: Psychomotor slowing nearly every day"
+  },
+  "MDD6_fatigue": {
+    "label": "MDD6: Fatigue or loss of energy nearly every day"
+  },
+  "MDD7_worthless": {
+    "label": "MDD7: Feelings of worthlessness or excessive or inappropriate guilt"
+  },
+  "MDD8_concentration": {
+    "label": "MDD8: Diminished ability to think or concentrate, or indecisiveness"
+  },
+  "MDD_NoTrauma": {
+    "label": "Major depressive disorder in trauma-unexposed individuals"
+  },
+  "MDD_Trauma": {
+    "label": "Major depressive disorder in trauma-exposed individuals"
+  },
+  "MDD_add": {
+    "label": "Major depressive disorder (additive model)"
+  },
+  "MDD_dom": {
+    "label": "Major depressive disorder (dominant model)"
+  },
+  "MDD_het": {
+    "label": "Major depressive disorder (heterodominant model)"
+  },
+  "MDinCSVD": {
+    "label": "Mean diffusivity in cerebral small vessel disease"
+  },
+  "MI": {
+    "label": "Myocardial infarction"
+  },
+  "MMSEinPD": {
+    "label": "Mini-mental state examination in Parkinson's disease"
+  },
+  "MOCAinPD": {
+    "label": "Montreal cognitive assessment in Parkinson's disease"
+  },
+  "MP": {
+    "label": "Age at natural menopause (ANM)"
+  },
+  "MVP": {
+    "label": "Mitral valve prolapse"
+  },
+  "MacroInT2D": {
+    "label": "Macroalbuminuria in type 2 diabetes (T2D)"
+  },
+  "Macroalbuminuria_DM": {
+    "label": "Macroalbuminuria in diabetes"
+  },
+  "MacrovControl_T1D": {
+    "label": "Macroalbuminuria vs. controls in type 1 diabetes"
+  },
+  "MaternalLongevity_AtDeath": {
+    "label": "Parental longevity (mother's age at death)"
+  },
+  "MaternalLongevity_Attained": {
+    "label": "Parental longevity (mother's attained age)"
+  },
+  "MeanCorpHb": {
+    "label": "Mean corpuscular hemoglobin"
+  },
+  "MeanCorpHbConc": {
+    "label": "Mean corpuscular hemoglobin concentration"
+  },
+  "MeanCorpVol": {
+    "label": "Mean corpuscular volume"
+  },
+  "MeanReticuloVol": {
+    "label": "Mean reticulocyte volume"
+  },
+  "MeanSleepDiurnalInactRN": {
+    "label": "Diurnal inactivity duration, rank-normalized"
+  },
+  "MeanSleepDurationRN": {
+    "label": "Mean sleep duration, rank-normalized"
+  },
+  "MeanSleepEfficiencyRN": {
+    "label": "Sleep efficiency, rank-normalized"
+  },
+  "MeanSleepL5timeRN": {
+    "label": "Least-active 5 hour timing, rank-normalized"
+  },
+  "MeanSleepM10timeRN": {
+    "label": "Most-active 10 hour timing, rank-normalized"
+  },
+  "MeanSleepMidPointRN": {
+    "label": "Sleep midpoint timing, rank-normalized"
+  },
+  "MeanSleepNumEpisodesRN": {
+    "label": "Number of sleep episodes, rank-normalized"
+  },
+  "MeanSpheredVol": {
+    "label": "Mean sphered cell volume"
+  },
+  "Melanoma": {
+    "label": "Melanoma"
+  },
+  "MemPerformance": {
+    "label": "Memory performance"
+  },
+  "Men": {
+    "label": "Age at menarche"
+  },
+  "MicroInT2D": {
+    "label": "Microalbuminuria in type 2 diabetes (T2D)"
+  },
+  "MomEarlyGWG": {
+    "label": "Maternal early gestational weight gain, maternal genotype effect"
+  },
+  "MomLateGWG": {
+    "label": "Maternal late gestational weight gain, maternal genotype effect"
+  },
+  "MomTotalGWG": {
+    "label": "Maternal total gestational weight gain, maternal genotype effect"
+  },
+  "MonoCount": {
+    "label": "Monocyte count"
+  },
+  "MonoPerc": {
+    "label": "Monocyte percentage"
+  },
+  "MotorFlucInPD": {
+    "label": "Motor fluctuations in Parkinson's disease"
+  },
+  "Myasthenia_gravis_early": {
+    "label": "Early-onset myasthenia gravis"
+  },
+  "Myasthenia_gravis_late": {
+    "label": "Late-onset myasthenia gravis"
+  },
+  "MyocardialT1": {
+    "label": "Native myocardial T1 time"
+  },
+  "NAFLD": {
+    "label": "NAFLD"
+  },
+  "NAFLDinT2D": {
+    "label": "NAFLD in type 2 diabetes (T2D)"
+  },
+  "ND": {
+    "label": "Neovascular age-related macular degeneration"
+  },
+  "NPDRvNoDRwDoD": {
+    "label": "Non-proliferative diabetic retinopathy vs no DR acct DoD-GC"
+  },
+  "NT1": {
+    "label": "Narcolepsy type 1"
+  },
+  "NaExcretion": {
+    "label": "Urinary sodium excretion"
+  },
+  "Naps": {
+    "label": "Daytime napping (usually vs. never/rarely/sometimes)"
+  },
+  "NeuropathyinT2D": {
+    "label": "Neuropathy in type 2 diabetes"
+  },
+  "Neuroticism": {
+    "label": "Neuroticism"
+  },
+  "Neuroticism_DepressedAffect": {
+    "label": "Depressed affect"
+  },
+  "Neuroticism_Worry": {
+    "label": "Worry"
+  },
+  "NeutCount": {
+    "label": "Neutrophil count"
+  },
+  "NeutroPerc": {
+    "label": "Neutrophil percentage"
+  },
+  "NonHodgkinsLymphoma": {
+    "label": "Non-Hodgkin's lymphoma"
+  },
+  "NucleatedRedCount": {
+    "label": "Nucleated red blood cell count"
+  },
+  "NucleatedRedPerc": {
+    "label": "Nucleated red blood cell percentage"
+  },
+  "OCPCancer": {
+    "label": "Oral cavity and pharyngeal cancer"
+  },
+  "ONLthickness": {
+    "label": "Photoreceptor cell outer nuclear layer thickness"
+  },
+  "OPL": {
+    "label": "OPL retinal layer thickness"
+  },
+  "OSthickness": {
+    "label": "Photoreceptor cell outer segment thickness"
+  },
+  "Obesity": {
+    "label": "Obesity"
+  },
+  "ObstructiveApnea": {
+    "label": "Obstructive sleep apnea (PheCode 327.32)"
+  },
+  "OcculusionCerebralArteries": {
+    "label": "Occlusion of cerebral arteries (PheCode 433.2)"
+  },
+  "OcularVD": {
+    "label": "Retinal vascular density"
+  },
+  "OpenAngleGlaucoma": {
+    "label": "Open-angle glaucoma (PheCode 365.1)"
+  },
+  "Optic_cup_area": {
+    "label": "Optic cup area"
+  },
+  "Optic_disc_area": {
+    "label": "Optic disc area"
+  },
+  "Osteoporosis": {
+    "label": "EHR-defined osteoporosis"
+  },
+  "Osteoporosis_add": {
+    "label": "EHR-defined osteoporosis (additive model)"
+  },
+  "Osteoporosis_dom": {
+    "label": "EHR-defined osteoporosis (dominant model)"
+  },
+  "Osteoporosis_het": {
+    "label": "EHR-defined osteoporosis (heterodominant model)"
+  },
+  "Osteoporosis_rec": {
+    "label": "EHR-defined osteoporosis (recessive model)"
+  },
+  "PACG": {
+    "label": "Primary angle-closure glaucoma"
+  },
+  "PAD_neversmk": {
+    "label": "Peripheral artery disease in never smokers"
+  },
+  "PADinT2D": {
+    "label": "Peripheral artery disease in type 2 diabetes (T2D)"
+  },
+  "PADnonT2D": {
+    "label": "Peripheral artery disease in subjects without diabetes"
+  },
+  "PAH": {
+    "label": "Pulmonary arterial hypertension"
+  },
+  "PAStraincm": {
+    "label": "Short-axis pulmonary artery strain (cm)"
+  },
+  "PA_AvgAcc": {
+    "label": "Accelerometer-based physical activity measurement (average acceleration)"
+  },
+  "PA_FracTimeAcc425MG": {
+    "label": "Accelerometer-based physical activity measurement (fraction of time with accelerations >425 milli-gravities)"
+  },
+  "PA_ModerateDur": {
+    "label": "Physical activity (moderate intensity activity duration)"
+  },
+  "PA_ModerateToVigorous": {
+    "label": "Moderate to vigorous physical activity levels"
+  },
+  "PA_OverallDur": {
+    "label": "Physical activity (overall physical activity time)"
+  },
+  "PA_SedentaryDur": {
+    "label": "Sedentary behavior duration"
+  },
+  "PA_UsualWalkPace": {
+    "label": "Usual walking pace"
+  },
+  "PA_Vigorous": {
+    "label": "Vigorous physical activity"
+  },
+  "PAcm": {
+    "label": "Short-axis pulmonary artery (cm)"
+  },
+  "PAcmInd": {
+    "label": "Short-axis pulmonary artery (cm), BSA indexed"
+  },
+  "PAtoARdia": {
+    "label": "Pulmonary artery to aorta ratio, diastole"
+  },
+  "PAtoARsys": {
+    "label": "Pulmonary artery to aorta ratio, systole"
+  },
+  "PC1diet": {
+    "label": "PC1 dietary pattern"
+  },
+  "PC3diet": {
+    "label": "PC3 dietary pattern"
+  },
+  "PCOS": {
+    "label": "Polycystic ovary syndrome (PCOS)"
+  },
+  "PCOSadjAge": {
+    "label": "Polycystic ovary syndrome, age-adjusted"
+  },
+  "PDAgeO": {
+    "label": "Age of Parkinson's disease onset"
+  },
+  "PDAndFirstDegree": {
+    "label": "Parkinson's disease with proxy cases"
+  },
+  "PEF": {
+    "label": "Peak expiratory flow"
+  },
+  "PI": {
+    "label": "Fasting proinsulin"
+  },
+  "PIadjBMI": {
+    "label": "Fasting proinsulin adj BMI"
+  },
+  "POAG": {
+    "label": "Primary open-angle glaucoma"
+  },
+  "PPH": {
+    "label": "Postpartum hemorrhage"
+  },
+  "PPHAtony": {
+    "label": "Postpartum hemorrhage due to uterine atony"
+  },
+  "PPHRetainedPlacenta": {
+    "label": "Postpartum hemorrhage due to retained placenta"
+  },
+  "PRI": {
+    "label": "PR interval"
+  },
+  "PS": {
+    "label": "PS retinal layer thickness"
+  },
+  "PTMFI": {
+    "label": "Posterior thigh muscle fat infiltration percentage"
+  },
+  "PTMV": {
+    "label": "Posterior thigh muscle volume"
+  },
+  "PVD_rec": {
+    "label": "Peripheral vascular disease (recessive model)"
+  },
+  "PVDinT2D": {
+    "label": "Peripheral vascular disease in type 2 diabetes"
+  },
+  "Palpitations": {
+    "label": "Palpitations (PheCode 427.9)"
+  },
+  "PanAge": {
+    "label": "Pancreas age"
+  },
+  "PancreasFat": {
+    "label": "Pancreas fat"
+  },
+  "PancreasIron": {
+    "label": "Pancreas iron content"
+  },
+  "Pancreas_volume": {
+    "label": "Pancreas volume"
+  },
+  "Parasomnia": {
+    "label": "Parasomnia (PheCode 327.5)"
+  },
+  "ParentalExtremeLongevity_10pct": {
+    "label": "Parental longevity (both parents in top 10%)"
+  },
+  "ParentalExtremeLongevity_95yrs": {
+    "label": "Parental extreme longevity (95 years and older)"
+  },
+  "ParentalLifespan": {
+    "label": "Parental lifespan"
+  },
+  "ParentalLongevity_AtDeath": {
+    "label": "Parental longevity (combined parental age at death)"
+  },
+  "ParentalLongevity_Attained": {
+    "label": "Parental longevity (combined parental attained age, Martingale residuals)"
+  },
+  "Parkinsons": {
+    "label": "Parkinson's disease"
+  },
+  "ParoxysmalTachycardia": {
+    "label": "Paroxysmal tachycardia, unspecified (PheCode 427.1)"
+  },
+  "PaternalLongevity_AtDeath": {
+    "label": "Parental longevity (father's age at death)"
+  },
+  "PaternalLongevity_Attained": {
+    "label": "Parental longevity (father's attained age)"
+  },
+  "PepticUlcers": {
+    "label": "Peptic ulcers"
+  },
+  "PepticUlcers_add": {
+    "label": "Peptic ulcers (additive model)"
+  },
+  "PepticUlcers_dom": {
+    "label": "Peptic ulcers (dominant model)"
+  },
+  "PepticUlcers_het": {
+    "label": "Peptic ulcers (heterodominant model)"
+  },
+  "PepticUlcers_rec": {
+    "label": "Peptic ulcers (recessive model)"
+  },
+  "PerceivedAge": {
+    "label": "Perceived age"
+  },
+  "Phosphate": {
+    "label": "Phosphate"
+  },
+  "PituitaryHypo": {
+    "label": "Pituitary hypofunction"
+  },
+  "PlatCount": {
+    "label": "Platelet count"
+  },
+  "PlatCrit": {
+    "label": "Plateletcrit (PCT)"
+  },
+  "PlatDistWidth": {
+    "label": "Platelet distribution width"
+  },
+  "PlatVol": {
+    "label": "Mean platelet volume"
+  },
+  "Pollinosis": {
+    "label": "Pollinosis"
+  },
+  "PolyneuropathyDM": {
+    "label": "Polyneuropathy in diabetes"
+  },
+  "PosttermBirthFetal": {
+    "label": "Post-term birth (fetal GWAS)"
+  },
+  "PosttermBirthMaternal": {
+    "label": "Post-term delivery, maternal GWAS"
+  },
+  "PredC19vPredNoC19": {
+    "label": "Predicted COVID-19 vs predicted COVID-19 negative"
+  },
+  "PretermBirthMaternal": {
+    "label": "Pre-term delivery, maternal GWAS"
+  },
+  "ProstateCancer": {
+    "label": "Prostate cancer"
+  },
+  "ProteinIntake": {
+    "label": "Dietary protein intake"
+  },
+  "ProteinIntakeBMIadj": {
+    "label": "Dietary protein intake adj BMI"
+  },
+  "Psoriasis": {
+    "label": "Psoriasis"
+  },
+  "PsoriasisVulgaris": {
+    "label": "Psoriasis vulgaris (PheCode 696.41)"
+  },
+  "PsoriaticArthropathy": {
+    "label": "Psoriatic arthropathy (PheCode 696.42)"
+  },
+  "Psychiatric": {
+    "label": "Psychiatric disorders"
+  },
+  "Psychiatric_add": {
+    "label": "Psychiatric disorders (additive model)"
+  },
+  "Psychiatric_rec": {
+    "label": "Psychiatric disorders (recessive model)"
+  },
+  "PulmonaryHT": {
+    "label": "Pulmonary hypertension"
+  },
+  "PulsePress": {
+    "label": "Pulse pressure"
+  },
+  "PulseRate": {
+    "label": "Pulse rate"
+  },
+  "QRS": {
+    "label": "QRS interval"
+  },
+  "QTc": {
+    "label": "Corrected QT interval (QTc)"
+  },
+  "RA": {
+    "label": "Low relative amplitude cases vs controls"
+  },
+  "RAFAC": {
+    "label": "Right atrial fractional change"
+  },
+  "RAMaxArea": {
+    "label": "Right atrial maximum area"
+  },
+  "RAMaxAreaInd": {
+    "label": "Right atrial maximum area, BSA indexed"
+  },
+  "RAMinArea": {
+    "label": "Right atrial minimum area"
+  },
+  "RAMinAreaInd": {
+    "label": "Right atrial minimum area, BSA indexed"
+  },
+  "RAQT": {
+    "label": "Relative amplitude"
+  },
+  "RBD": {
+    "label": "REM sleep behavior disorder"
+  },
+  "RBDinPD": {
+    "label": "REM sleep behavior disorder in Parkinson's disease"
+  },
+  "RLinPD": {
+    "label": "Restless legs syndrome in Parkinson's disease"
+  },
+  "RPE": {
+    "label": "RPE retinal layer thickness"
+  },
+  "RVEDV": {
+    "label": "Right ventricular end-diastolic volume"
+  },
+  "RVEDVI": {
+    "label": "Right ventricular end-diastolic volume, BSA indexed"
+  },
+  "RVEDVtoLVEDV": {
+    "label": "Right ventricular end-diastolic volume to left ventricular end-diastolic volume ratio"
+  },
+  "RVEF": {
+    "label": "Right ventricular ejection fraction"
+  },
+  "RVEFtoLVEF": {
+    "label": "Right ventricular ejection fraction to left ventricular ejection fraction ratio"
+  },
+  "RVESV": {
+    "label": "Right ventricular end-systolic volume"
+  },
+  "RVESVI": {
+    "label": "Right ventricular end-systolic volume, BSA indexed"
+  },
+  "RVESVtoLVESV": {
+    "label": "Right ventricular end-systolic volume to left ventricular end-systolic volume ratio"
+  },
+  "RVSV": {
+    "label": "Right ventricular stroke volume"
+  },
+  "RVSVI": {
+    "label": "Right ventricular stroke volume, BSA indexed"
+  },
+  "RVSVtoLVSV": {
+    "label": "Right ventricular stroke volume to left ventricular stroke volume ratio"
+  },
+  "ReactionTime": {
+    "label": "Reaction time"
+  },
+  "RectalCancer": {
+    "label": "Rectal cancer"
+  },
+  "RedCount": {
+    "label": "Red blood cell count"
+  },
+  "RemnantC": {
+    "label": "Remnant cholesterol"
+  },
+  "RestlessLegs": {
+    "label": "Restless legs syndrome (PheCode 327.71)"
+  },
+  "ReticuloCount": {
+    "label": "Reticulocyte count"
+  },
+  "ReticuloPerc": {
+    "label": "Reticulocyte percentage"
+  },
+  "Rootcm": {
+    "label": "Short-axis root (cm)"
+  },
+  "RootcmInd": {
+    "label": "Short-axis root (cm), BSA indexed"
+  },
+  "Rosacea": {
+    "label": "Rosacea (PheCode 695.3)"
+  },
+  "SAT": {
+    "label": "Subcutaneous adipose tissue volume"
+  },
+  "SBP": {
+    "label": "Systolic blood pressure"
+  },
+  "SCAD": {
+    "label": "Spontaneous coronary artery dissection"
+  },
+  "SCOOPvSTILTS": {
+    "label": "Obese vs thin"
+  },
+  "SCOOPvUKHLS": {
+    "label": "Obese vs controls"
+  },
+  "SCZ": {
+    "label": "Schizophrenia"
+  },
+  "SEADL70inPD": {
+    "label": "Modified Schwab and England Activities of Daily Living Scale (SEADL) of 70 or less in Parkinson's disease"
+  },
+  "SEADLinPD": {
+    "label": "Modified Schwab and England Activities of Daily Living Scale (SEADL) in Parkinson's disease"
+  },
+  "SHBG": {
+    "label": "Sex hormone binding globulin (SHBG) levels"
+  },
+  "SHBGadjBMI": {
+    "label": "Sex hormone-binding globulin levels adj BMI"
+  },
+  "SHS": {
+    "label": "Sleep health scores (additive from all sleep assessment scores)"
+  },
+  "SHS_PC2": {
+    "label": "Sleep health scores (additive from all sleep assessment scores), PC2"
+  },
+  "SHS_PC5": {
+    "label": "Sleep health scores (additive from all sleep assessment scores), PC5"
+  },
+  "SRH": {
+    "label": "Self-rated health"
+  },
+  "STILTSvUKHLS": {
+    "label": "Controls vs thin"
+  },
+  "SVI": {
+    "label": "Left ventricular stroke volume (BSA-indexed)"
+  },
+  "SVL": {
+    "label": "Left ventricular stroke volume"
+  },
+  "SecHypoThyroid": {
+    "label": "Secondary hypothyroidism"
+  },
+  "SeropositiveRhA": {
+    "label": "Seropositive rheumatoid arthritis"
+  },
+  "SevereC19vAll": {
+    "label": "Very severe respiratory confirmed COVID-19 vs population"
+  },
+  "SevereDKD": {
+    "label": "Severe diabetic kidney disease"
+  },
+  "ShoulderToHeight": {
+    "label": "Shoulder width to body height ratio"
+  },
+  "SleepApneaAdjBMI": {
+    "label": "Sleep apnea adj BMI"
+  },
+  "SleepChronotype": {
+    "label": "Chronotype (morningness)"
+  },
+  "SleepEDS": {
+    "label": "Excessive daytime sleepiness"
+  },
+  "SleepInsomnia_ICD": {
+    "label": "Insomnia (ICD defined)"
+  },
+  "SleepInsomnia_add": {
+    "label": "Frequent insomnia symptoms (additive model)"
+  },
+  "SleepInsomnia_dom": {
+    "label": "Frequent insomnia symptoms (dominant model)"
+  },
+  "SleepInsomnia_het": {
+    "label": "Frequent insomnia symptoms (heterodominant model)"
+  },
+  "SleepInsomnia_rec": {
+    "label": "Frequent insomnia symptoms (recessive model)"
+  },
+  "SleepLong": {
+    "label": "Long sleep duration"
+  },
+  "SleepNaps": {
+    "label": "Daytime napping"
+  },
+  "SleepShort": {
+    "label": "Short sleep duration"
+  },
+  "Smoke_AgeFirst": {
+    "label": "Age of initiation of regular smoking"
+  },
+  "Smoke_Cessation": {
+    "label": "Smoking cessation"
+  },
+  "Smoke_CigPerDay": {
+    "label": "Number of cigarettes per day"
+  },
+  "Smoke_Ever": {
+    "label": "Regular smoking at any time"
+  },
+  "SmokingFGint": {
+    "label": "Smoking-fasting glucose interaction"
+  },
+  "SmokingFGmain": {
+    "label": "Smoking-fasting glucose interaction, main effect model"
+  },
+  "SmokingT2Dmain": {
+    "label": "Smoking-T2D interaction, main effect model"
+  },
+  "SnoringAdjBMI": {
+    "label": "Snoring adj BMI"
+  },
+  "Sodium": {
+    "label": "Sodium"
+  },
+  "Spleen_volume": {
+    "label": "Spleen volume"
+  },
+  "SporadicMiscarriage": {
+    "label": "Sporadic miscarriage"
+  },
+  "StDevSleepDurationRN": {
+    "label": "Standard deviation of sleep duration, rank-normalized"
+  },
+  "StoolFreq": {
+    "label": "Stool frequency"
+  },
+  "Stress": {
+    "label": "Acute reaction to stress"
+  },
+  "Stress_add": {
+    "label": "Acute reaction to stress (additive model)"
+  },
+  "Stress_dom": {
+    "label": "Acute reaction to stress (dominant model)"
+  },
+  "Stress_het": {
+    "label": "Acute reaction to stress (heterodominant model)"
+  },
+  "Stress_rec": {
+    "label": "Acute reaction to stress (recessive model)"
+  },
+  "Stroke_cardioembolic": {
+    "label": "Cardioembolic stroke"
+  },
+  "Stroke_deep": {
+    "label": "Non-lobar intracranial hemorrhage"
+  },
+  "Stroke_ischemic": {
+    "label": "All ischemic stroke"
+  },
+  "Stroke_lobar": {
+    "label": "Lobar intracranial hemorrhage"
+  },
+  "Stumvoll": {
+    "label": "Stumvoll first-phase secretion"
+  },
+  "SubarachnoidHemorrhage": {
+    "label": "Subarachnoid hemorrhage (PheCode 430.1)"
+  },
+  "SubcorticalVol": {
+    "label": "Total brain subcortical volume"
+  },
+  "SubduralHemorrhage": {
+    "label": "Subdural hemorrhage (PheCode 430.3)"
+  },
+  "SystolicHeartFail": {
+    "label": "Heart failure with reduced EF [Systolic or combined heart failure] (PheCode 428.3)"
+  },
+  "T1D": {
+    "label": "Type 1 diabetes (T1D)"
+  },
+  "T1DwKA": {
+    "label": "Type 1 diabetes with ketoacidosis"
+  },
+  "T1DwNM": {
+    "label": "Type 1 diabetes with neurological manifestations"
+  },
+  "T1DwOM": {
+    "label": "Type 1 diabetes with ophthalmic manifestations"
+  },
+  "T1DwRM": {
+    "label": "Type 1 diabetes with renal manifestations"
+  },
+  "T2D_add": {
+    "label": "Type 2 diabetes (additive model)"
+  },
+  "T2D_age-related": {
+    "label": "Mild age-related type 2 diabetes"
+  },
+  "T2D_autoimmune": {
+    "label": "Severe autoimmune type 2 diabetes"
+  },
+  "T2D_dom": {
+    "label": "Type 2 diabetes (dominant model)"
+  },
+  "T2D_het": {
+    "label": "Type 2 diabetes (heterodominant model)"
+  },
+  "T2D_insulin-deficient": {
+    "label": "Severe insulin-deficient type 2 diabetes"
+  },
+  "T2D_nopreg": {
+    "label": "Type 2 diabetes (with no history of pregnancy)"
+  },
+  "T2D_preg": {
+    "label": "Type 2 diabetes (with history of pregnancy)"
+  },
+  "T2D_rec": {
+    "label": "Type 2 diabetes (recessive model)"
+  },
+  "T2DadjBMI": {
+    "label": "Type 2 diabetes (T2D) adj BMI"
+  },
+  "T2DwNM": {
+    "label": "Type 2 diabetes with neurological manifestations"
+  },
+  "T2DwOM": {
+    "label": "Type 2 diabetes with ophthalmic manifestations"
+  },
+  "T2DwPC": {
+    "label": "Type 2 diabetes with peripheral circulatory manifestations"
+  },
+  "T2DwRM": {
+    "label": "Type 2 diabetes with renal manifestations"
+  },
+  "TB-LM": {
+    "label": "Total body lean mass"
+  },
+  "TFR": {
+    "label": "Trunk fat ratio"
+  },
+  "TGinT2D": {
+    "label": "Triglyceride levels in individuals with type 2 diabetes"
+  },
+  "TGnonT2D": {
+    "label": "Triglyceride levels in individuals without type 2 diabetes"
+  },
+  "TGtoHDL": {
+    "label": "Triglyceride-to-HDL ratio"
+  },
+  "TL": {
+    "label": "Telomere length"
+  },
+  "TSH": {
+    "label": "Thyroid-stimulating hormone levels"
+  },
+  "TT3": {
+    "label": "Total triiodothyronine (TT3)"
+  },
+  "TT3overFT4": {
+    "label": "Total triiodothyronine to free thyroxine ratio"
+  },
+  "TTMVz": {
+    "label": "Total thigh muscle volume z-score"
+  },
+  "TestiHypo": {
+    "label": "Testicular hypofunction"
+  },
+  "Testosterone_bioavailable": {
+    "label": "Bioavailable testosterone levels"
+  },
+  "Testosterone_total": {
+    "label": "Total testosterone levels"
+  },
+  "ThoracicAA": {
+    "label": "Thoracic aortic aneurysm"
+  },
+  "Thyroid": {
+    "label": "Hypothyroidism"
+  },
+  "TibiaToHeight": {
+    "label": "Tibia length to body height ratio"
+  },
+  "TibiofemoralAngle": {
+    "label": "Tibiofemoral angle"
+  },
+  "TorsoToHeight": {
+    "label": "Torso length to body height ratio"
+  },
+  "TotHipArea": {
+    "label": "Total hip area"
+  },
+  "TotalProtein": {
+    "label": "Total plasma protein"
+  },
+  "TrochanterArea": {
+    "label": "Trochanter area"
+  },
+  "TroponinMeasure": {
+    "label": "total troponin (mean, inv-norm transformed)"
+  },
+  "Tyr": {
+    "label": "Tyrosine"
+  },
+  "UACR_nonDM": {
+    "label": "Urinary albumin-to-creatinine ratio (UACR) in subjects without diabetes"
+  },
+  "UC": {
+    "label": "Ulcerative colitis"
+  },
+  "UMOD_aptamer": {
+    "label": "Circulating uromodulin, aptamer-based measurement"
+  },
+  "UPCR": {
+    "label": "Urinary potassium-to-creatinine ratio"
+  },
+  "UPDRS": {
+    "label": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Total"
+  },
+  "UPDRS1": {
+    "label": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 1"
+  },
+  "UPDRS2": {
+    "label": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 2"
+  },
+  "UPDRS3": {
+    "label": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 3"
+  },
+  "UPDRS4": {
+    "label": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 4"
+  },
+  "USCR": {
+    "label": "Urinary sodium-to-creatinine ratio"
+  },
+  "USPR": {
+    "label": "Urinary sodium-to-potassium ratio"
+  },
+  "Urate": {
+    "label": "Serum urate"
+  },
+  "UterineFibroids": {
+    "label": "Uterine fibroids"
+  },
+  "UterineFibroids_HMB": {
+    "label": "Uterine fibroids and heavy menstrual bleeding"
+  },
+  "VCDR": {
+    "label": "Vertical cup-disc ratio"
+  },
+  "VFD": {
+    "label": "Retinal vascular fractal dimension"
+  },
+  "VLDLchol": {
+    "label": "VLDL cholesterol"
+  },
+  "VaricoseVeins": {
+    "label": "Varicose veins"
+  },
+  "VaricoseVeins_add": {
+    "label": "Varicose veins (additive model)"
+  },
+  "VaricoseVeins_dom": {
+    "label": "Varicose veins (dominant model)"
+  },
+  "VaricoseVeins_het": {
+    "label": "Varicose veins (heterodominant model)"
+  },
+  "VaricoseVeins_rec": {
+    "label": "Varicose veins (recessive model)"
+  },
+  "VenousThromboembolism": {
+    "label": "Venous Thromboembolism"
+  },
+  "VerbNumReasoning": {
+    "label": "Verbal-numerical reasoning"
+  },
+  "Vitiligo": {
+    "label": "Vitiligo (PheCode 694.1)"
+  },
+  "WAIST": {
+    "label": "Waist circumference"
+  },
+  "WBC": {
+    "label": "White blood cell count"
+  },
+  "WEIGHT": {
+    "label": "Weight"
+  },
+  "WHR": {
+    "label": "Waist-hip ratio"
+  },
+  "WHRadjBMI": {
+    "label": "Waist-hip ratio adj BMI"
+  },
+  "WMH": {
+    "label": "Cerebral white matter hyperintensity volume"
+  },
+  "WMHinCSVD": {
+    "label": "White matter hyperintensities in cerebral small vessel disease"
+  },
+  "WMR": {
+    "label": "Weight-to-muscle ratio"
+  },
+  "WM_PVS": {
+    "label": "Extensive white matter perivascular space burden"
+  },
+  "WeightLossTotal": {
+    "label": "Total weight loss (kg)"
+  },
+  "XXLVLDLpart": {
+    "label": "Chylomicrons and XXL-VLDL cholesterol"
+  },
+  "allDKD": {
+    "label": "All diabetic kidney disease (DKD)"
+  },
+  "allDKD_T1D": {
+    "label": "All diabetic kidney disease (DKD) in type 1 diabetes"
+  },
+  "allDKD_T2D": {
+    "label": "All diabetic kidney disease (DKD) in type 2 diabetes"
+  },
+  "ao_regurgitation_fraction": {
+    "label": "Aortic regurgitation fraction"
+  },
+  "ao_regurgitation_volume": {
+    "label": "Aortic regurgitation volume"
+  },
+  "aortic_velocity_vmax": {
+    "label": "Peak forward aortic velocity"
+  },
+  "aortic_velocity_vmax_ao_adjusted": {
+    "label": "Peak forward aortic velocity adj aortic area"
+  },
+  "bOHBut": {
+    "label": "Beta-hydroxybutyric acid"
+  },
+  "cIMT": {
+    "label": "Carotid intima-media thickness (mean of the maximum cIMT)"
+  },
+  "cIMTmax": {
+    "label": "Maximum carotid intima-media thickness"
+  },
+  "cIMTmean": {
+    "label": "Mean carotid intima-media thickness"
+  },
+  "eBMD": {
+    "label": "Heel quantitative ultrasound estimated bone mineral density (eBMD)"
+  },
+  "eGFRcrcys": {
+    "label": "eGFRcr-cys (serum creatinine and cystatin C)"
+  },
+  "eGFRcrea": {
+    "label": "eGFRcreat (serum creatinine)"
+  },
+  "eGFRcreaNoDiabetes": {
+    "label": "eGFRcreat in individuals without diabetes"
+  },
+  "eGFRcrea_T1D": {
+    "label": "eGFRcreat (serum creatinine) in type 1 diabetes"
+  },
+  "eGFRcrea_perc_DeclineNoDM": {
+    "label": "eGFRcreat relative annualized decline in individuals without diabetes"
+  },
+  "eGFRcys": {
+    "label": "eGFRcys (serum cystatin C)"
+  },
+  "fLVSV": {
+    "label": "Forward left ventricular stroke volume"
+  },
+  "fQRSTa": {
+    "label": "Frontal QRS-T angles"
+  },
+  "freshfruit": {
+    "label": "Fresh fruit consumption"
+  },
+  "iaorta_area": {
+    "label": "BSA-indexed aortic area"
+  },
+  "imitral_regurgitation": {
+    "label": "BSA-indexed mitral valve regurgitation volume"
+  },
+  "lateDKD_T1D": {
+    "label": "Late diabetic kidney disease (DKD) in type 1 diabetes"
+  },
+  "liverT1time": {
+    "label": "Liver T1 time"
+  },
+  "lobarSVS": {
+    "label": "Lobar intracerebral hemorrhage or small vessel ischemic stroke"
+  },
+  "mCAA": {
+    "label": "Mosaic chromosomal alteration of the autosomes"
+  },
+  "mCAX": {
+    "label": "Mosaic chromosomal alteration of the X chromosome"
+  },
+  "mCAY": {
+    "label": "Mosaic chromosomal alteration of the Y chromosome"
+  },
+  "mRS012v3456": {
+    "label": "Modified Rankin scale score 0-2 vs 3-6"
+  },
+  "mRS012v3456AdjSever": {
+    "label": "Modified Rankin scale score 0-2 vs 3-6 adj stroke severity"
+  },
+  "mRS01v23456": {
+    "label": "Modified Rankin scale score 0-1 vs 2-6"
+  },
+  "mRS01v23456AdjSever": {
+    "label": "Modified Rankin scale score 0-1 vs 2-6 adj stroke severity"
+  },
+  "mRSOrdinal": {
+    "label": "Modified Rankin scale score"
+  },
+  "mRSOrdinalAdjSever": {
+    "label": "Modified Rankin scale score adj stroke severity"
+  },
+  "n6FA182": {
+    "label": "Linoleic acid"
+  },
+  "netLVSV": {
+    "label": "Net left ventricular stroke volume"
+  },
+  "niHF": {
+    "label": "Non-ischemic heart failure"
+  },
+  "nonHDL": {
+    "label": "Non-HDL cholesterol"
+  },
+  "nonlobarSVS": {
+    "label": "Non-lobar intracerebral hemorrhage or small vessel ischemic stroke"
+  },
+  "oilyfish": {
+    "label": "Oily fish consumption"
+  },
+  "pancreasT1time": {
+    "label": "Pancreas T1 time"
+  },
+  "renalcortexT1time": {
+    "label": "Renal cortex T1 time"
+  },
+  "saltconsumption": {
+    "label": "Salt addition to food"
+  },
+  "spQRSTa": {
+    "label": "Spatial QRS-T angles"
+  },
+  "tLVSV": {
+    "label": "Total left ventricular stroke volume"
+  },
+  "toastCE": {
+    "label": "TOAST cardio-aortic embolism"
+  },
+  "toastLAA": {
+    "label": "TOAST large artery atherosclerosis"
+  },
+  "toastSAO": {
+    "label": "TOAST small artery occlusion"
+  },
+  "xinsG30": {
+    "label": "Modified insulinogenic index"
+  },
+  "xinsdG30": {
+    "label": "Insulinogenic index"
   }
 }

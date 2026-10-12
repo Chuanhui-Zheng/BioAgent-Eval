@@ -1,6 +1,6 @@
 {
-  "pipeline_version": "1.0.0",
-  "created_at": "2026-09-11T10:01:02Z",
+  "pipeline_version": "1.1.0",
+  "created_at": "2026-09-16T06:07:57Z",
   "sources": {
     "gene_info": {
       "path": "data/raw/gene_info/genes_function_info.json",
@@ -8,9 +8,25 @@
       "raw_records": 24825
     },
     "ldsc_2hrI": {
-      "path": "data/raw/ldsc/genetic_correlation/2hrl/2hrI.json",
+      "path": "data/raw/ldsc/genetic_correlation/2hrI/2hrI.json",
       "sha256": "3a1c173c9c223f0dd9896e6219276a04570ba6e43fb45f4acb01d1ddad6a2506",
       "raw_rows": 1646
+    },
+    "gene_id_map": {
+      "path": "data/raw/reference/gene_id_map/genes.jsonl",
+      "sha256": "2187a2a60fbd416923cd1c5f7c88aba1ab87f79d99234a0fb3de6d76646ccaa2",
+      "chunked": false,
+      "note": "Reference lookup only; not embedded in RAG index"
+    },
+    "gene_association_common_2hrG": {
+      "path": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+      "sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+      "raw_rows": 11383
+    },
+    "gene_association_rare_2hrG": {
+      "path": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+      "sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+      "raw_rows": 4114
     },
     "paths_config": "config/paths.yaml"
   },
@@ -22,6 +38,14 @@
     "ldsc_2hrI.chunks.jsonl": {
       "path": "artifacts/chunks/ldsc_2hrI.chunks.jsonl",
       "chunks": 781
+    },
+    "gene_association_common_2hrG.chunks.jsonl": {
+      "path": "artifacts/chunks/gene_association_common_2hrG.chunks.jsonl",
+      "chunks": 11383
+    },
+    "gene_association_rare_2hrG.chunks.jsonl": {
+      "path": "artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl",
+      "chunks": 4114
     }
   }
 }

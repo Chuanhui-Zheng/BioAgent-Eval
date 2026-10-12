@@ -1,0 +1,34 @@
+project_root: "."
+
+chunks:
+  - collection: gene_info
+    path: artifacts/chunks/gene_info.chunks.jsonl
+  - collection: ldsc_genetic_correlation
+    path: artifacts/chunks/ldsc_2hrI.chunks.jsonl
+  - collection: gene_association_common
+    path: artifacts/chunks/gene_association_common_2hrG.chunks.jsonl
+  - collection: gene_association_rare
+    path: artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl
+
+manifest: artifacts/manifest.json
+
+tokenizer:
+  unicode_form: NFKC
+  lowercase: true
+  stem: false
+  document_stopwords: false
+  query_stopwords: true
+
+bm25:
+  text_fields: ["title", "content"]
+  title_repeat: 2
+  index_dir: artifacts/indexes/bm25_title_content
+  # k1/b/method left unset so bm25s library defaults are used
+
+retrieval:
+  top_k: 10
+  report_ks: [5, 10]
+
+evaluation:
+  dev_set: data/evaluation/retrieval_dev.jsonl
+  output_dir: artifacts/evaluation/bm25_dev

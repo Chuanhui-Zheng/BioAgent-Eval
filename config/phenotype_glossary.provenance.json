@@ -1,0 +1,4700 @@
+{
+  "updated_date": "2026-10-07",
+  "source_file": "Sample_Data-20260929T151459Z-1-001/Sample_Data/Phenotypes_group.xlsx",
+  "source_sha256": "f4be6908716ed77d254c89c0c5780f45ca428b286561e3a37e6817294816db02",
+  "sheet": "Portals phenotypes",
+  "matching_policy": "Exact case-sensitive code match restricted to existing corpus; no aliases, suffix stripping, or related matches.",
+  "label_policy": "Source description with leading/trailing whitespace removed only; source wording not independently scientifically validated. Existing loader calls all explicit labels curated.",
+  "category_policy": "Restore the original 11 categories from preserved_entries at user request on 2026-10-07. The 769 added entries have no inferred category; the existing loader defaults missing categories to other. Customer group/dichotomous remain independent source attributes in provenance.",
+  "previous_glossary_sha256": "a26c0ede74a6ac8dc02d85d88753b6b5e4726fe42334aae46096cea35619348c",
+  "updated_glossary_sha256": "f65aad3935b2c1e61507ee6d1e9107296a535ed694b62bf27b28c322a7861bf8",
+  "preserved_entries": {
+    "2hrI": {
+      "label": "2-hour insulin (OGTT)",
+      "category": "quantitative_trait"
+    },
+    "2hrG": {
+      "label": "2-hour glucose (OGTT)",
+      "category": "quantitative_trait"
+    },
+    "2hrGadjBMI": {
+      "label": "2-hour glucose adjusted for BMI",
+      "category": "quantitative_trait"
+    },
+    "2hrFFA": {
+      "label": "2-hour free fatty acids (OGTT)",
+      "category": "quantitative_trait"
+    },
+    "T2D": {
+      "label": "Type 2 Diabetes",
+      "category": "disease"
+    },
+    "BMI": {
+      "label": "Body Mass Index",
+      "category": "quantitative_trait"
+    },
+    "AD": {
+      "label": "Alzheimer's Disease",
+      "category": "disease"
+    },
+    "Asthma": {
+      "label": "Asthma",
+      "category": "disease"
+    },
+    "AF": {
+      "label": "Atrial Fibrillation",
+      "category": "disease"
+    },
+    "ALT": {
+      "label": "Alanine aminotransferase",
+      "category": "quantitative_trait"
+    },
+    "AnyCVD": {
+      "label": "Any cardiovascular disease",
+      "category": "disease"
+    }
+  },
+  "counts": {
+    "before": 11,
+    "added": 769,
+    "after": 780,
+    "corpus_codes": 782,
+    "covered_corpus_codes": 780
+  },
+  "unresolved_codes": [
+    "SerumUrea",
+    "Testosterone"
+  ],
+  "entries": {
+    "AAC": {
+      "row": 878,
+      "description": "Abdominal aortic calcification",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "ADFather": {
+      "row": 1549,
+      "description": "Biological Father: Alzheimer's / Other Dementia",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "AD_or_AD_history": {
+      "row": 887,
+      "description": "Alzheimer's disease or family history of Alzheimer's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "AFR": {
+      "row": 27,
+      "description": "Arm fat ratio",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "AFlutter": {
+      "row": 1532,
+      "description": "Atrial flutter (PheCode 427.22)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AHI": {
+      "row": 217,
+      "description": "Apnea-Hypopnea Index (AHI)",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "AIpredictedAF": {
+      "row": 856,
+      "description": "ECG-AI model predicted atrial fibrillation risk",
+      "dichotomous": 0.0,
+      "group": "ATRIAL FIBRILLATION"
+    },
+    "ALLOA": {
+      "row": 582,
+      "description": "Any osteoarthritis",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "ALLOA_add": {
+      "row": 497,
+      "description": "Any osteoarthritis (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "ALLOA_dom": {
+      "row": 450,
+      "description": "Any osteoarthritis (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "ALLOA_het": {
+      "row": 452,
+      "description": "Any osteoarthritis (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "ALLOA_rec": {
+      "row": 451,
+      "description": "Any osteoarthritis (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AMD": {
+      "row": 93,
+      "description": "Age-related macular degeneration (AMD)",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "AMD_add": {
+      "row": 496,
+      "description": " Age-related macular degeneration (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AMD_dom": {
+      "row": 446,
+      "description": "Age-related macular degeneration (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AMD_het": {
+      "row": 447,
+      "description": "Age-related macular degeneration (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AMD_rec": {
+      "row": 448,
+      "description": "Age-related macular degeneration (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AM_broad_heavy": {
+      "row": 1227,
+      "description": "Broad vs. Heavy alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "AM_broad_int": {
+      "row": 1226,
+      "description": "Broad vs. Int alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "AM_broad_low": {
+      "row": 1224,
+      "description": "Broad vs. Low alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "AM_heavy_int": {
+      "row": 1225,
+      "description": "Heavy vs. Int alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "AM_heavy_low": {
+      "row": 1223,
+      "description": "Heavy vs. Low alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "AM_int_low": {
+      "row": 1217,
+      "description": "Int vs. Low alcohol consumption",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "ASAT": {
+      "row": 614,
+      "description": "Abdominal subcutaneous adipose tissue volume",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "AST": {
+      "row": 94,
+      "description": "Aspartate aminotransferase (AST)",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "ATMFI": {
+      "row": 1247,
+      "description": "Anterior thigh muscle fat infiltration percentage",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "ATMV": {
+      "row": 1246,
+      "description": "Anterior thigh muscle volume",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "AVAP_AVRT": {
+      "row": 1378,
+      "description": "Atrioventricular accessory pathways or atrioventricular reciprocating tachycardia (AVAPs/AVRT)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AVNRT": {
+      "row": 1382,
+      "description": "Atrioventricular nodal reentrant tachycardia (AVNRT)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AbAA": {
+      "row": 1063,
+      "description": "Abdominal aortic aneurysm",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AbAge": {
+      "row": 611,
+      "description": "Abdominal age",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "AbFR": {
+      "row": 1253,
+      "description": "Abdominal fat ratio",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "AcAce": {
+      "row": 232,
+      "description": "Acetoacetate",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "AcidRefluxGERD": {
+      "row": 1550,
+      "description": "Acid reflux/GERD",
+      "dichotomous": 1.0,
+      "group": "DIGESTIVE"
+    },
+    "Acne": {
+      "row": 1375,
+      "description": "Acne",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "AcuteRenalFail": {
+      "row": 1595,
+      "description": "Acute renal failure (PheCode 585.1)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "Addison": {
+      "row": 889,
+      "description": "Autoimmune Addison's disease",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "Adiponectin": {
+      "row": 79,
+      "description": "Adiponectin",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "AdrenalHypo": {
+      "row": 1435,
+      "description": "Adrenal hypofunction",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "AfibFlutter": {
+      "row": 753,
+      "description": "Atrial fibrillation or flutter",
+      "dichotomous": 1.0,
+      "group": "ATRIAL FIBRILLATION"
+    },
+    "AgingGIP1": {
+      "row": 957,
+      "description": "Aging-GIP1 principal component",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "AgingGIP1AdjSocioEcon": {
+      "row": 958,
+      "description": "Aging-GIP1 principal component adj socioeconomic status",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "Alb": {
+      "row": 235,
+      "description": "Serum albumin",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "AlcoholConsumption": {
+      "row": 1238,
+      "description": "Alcoholic drinks per week",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "AllDKDvControl_DM": {
+      "row": 1007,
+      "description": " All diabetic kidney disease vs. controls in diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "AllergicRhinitis": {
+      "row": 10,
+      "description": "Allergic rhinitis",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "AllergicRhinitis_add": {
+      "row": 482,
+      "description": "Allergic rhinitis (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AllergicRhinitis_dom": {
+      "row": 390,
+      "description": "Allergic rhinitis (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AllergicRhinitis_rec": {
+      "row": 391,
+      "description": "Allergic rhinitis (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Alopecia": {
+      "row": 1531,
+      "description": "Alopecia (PheCode 704.1)",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "AnorexiaNervosa": {
+      "row": 1439,
+      "description": "Anorexia nervosa",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "AntepartumBleed": {
+      "row": 1395,
+      "description": "Antepartum bleeding in pregnancy",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "AnyCVD_add": {
+      "row": 485,
+      "description": "Any cardiovascular disease (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AnyCVD_dom": {
+      "row": 402,
+      "description": "Any cardiovascular disease (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AnyCVD_het": {
+      "row": 404,
+      "description": "Any cardiovascular disease (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AnyCVD_rec": {
+      "row": 403,
+      "description": "Any cardiovascular disease (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "AnyCVDinT2D": {
+      "row": 373,
+      "description": "Cardiovascular disease in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "AorticStenosis": {
+      "row": 857,
+      "description": "Calcific aortic stenosis",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "Ap-LM": {
+      "row": 327,
+      "description": "Appendicular lean body mass",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "ApoA": {
+      "row": 684,
+      "description": "Serum ApoA",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "ApoB": {
+      "row": 237,
+      "description": "Serum ApoB",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "AscAortaDiam": {
+      "row": 380,
+      "description": "Ascending aorta diameter",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AscAortaDiamInd": {
+      "row": 584,
+      "description": "Maximum ascending aorta diameter, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AscAortaDisten": {
+      "row": 1389,
+      "description": "Ascending aorta distensibility",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "AscAortaStrain": {
+      "row": 1390,
+      "description": "Ascending aorta strain",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "Asthma_AdultOnset": {
+      "row": 764,
+      "description": "Adult-onset asthma",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "Asthma_ChildhoodOnset": {
+      "row": 765,
+      "description": "Childhood-onset asthma",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "Asthma_add": {
+      "row": 483,
+      "description": "Asthma (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Asthma_dom": {
+      "row": 394,
+      "description": "Asthma (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Atherosclerosis": {
+      "row": 1583,
+      "description": "Atherosclerosis (PheCode 440)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "BFP": {
+      "row": 97,
+      "description": "Body fat percentage",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BG_PVS": {
+      "row": 1129,
+      "description": "Extensive basal ganglia perivascular space burden",
+      "dichotomous": 1.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "BIGTT-AIR": {
+      "row": 1407,
+      "description": "BIGTT acute insulin response",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "BIP2": {
+      "row": 1142,
+      "description": "Bipolar II disorder",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "BIPSibling": {
+      "row": 1533,
+      "description": "Biological Sibling: Bipolar Disorder",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "BIP_NoPsychosis": {
+      "row": 1141,
+      "description": "Bipolar disorder without psychosis",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "BIP_Psychosis": {
+      "row": 1140,
+      "description": "Bipolar disorder with psychosis",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "BIP_Schizoaffective": {
+      "row": 1143,
+      "description": "Schizoaffective disorder bipolar type",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "BMI1_5yrs": {
+      "row": 676,
+      "description": "Body mass index (BMI) at 1.5 years",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BMI1yr": {
+      "row": 675,
+      "description": "Body mass index (BMI) at 1 year",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BMI5yrs": {
+      "row": 679,
+      "description": "Body mass index (BMI) at 5 years",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BMI7yrs": {
+      "row": 680,
+      "description": "Body mass index (BMI) at 7 years",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BMI8yrs": {
+      "row": 681,
+      "description": "Body mass index (BMI) at 8 years",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "BSadjFastingTime": {
+      "row": 858,
+      "description": "Random glucose adj fasting time",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "BSandFG": {
+      "row": 859,
+      "description": "Random and fasting glucose",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "BUN": {
+      "row": 209,
+      "description": "Blood urea nitrogen",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "BasoCount": {
+      "row": 362,
+      "description": "Basophil count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "BasoPerc": {
+      "row": 685,
+      "description": "Basophil percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Bicarbonate": {
+      "row": 1413,
+      "description": "Bicarbonate levels",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "BrainVol_TownsendHeightCorr": {
+      "row": 1210,
+      "description": "Brain volume adj TDI and height",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "BreakfastSkipping": {
+      "row": 389,
+      "description": "Frequency of breakfast skipping",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "BreastCancer": {
+      "row": 977,
+      "description": "Breast cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "BreastCancer_ERN": {
+      "row": 1444,
+      "description": "Breast cancer (estrogen-receptor negative)",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "C12_0": {
+      "row": 1068,
+      "description": "Lauric acid",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C18_0": {
+      "row": 1071,
+      "description": "Stearic acid",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C18_1trans": {
+      "row": 1076,
+      "description": "Elaidic and trans-vaccenic acids",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C19vAll": {
+      "row": 342,
+      "description": "COVID-19 vs population",
+      "dichotomous": 1.0,
+      "group": "COVID-19"
+    },
+    "C20_3n_6": {
+      "row": 1080,
+      "description": "Dihomo-gamma-linolenic acid (DGLA)",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C20_4n_6": {
+      "row": 1081,
+      "description": "Arachidonic acid (AA)",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C20_5n_3": {
+      "row": 1078,
+      "description": "Eicosapentaenoic acid (EPA)",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C22_4n_6": {
+      "row": 1082,
+      "description": "Adrenic acid",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "C22_5n_3": {
+      "row": 1079,
+      "description": "Docosapentaenoic acid (DPA)",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "CAC": {
+      "row": 1087,
+      "description": "Conorary artery calcification",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "CAD": {
+      "row": 100,
+      "description": "Coronary artery disease (CAD)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "CADinT2D": {
+      "row": 306,
+      "description": "Coronary artery disease in type 2 diabetes (CAD in T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "CCScCEmajor": {
+      "row": 742,
+      "description": "CCS causative cardio-aortic embolism major",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCScCRYPTCE": {
+      "row": 743,
+      "description": "CCS causative cryptogenic with cardioembolism minor",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCScINCUNC": {
+      "row": 744,
+      "description": "CCS causative incomplete and unclassified",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCScLAA": {
+      "row": 745,
+      "description": "CCS causative large artery atherosclerosis",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCScSAO": {
+      "row": 746,
+      "description": "CCS causative small artery occlusion",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCScUNDETER": {
+      "row": 747,
+      "description": "CCS causative undetermined",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCSpCEmajincl": {
+      "row": 748,
+      "description": "CCS phenotypic cardio-aortic embolism major",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCSpCryptoincl": {
+      "row": 749,
+      "description": "CCS phenotypic cryptogenic ",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCSpLAAmajincl": {
+      "row": 750,
+      "description": "CCS phenotypic cryptogenic large artery atherosclerosis major",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CCSpSAOmajincl": {
+      "row": 751,
+      "description": "CCS phenotypic cryptogenic small artery occlusion major",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "CD": {
+      "row": 101,
+      "description": "Crohn's disease",
+      "dichotomous": 1.0,
+      "group": "INFLAMMATORY BOWEL"
+    },
+    "CFH4_levels": {
+      "row": 1124,
+      "description": "Complement factor H-related protein 4A levels",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "CFH5_levels": {
+      "row": 1125,
+      "description": "Complement factor H-related protein 5 levels",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "CFH_levels": {
+      "row": 1120,
+      "description": "Complement factor H levels",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "CHIP": {
+      "row": 987,
+      "description": "Clonal haematopoiesis of indeterminate potential (with or without mosaic chromosomal alteration)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_ASXL1": {
+      "row": 995,
+      "description": "Clonal haematopoiesis of indeterminate potential (ASXL1 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_DNMT3A": {
+      "row": 994,
+      "description": "Clonal haematopoiesis of indeterminate potential (DNMT3A mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_JAK2": {
+      "row": 993,
+      "description": "Clonal haematopoiesis of indeterminate potential (JAK2 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_SF3B1": {
+      "row": 991,
+      "description": "Clonal haematopoiesis of indeterminate potential (SF3B1 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_SRSF2": {
+      "row": 990,
+      "description": "Clonal haematopoiesis of indeterminate potential (SRSF2 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_TET2": {
+      "row": 989,
+      "description": "Clonal haematopoiesis of indeterminate potential (TET2 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIP_TP53": {
+      "row": 988,
+      "description": "Clonal haematopoiesis of indeterminate potential (TP53 mutation)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHIPwithoutmCA": {
+      "row": 986,
+      "description": "Clonal haematopoiesis of indeterminate potential (without mosaic chromosomal alteration)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "CHOL": {
+      "row": 103,
+      "description": "Total cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "CIR": {
+      "row": 104,
+      "description": "Corrected insulin response (CIR)",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "CKD_DM": {
+      "row": 996,
+      "description": "Chronic kidney disease in diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "CKD_DNinT2D": {
+      "row": 371,
+      "description": "Chronic kidney disease (CKD) and diabetic nephropathy in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "CKD_EXT_vGFRinT2D": {
+      "row": 372,
+      "description": "Extreme chronic kidney disease (CKD) vs. eGFR >= 60 in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "CKDinT2D": {
+      "row": 239,
+      "description": "Chronic kidney disease (CKD) in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "CKDpDKD_T1D": {
+      "row": 1017,
+      "description": "Chronic kidney disease and diabetic kidney disease (CKD and DKD) in type 1 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "CKDpDKDinT2D": {
+      "row": 370,
+      "description": "CKD and DKD in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "COPD_ICD": {
+      "row": 1050,
+      "description": "COPD (ICD defined)",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "CRF": {
+      "row": 1089,
+      "description": "Corneal resistance factor",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "CRP": {
+      "row": 241,
+      "description": "Plasma C-reactive protein",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "CSC": {
+      "row": 1245,
+      "description": "Central serous chorioretinopathy",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "CSI": {
+      "row": 522,
+      "description": "CSI retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "CSSNS": {
+      "row": 1110,
+      "description": "Childhood steroid-sensitive nephrotic syndrome",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "CTS": {
+      "row": 763,
+      "description": "Carpal tunnel syndrome",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Ca": {
+      "row": 204,
+      "description": "Calcium",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "Cancer": {
+      "row": 12,
+      "description": "Any cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "Cancer_dom": {
+      "row": 398,
+      "description": "Any cancer (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "CarbIntake": {
+      "row": 733,
+      "description": "Dietary carbohydrate intake",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "CarbIntakeBMIadj": {
+      "row": 732,
+      "description": "Dietary carbohydrate intake adj BMI",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "Cardiomyopathy": {
+      "row": 664,
+      "description": "Hypertrophic cardiomyopathy",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "CentralSleepApnea": {
+      "row": 1600,
+      "description": "Central/nonobstroctive sleep apnea (PheCode 327.31)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "CerebellarVol": {
+      "row": 2,
+      "description": "Total cerebellar volume",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "CerebralVol": {
+      "row": 1229,
+      "description": "Total cerebral volume",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "CervicalCancer": {
+      "row": 976,
+      "description": "Cervical cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "ChildObesity": {
+      "row": 102,
+      "description": "Childhood obesity",
+      "dichotomous": 1.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "ChildSleepDuration": {
+      "row": 583,
+      "description": "Sleep duration in children",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "Cholelithiasis": {
+      "row": 1535,
+      "description": "Cholelithiasis (PheCode 574.1)",
+      "dichotomous": 1.0,
+      "group": "DIGESTIVE"
+    },
+    "ChronotypeSingle": {
+      "row": 332,
+      "description": "Chronotype (single question)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "Cirrhosis": {
+      "row": 526,
+      "description": "Cirrhosis",
+      "dichotomous": 1.0,
+      "group": "HEPATIC"
+    },
+    "Cl": {
+      "row": 205,
+      "description": "Chloride",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "CogPerformance": {
+      "row": 892,
+      "description": "Cognitive performance",
+      "dichotomous": 0.0,
+      "group": "COGNITIVE"
+    },
+    "ColonCancer": {
+      "row": 975,
+      "description": "Colon cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "CongestiveHeartFail": {
+      "row": 1538,
+      "description": "Congestive heart failure",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "ConstipationInPD": {
+      "row": 630,
+      "description": "Constipation in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Creatinine": {
+      "row": 112,
+      "description": "Serum creatinine",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "CreatinineUrinary": {
+      "row": 294,
+      "description": "Urinary creatinine",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "CystatinC": {
+      "row": 686,
+      "description": "Cystatin C",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "CysticKD": {
+      "row": 1571,
+      "description": "Cystic kidney disease (PheCode 751.21)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "DBP": {
+      "row": 113,
+      "description": "Diastolic blood pressure",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DCM": {
+      "row": 1234,
+      "description": "Dilated cardiomyopathy, strict definition",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DDFather": {
+      "row": 1540,
+      "description": "Biological Father: Depression",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "DHEAS": {
+      "row": 893,
+      "description": "Dehydroepiandrosterone sulfate levels",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "DIBIG": {
+      "row": 1412,
+      "description": "Disposition index calculated by BIGTT-AIR and BIGTT-S",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "DI_Kadowaki_Matsuda": {
+      "row": 1411,
+      "description": "Disposition index calculated by modified insulinogenic and Matsuda insulin sensitivity indexes",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "DPAcm": {
+      "row": 604,
+      "description": "Short-axis diastolic pulmonary artery (cm)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DPAcmInd": {
+      "row": 603,
+      "description": "Short-axis diastolic pulmonary artery (cm), BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DayDozing": {
+      "row": 1209,
+      "description": "Daytime dozing (often/all the time vs. never/rarely/sometimes)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "DaySleepInPD": {
+      "row": 641,
+      "description": "Daytime sleepiness in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "DeepVeinThrombosis": {
+      "row": 1539,
+      "description": "Blood clot / pulmonary embolism / deep vein thrombosis (DVT)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DepressionInPD": {
+      "row": 632,
+      "description": "Depression in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "DescAortaDiam": {
+      "row": 381,
+      "description": "Descending aorta diameter",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DescAortaDisten": {
+      "row": 1391,
+      "description": "Descending aorta distensibility",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DescAortaStrain": {
+      "row": 1392,
+      "description": "Descending aorta strain",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DiabeticNephro": {
+      "row": 48,
+      "description": "Diabetic nephropathy",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "DiabeticRetino": {
+      "row": 49,
+      "description": "Diabetic retinopathy",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "DiastolicHeartFail": {
+      "row": 1542,
+      "description": "Heart failure with preserved EF [Diastolic heart failure] (PheCode 428.4)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "DirectBilirubin": {
+      "row": 687,
+      "description": "Direct bilirubin",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "DiverticularDisease": {
+      "row": 757,
+      "description": "Diverticular disease",
+      "dichotomous": 1.0,
+      "group": "DIGESTIVE"
+    },
+    "DiverticularDiseaseAgeO": {
+      "row": 1099,
+      "description": "Diverticular disease age of onset",
+      "dichotomous": 0.0,
+      "group": "DIGESTIVE"
+    },
+    "DyskinesiasInPD": {
+      "row": 633,
+      "description": "Dyskinesias in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Dyslipid": {
+      "row": 14,
+      "description": "Dyslipidemia",
+      "dichotomous": 1.0,
+      "group": "LIPIDS"
+    },
+    "Dyslipid_add": {
+      "row": 489,
+      "description": "Dyslipidemia (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Dyslipid_dom": {
+      "row": 418,
+      "description": "Dyslipidemia (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Dyslipid_het": {
+      "row": 420,
+      "description": "Dyslipidemia (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Dyslipid_rec": {
+      "row": 419,
+      "description": "Dyslipidemia (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "EO_Stroke_ischemic": {
+      "row": 1066,
+      "description": "Early onset ischemic stroke",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "EPATarea": {
+      "row": 1214,
+      "description": "Combined epicardial and pericardial adipose tissue (EPAT) area",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "ESR": {
+      "row": 1416,
+      "description": "Erythrocyte sedimentation rate",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "ESRD": {
+      "row": 538,
+      "description": "End-stage renal disease",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "ESRDvControlinT2D": {
+      "row": 374,
+      "description": "End-stage renal disease (ESRD) vs. controls in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "ESRDvMacroinT2D": {
+      "row": 375,
+      "description": "End-stage renal disease (ESRD) vs. macroalbuminuria in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "ESRDvNonESRDinT2D": {
+      "row": 376,
+      "description": "End-stage renal disease vs. no ESRD in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "EarlyAMD": {
+      "row": 768,
+      "description": "Early age-related macular degeneration",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "EarlyBleed": {
+      "row": 1397,
+      "description": "Early bleeding in pregnancy, with any outcome",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "EarlyBleedLiveBirth": {
+      "row": 1396,
+      "description": "Early bleeding in pregnancy, ending in live birth",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "Eczema": {
+      "row": 622,
+      "description": "Atopic dermatitis",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "Emphysema": {
+      "row": 1545,
+      "description": "Emphysema (PheCode 496.1)",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "EndometrialCancer": {
+      "row": 974,
+      "description": "Endometrial cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "EndometrialCancer_EH": {
+      "row": 1445,
+      "description": "Endometrial cancer (endometrioid histology)",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "EosinCount": {
+      "row": 363,
+      "description": "Eosinophil count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "EosinPerc": {
+      "row": 688,
+      "description": "Eosinophil percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Epilepsy_FocalHS": {
+      "row": 762,
+      "description": "Focal epilepsy (with hippocampal sclerosis)",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Epilepsy_GeneralizedTCS": {
+      "row": 760,
+      "description": "Epilepsy (generalized, with tonic-clonic seizures alone)",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "EssentialHYPERTENSION": {
+      "row": 1547,
+      "description": "Essential hypertension (PheCode 401.1)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "EssentialTremor": {
+      "row": 1376,
+      "description": "Essential tremor",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "ExtremeLongevity_90thPerc": {
+      "row": 908,
+      "description": "Longevity (age >90th survival percentile)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "ExtremeLongevity_99thPerc": {
+      "row": 909,
+      "description": "Longevity (age >99th survival percentile)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "FAinCSVD": {
+      "row": 662,
+      "description": "Fractional anisotropy in cerebral small vessel disease",
+      "dichotomous": 0.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "FBW": {
+      "row": 665,
+      "description": "Fetal genetic effect on own birth weight",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "FBWadjMGen": {
+      "row": 710,
+      "description": "Fetal genetic effect on own birth weight adj maternal genotype",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "FEV1": {
+      "row": 295,
+      "description": "Forced expired volume in 1 second (FEV1)",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "FG": {
+      "row": 123,
+      "description": "Fasting glucose",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FGadjBMI": {
+      "row": 124,
+      "description": "Fasting glucose adj BMI",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FI": {
+      "row": 125,
+      "description": "Fasting insulin",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FIadjBMI": {
+      "row": 126,
+      "description": "Fasting insulin adj BMI",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FNBMD": {
+      "row": 305,
+      "description": "Femoral neck bone mineral density",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "FNarea": {
+      "row": 303,
+      "description": "Femoral neck area",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "FT3": {
+      "row": 1218,
+      "description": "Free triiodothyronine (FT3)",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FT3overFT4": {
+      "row": 1220,
+      "description": "Free triiodothyronine to free thyroxine ratio",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FT4": {
+      "row": 1216,
+      "description": "Free thyroxine (FT4)",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "FVC": {
+      "row": 296,
+      "description": "Forced vital capacity (FVC)",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "FVCinIPF": {
+      "row": 652,
+      "description": "Forced vital capacity (FVC) in idiopathic pulmonary fibrosis",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "FastFFA": {
+      "row": 248,
+      "description": "Fasting plasma free fatty acids",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "FatIntake": {
+      "row": 735,
+      "description": "Dietary fat intake",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "FatIntakeBMIadj": {
+      "row": 734,
+      "description": "Dietary fat intake adj BMI",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "FemurToHeight": {
+      "row": 1134,
+      "description": "Femur length to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "Ferritin": {
+      "row": 900,
+      "description": "Ferritin levels",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "ForearmBMD": {
+      "row": 331,
+      "description": "Forearm bone mineral density",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "ForearmFracture": {
+      "row": 1137,
+      "description": "Forearm fracture",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "ForearmToHeight": {
+      "row": 1135,
+      "description": "Forearm length to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "Fracture": {
+      "row": 249,
+      "description": "Bone fracture",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "FrailtyIndex": {
+      "row": 979,
+      "description": "Frailty index",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "FriedFrailtyScore": {
+      "row": 956,
+      "description": "Fried frailty score",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "GCC": {
+      "row": 515,
+      "description": "GCC retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "GCIPL": {
+      "row": 901,
+      "description": "Ganglion cell inner plexiform layer (GCIPL) thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "GCL": {
+      "row": 517,
+      "description": "GCL retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "GDM": {
+      "row": 539,
+      "description": "Gestational diabetes",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "GERD": {
+      "row": 769,
+      "description": "Gastroesophageal reflux disease (GERD)",
+      "dichotomous": 1.0,
+      "group": "DIGESTIVE"
+    },
+    "GestationalDur": {
+      "row": 739,
+      "description": "Gestational duration, maternal genotype effect",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "GestationalDurationFetal": {
+      "row": 1112,
+      "description": "Gestational age at birth (fetal GWAS)",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "Glaucoma": {
+      "row": 1551,
+      "description": "Glaucoma",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "GluCorticoidDef": {
+      "row": 1432,
+      "description": "Glucocorticoid deficiency",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "Gout": {
+      "row": 1215,
+      "description": "Gout",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "Gp": {
+      "row": 253,
+      "description": "Glycoproteins",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "Graves": {
+      "row": 623,
+      "description": "Graves' disease",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "HBA1C": {
+      "row": 129,
+      "description": "Hemoglobin A1c",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "HBA1CadjBMI": {
+      "row": 281,
+      "description": "HbA1c adj BMI",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "HDL": {
+      "row": 130,
+      "description": "HDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "HDL2chol": {
+      "row": 254,
+      "description": "HDL2 cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "HDL3chol": {
+      "row": 255,
+      "description": "HDL3 cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "HIPC": {
+      "row": 133,
+      "description": "Hip circumference",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "HIPKNEEOA": {
+      "row": 53,
+      "description": "Knee and-or hip osteoarthritis",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HIPOA": {
+      "row": 54,
+      "description": "Hip osteoarthritis",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HIP_PVS": {
+      "row": 1130,
+      "description": "Extensive hippocampal perivascular space burden",
+      "dichotomous": 1.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "HMB": {
+      "row": 1117,
+      "description": "Heavy menstrual bleeding",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "HOMAB": {
+      "row": 135,
+      "description": "HOMA-B",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "HOMAIR": {
+      "row": 136,
+      "description": "HOMA-IR",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "HR": {
+      "row": 137,
+      "description": "Heart rate",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "HY3inPD": {
+      "row": 634,
+      "description": "Hoehn and Yahr score of 3 or more in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "HYPERTENSION": {
+      "row": 55,
+      "description": "Hypertension",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "HYPERTENSION_add": {
+      "row": 492,
+      "description": "Hypertension (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HYPERTENSION_dom": {
+      "row": 430,
+      "description": "Hypertension (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HYPERTENSION_het": {
+      "row": 432,
+      "description": "Hypertension (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HYPERTENSION_rec": {
+      "row": 431,
+      "description": "Hypertension (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Handedness": {
+      "row": 888,
+      "description": "Ambidextrousness",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "HbConc": {
+      "row": 352,
+      "description": "Hemoglobin concentration",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Healthspan": {
+      "row": 951,
+      "description": "Healthspan",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "Hematocrit": {
+      "row": 353,
+      "description": "Hematocrit",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Hemorrhoids_het": {
+      "row": 425,
+      "description": "Hemorrhoids (Heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HerniaAbdomin": {
+      "row": 16,
+      "description": "Hernia abdominopelvic cavity",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HerniaAbdomin_add": {
+      "row": 491,
+      "description": "Hernia abdominopelvic cavity (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HerniaAbdomin_dom": {
+      "row": 426,
+      "description": "Hernia abdominopelvic cavity (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HerniaAbdomin_het": {
+      "row": 428,
+      "description": "Hernia abdominopelvic cavity (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HerniaAbdomin_rec": {
+      "row": 427,
+      "description": "Hernia abdominopelvic cavity (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "HighScatReticuloCount": {
+      "row": 689,
+      "description": "Highlight scatter reticulocyte count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "HighScatReticuloPerc": {
+      "row": 690,
+      "description": "Highlight scatter reticulocyte percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "HipFracture": {
+      "row": 1126,
+      "description": "Hip fracture",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HipOAnoreplacement": {
+      "row": 862,
+      "description": "Hip osteoarthritis without joint replacement",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HiptoHeight": {
+      "row": 1105,
+      "description": "Hip width to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HmPerc": {
+      "row": 691,
+      "description": "Hematocrit percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "HospC19vAll": {
+      "row": 340,
+      "description": "Hospitalized COVID-19 vs population",
+      "dichotomous": 1.0,
+      "group": "COVID-19"
+    },
+    "HumerusToHeight": {
+      "row": 1104,
+      "description": "Humerus length to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "HyinPD": {
+      "row": 642,
+      "description": "Hoehn and Yahr score in Parkinson's disease",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "HyperChol": {
+      "row": 1526,
+      "description": "High cholesterol",
+      "dichotomous": 1.0,
+      "group": "LIPIDS"
+    },
+    "HyperParaThyroid": {
+      "row": 1429,
+      "description": "Hyperparathyroidism",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "HyperThyroid": {
+      "row": 1222,
+      "description": "Hyperthyroidism",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "Hyperaldosteronism": {
+      "row": 1433,
+      "description": "Hyperaldosteronism",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "Hyperglyceridemia": {
+      "row": 1548,
+      "description": "Hyperglyceridemia (PheCode 272.12)",
+      "dichotomous": 1.0,
+      "group": "LIPIDS"
+    },
+    "Hyperlipidemia": {
+      "row": 1593,
+      "description": "Hyperlipidemia (PheCode 272.1)",
+      "dichotomous": 1.0,
+      "group": "LIPIDS"
+    },
+    "HypertensiveCKD": {
+      "row": 1536,
+      "description": "Hypertensive chronic kidney disease (PheCode 401.22)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "HypoThyroidNOS": {
+      "row": 1437,
+      "description": "Hypothyroidism, not otherwise specified",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "HyposmiaInPD": {
+      "row": 635,
+      "description": "Hyposmia in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Hypotension": {
+      "row": 1594,
+      "description": "Hypotension (PheCode 458)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "IBD": {
+      "row": 138,
+      "description": "Inflammatory bowel disease (IBD)",
+      "dichotomous": 1.0,
+      "group": "INFLAMMATORY BOWEL"
+    },
+    "IBS_add": {
+      "row": 495,
+      "description": " Irritable bowel syndrome (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "IBS_dom": {
+      "row": 442,
+      "description": "Irritable bowel syndrome (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "IBS_het": {
+      "row": 444,
+      "description": "Irritable bowel syndrome (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "IBS_rec": {
+      "row": 443,
+      "description": "Irritable bowel syndrome (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "ICP": {
+      "row": 771,
+      "description": "Intrahepatic cholestasis of pregnancy",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "IDLchol": {
+      "row": 257,
+      "description": "IDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "IDLpart": {
+      "row": 258,
+      "description": "Concentration of IDL particles",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "IGF1": {
+      "row": 692,
+      "description": "Insulin-like growth factor (IGF-1)",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "INL": {
+      "row": 519,
+      "description": "INL retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "IPL": {
+      "row": 518,
+      "description": "IPL retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "ISen": {
+      "row": 143,
+      "description": "Insulin sensitivity",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "ISthickness": {
+      "row": 776,
+      "description": "Photoreceptor cell inner segment thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "ImReticuloFrac": {
+      "row": 693,
+      "description": "Immature reticulocyte fraction",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "InfantHeadCir": {
+      "row": 1232,
+      "description": "Head circumference at 6-30 months",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "InsomniaInPD": {
+      "row": 636,
+      "description": "Insomnia in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Insomnia_cont": {
+      "row": 1524,
+      "description": "Insomnia (continuous scale, e.g. 1;2;3)",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "Intelligence": {
+      "row": 902,
+      "description": "Intelligence",
+      "dichotomous": 0.0,
+      "group": "COGNITIVE"
+    },
+    "IntertrochArea": {
+      "row": 301,
+      "description": "Intertrochanteric-shaft area",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "Intraocular_pressure": {
+      "row": 903,
+      "description": "Intraocular pressure",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "Iron": {
+      "row": 1556,
+      "description": "iron (mean, inv-norm transformed)",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "IronDef": {
+      "row": 18,
+      "description": "Iron deficiency",
+      "dichotomous": 1.0,
+      "group": "NUTRITIONAL"
+    },
+    "IronDefAnemias": {
+      "row": 1527,
+      "description": "Iron deficiency anemias (PheCode 280)",
+      "dichotomous": 1.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "IronDef_add": {
+      "row": 494,
+      "description": " Iron deficiency (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "IronDef_het": {
+      "row": 440,
+      "description": "Iron deficiency (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "IronDef_rec": {
+      "row": 439,
+      "description": "Iron deficiency (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "K": {
+      "row": 206,
+      "description": "Potassium",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "KExcretion": {
+      "row": 346,
+      "description": "Urinary potassium excretion",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "KNEEOA": {
+      "row": 57,
+      "description": "Knee osteoarthritis",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "KSD": {
+      "row": 1084,
+      "description": "Kidney stone disease",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "KidneyCancer": {
+      "row": 972,
+      "description": "Kidney cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "Kidney_volume": {
+      "row": 905,
+      "description": "Kidney volume",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "KneeOAnoreplacement": {
+      "row": 861,
+      "description": "Knee osteoarthritis without joint replacement",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "KneeOAreplacement": {
+      "row": 860,
+      "description": "Knee osteoarthritis with joint replacement",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "KneePain": {
+      "row": 626,
+      "description": "Knee pain",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LADA": {
+      "row": 348,
+      "description": "Latent autoimmune diabetes in adults",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "LBD": {
+      "row": 577,
+      "description": "Lewy body dementia",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "LDH_M51_1": {
+      "row": 1522,
+      "description": "Lumbar disc herniation (ICD-10:M51.1)",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LDL": {
+      "row": 151,
+      "description": "LDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "LEP": {
+      "row": 152,
+      "description": "Leptin",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "LEPadjBMI": {
+      "row": 153,
+      "description": "Leptin adj BMI",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "LFR": {
+      "row": 28,
+      "description": "Leg fat ratio",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "LPDFF": {
+      "row": 1248,
+      "description": "Liver proton density fat fraction",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "LSarea": {
+      "row": 299,
+      "description": "Lumbar spine area",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LVEDA": {
+      "row": 1264,
+      "description": "Left ventricular end diastole anterior wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDAL": {
+      "row": 1263,
+      "description": "Left ventricular end diastole anterolateral wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDAS": {
+      "row": 1265,
+      "description": "Left ventricular end diastole anterospetal wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDI": {
+      "row": 1261,
+      "description": "Left ventricular end diastole inferior wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDIL": {
+      "row": 1262,
+      "description": "Left ventricular end diastole inferolateral wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDIS": {
+      "row": 1260,
+      "description": "Left ventricular end diastole inferoseptal wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDV": {
+      "row": 58,
+      "description": "Left ventricular end-diastolic volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEDVI": {
+      "row": 59,
+      "description": "Left ventricular end-diastolic volume (BSA-indexed)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVEF": {
+      "row": 60,
+      "description": "Left ventricular ejection fraction",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESA": {
+      "row": 1258,
+      "description": "Left ventricular end systole anterior wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESAL": {
+      "row": 1257,
+      "description": "Left ventricular end systole anterolateral wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESAS": {
+      "row": 1259,
+      "description": "Left ventricular end systole anterospetal wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESI": {
+      "row": 1255,
+      "description": "Left ventricular end systole inferior wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESIL": {
+      "row": 1256,
+      "description": "Left ventricular end systole inferolateral wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESIS": {
+      "row": 1254,
+      "description": "Left ventricular end systole inferoseptal wall thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESV": {
+      "row": 61,
+      "description": "Left ventricular end-systolic volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVESVI": {
+      "row": 62,
+      "description": "Left ventricular end-systolic volume (BSA-indexed)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVmass": {
+      "row": 547,
+      "description": "Left ventricular mass",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LVmass-EDVratio": {
+      "row": 548,
+      "description": "Left ventricular mass to end-diastolic volume ratio",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "LateAD": {
+      "row": 344,
+      "description": "Late-onset Alzheimer's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "LipoproteinA": {
+      "row": 694,
+      "description": "Lipoprotein(a) ",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "LiverAge": {
+      "row": 613,
+      "description": "Liver age",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "LiverFat": {
+      "row": 537,
+      "description": "Liver fat content",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "LiverIron": {
+      "row": 906,
+      "description": "Liver iron content",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "Liver_volume": {
+      "row": 907,
+      "description": "Liver volume",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "LocalOA": {
+      "row": 1553,
+      "description": "Osteoarthritis, localized (PheCode 740.1)",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LocalSystemicLupus": {
+      "row": 1584,
+      "description": "Lupus (localized and systemic) (PheCode 695.4)",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "LowGripEWGSOP": {
+      "row": 366,
+      "description": "Low hand grip strength (EWGSOP definition)",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LowGripFNIH": {
+      "row": 367,
+      "description": "Low hand grip strength (FNIH definition)",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LumbarDiscHerniation": {
+      "row": 1521,
+      "description": "Lumbar disc herniation",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "LungCancer": {
+      "row": 971,
+      "description": "Lung cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "Lung_volume": {
+      "row": 911,
+      "description": "Lung volume",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "LymphLeukemia": {
+      "row": 970,
+      "description": "Lymphocytic leukemia",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "LymphoCount": {
+      "row": 360,
+      "description": "Lymphocyte count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "LymphoPerc": {
+      "row": 695,
+      "description": "Lymphocyte percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MA_DM": {
+      "row": 997,
+      "description": "Microalbuminuria in diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "MA_T1D": {
+      "row": 1027,
+      "description": "Microalbuminuria in type 1 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "MBWadjFGen": {
+      "row": 711,
+      "description": "Maternal genetic effect on offspring birth weight adj fetal genotype",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MDD": {
+      "row": 158,
+      "description": "Major depressive disorder, strict definition (ICD and equivalent)",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD1_depressed": {
+      "row": 1476,
+      "description": "MDD1: Depressed mood most of the day, nearly every day",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD4a_sleepProb": {
+      "row": 1480,
+      "description": "MDD4a: Insomnia nearly every day",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD5b_psychomotorSlow": {
+      "row": 1483,
+      "description": "MDD5b: Psychomotor slowing nearly every day",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD6_fatigue": {
+      "row": 1484,
+      "description": "MDD6: Fatigue or loss of energy nearly every day",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD7_worthless": {
+      "row": 1485,
+      "description": "MDD7: Feelings of worthlessness or excessive or inappropriate guilt",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD8_concentration": {
+      "row": 1486,
+      "description": "MDD8: Diminished ability to think or concentrate, or indecisiveness",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD_NoTrauma": {
+      "row": 767,
+      "description": "Major depressive disorder in trauma-unexposed individuals",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD_Trauma": {
+      "row": 766,
+      "description": "Major depressive disorder in trauma-exposed individuals",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "MDD_add": {
+      "row": 486,
+      "description": "Major depressive disorder (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "MDD_dom": {
+      "row": 406,
+      "description": "Major depressive disorder (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "MDD_het": {
+      "row": 408,
+      "description": "Major depressive disorder (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "MDinCSVD": {
+      "row": 663,
+      "description": "Mean diffusivity in cerebral small vessel disease",
+      "dichotomous": 0.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "MI": {
+      "row": 159,
+      "description": "Myocardial infarction",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "MMSEinPD": {
+      "row": 643,
+      "description": "Mini-mental state examination in Parkinson's disease",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "MOCAinPD": {
+      "row": 644,
+      "description": "Montreal cognitive assessment in Parkinson's disease",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "MP": {
+      "row": 213,
+      "description": "Age at natural menopause (ANM)",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MVP": {
+      "row": 575,
+      "description": "Mitral valve prolapse",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "MacroInT2D": {
+      "row": 377,
+      "description": "Macroalbuminuria in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "Macroalbuminuria_DM": {
+      "row": 1030,
+      "description": "Macroalbuminuria in diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "MacrovControl_T1D": {
+      "row": 1031,
+      "description": "Macroalbuminuria vs. controls in type 1 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "MaternalLongevity_AtDeath": {
+      "row": 930,
+      "description": "Parental longevity (mother's age at death)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "MaternalLongevity_Attained": {
+      "row": 931,
+      "description": "Parental longevity (mother's attained age)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "MeanCorpHb": {
+      "row": 354,
+      "description": "Mean corpuscular hemoglobin",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MeanCorpHbConc": {
+      "row": 356,
+      "description": "Mean corpuscular hemoglobin concentration",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MeanCorpVol": {
+      "row": 355,
+      "description": "Mean corpuscular volume",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MeanReticuloVol": {
+      "row": 696,
+      "description": "Mean reticulocyte volume",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MeanSleepDiurnalInactRN": {
+      "row": 223,
+      "description": "Diurnal inactivity duration, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepDurationRN": {
+      "row": 224,
+      "description": "Mean sleep duration, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepEfficiencyRN": {
+      "row": 225,
+      "description": "Sleep efficiency, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepL5timeRN": {
+      "row": 226,
+      "description": "Least-active 5 hour timing, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepM10timeRN": {
+      "row": 227,
+      "description": "Most-active 10 hour timing, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepMidPointRN": {
+      "row": 228,
+      "description": "Sleep midpoint timing, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSleepNumEpisodesRN": {
+      "row": 229,
+      "description": "Number of sleep episodes, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "MeanSpheredVol": {
+      "row": 697,
+      "description": "Mean sphered cell volume",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Melanoma": {
+      "row": 969,
+      "description": "Melanoma",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "MemPerformance": {
+      "row": 913,
+      "description": "Memory performance",
+      "dichotomous": 0.0,
+      "group": "COGNITIVE"
+    },
+    "Men": {
+      "row": 212,
+      "description": "Age at menarche",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MicroInT2D": {
+      "row": 378,
+      "description": "Microalbuminuria in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "MomEarlyGWG": {
+      "row": 542,
+      "description": "Maternal early gestational weight gain, maternal genotype effect",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MomLateGWG": {
+      "row": 543,
+      "description": "Maternal late gestational weight gain, maternal genotype effect",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MomTotalGWG": {
+      "row": 541,
+      "description": "Maternal total gestational weight gain, maternal genotype effect",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "MonoCount": {
+      "row": 361,
+      "description": "Monocyte count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MonoPerc": {
+      "row": 698,
+      "description": "Monocyte percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "MotorFlucInPD": {
+      "row": 637,
+      "description": "Motor fluctuations in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "Myasthenia_gravis_early": {
+      "row": 882,
+      "description": "Early-onset myasthenia gravis",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "Myasthenia_gravis_late": {
+      "row": 883,
+      "description": "Late-onset myasthenia gravis",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "MyocardialT1": {
+      "row": 666,
+      "description": "Native myocardial T1 time",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "NAFLD": {
+      "row": 527,
+      "description": "NAFLD",
+      "dichotomous": 1.0,
+      "group": "HEPATIC"
+    },
+    "NAFLDinT2D": {
+      "row": 379,
+      "description": "NAFLD in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "ND": {
+      "row": 161,
+      "description": "Neovascular age-related macular degeneration",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "NPDRvNoDRwDoD": {
+      "row": 65,
+      "description": "Non-proliferative diabetic retinopathy vs no DR acct DoD-GC",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "NT1": {
+      "row": 1100,
+      "description": "Narcolepsy type 1",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "NaExcretion": {
+      "row": 345,
+      "description": "Urinary sodium excretion",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "Naps": {
+      "row": 1208,
+      "description": "Daytime napping (usually vs. never/rarely/sometimes)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "NeuropathyinT2D": {
+      "row": 262,
+      "description": "Neuropathy in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "Neuroticism": {
+      "row": 884,
+      "description": "Neuroticism",
+      "dichotomous": 0.0,
+      "group": "PSYCHIATRIC"
+    },
+    "Neuroticism_DepressedAffect": {
+      "row": 758,
+      "description": "Depressed affect",
+      "dichotomous": 0.0,
+      "group": "PSYCHIATRIC"
+    },
+    "Neuroticism_Worry": {
+      "row": 759,
+      "description": "Worry",
+      "dichotomous": 0.0,
+      "group": "PSYCHIATRIC"
+    },
+    "NeutCount": {
+      "row": 359,
+      "description": "Neutrophil count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "NeutroPerc": {
+      "row": 699,
+      "description": "Neutrophil percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "NonHodgkinsLymphoma": {
+      "row": 968,
+      "description": "Non-Hodgkin's lymphoma",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "NucleatedRedCount": {
+      "row": 700,
+      "description": "Nucleated red blood cell count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "NucleatedRedPerc": {
+      "row": 701,
+      "description": "Nucleated red blood cell percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "OCPCancer": {
+      "row": 967,
+      "description": "Oral cavity and pharyngeal cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "ONLthickness": {
+      "row": 775,
+      "description": "Photoreceptor cell outer nuclear layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "OPL": {
+      "row": 520,
+      "description": "OPL retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "OSthickness": {
+      "row": 777,
+      "description": "Photoreceptor cell outer segment thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "Obesity": {
+      "row": 66,
+      "description": "Obesity",
+      "dichotomous": 1.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "ObstructiveApnea": {
+      "row": 1562,
+      "description": "Obstructive sleep apnea (PheCode 327.32)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "OcculusionCerebralArteries": {
+      "row": 1534,
+      "description": "Occlusion of cerebral arteries (PheCode 433.2)",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "OcularVD": {
+      "row": 514,
+      "description": "Retinal vascular density",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "OpenAngleGlaucoma": {
+      "row": 1552,
+      "description": "Open-angle glaucoma (PheCode 365.1)",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "Optic_cup_area": {
+      "row": 920,
+      "description": "Optic cup area",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "Optic_disc_area": {
+      "row": 921,
+      "description": "Optic disc area",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "Osteoporosis": {
+      "row": 19,
+      "description": "EHR-defined osteoporosis",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "Osteoporosis_add": {
+      "row": 498,
+      "description": "EHR-defined osteoporosis (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Osteoporosis_dom": {
+      "row": 454,
+      "description": "EHR-defined osteoporosis (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Osteoporosis_het": {
+      "row": 456,
+      "description": "EHR-defined osteoporosis (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Osteoporosis_rec": {
+      "row": 455,
+      "description": "EHR-defined osteoporosis (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PACG": {
+      "row": 163,
+      "description": "Primary angle-closure glaucoma",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "PAD_neversmk": {
+      "row": 531,
+      "description": "Peripheral artery disease in never smokers",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PADinT2D": {
+      "row": 529,
+      "description": "Peripheral artery disease in type 2 diabetes (T2D)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PADnonT2D": {
+      "row": 530,
+      "description": "Peripheral artery disease in subjects without diabetes",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PAH": {
+      "row": 875,
+      "description": "Pulmonary arterial hypertension",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PAStraincm": {
+      "row": 606,
+      "description": "Short-axis pulmonary artery strain (cm)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PA_AvgAcc": {
+      "row": 885,
+      "description": "Accelerometer-based physical activity measurement (average acceleration)",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_FracTimeAcc425MG": {
+      "row": 886,
+      "description": "Accelerometer-based physical activity measurement (fraction of time with accelerations >425 milli-gravities)",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_ModerateDur": {
+      "row": 933,
+      "description": "Physical activity (moderate intensity activity duration)",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_ModerateToVigorous": {
+      "row": 916,
+      "description": "Moderate to vigorous physical activity levels",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_OverallDur": {
+      "row": 934,
+      "description": "Physical activity (overall physical activity time)",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_SedentaryDur": {
+      "row": 937,
+      "description": "Sedentary behavior duration",
+      "dichotomous": 0.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PA_UsualWalkPace": {
+      "row": 959,
+      "description": "Usual walking pace",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "PA_Vigorous": {
+      "row": 947,
+      "description": "Vigorous physical activity",
+      "dichotomous": 1.0,
+      "group": "PHYSICAL ACTIVITY"
+    },
+    "PAcm": {
+      "row": 609,
+      "description": "Short-axis pulmonary artery (cm)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PAcmInd": {
+      "row": 605,
+      "description": "Short-axis pulmonary artery (cm), BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PAtoARdia": {
+      "row": 585,
+      "description": "Pulmonary artery to aorta ratio, diastole",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PAtoARsys": {
+      "row": 586,
+      "description": "Pulmonary artery to aorta ratio, systole",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PC1diet": {
+      "row": 315,
+      "description": "PC1 dietary pattern",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "PC3diet": {
+      "row": 316,
+      "description": "PC3 dietary pattern",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "PCOS": {
+      "row": 809,
+      "description": "Polycystic ovary syndrome (PCOS)",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PCOSadjAge": {
+      "row": 651,
+      "description": "Polycystic ovary syndrome, age-adjusted",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PDAgeO": {
+      "row": 1065,
+      "description": "Age of Parkinson's disease onset",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "PDAndFirstDegree": {
+      "row": 1049,
+      "description": "Parkinson's disease with proxy cases",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "PEF": {
+      "row": 298,
+      "description": "Peak expiratory flow",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "PI": {
+      "row": 164,
+      "description": "Fasting proinsulin",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "PIadjBMI": {
+      "row": 667,
+      "description": "Fasting proinsulin adj BMI",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "POAG": {
+      "row": 211,
+      "description": "Primary open-angle glaucoma",
+      "dichotomous": 1.0,
+      "group": "OCULAR"
+    },
+    "PPH": {
+      "row": 1400,
+      "description": "Postpartum hemorrhage",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PPHAtony": {
+      "row": 1398,
+      "description": "Postpartum hemorrhage due to uterine atony",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PPHRetainedPlacenta": {
+      "row": 1399,
+      "description": "Postpartum hemorrhage due to retained placenta",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PRI": {
+      "row": 165,
+      "description": "PR interval",
+      "dichotomous": 0.0,
+      "group": "ECG TRAITS"
+    },
+    "PS": {
+      "row": 524,
+      "description": "PS retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "PTMFI": {
+      "row": 1250,
+      "description": "Posterior thigh muscle fat infiltration percentage",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "PTMV": {
+      "row": 1249,
+      "description": "Posterior thigh muscle volume",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "PVD_rec": {
+      "row": 467,
+      "description": "Peripheral vascular disease (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PVDinT2D": {
+      "row": 71,
+      "description": "Peripheral vascular disease in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "Palpitations": {
+      "row": 1528,
+      "description": "Palpitations (PheCode 427.9)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PanAge": {
+      "row": 612,
+      "description": "Pancreas age",
+      "dichotomous": 0.0,
+      "group": "OTHER"
+    },
+    "PancreasFat": {
+      "row": 922,
+      "description": "Pancreas fat",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "PancreasIron": {
+      "row": 923,
+      "description": "Pancreas iron content",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "Pancreas_volume": {
+      "row": 953,
+      "description": "Pancreas volume",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "Parasomnia": {
+      "row": 1582,
+      "description": "Parasomnia (PheCode 327.5)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "ParentalExtremeLongevity_10pct": {
+      "row": 926,
+      "description": "Parental longevity (both parents in top 10%)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "ParentalExtremeLongevity_95yrs": {
+      "row": 924,
+      "description": "Parental extreme longevity (95 years and older)",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "ParentalLifespan": {
+      "row": 925,
+      "description": "Parental lifespan",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "ParentalLongevity_AtDeath": {
+      "row": 927,
+      "description": "Parental longevity (combined parental age at death)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "ParentalLongevity_Attained": {
+      "row": 929,
+      "description": "Parental longevity (combined parental attained age, Martingale residuals)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "Parkinsons": {
+      "row": 322,
+      "description": "Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "ParoxysmalTachycardia": {
+      "row": 1554,
+      "description": "Paroxysmal tachycardia, unspecified (PheCode 427.1)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PaternalLongevity_AtDeath": {
+      "row": 928,
+      "description": "Parental longevity (father's age at death)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "PaternalLongevity_Attained": {
+      "row": 950,
+      "description": "Parental longevity (father's attained age)",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "PepticUlcers": {
+      "row": 317,
+      "description": "Peptic ulcers",
+      "dichotomous": 1.0,
+      "group": "DIGESTIVE"
+    },
+    "PepticUlcers_add": {
+      "row": 499,
+      "description": "Peptic ulcers (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PepticUlcers_dom": {
+      "row": 458,
+      "description": "Peptic ulcers (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PepticUlcers_het": {
+      "row": 460,
+      "description": "Peptic ulcers (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PepticUlcers_rec": {
+      "row": 459,
+      "description": "Peptic ulcers (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PerceivedAge": {
+      "row": 955,
+      "description": "Perceived age",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "Phosphate": {
+      "row": 702,
+      "description": "Phosphate",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "PituitaryHypo": {
+      "row": 1431,
+      "description": "Pituitary hypofunction",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "PlatCount": {
+      "row": 364,
+      "description": "Platelet count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "PlatCrit": {
+      "row": 703,
+      "description": "Plateletcrit (PCT)",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "PlatDistWidth": {
+      "row": 704,
+      "description": "Platelet distribution width",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "PlatVol": {
+      "row": 365,
+      "description": "Mean platelet volume",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Pollinosis": {
+      "row": 624,
+      "description": "Pollinosis",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "PolyneuropathyDM": {
+      "row": 1428,
+      "description": "Polyneuropathy in diabetes",
+      "dichotomous": 1.0,
+      "group": "DIABETIC COMPLICATIONS"
+    },
+    "PosttermBirthFetal": {
+      "row": 1113,
+      "description": "Post-term birth (fetal GWAS)",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PosttermBirthMaternal": {
+      "row": 1368,
+      "description": "Post-term delivery, maternal GWAS",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "PredC19vPredNoC19": {
+      "row": 343,
+      "description": "Predicted COVID-19 vs predicted COVID-19 negative",
+      "dichotomous": 1.0,
+      "group": "COVID-19"
+    },
+    "PretermBirthMaternal": {
+      "row": 1367,
+      "description": "Pre-term delivery, maternal GWAS",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "ProstateCancer": {
+      "row": 964,
+      "description": "Prostate cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "ProteinIntake": {
+      "row": 737,
+      "description": "Dietary protein intake",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "ProteinIntakeBMIadj": {
+      "row": 736,
+      "description": "Dietary protein intake adj BMI",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "Psoriasis": {
+      "row": 754,
+      "description": "Psoriasis",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "PsoriasisVulgaris": {
+      "row": 1598,
+      "description": "Psoriasis vulgaris (PheCode 696.41)",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "PsoriaticArthropathy": {
+      "row": 1603,
+      "description": "Psoriatic arthropathy (PheCode 696.42)",
+      "dichotomous": 1.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "Psychiatric": {
+      "row": 21,
+      "description": "Psychiatric disorders",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "Psychiatric_add": {
+      "row": 501,
+      "description": "Psychiatric disorders (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Psychiatric_rec": {
+      "row": 463,
+      "description": "Psychiatric disorders (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "PulmonaryHT": {
+      "row": 1266,
+      "description": "Pulmonary hypertension",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PulsePress": {
+      "row": 266,
+      "description": "Pulse pressure",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "PulseRate": {
+      "row": 723,
+      "description": "Pulse rate",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "QRS": {
+      "row": 167,
+      "description": "QRS interval",
+      "dichotomous": 0.0,
+      "group": "ECG TRAITS"
+    },
+    "QTc": {
+      "row": 574,
+      "description": "Corrected QT interval (QTc)",
+      "dichotomous": 0.0,
+      "group": "ECG TRAITS"
+    },
+    "RA": {
+      "row": 30,
+      "description": "Low relative amplitude cases vs controls",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "RAFAC": {
+      "row": 587,
+      "description": "Right atrial fractional change",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RAMaxArea": {
+      "row": 589,
+      "description": "Right atrial maximum area",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RAMaxAreaInd": {
+      "row": 588,
+      "description": "Right atrial maximum area, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RAMinArea": {
+      "row": 591,
+      "description": "Right atrial minimum area",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RAMinAreaInd": {
+      "row": 590,
+      "description": "Right atrial minimum area, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RAQT": {
+      "row": 31,
+      "description": "Relative amplitude",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "RBD": {
+      "row": 1101,
+      "description": "REM sleep behavior disorder",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "RBDinPD": {
+      "row": 638,
+      "description": "REM sleep behavior disorder in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "RLinPD": {
+      "row": 639,
+      "description": "Restless legs syndrome in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "RPE": {
+      "row": 521,
+      "description": "RPE retinal layer thickness",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "RVEDV": {
+      "row": 594,
+      "description": "Right ventricular end-diastolic volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVEDVI": {
+      "row": 592,
+      "description": "Right ventricular end-diastolic volume, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVEDVtoLVEDV": {
+      "row": 593,
+      "description": "Right ventricular end-diastolic volume to left ventricular end-diastolic volume ratio",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVEF": {
+      "row": 596,
+      "description": "Right ventricular ejection fraction",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVEFtoLVEF": {
+      "row": 595,
+      "description": "Right ventricular ejection fraction to left ventricular ejection fraction ratio",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVESV": {
+      "row": 599,
+      "description": "Right ventricular end-systolic volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVESVI": {
+      "row": 597,
+      "description": "Right ventricular end-systolic volume, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVESVtoLVESV": {
+      "row": 598,
+      "description": "Right ventricular end-systolic volume to left ventricular end-systolic volume ratio",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVSV": {
+      "row": 602,
+      "description": "Right ventricular stroke volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVSVI": {
+      "row": 600,
+      "description": "Right ventricular stroke volume, BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RVSVtoLVSV": {
+      "row": 601,
+      "description": "Right ventricular stroke volume to left ventricular stroke volume ratio",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "ReactionTime": {
+      "row": 936,
+      "description": "Reaction time",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "RectalCancer": {
+      "row": 963,
+      "description": "Rectal cancer",
+      "dichotomous": 1.0,
+      "group": "CANCER"
+    },
+    "RedCount": {
+      "row": 72,
+      "description": "Red blood cell count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "RemnantC": {
+      "row": 268,
+      "description": "Remnant cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "RestlessLegs": {
+      "row": 1575,
+      "description": "Restless legs syndrome (PheCode 327.71)",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "ReticuloCount": {
+      "row": 705,
+      "description": "Reticulocyte count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "ReticuloPerc": {
+      "row": 706,
+      "description": "Reticulocyte percentage",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "Rootcm": {
+      "row": 608,
+      "description": "Short-axis root (cm)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "RootcmInd": {
+      "row": 607,
+      "description": "Short-axis root (cm), BSA indexed",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "Rosacea": {
+      "row": 1565,
+      "description": "Rosacea (PheCode 695.3)",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "SAT": {
+      "row": 668,
+      "description": "Subcutaneous adipose tissue volume",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "SBP": {
+      "row": 168,
+      "description": "Systolic blood pressure",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "SCAD": {
+      "row": 1131,
+      "description": "Spontaneous coronary artery dissection",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "SCOOPvSTILTS": {
+      "row": 24,
+      "description": "Obese vs thin",
+      "dichotomous": 1.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "SCOOPvUKHLS": {
+      "row": 25,
+      "description": "Obese vs controls",
+      "dichotomous": 1.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "SCZ": {
+      "row": 169,
+      "description": "Schizophrenia",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "SEADL70inPD": {
+      "row": 640,
+      "description": "Modified Schwab and England Activities of Daily Living Scale (SEADL) of 70 or less in Parkinson's disease",
+      "dichotomous": 1.0,
+      "group": "NEUROLOGICAL"
+    },
+    "SEADLinPD": {
+      "row": 645,
+      "description": "Modified Schwab and England Activities of Daily Living Scale (SEADL) in Parkinson's disease",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "SHBG": {
+      "row": 707,
+      "description": "Sex hormone binding globulin (SHBG) levels",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "SHBGadjBMI": {
+      "row": 942,
+      "description": "Sex hormone-binding globulin levels adj BMI",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "SHS": {
+      "row": 1491,
+      "description": "Sleep health scores (additive from all sleep assessment scores)",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SHS_PC2": {
+      "row": 1493,
+      "description": "Sleep health scores (additive from all sleep assessment scores), PC2",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SHS_PC5": {
+      "row": 1496,
+      "description": "Sleep health scores (additive from all sleep assessment scores), PC5",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SRH": {
+      "row": 961,
+      "description": "Self-rated health",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "STILTSvUKHLS": {
+      "row": 26,
+      "description": "Controls vs thin",
+      "dichotomous": 1.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "SVI": {
+      "row": 74,
+      "description": "Left ventricular stroke volume (BSA-indexed)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "SVL": {
+      "row": 75,
+      "description": "Left ventricular stroke volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "SecHypoThyroid": {
+      "row": 1417,
+      "description": "Secondary hypothyroidism",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "SeropositiveRhA": {
+      "row": 755,
+      "description": "Seropositive rheumatoid arthritis",
+      "dichotomous": 1.0,
+      "group": "IMMUNOLOGICAL"
+    },
+    "SevereC19vAll": {
+      "row": 338,
+      "description": "Very severe respiratory confirmed COVID-19 vs population",
+      "dichotomous": 1.0,
+      "group": "COVID-19"
+    },
+    "SevereDKD": {
+      "row": 536,
+      "description": "Severe diabetic kidney disease",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "ShoulderToHeight": {
+      "row": 1106,
+      "description": "Shoulder width to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "SleepApneaAdjBMI": {
+      "row": 1138,
+      "description": "Sleep apnea adj BMI",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepChronotype": {
+      "row": 170,
+      "description": "Chronotype (morningness)",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepEDS": {
+      "row": 172,
+      "description": "Excessive daytime sleepiness",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepInsomnia_ICD": {
+      "row": 1051,
+      "description": "Insomnia (ICD defined)",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepInsomnia_add": {
+      "row": 493,
+      "description": " Frequent insomnia symptoms (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "SleepInsomnia_dom": {
+      "row": 434,
+      "description": "Frequent insomnia symptoms (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "SleepInsomnia_het": {
+      "row": 436,
+      "description": "Frequent insomnia symptoms (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "SleepInsomnia_rec": {
+      "row": 435,
+      "description": "Frequent insomnia symptoms (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "SleepLong": {
+      "row": 174,
+      "description": "Long sleep duration",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepNaps": {
+      "row": 175,
+      "description": "Daytime napping",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "SleepShort": {
+      "row": 176,
+      "description": "Short sleep duration",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "Smoke_AgeFirst": {
+      "row": 1239,
+      "description": "Age of initiation of regular smoking",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "Smoke_Cessation": {
+      "row": 1240,
+      "description": "Smoking cessation",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "Smoke_CigPerDay": {
+      "row": 1241,
+      "description": "Number of cigarettes per day",
+      "dichotomous": 0.0,
+      "group": "LUNG"
+    },
+    "Smoke_Ever": {
+      "row": 1242,
+      "description": "Regular smoking at any time",
+      "dichotomous": 1.0,
+      "group": "LUNG"
+    },
+    "SmokingFGint": {
+      "row": 4,
+      "description": "Smoking-fasting glucose interaction",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "SmokingFGmain": {
+      "row": 6,
+      "description": "Smoking-fasting glucose interaction, main effect model",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "SmokingT2Dmain": {
+      "row": 9,
+      "description": "Smoking-T2D interaction, main effect model",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "SnoringAdjBMI": {
+      "row": 33,
+      "description": "Snoring adj BMI",
+      "dichotomous": 1.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "Sodium": {
+      "row": 207,
+      "description": "Sodium",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "Spleen_volume": {
+      "row": 943,
+      "description": "Spleen volume",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "SporadicMiscarriage": {
+      "row": 854,
+      "description": "Sporadic miscarriage",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "StDevSleepDurationRN": {
+      "row": 230,
+      "description": "Standard deviation of sleep duration, rank-normalized",
+      "dichotomous": 0.0,
+      "group": "SLEEP AND CIRCADIAN"
+    },
+    "StoolFreq": {
+      "row": 876,
+      "description": "Stool frequency",
+      "dichotomous": 0.0,
+      "group": "DIGESTIVE"
+    },
+    "Stress": {
+      "row": 22,
+      "description": "Acute reaction to stress",
+      "dichotomous": 1.0,
+      "group": "PSYCHIATRIC"
+    },
+    "Stress_add": {
+      "row": 502,
+      "description": "Acute reaction to stress (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Stress_dom": {
+      "row": 470,
+      "description": "Acute reaction to stress (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Stress_het": {
+      "row": 472,
+      "description": "Acute reaction to stress (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Stress_rec": {
+      "row": 471,
+      "description": "Acute reaction to stress (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "Stroke_cardioembolic": {
+      "row": 772,
+      "description": "Cardioembolic stroke",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "Stroke_deep": {
+      "row": 177,
+      "description": "Non-lobar intracranial hemorrhage",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "Stroke_ischemic": {
+      "row": 179,
+      "description": "All ischemic stroke",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "Stroke_lobar": {
+      "row": 180,
+      "description": "Lobar intracranial hemorrhage",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "Stumvoll": {
+      "row": 1408,
+      "description": "Stumvoll first-phase secretion",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "SubarachnoidHemorrhage": {
+      "row": 1569,
+      "description": "Subarachnoid hemorrhage (PheCode 430.1)",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "SubcorticalVol": {
+      "row": 1230,
+      "description": "Total brain subcortical volume",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "SubduralHemorrhage": {
+      "row": 1529,
+      "description": "Subdural hemorrhage (PheCode 430.3)",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "SystolicHeartFail": {
+      "row": 1576,
+      "description": "Heart failure with reduced EF [Systolic or combined heart failure] (PheCode 428.3)",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "T1D": {
+      "row": 76,
+      "description": "Type 1 diabetes (T1D)",
+      "dichotomous": 1.0,
+      "group": "TYPE 1 DIABETES"
+    },
+    "T1DwKA": {
+      "row": 1419,
+      "description": "Type 1 diabetes with ketoacidosis",
+      "dichotomous": 1.0,
+      "group": "TYPE 1 DIABETES"
+    },
+    "T1DwNM": {
+      "row": 1422,
+      "description": "Type 1 diabetes with neurological manifestations",
+      "dichotomous": 1.0,
+      "group": "TYPE 1 DIABETES"
+    },
+    "T1DwOM": {
+      "row": 1421,
+      "description": "Type 1 diabetes with ophthalmic manifestations",
+      "dichotomous": 1.0,
+      "group": "TYPE 1 DIABETES"
+    },
+    "T1DwRM": {
+      "row": 1420,
+      "description": "Type 1 diabetes with renal manifestations",
+      "dichotomous": 1.0,
+      "group": "TYPE 1 DIABETES"
+    },
+    "T2D_add": {
+      "row": 488,
+      "description": "Type 2 diabetes (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "T2D_age-related": {
+      "row": 914,
+      "description": "Mild age-related type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2D_autoimmune": {
+      "row": 938,
+      "description": "Severe autoimmune type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2D_dom": {
+      "row": 414,
+      "description": "Type 2 diabetes (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "T2D_het": {
+      "row": 416,
+      "description": "Type 2 diabetes (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "T2D_insulin-deficient": {
+      "row": 939,
+      "description": "Severe insulin-deficient type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2D_nopreg": {
+      "row": 1268,
+      "description": "Type 2 diabetes (with no history of pregnancy)",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2D_preg": {
+      "row": 1267,
+      "description": "Type 2 diabetes (with history of pregnancy)",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2D_rec": {
+      "row": 415,
+      "description": "Type 2 diabetes (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "T2DadjBMI": {
+      "row": 186,
+      "description": "Type 2 diabetes (T2D) adj BMI",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2DwNM": {
+      "row": 1426,
+      "description": "Type 2 diabetes with neurological manifestations",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2DwOM": {
+      "row": 1425,
+      "description": "Type 2 diabetes with ophthalmic manifestations",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2DwPC": {
+      "row": 1427,
+      "description": "Type 2 diabetes with peripheral circulatory manifestations",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "T2DwRM": {
+      "row": 1424,
+      "description": "Type 2 diabetes with renal manifestations",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "TB-LM": {
+      "row": 326,
+      "description": "Total body lean mass",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TFR": {
+      "row": 29,
+      "description": "Trunk fat ratio",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "TGinT2D": {
+      "row": 659,
+      "description": "Triglyceride levels in individuals with type 2 diabetes",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "TGnonT2D": {
+      "row": 660,
+      "description": "Triglyceride levels in individuals without type 2 diabetes",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "TGtoHDL": {
+      "row": 293,
+      "description": "Triglyceride-to-HDL ratio",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "TL": {
+      "row": 982,
+      "description": "Telomere length",
+      "dichotomous": 0.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "TSH": {
+      "row": 1119,
+      "description": "Thyroid-stimulating hormone levels",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "TT3": {
+      "row": 1219,
+      "description": "Total triiodothyronine (TT3)",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "TT3overFT4": {
+      "row": 1221,
+      "description": "Total triiodothyronine to free thyroxine ratio",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "TTMVz": {
+      "row": 1251,
+      "description": "Total thigh muscle volume z-score",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TestiHypo": {
+      "row": 1436,
+      "description": "Testicular hypofunction",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "Testosterone_bioavailable": {
+      "row": 891,
+      "description": "Bioavailable testosterone levels",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "Testosterone_total": {
+      "row": 708,
+      "description": "Total testosterone levels",
+      "dichotomous": 0.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "ThoracicAA": {
+      "row": 1404,
+      "description": "Thoracic aortic aneurysm",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "Thyroid": {
+      "row": 3,
+      "description": "Hypothyroidism",
+      "dichotomous": 1.0,
+      "group": "GLYCEMIC"
+    },
+    "TibiaToHeight": {
+      "row": 1103,
+      "description": "Tibia length to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TibiofemoralAngle": {
+      "row": 1136,
+      "description": "Tibiofemoral angle",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TorsoToHeight": {
+      "row": 1107,
+      "description": "Torso length to body height ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TotHipArea": {
+      "row": 302,
+      "description": "Total hip area",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TotalProtein": {
+      "row": 709,
+      "description": "Total plasma protein",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "TrochanterArea": {
+      "row": 300,
+      "description": "Trochanter area",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "TroponinMeasure": {
+      "row": 1563,
+      "description": "total troponin (mean, inv-norm transformed)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "Tyr": {
+      "row": 273,
+      "description": "Tyrosine",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "UACR_nonDM": {
+      "row": 351,
+      "description": "Urinary albumin-to-creatinine ratio (UACR) in subjects without diabetes",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "UC": {
+      "row": 194,
+      "description": "Ulcerative colitis",
+      "dichotomous": 1.0,
+      "group": "INFLAMMATORY BOWEL"
+    },
+    "UMOD_aptamer": {
+      "row": 872,
+      "description": "Circulating uromodulin, aptamer-based measurement",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "UPCR": {
+      "row": 321,
+      "description": "Urinary potassium-to-creatinine ratio",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "UPDRS": {
+      "row": 650,
+      "description": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Total",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "UPDRS1": {
+      "row": 646,
+      "description": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 1",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "UPDRS2": {
+      "row": 647,
+      "description": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 2",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "UPDRS3": {
+      "row": 648,
+      "description": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 3",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "UPDRS4": {
+      "row": 649,
+      "description": "Unified Parkinson’s Disease Rating Scale OR the Movement Disorder Society revised - Part 4",
+      "dichotomous": 0.0,
+      "group": "NEUROLOGICAL"
+    },
+    "USCR": {
+      "row": 320,
+      "description": "Urinary sodium-to-creatinine ratio",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "USPR": {
+      "row": 318,
+      "description": "Urinary sodium-to-potassium ratio",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "Urate": {
+      "row": 195,
+      "description": "Serum urate",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "UterineFibroids": {
+      "row": 1118,
+      "description": "Uterine fibroids",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "UterineFibroids_HMB": {
+      "row": 1116,
+      "description": "Uterine fibroids and heavy menstrual bleeding",
+      "dichotomous": 1.0,
+      "group": "REPRODUCTIVE TRAITS"
+    },
+    "VCDR": {
+      "row": 946,
+      "description": "Vertical cup-disc ratio",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "VFD": {
+      "row": 513,
+      "description": "Retinal vascular fractal dimension",
+      "dichotomous": 0.0,
+      "group": "OCULAR"
+    },
+    "VLDLchol": {
+      "row": 274,
+      "description": "VLDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "VaricoseVeins": {
+      "row": 23,
+      "description": "Varicose veins",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "VaricoseVeins_add": {
+      "row": 503,
+      "description": "Varicose veins (additive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "VaricoseVeins_dom": {
+      "row": 474,
+      "description": "Varicose veins (dominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "VaricoseVeins_het": {
+      "row": 476,
+      "description": "Varicose veins (heterodominant model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "VaricoseVeins_rec": {
+      "row": 475,
+      "description": "Varicose veins (recessive model)",
+      "dichotomous": 1.0,
+      "group": "NON-ADDITIVE MODELS"
+    },
+    "VenousThromboembolism": {
+      "row": 1488,
+      "description": "Venous Thromboembolism",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "VerbNumReasoning": {
+      "row": 945,
+      "description": "Verbal-numerical reasoning",
+      "dichotomous": 0.0,
+      "group": "COGNITIVE"
+    },
+    "Vitiligo": {
+      "row": 1530,
+      "description": "Vitiligo (PheCode 694.1)",
+      "dichotomous": 1.0,
+      "group": "SKIN CONDITIONS"
+    },
+    "WAIST": {
+      "row": 196,
+      "description": "Waist circumference",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "WBC": {
+      "row": 358,
+      "description": "White blood cell count",
+      "dichotomous": 0.0,
+      "group": "HEMATOLOGICAL"
+    },
+    "WEIGHT": {
+      "row": 277,
+      "description": "Weight",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "WHR": {
+      "row": 198,
+      "description": "Waist-hip ratio",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "WHRadjBMI": {
+      "row": 199,
+      "description": "Waist-hip ratio adj BMI",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "WMH": {
+      "row": 200,
+      "description": "Cerebral white matter hyperintensity volume",
+      "dichotomous": 0.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "WMHinCSVD": {
+      "row": 661,
+      "description": "White matter hyperintensities in cerebral small vessel disease",
+      "dichotomous": 0.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "WMR": {
+      "row": 1252,
+      "description": "Weight-to-muscle ratio",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "WM_PVS": {
+      "row": 1128,
+      "description": "Extensive white matter perivascular space burden",
+      "dichotomous": 1.0,
+      "group": "CEREBROVASCULAR MRI TRAITS"
+    },
+    "WeightLossTotal": {
+      "row": 1206,
+      "description": "Total weight loss (kg)",
+      "dichotomous": 0.0,
+      "group": "ANTHROPOMETRIC"
+    },
+    "XXLVLDLpart": {
+      "row": 278,
+      "description": "Chylomicrons and XXL-VLDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "allDKD": {
+      "row": 88,
+      "description": "All diabetic kidney disease (DKD)",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "allDKD_T1D": {
+      "row": 1012,
+      "description": "All diabetic kidney disease (DKD) in type 1 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "allDKD_T2D": {
+      "row": 1004,
+      "description": " All diabetic kidney disease (DKD) in type 2 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "ao_regurgitation_fraction": {
+      "row": 1053,
+      "description": "Aortic regurgitation fraction",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "ao_regurgitation_volume": {
+      "row": 1054,
+      "description": "Aortic regurgitation volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "aortic_velocity_vmax": {
+      "row": 1061,
+      "description": "Peak forward aortic velocity",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "aortic_velocity_vmax_ao_adjusted": {
+      "row": 1060,
+      "description": "Peak forward aortic velocity adj aortic area",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "bOHBut": {
+      "row": 279,
+      "description": "Beta-hydroxybutyric acid",
+      "dichotomous": 0.0,
+      "group": "METABOLITE"
+    },
+    "cIMT": {
+      "row": 890,
+      "description": "Carotid intima-media thickness (mean of the maximum cIMT)",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "cIMTmax": {
+      "row": 1394,
+      "description": "Maximum carotid intima-media thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "cIMTmean": {
+      "row": 1393,
+      "description": "Mean carotid intima-media thickness",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "eBMD": {
+      "row": 280,
+      "description": "Heel quantitative ultrasound estimated bone mineral density (eBMD)",
+      "dichotomous": 0.0,
+      "group": "MUSCULOSKELETAL"
+    },
+    "eGFRcrcys": {
+      "row": 1438,
+      "description": "eGFRcr-cys (serum creatinine and cystatin C)",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "eGFRcrea": {
+      "row": 115,
+      "description": "eGFRcreat (serum creatinine)",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "eGFRcreaNoDiabetes": {
+      "row": 867,
+      "description": "eGFRcreat in individuals without diabetes",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "eGFRcrea_T1D": {
+      "row": 1033,
+      "description": "eGFRcreat (serum creatinine) in type 1 diabetes",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "eGFRcrea_perc_DeclineNoDM": {
+      "row": 949,
+      "description": "eGFRcreat relative annualized decline in individuals without diabetes",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "eGFRcys": {
+      "row": 116,
+      "description": "eGFRcys (serum cystatin C)",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "fLVSV": {
+      "row": 1055,
+      "description": "Forward left ventricular stroke volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "fQRSTa": {
+      "row": 1443,
+      "description": "Frontal QRS-T angles ",
+      "dichotomous": 0.0,
+      "group": "ECG TRAITS"
+    },
+    "freshfruit": {
+      "row": 312,
+      "description": "Fresh fruit consumption",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "iaorta_area": {
+      "row": 1056,
+      "description": "BSA-indexed aortic area",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "imitral_regurgitation": {
+      "row": 1057,
+      "description": "BSA-indexed mitral valve regurgitation volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "lateDKD_T1D": {
+      "row": 1025,
+      "description": "Late diabetic kidney disease (DKD) in type 1 diabetes",
+      "dichotomous": 1.0,
+      "group": "RENAL"
+    },
+    "liverT1time": {
+      "row": 1211,
+      "description": "Liver T1 time",
+      "dichotomous": 0.0,
+      "group": "HEPATIC"
+    },
+    "lobarSVS": {
+      "row": 183,
+      "description": "Lobar intracerebral hemorrhage or small vessel ischemic stroke",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "mCAA": {
+      "row": 985,
+      "description": "Mosaic chromosomal alteration of the autosomes",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "mCAX": {
+      "row": 984,
+      "description": "Mosaic chromosomal alteration of the X chromosome",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "mCAY": {
+      "row": 983,
+      "description": "Mosaic chromosomal alteration of the Y chromosome",
+      "dichotomous": 1.0,
+      "group": "AGING AND LONGEVITY"
+    },
+    "mRS012v3456": {
+      "row": 35,
+      "description": "Modified Rankin scale score 0-2 vs 3-6",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "mRS012v3456AdjSever": {
+      "row": 36,
+      "description": "Modified Rankin scale score 0-2 vs 3-6 adj stroke severity",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "mRS01v23456": {
+      "row": 37,
+      "description": "Modified Rankin scale score 0-1 vs 2-6",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "mRS01v23456AdjSever": {
+      "row": 38,
+      "description": "Modified Rankin scale score 0-1 vs 2-6 adj stroke severity",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "mRSOrdinal": {
+      "row": 39,
+      "description": "Modified Rankin scale score",
+      "dichotomous": 0.0,
+      "group": "STROKE"
+    },
+    "mRSOrdinalAdjSever": {
+      "row": 40,
+      "description": "Modified Rankin scale score adj stroke severity",
+      "dichotomous": 0.0,
+      "group": "STROKE"
+    },
+    "n6FA182": {
+      "row": 160,
+      "description": "Linoleic acid",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "netLVSV": {
+      "row": 1058,
+      "description": "Net left ventricular stroke volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "niHF": {
+      "row": 1401,
+      "description": "Non-ischemic heart failure",
+      "dichotomous": 1.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "nonHDL": {
+      "row": 525,
+      "description": "Non-HDL cholesterol",
+      "dichotomous": 0.0,
+      "group": "LIPIDS"
+    },
+    "nonlobarSVS": {
+      "row": 184,
+      "description": "Non-lobar intracerebral hemorrhage or small vessel ischemic stroke",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "oilyfish": {
+      "row": 313,
+      "description": "Oily fish consumption",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "pancreasT1time": {
+      "row": 1212,
+      "description": "Pancreas T1 time",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "renalcortexT1time": {
+      "row": 1213,
+      "description": "Renal cortex T1 time",
+      "dichotomous": 0.0,
+      "group": "RENAL"
+    },
+    "saltconsumption": {
+      "row": 314,
+      "description": "Salt addition to food",
+      "dichotomous": 0.0,
+      "group": "NUTRITIONAL"
+    },
+    "spQRSTa": {
+      "row": 1442,
+      "description": "Spatial QRS-T angles ",
+      "dichotomous": 0.0,
+      "group": "ECG TRAITS"
+    },
+    "tLVSV": {
+      "row": 1059,
+      "description": "Total left ventricular stroke volume",
+      "dichotomous": 0.0,
+      "group": "CARDIOVASCULAR"
+    },
+    "toastCE": {
+      "row": 188,
+      "description": "TOAST cardio-aortic embolism",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "toastLAA": {
+      "row": 190,
+      "description": "TOAST large artery atherosclerosis",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "toastSAO": {
+      "row": 191,
+      "description": "TOAST small artery occlusion",
+      "dichotomous": 1.0,
+      "group": "STROKE"
+    },
+    "xinsG30": {
+      "row": 1410,
+      "description": "Modified insulinogenic index",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    },
+    "xinsdG30": {
+      "row": 1409,
+      "description": "Insulinogenic index",
+      "dichotomous": 0.0,
+      "group": "GLYCEMIC"
+    }
+  },
+  "history": [
+    {
+      "date": "2026-10-07",
+      "operation": "Remove category from glossary entries at user request; retain all labels and historical source data.",
+      "removed_fields": 780,
+      "before_sha256": "1c9c80960a4c3e2d935219f5428e00096f9ea0d6c09d3ab2055878b9f23eb765",
+      "after_sha256": "40e4184cf6abed836edd46fe5a7864e9dc4813c81b270600bced2afc1601c840"
+    },
+    {
+      "date": "2026-10-07",
+      "operation": "Restore original 11 category fields from preserved_entries at user request; retain all 780 labels and customer source attributes.",
+      "restored_fields": 11,
+      "before_sha256": "40e4184cf6abed836edd46fe5a7864e9dc4813c81b270600bced2afc1601c840",
+      "after_sha256": "f65aad3935b2c1e61507ee6d1e9107296a535ed694b62bf27b28c322a7861bf8"
+    }
+  ]
+}

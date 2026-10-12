@@ -1,0 +1,127 @@
+{
+  "top_k": 10,
+  "report_ks": [
+    5,
+    10
+  ],
+  "latency_s": {
+    "mean": 0.0219,
+    "median": 0.0191
+  },
+  "routed": {
+    "n": 20,
+    "metrics": {
+      "TargetHit@5": 1.0,
+      "TargetHit@10": 1.0,
+      "MRR@10": 0.975
+    },
+    "router": {
+      "exact_set_accuracy": 1.0,
+      "collection_precision": 1.0,
+      "collection_recall": 1.0
+    },
+    "by_query_type": {
+      "common_association": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      },
+      "cross_collection": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "gene_alias": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 0.75,
+        "n": 2
+      },
+      "gene_function": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "gene_identifier": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "ldsc_correlation": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      },
+      "rare_association": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      }
+    },
+    "labeling_note": "TargetHit@k is 1 if any grade-2 gold chunk_id appears in the top-k results. This is not pooled corpus-level Recall."
+  },
+  "oracle": {
+    "n": 20,
+    "metrics": {
+      "TargetHit@5": 1.0,
+      "TargetHit@10": 1.0,
+      "MRR@10": 0.975
+    },
+    "router": {
+      "exact_set_accuracy": 1.0,
+      "collection_precision": 1.0,
+      "collection_recall": 1.0
+    },
+    "by_query_type": {
+      "common_association": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      },
+      "cross_collection": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "gene_alias": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 0.75,
+        "n": 2
+      },
+      "gene_function": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "gene_identifier": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 2
+      },
+      "ldsc_correlation": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      },
+      "rare_association": {
+        "TargetHit@5": 1.0,
+        "TargetHit@10": 1.0,
+        "MRR@10": 1.0,
+        "n": 4
+      }
+    },
+    "labeling_note": "TargetHit@k is 1 if any grade-2 gold chunk_id appears in the top-k results. This is not pooled corpus-level Recall."
+  }
+}

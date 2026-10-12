@@ -16,10 +16,9 @@ htmlcov/
 .env.*
 !.env.example
 .venv/
-venv/
-
 # Retrieval artifacts
 artifacts/indexes/
+artifacts/ingestion_dev/
 
 # Downloaded model/cache directories
 .cache/
@@ -34,3 +33,4 @@ frontend/node_modules/
 frontend/dist/
 frontend/*.tsbuildinfo
 *.tsbuildinfo
+

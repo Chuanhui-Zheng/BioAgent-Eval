@@ -1,0 +1,59 @@
+{
+  "methods": {
+    "bm25": {
+      "latency_s": {
+        "n": 100,
+        "mean": 0.040915,
+        "median": 0.033383,
+        "p95": 0.099283
+      },
+      "serialized_index_size_bytes": 35242144,
+      "document_encoding_time_s": "not_recorded",
+      "index_build_time_s": "not_recorded",
+      "cold_start_load_time_s": "not_recorded",
+      "search_only_latency_s": "not_separately_recorded",
+      "end_to_end_query_latency_s": "not_separately_recorded",
+      "source": {
+        "evaluation_dir": "artifacts\\evaluation\\bm25_test",
+        "index_dir": "artifacts\\indexes\\bm25_title_content"
+      }
+    },
+    "dense": {
+      "latency_s": {
+        "n": 100,
+        "mean": 0.159595,
+        "median": 0.136113,
+        "p95": 0.157915
+      },
+      "serialized_index_size_bytes": 171813908,
+      "document_encoding_time_s": "not_recorded",
+      "index_build_time_s": "not_recorded",
+      "cold_start_load_time_s": "not_recorded",
+      "search_only_latency_s": "not_separately_recorded",
+      "end_to_end_query_latency_s": "not_separately_recorded",
+      "source": {
+        "evaluation_dir": "artifacts\\evaluation\\dense_test",
+        "index_dir": "artifacts\\indexes\\dense_qwen3_06b"
+      }
+    },
+    "hybrid": {
+      "latency_s": {
+        "n": 100,
+        "mean": 0.22138,
+        "median": 0.195359,
+        "p95": 0.280686
+      },
+      "serialized_index_size_bytes": 207056052,
+      "document_encoding_time_s": "not_recorded",
+      "index_build_time_s": "not_recorded",
+      "cold_start_load_time_s": "not_recorded",
+      "search_only_latency_s": "not_separately_recorded",
+      "end_to_end_query_latency_s": "not_separately_recorded",
+      "source": {
+        "evaluation_dir": "artifacts\\evaluation\\hybrid_test",
+        "index_dir": "artifacts\\indexes\\bm25_title_content",
+        "index_note": "Hybrid uses the BM25 and dense indexes; combined size requires summing both index directories."
+      }
+    }
+  }
+}

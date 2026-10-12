@@ -1,0 +1,62 @@
+# Active seven-collection configuration; existing indexes must be rebuilt before queries.
+project_root: .
+chunks:
+- collection: gene_info
+  path: artifacts/chunks/gene_info.chunks.jsonl
+- collection: ldsc_genetic_correlation
+  path: artifacts/chunks/ldsc_2hrI.chunks.jsonl
+- collection: gene_association_common
+  path: artifacts/chunks/gene_association_common_2hrG.chunks.jsonl
+- collection: gene_association_rare
+  path: artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl
+- collection: ldsc_partitioned_heritability
+  path: artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl
+- collection: variant_association_clumped
+  path: artifacts/chunks/metaanalysis_clumped_2hrG_EU.chunks.jsonl
+- collection: gene_association_wes
+  path: artifacts/chunks/wes_2hrG.chunks.jsonl
+manifest: artifacts/manifest_partitioned.json
+baseline_manifest: artifacts/manifest.json
+paths_config: config/paths.yaml
+partitioned_build_manifest: artifacts/ingestion_dev/ldsc_partitioned/manifest.json
+partitioned_validation_report: artifacts/ingestion_dev/ldsc_partitioned/validation_report.json
+clumped_build_manifest: artifacts/ingestion_dev/clumped/manifest.json
+clumped_validation_report: artifacts/ingestion_dev/clumped/validation_report.json
+wes_build_manifest: artifacts/ingestion_dev/wes/manifest.json
+wes_validation_report: artifacts/ingestion_dev/wes/validation_report.json
+tokenizer:
+  unicode_form: NFKC
+  lowercase: true
+  stem: false
+  document_stopwords: false
+  query_stopwords: true
+bm25:
+  text_fields:
+  - title
+  - content
+  title_repeat: 2
+  index_dir: artifacts/indexes/partitioned_dev/bm25_title_content
+dense:
+  model: Qwen/Qwen3-Embedding-0.6B
+  dimension: 1024
+  batch_size: 8
+  max_seq_length: 512
+  device: cuda
+  index_dir: artifacts/indexes/partitioned_dev/dense_qwen3_06b
+hybrid:
+  candidate_k: 50
+  rrf_k: 60
+  weight_bm25: 1.0
+  weight_dense: 1.0
+retrieval:
+  top_k: 10
+  report_ks:
+  - 1
+  - 3
+  - 5
+  - 10
+evaluation:
+  dev_set: data/evaluation/retrieval_partitioned_dev.jsonl
+  output_dir: artifacts/evaluation/partitioned_dev/bm25
+  dense_output_dir: artifacts/evaluation/partitioned_dev/dense
+  hybrid_output_dir: artifacts/evaluation/partitioned_dev/hybrid

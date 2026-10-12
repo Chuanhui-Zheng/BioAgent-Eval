@@ -1,0 +1,106 @@
+# Dense development evaluation
+
+- queries: 25
+- top_k: 10
+- report_ks: [1, 3, 5, 10]
+- embedding field: content only
+- identifier boost: disabled
+- labeling: TargetHit@k is 1 if any grade-2 gold chunk_id appears in the top-k results. Recall@k counts all grade-2 labels, while nDCG@k uses grades 0-2. Unpooled labels should not be interpreted as corpus-level Recall.
+
+## Routed retrieval
+
+TargetHit@1: 0.48
+TargetHit@3: 0.68
+TargetHit@5: 0.84
+TargetHit@10: 0.92
+Recall@1: 0.48
+Recall@3: 0.68
+Recall@5: 0.84
+Recall@10: 0.92
+nDCG@1: 0.48
+nDCG@3: 0.6009
+nDCG@5: 0.6681
+nDCG@10: 0.6917
+MRR@10: 0.6198
+
+### Router
+
+exact_set_accuracy: 1.0
+collection_precision: 1.0
+collection_recall: 1.0
+
+### By query type
+
+gene_association_wes:
+  TargetHit@1: 0.3333
+  TargetHit@3: 0.3333
+  TargetHit@5: 0.5
+  TargetHit@10: 0.8333
+  Recall@1: 0.3333
+  Recall@3: 0.3333
+  Recall@5: 0.5
+  Recall@10: 0.8333
+  nDCG@1: 0.3333
+  nDCG@3: 0.3333
+  nDCG@5: 0.3978
+  nDCG@10: 0.4962
+  MRR@10: 0.4019
+  n: 6
+ldsc_partitioned_heritability:
+  TargetHit@1: 0.25
+  TargetHit@3: 0.6667
+  TargetHit@5: 0.9167
+  TargetHit@10: 0.9167
+  Recall@1: 0.25
+  Recall@3: 0.6667
+  Recall@5: 0.9167
+  Recall@10: 0.9167
+  nDCG@1: 0.25
+  nDCG@3: 0.502
+  nDCG@5: 0.6096
+  nDCG@10: 0.6096
+  MRR@10: 0.5069
+  n: 12
+variant_association_clumped:
+  TargetHit@1: 1.0
+  TargetHit@3: 1.0
+  TargetHit@5: 1.0
+  TargetHit@10: 1.0
+  Recall@1: 1.0
+  Recall@3: 1.0
+  Recall@5: 1.0
+  Recall@10: 1.0
+  nDCG@1: 1.0
+  nDCG@3: 1.0
+  nDCG@5: 1.0
+  nDCG@10: 1.0
+  MRR@10: 1.0
+  n: 7
+
+## Oracle-collection diagnostic
+
+TargetHit@1: 0.48
+TargetHit@3: 0.68
+TargetHit@5: 0.84
+TargetHit@10: 0.92
+Recall@1: 0.48
+Recall@3: 0.68
+Recall@5: 0.84
+Recall@10: 0.92
+nDCG@1: 0.48
+nDCG@3: 0.6009
+nDCG@5: 0.6681
+nDCG@10: 0.6917
+MRR@10: 0.6198
+
+## Comparison with BM25 (same 25 queries, same router)
+
+| metric | BM25 | Dense |
+| --- | --- | --- |
+| TargetHit@5 | 1.0 | 0.84 |
+| TargetHit@10 | 1.0 | 0.92 |
+| Recall@10 | 1.0 | 0.92 |
+| nDCG@10 | 1.0 | 0.6917 |
+| MRR@10 | 1.0 | 0.6198 |
+
+Dense embeds `content` only and does not pin identifier exact matches. BM25 indexes title+content and can pin exact IDs.
