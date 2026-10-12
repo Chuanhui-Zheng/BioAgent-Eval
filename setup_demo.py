@@ -35,7 +35,7 @@ def main() -> int:
 
     python = str(environment_python())
     run(python, "-m", "pip", "install", "--upgrade", "pip")
-    run(python, "-m", "pip", "install", "-r", "requirements-demo.txt")
+    run(python, "-m", "pip", "install", "-r", "requirements/demo.txt")
     run(python, "-m", "pip", "install", "-e", ".", "--no-deps")
 
     chunk_marker = ROOT / "artifacts" / "manifest.json"

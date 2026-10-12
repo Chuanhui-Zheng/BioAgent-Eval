@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.10+, Streamlit, existing project RAG modules, pytest, Streamlit AppTest.
 
-**Spec:** `docs/superpowers/specs/2026-10-06-streamlit-demo-ui-design.md`
+**Spec:** `docs/archive/superpowers/specs/2026-10-06-streamlit-demo-ui-design.md`
 
 ## Global Constraints
 

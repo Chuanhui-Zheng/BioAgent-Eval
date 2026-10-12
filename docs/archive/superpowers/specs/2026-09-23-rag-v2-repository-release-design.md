@@ -42,8 +42,8 @@ documented commands rather than committed.
 Dependencies are separated by purpose:
 
 - `requirements.txt` installs the offline BM25 RAG runtime;
-- `requirements-dev.txt` installs automated test and quality tooling;
-- `requirements-embed.txt` installs optional Torch, Sentence Transformers,
+- `requirements/dev.txt` installs automated test and quality tooling;
+- `requirements/embed.txt` installs optional Torch, Sentence Transformers,
   Hugging Face, and FAISS dependencies for dense and hybrid retrieval.
 
 All direct dependencies are pinned to tested versions. The root README will
@@ -54,13 +54,13 @@ also document the supported Python version and clean-environment setup.
 The root `README.md` will provide the shortest reproducible path for setup,
 BM25 index construction, offline demonstration, testing, and evaluation.
 
-`docs/TEAM_UPDATE_GUIDE.md` will describe what changed relative to the source
+`docs/project/TEAM_UPDATE_GUIDE.md` will describe what changed relative to the source
 repository, where each addition is located, how team members can reproduce the
 work, current metrics and their limitations, repository hygiene rules, and a
 suggested division of remaining work. Its complete content will also be
 delivered in the project chat.
 
-`docs/PROJECT_STATUS_AND_ROADMAP.md` will separate completed baseline work from
+`docs/project/PROJECT_STATUS_AND_ROADMAP.md` will separate completed baseline work from
 remaining scientific validation, retrieval optimisation, LLM integration, API,
 demo-interface, containerisation, and final-report tasks.
 

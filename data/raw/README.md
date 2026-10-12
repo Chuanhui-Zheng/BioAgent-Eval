@@ -1,7 +1,7 @@
 # Raw source data (read-only)
 
 Place client-provided source files here. Do not modify files in this directory.
-Record stored client sources in the [client data inventory](../../docs/Client_Sample_Data_Inventory.md). Update `config/paths.yaml` when adding or relocating a source used by the configured pipeline; storage alone does not enable ingestion or indexing.
+Record stored client sources in the [client data inventory](../../docs/design/Client_Sample_Data_Inventory.md). Update `config/paths.yaml` when adding or relocating a source used by the configured pipeline; storage alone does not enable ingestion or indexing.
 
 ## Layout (by data type)
 

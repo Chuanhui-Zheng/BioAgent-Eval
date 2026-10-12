@@ -19,8 +19,8 @@ tests, phase reports, and a no-API demonstration.
 |---|---|---|
 | Installable project configuration | `pyproject.toml` | Makes `src/` packages installable |
 | Reproducible base dependencies | `requirements.txt` | BM25 and offline RAG runtime |
-| Test dependencies | `requirements-dev.txt` | Automated test environment |
-| Optional embedding dependencies | `requirements-embed.txt` | Dense and hybrid retrieval only |
+| Test dependencies | `requirements/dev.txt` | Automated test environment |
+| Optional embedding dependencies | `requirements/embed.txt` | Dense and hybrid retrieval only |
 | Unified retrieval request/response service | `src/retrieval/service.py` | Typed retrieval and access boundaries |
 | Retrieval diagnostics | `src/retrieval/diagnostics.py` | Corpus/index/environment checks |
 | Portable dense device selection | `src/retrieval/dense_retriever.py` | CUDA, Apple MPS, or CPU fallback |
@@ -38,7 +38,7 @@ tests, phase reports, and a no-API demonstration.
 | End-to-end benchmark | `data/evaluation/rag_e2e.jsonl` | 100 evaluation questions |
 | Automated tests | `tests/augmentation/`, `tests/generation/`, `tests/retrieval/`, `tests/end_to_end/` | New unit and integration coverage |
 | Stage reports | `reports/phase_1_retrieval/` through `phase_4_evaluation/` | Results and error analysis |
-| Project roadmap | `docs/PROJECT_STATUS_AND_ROADMAP.md` | Remaining tasks and priorities |
+| Project roadmap | `docs/project/PROJECT_STATUS_AND_ROADMAP.md` | Remaining tasks and priorities |
 
 ## Current verified results
 
@@ -58,7 +58,7 @@ They do not yet prove semantic entailment or scientific correctness.
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements/dev.txt
 python -m pip install -e . --no-deps
 python scripts/build_bm25_index.py
 python -m pytest -q

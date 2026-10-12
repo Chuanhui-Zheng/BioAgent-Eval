@@ -158,7 +158,7 @@ class AIHubMixGenerator:
                 from openai import OpenAI
             except ModuleNotFoundError as exc:
                 raise ModuleNotFoundError(
-                    "AIHubMix support requires: pip install -r requirements-llm.txt"
+                    "AIHubMix support requires: pip install -r requirements/llm.txt"
                 ) from exc
             self.client = OpenAI(
                 api_key=self.api_key,
