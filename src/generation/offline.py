@@ -7,14 +7,28 @@ from generation.schema import Claim, GeneratedAnswer
 def _claim_text(p: EvidencePassage) -> str:
     m = p.metadata
     if p.collection == "ldsc_genetic_correlation":
+        rg_dir = ""
+        rg_val = m.get("mixed_rg")
+        if rg_val is not None:
+            try:
+                rg_dir = f", direction={'positive' if float(rg_val) > 0 else 'negative'}"
+            except (ValueError, TypeError):
+                pass
         return (
-            f"{p.title}: Mixed-ancestry rg={m.get('mixed_rg')} and "
+            f"{p.title}: Mixed-ancestry rg={rg_val}{rg_dir} and "
             f"p={m.get('mixed_pvalue')}."
         )
     if p.collection == "gene_association_rare":
+        moa_dir = ""
+        beta_val = m.get("beta")
+        if beta_val is not None:
+            try:
+                moa_dir = f", direction={'positive (agonist hypothesis)' if float(beta_val) > 0 else 'negative (inhibitor hypothesis)'}"
+            except (ValueError, TypeError):
+                pass
         return (
             f"{m.get('gene')} has rare-variant evidence for {m.get('phenotype_label')}: "
-            f"p={m.get('pValue')}, beta={m.get('beta')}, significant={m.get('is_significant')}."
+            f"p={m.get('pValue')}, beta={m.get('beta')}{moa_dir}, significant={m.get('is_significant')}."
         )
     if p.collection == "gene_association_common":
         return (

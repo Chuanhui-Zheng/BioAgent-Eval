@@ -1,0 +1,93 @@
+# BM25 test evaluation
+
+- queries: 50
+- top_k: 10
+- report_ks: [1, 3, 5, 10]
+- labeling: TargetHit@k is 1 if any grade-2 gold chunk_id appears in the top-k results. Recall@k counts all grade-2 labels, while nDCG@k uses grades 0-2. Unpooled labels should not be interpreted as corpus-level Recall.
+
+## Routed retrieval
+
+TargetHit@1: 0.7
+TargetHit@3: 0.72
+TargetHit@5: 0.74
+TargetHit@10: 0.8
+Recall@1: 0.3367
+Recall@3: 0.6667
+Recall@5: 0.69
+Recall@10: 0.76
+nDCG@1: 0.7
+nDCG@3: 0.6711
+nDCG@5: 0.6839
+nDCG@10: 0.7153
+MRR@10: 0.7189
+
+### Router
+
+exact_set_accuracy: 1.0
+collection_precision: 1.0
+collection_recall: 1.0
+
+### By query type
+
+comparison_clumped:
+  TargetHit@1: 1.0
+  TargetHit@3: 1.0
+  TargetHit@5: 1.0
+  TargetHit@10: 1.0
+  Recall@1: 0.4583
+  Recall@3: 0.9167
+  Recall@5: 1.0
+  Recall@10: 1.0
+  nDCG@1: 1.0
+  nDCG@3: 0.9059
+  nDCG@5: 0.9564
+  nDCG@10: 0.9564
+  MRR@10: 1.0
+  n: 4
+comparison_partitioned:
+  TargetHit@1: 0.5
+  TargetHit@3: 0.5333
+  TargetHit@5: 0.5667
+  TargetHit@10: 0.6667
+  Recall@1: 0.2444
+  Recall@3: 0.4889
+  Recall@5: 0.5167
+  Recall@10: 0.6333
+  nDCG@1: 0.5
+  nDCG@3: 0.4901
+  nDCG@5: 0.5048
+  nDCG@10: 0.557
+  MRR@10: 0.5314
+  n: 30
+comparison_wes:
+  TargetHit@1: 1.0
+  TargetHit@3: 1.0
+  TargetHit@5: 1.0
+  TargetHit@10: 1.0
+  Recall@1: 0.4792
+  Recall@3: 0.9375
+  Recall@5: 0.9375
+  Recall@10: 0.9375
+  nDCG@1: 1.0
+  nDCG@3: 0.9516
+  nDCG@5: 0.9516
+  nDCG@10: 0.9516
+  MRR@10: 1.0
+  n: 16
+
+## Oracle-collection diagnostic
+
+TargetHit@1: 0.7
+TargetHit@3: 0.72
+TargetHit@5: 0.74
+TargetHit@10: 0.8
+Recall@1: 0.3367
+Recall@3: 0.6667
+Recall@5: 0.69
+Recall@10: 0.76
+nDCG@1: 0.7
+nDCG@3: 0.6711
+nDCG@5: 0.6839
+nDCG@10: 0.7153
+MRR@10: 0.7189
+

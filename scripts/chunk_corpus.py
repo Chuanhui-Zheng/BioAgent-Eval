@@ -22,6 +22,8 @@ from chunking.paths import load_paths
 from chunking.phenotype_glossary import PhenotypeGlossary
 from chunking.schema import ChunkManifest
 from chunking.utils import file_sha256, write_jsonl
+from chunk_ldsc_partitioned import build_clumped, build_partitioned, build_wes
+from prepare_partitioned_retrieval import prepare_manifest
 
 
 def parse_args(defaults) -> argparse.Namespace:
@@ -38,6 +40,19 @@ def parse_args(defaults) -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--manifest-file", type=Path, default=None)
     parser.add_argument("--dry-run", type=int, default=0, help="Only emit the first N chunks per source.")
+    partitioned = parser.add_mutually_exclusive_group()
+    partitioned.add_argument("--partitioned-only", action="store_true",
+                             help="Build only LDSC partitioned chunks and the expanded manifest; preserve baseline artifacts.")
+    partitioned.add_argument("--clumped-only", action="store_true",
+                             help="Build only clumped regional chunks and refresh the expanded manifest; preserve existing chunks.")
+    partitioned.add_argument("--wes-only", action="store_true",
+                             help="Build only WES summaries/masks and refresh expanded manifest; preserve existing chunks.")
+    partitioned.add_argument("--include-partitioned", action="store_true",
+                             help="Rebuild baseline sources, then add LDSC partitioned chunks and an expanded manifest.")
+    parser.add_argument("--partitioned-config", type=Path,
+                        default=PROJECT_ROOT / "config/ldsc_partitioned_dev.yaml")
+    parser.add_argument("--retrieval-config", "--partitioned-retrieval-config", dest="partitioned_retrieval_config", type=Path,
+                        default=PROJECT_ROOT / "config/retrieval.yaml")
     return parser.parse_args()
 
 
@@ -84,6 +99,20 @@ def main() -> int:
     defaults = load_paths(PROJECT_ROOT)
     args = parse_args(defaults)
     paths = resolve_runtime_paths(args)
+
+    clumped_only = getattr(args, "clumped_only", False)
+    wes_only = getattr(args, "wes_only", False)
+    if args.partitioned_only or args.include_partitioned or clumped_only or wes_only:
+        if args.dry_run or args.output_dir or args.manifest_file or args.glossary_file:
+            raise ValueError("Partitioned publication requires full canonical paths; no dry-run/output/glossary overrides")
+        if paths.ldsc_partitioned_2hrg_file is None:
+            raise ValueError("Register ldsc_partitioned_2hrg in paths_config first")
+    if wes_only:
+        return build_partitioned_collection(paths, args, wes=True)
+    if clumped_only:
+        return build_partitioned_collection(paths, args, clumped=True)
+    if args.partitioned_only:
+        return build_partitioned_collection(paths, args)
 
     paths.chunks_dir.mkdir(parents=True, exist_ok=True)
     paths.manifest_file.parent.mkdir(parents=True, exist_ok=True)
@@ -203,6 +232,20 @@ def main() -> int:
     print(f"Wrote {gassoc_common_count} common association chunks -> {gassoc_common_output}")
     print(f"Wrote {gassoc_rare_count} rare association chunks -> {gassoc_rare_output}")
     print(f"Wrote manifest -> {paths.manifest_file}")
+    if args.include_partitioned:
+        return build_partitioned_collection(paths, args)
+    return 0
+
+
+def build_partitioned_collection(paths, args, *, clumped=False, wes=False) -> int:
+    builder = build_wes if wes else build_clumped if clumped else build_partitioned
+    report = builder(args.partitioned_config, project_root=paths.project_root,
+                               paths_config_file=paths.config_file)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    if report["status"] != "passed":
+        return 1
+    result = prepare_manifest(args.partitioned_retrieval_config, project_root=paths.project_root)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 

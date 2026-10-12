@@ -1,8 +1,9 @@
 # CS-46 Embedding and Retrieval Evaluation Design
 
 **Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery
-**Document version:** v1.1
+**Document version:** v1.3
 **Date:** 2026-09-21
+**Last updated:** 2026-10-10
 **Scope:** Sparse, dense, and hybrid retrieval over normalized chunks; retrieval-only evaluation
 
 ---
@@ -23,7 +24,7 @@ The evaluation covers retrieval quality, latency, index build time, and index si
 
 ### 2.1 Indexed Inputs
 
-The source of truth is `artifacts/manifest.json`. The current corpus contains four normalized JSONL files:
+The original four-collection baseline is recorded in `artifacts/manifest.json`. Its normalized JSONL files are:
 
 | Collection | Artifact | Chunks |
 |---|---|---:|
@@ -34,6 +35,30 @@ The source of truth is `artifacts/manifest.json`. The current corpus contains fo
 | **Total** | | **41,103** |
 
 The optional LDSC summary described in the chunking design is not present in the current manifest and is excluded from this experiment.
+
+#### Active expanded corpus and development verification (2026-10-09)
+
+`config/retrieval.yaml` selects the four baseline artifacts plus the following sources, using `artifacts/manifest_partitioned.json` for a total of **142,977 chunks**:
+
+| Added collection | Artifact | Chunks |
+|---|---|---:|
+| `ldsc_partitioned_heritability` | `artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl` | 7,924 |
+| `variant_association_clumped` | `artifacts/chunks/metaanalysis_clumped_2hrG_EU.chunks.jsonl` | 7 |
+| `gene_association_wes` | `artifacts/chunks/wes_2hrG.chunks.jsonl` | 93,943 |
+
+`baseline_manifest` retains the four-collection provenance; the loader verifies collection sets, paths, hashes and counts against the active manifest. The duplicate development retrieval configuration has been removed. Source paths remain registered in `config/paths.yaml`.
+
+The rebuilt BM25 and Dense indexes each contain 142,977 records and now reside at `artifacts/indexes/bm25_title_content/` and `artifacts/indexes/dense_qwen3_06b/`. Corpus hashes, complete persisted document mappings, FAISS dimensions/finite normalized vectors, loading and actual BM25/Dense/Hybrid queries have been checked. New release packaging and publication are pending.
+
+The additions use the evidence units and readable IDs in Chunking Design Sections 5.14-5.16. Partitioned intent routes separately from genetic correlation; clumped intent selects regional evidence; WES/exome/mask intent selects WES, while explicit comparisons retain relevant baseline collections. No automatic tissue/ancestry hard filtering, group/member expansion, provenance-link expansion or evidence deduplication is implemented. Scientific field definitions and source releases remain unconfirmed. Metadata-only members do not become indexed variant lookups.
+
+For partitioned records, `record_identifier_keys()` no longer treats the final ancestry segment as an exact identifier. The existing gene/alias identifiers and other collections retain their matching behavior. This is a query-time ranking change; chunks and index data are unchanged.
+
+`data/evaluation/retrieval_expanded_dev.jsonl` contains 25 provisional source-derived engineering questions: 12 partitioned, seven clumped and six WES. Results after the ranking fix are under `artifacts/evaluation/retrieval_expanded_dev/{bm25,dense,hybrid}/`. TargetHit@10 is 25/25, 23/25 and 25/25 respectively; these are small engineering checks, not a frozen scientific quality benchmark. Independent relevance review and pooled judging remain pending, including WES summary/mask and rare-source overlap. The original development and frozen test sets remain unchanged and were not rerun in this check.
+
+`data/evaluation/retrieval_expanded_test.jsonl` is a separate 100-query benchmark for the three added collections. Section 10.4 reports its BM25, dense, and hybrid results.
+
+Evaluation snapshots retain their original paths as historical records. The expanded benchmark and result directory were renamed without changing query, label, metric or per-query-result bytes; stored benchmark hashes still match. Source build reports remain in `artifacts/ingestion_dev/` as provenance.
 
 ### 2.2 Indexed Fields
 
@@ -217,7 +242,7 @@ The implementation must pin and record the model revision because a model name a
 
 ### 6.2 FAISS Index Choice
 
-The corpus has 41,103 vectors. `IndexFlatIP` performs exact search and avoids approximate-index recall becoming a confounding variable. At 1,024 dimensions, raw float32 vectors require approximately 161 MiB before mappings and metadata.
+The original baseline has 41,103 vectors; the active expanded corpus has 142,977. `IndexFlatIP` performs exact search and avoids approximate-index recall becoming a confounding variable. At 1,024 dimensions, raw float32 vectors require approximately 161 MiB for the baseline or 559 MiB for the expanded corpus, before mappings and metadata.
 
 Approximate indexes such as HNSW or IVF are deferred until corpus scale or latency requires them. They must be evaluated separately against the exact index.
 
@@ -413,19 +438,23 @@ Report on the same machine and process settings:
 - end-to-end query latency, including query embedding
 - median, p95, and mean latency
 
-The current final test reruns recorded the following retrieval latency and
-serialized index sizes:
+The current final test reruns recorded the following retrieval latency,
+cold-start load time, and serialized index sizes. Query latency is measured
+inside the retrieval harness and excludes interpreter/process startup. For
+dense and hybrid retrieval it includes query embedding. Cold-start load time
+covers corpus, persisted-index, and model loading; it also excludes
+interpreter/process startup. Hybrid cold-start time is the combined BM25 and
+dense loading time.
 
-| Method | Mean latency (s) | Median latency (s) | P95 latency (s) | Serialized index size |
-|---|---:|---:|---:|---:|
-| BM25 | 0.0409 | 0.0334 | 0.0993 | 33.61 MiB |
-| Dense | 0.1596 | 0.1361 | 0.1579 | 163.85 MiB |
-| Hybrid | 0.2214 | 0.1954 | 0.2807 | 197.46 MiB (BM25 + dense) |
+| Method | Mean query latency (s) | Median query latency (s) | P95 query latency (s) | Cold-start load (s) | Serialized index size |
+|---|---:|---:|---:|---:|---:|
+| BM25 | 0.0409 | 0.0334 | 0.0993 | 2.3403 | 33.61 MiB |
+| Dense | 0.1596 | 0.1361 | 0.1579 | 108.1953 | 163.85 MiB |
+| Hybrid | 0.2214 | 0.1954 | 0.2807 | 110.5356 | 197.46 MiB (BM25 + dense) |
 
-Document encoding time, index build time, cold-start load time, and separately
-isolated search-only versus end-to-end latency were not recorded in these
-runs. The detailed machine-readable summary is stored at
-`artifacts/evaluation/performance/performance_summary.json`.
+Document encoding time, index build time, and separately isolated search-only
+latency were not recorded in these runs. The detailed machine-readable summary
+is stored at `artifacts/evaluation/performance_phase1/performance_summary.json`.
 
 Run one warm-up pass, then at least five measured passes over the full query set. Report CPU/GPU model, RAM/VRAM, thread count, software versions, batch size, and whether caches are warm.
 
@@ -536,6 +565,59 @@ retrieval-quality scores do not measure abstention quality; a calibrated
 confidence threshold is still required before false-positive rate and coverage
 can be reported.
 
+### 10.4 Expanded 100-Query Test Results
+
+This run evaluates the three collections added on 2026-10-09 and cross-collection queries against the rebuilt seven-collection corpus after the Partitioned biosample text correction on 2026-10-10. It does not replace Section 10.2, and `data/evaluation/retrieval_test.jsonl` was not modified. The benchmark file is `data/evaluation/retrieval_expanded_test.jsonl`.
+
+```text
+SHA-256: 1f4e00aa55160d09533d13551838088368ba8ed0e6ebbabe7cee90b8062877d0
+```
+
+The set has 90 answerable and 10 unanswerable queries. Difficulty is 35 easy, 40 medium, and 25 hard; the 10 unanswerable queries are part of the hard group.
+
+| Query type | Count | Primary target |
+|---|---:|---|
+| Partitioned heritability | 38 | `ldsc_partitioned_heritability` |
+| WES gene summary or mask | 40 | `gene_association_wes` |
+| Clumped association region | 7 | `variant_association_clumped` |
+| Cross-collection | 5 | `gene_info` plus WES or clumped |
+| Unanswerable | 10 | No relevant chunks |
+| **Total** | **100** | |
+
+Clumped queries paraphrase all seven supplied regions. Those regions also appear in the 25-query engineering set, because the corpus contains no other clumped chunks. Partitioned targets avoid the engineering-set accessible-chromatin groups, and WES targets avoid HIF3A, ACTR1B, FAM120AOS, and C16orf13.
+
+Judgments are a conservative 0/2 pass. Each answerable query keeps its designated evidence chunk or chunks at grade 2. The other top-10 candidates from BM25, dense, and hybrid were pooled and recorded as grade 0. The file contains 95 grade-2 judgments and no grade-1 judgments. There is no independent second review.
+
+All three methods used the matching rebuilt 142,977-chunk indexes and the frozen hybrid settings (`candidate_k=50`, `rrf_k=60`, equal weights). The harness averages include the 10 unanswerable queries, which score zero under forced retrieval.
+
+| Method | TargetHit@10 | Recall@10 | nDCG@10 | MRR@10 |
+|---|---:|---:|---:|---:|
+| BM25 | 0.9000 | 0.9000 | 0.8822 | 0.8768 |
+| Dense | 0.8600 | 0.8350 | 0.6138 | 0.5564 |
+| Hybrid (RRF) | 0.9000 | 0.9000 | 0.8468 | 0.8317 |
+
+BM25 and Hybrid both recover all designated targets for all 90 answerable queries. With 10 unanswerable queries scored zero, their full-set Recall@10 is 0.900. BM25 has the highest aggregate nDCG@10 and MRR@10. Dense retrieval recovers all targets for 81/90 answerable queries and continues to rank many designated chunks later.
+
+| Query type | BM25 Recall@10 | Dense Recall@10 | Hybrid Recall@10 | BM25 nDCG@10 | Dense nDCG@10 | Hybrid nDCG@10 |
+|---|---:|---:|---:|---:|---:|---:|
+| Partitioned heritability | 1.0000 | 0.9737 | 1.0000 | 1.0000 | 0.7016 | 0.9199 |
+| WES association | 1.0000 | 0.9250 | 1.0000 | 0.9708 | 0.6366 | 0.9572 |
+| Clumped region | 1.0000 | 1.0000 | 1.0000 | 0.9124 | 1.0000 | 0.9473 |
+| Cross-collection | 1.0000 | 0.5000 | 1.0000 | 1.0000 | 0.4503 | 0.9613 |
+
+BM25 ranks all 38 designated Partitioned records first. Hybrid retrieves all 38 within the top five (nDCG@10 0.9199, MRR@10 0.8925); Dense retrieves 37/38 at rank 10 and misses `test-partitioned-038`. Dense recovers only one of the two designated chunks for each cross-collection query, so its Recall@10 on that slice remains 0.500. Clumped retrieval is saturated at top-10 for all methods because only seven regions are indexed. Hybrid clumped MRR@10 is 0.9286, so perfect recall does not imply first-place ranking. The router matches the recorded target collection set on all 100 queries.
+
+The examples and relevance judgments were checked unchanged against the previous run. This is a regression diagnostic on an already inspected benchmark, not independent final validation; no retrieval parameters or judgments were adjusted during the run.
+
+Unanswerable queries are reported under forced retrieval. Their zero scores do not measure abstention. No confidence threshold was fit on this test set.
+
+Outputs:
+
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/bm25/`
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/dense/`
+- `artifacts/evaluation/expanded100_biosample_20261010_020412/hybrid/`
+- `artifacts/evaluation/retrieval_expanded_test/pooled_candidates.jsonl`
+
 ---
 
 ## 11. Configuration and Artifacts
@@ -600,9 +682,9 @@ Indexes are written under `artifacts/indexes/{index_id}/` with their mappings an
 
 ### 12.1 Index Validation
 
-- Exactly 41,103 unique `chunk_id` values are loaded.
-- Collection counts match `artifacts/manifest.json`.
-- SHA-256 is recorded for each of the four chunk artifacts and incorporated into the index identifier.
+- The active expanded corpus loads exactly 142,977 unique `chunk_id` values; baseline-only validation retains the original 41,103-record expectation.
+- Collection counts match the selected manifest: `artifacts/manifest_partitioned.json` for the seven-collection corpus, or `artifacts/manifest.json` for the four-collection baseline.
+- SHA-256 is recorded for every selected chunk artifact (seven expanded or four baseline) and checked against index metadata; the release record identifies the matching corpus and code commit.
 - FAISS vector count equals the document mapping count.
 - All dense vectors have dimension 1,024 and finite values.
 - Saved and reloaded indexes return identical top results for a fixed smoke-test query set.
@@ -666,3 +748,5 @@ These extensions must not be added silently to the MVP baseline.
 |---|---|---|
 | v1.0 | 2026-09-16 | Initial sparse, dense, hybrid retrieval and retrieval-only evaluation design |
 | v1.1 | 2026-09-21 | Added the finalized 100-query benchmark, manual-audit records, graded judgments, final retrieval results, latency percentiles, and serialized index-size summary |
+| v1.2 | 2026-10-09 | Added a separate 100-query benchmark for partitioned heritability, clumped regions, and WES, with pooled 0/2 judgments and BM25, dense, and hybrid results |
+| v1.3 | 2026-10-10 | Updated existing expanded 100-query results after the Partitioned biosample spelling correction |
