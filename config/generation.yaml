@@ -1,0 +1,10 @@
+provider: offline_evidence
+prompt_policy_version: "1.0.0"
+repair_attempts: 1
+require_claim_citations: true
+aihubmix:
+  base_url: https://aihubmix.com/v1
+  model: nemotron-3-ultra-550b-a55b-free
+  max_tokens: 800
+  timeout_s: 60
+  fallback_provider: offline_evidence

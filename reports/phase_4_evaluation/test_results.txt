@@ -1,0 +1,8 @@
+Command: .venv/bin/python scripts/build_rag_benchmark.py
+Result: wrote 100 RAG benchmark rows.
+
+Command: .venv/bin/python scripts/evaluate_rag_offline.py
+Result: 100 queries evaluated; all agreed generation, citation, abstention, context, and isolation thresholds passed.
+
+Command: .venv/bin/pytest -q
+Result: 48 passed in 0.31s.

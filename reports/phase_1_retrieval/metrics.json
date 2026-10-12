@@ -1,0 +1,21 @@
+{
+  "status": "pass_with_dense_reproducibility_caveat",
+  "corpus_chunks": 41103,
+  "unique_chunk_ids": 41103,
+  "schema_failures": 0,
+  "tests_total": 48,
+  "tests_passed": 48,
+  "bm25_reproduced": {
+    "TargetHit@10": 0.87,
+    "Recall@10": 0.87,
+    "nDCG@10": 0.8496,
+    "MRR@10": 0.8417
+  },
+  "supplied_frozen_results": {
+    "dense_Recall@10": 0.78,
+    "hybrid_Recall@10": 0.88,
+    "hybrid_nDCG@10": 0.8272,
+    "hybrid_MRR@10": 0.8195
+  },
+  "isolation_test_failures": 0
+}

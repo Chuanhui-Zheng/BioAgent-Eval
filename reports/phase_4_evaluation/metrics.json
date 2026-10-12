@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "queries": 100,
+  "answerable_queries": 90,
+  "unanswerable_queries": 10,
+  "retrieval_target_hit_at_10_answerable": 0.9666666667,
+  "retrieval_target_hit_at_10_all_queries": 0.87,
+  "status_accuracy": 0.99,
+  "unanswerable_refusal_accuracy": 1.0,
+  "citation_correctness": 1.0,
+  "citation_completeness": 1.0,
+  "claim_support_contract": 1.0,
+  "collection_isolation": 1.0,
+  "context_budget_compliance": 1.0,
+  "context_duplicate_free": 1.0,
+  "context_citation_resolvability": 1.0,
+  "mean_end_to_end_latency_s": 0.011300
+}

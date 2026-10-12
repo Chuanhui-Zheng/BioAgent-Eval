@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "queries": 100,
+  "context_budget_compliance": 1.0,
+  "context_duplicate_free": 1.0,
+  "context_citation_resolvability": 1.0,
+  "collection_isolation": 1.0,
+  "policy_test_failures": 0
+}

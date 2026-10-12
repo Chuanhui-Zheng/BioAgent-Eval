@@ -58,7 +58,10 @@ _WEIGHT_FILENAMES = (
 
 
 def embedding_model_is_cached(model_name: str, cache_dir: str | Path | None = None) -> bool:
-    from huggingface_hub import try_to_load_from_cache
+    try:
+        from huggingface_hub import try_to_load_from_cache
+    except ModuleNotFoundError:
+        return False
 
     kwargs: dict[str, Any] = {}
     if cache_dir is not None:
@@ -127,7 +130,14 @@ class SentenceTransformerEncoder:
                 "pip install sentence-transformers"
             ) from exc
 
-        if device == "cuda" and not torch.cuda.is_available():
+        if device == "auto":
+            if torch.cuda.is_available():
+                device = "cuda"
+            elif getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+                device = "mps"
+            else:
+                device = "cpu"
+        elif device == "cuda" and not torch.cuda.is_available():
             print("CUDA not available, falling back to CPU", flush=True)
             device = "cpu"
         self.model_name = model_name
@@ -165,6 +175,8 @@ class SentenceTransformerEncoder:
 
 
 def default_progress(done: int, total: int, elapsed_s: float, eta_s: float) -> None:
+    if done != total and done % 1024 != 0:
+        return
     percent = (100.0 * done / total) if total else 100.0
     print(
         f"[dense] {done}/{total} ({percent:.1f}%) elapsed={elapsed_s:.0f}s eta={eta_s:.0f}s",

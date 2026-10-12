@@ -1,0 +1,24 @@
+{
+  "pipeline": "bm25 -> context_builder -> offline_evidence_generator -> validator",
+  "queries": 100,
+  "retrieval_target_hit_at_10": 0.9666666666666667,
+  "status_accuracy": 0.99,
+  "unanswerable_refusal_accuracy": 1.0,
+  "citation_correctness": 1.0,
+  "citation_completeness": 1.0,
+  "claim_support_contract": 1.0,
+  "isolation": 1,
+  "context_budget_compliance": 1,
+  "context_duplicate_free": 1,
+  "context_citation_resolvability": 1,
+  "latency_s": {
+    "retrieval": 0.01249352501006797,
+    "augmentation": 5.264999985229224e-05,
+    "generation_and_validation": 1.1038729426218196e-05,
+    "total": 0.01255721373934648
+  },
+  "interpretation": {
+    "citation_metrics": "Deterministic structural validation against the supplied context.",
+    "claim_support_contract": "Offline generator claims are produced only from cited passage metadata/content; this is not an LLM-judge score."
+  }
+}

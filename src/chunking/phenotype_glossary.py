@@ -35,6 +35,37 @@ class PhenotypeGlossary:
             return entry["category"]
         return "other"
 
+    def get_group(self, code: str) -> str | None:
+        entry = self._entries.get(code)
+        if entry:
+            return entry.get("group")
+        return None
+
+    def get_aliases(self, code: str) -> list[str]:
+        entry = self._entries.get(code)
+        if entry:
+            return entry.get("aliases", [])
+        return []
+
+    def resolve_code(self, text_or_alias: str) -> str | None:
+        """Resolve a label, abbreviation, or alias to its canonical code."""
+        query_norm = text_or_alias.strip().lower()
+        if not query_norm:
+            return None
+        # Exact match on code
+        for code in self._entries:
+            if code.lower() == query_norm:
+                return code
+        # Match on label or alias
+        for code, entry in self._entries.items():
+            label = entry.get("label", "").lower()
+            if label == query_norm:
+                return code
+            for alias in entry.get("aliases", []):
+                if alias.lower() == query_norm:
+                    return code
+        return None
+
     def _infer_label(self, code: str) -> str:
         known_tokens = {
             "T2D": "Type 2 Diabetes",

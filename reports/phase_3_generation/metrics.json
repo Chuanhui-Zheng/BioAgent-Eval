@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "queries": 100,
+  "structured_output_validity": 1.0,
+  "citation_correctness": 1.0,
+  "citation_completeness": 1.0,
+  "claim_support_contract": 1.0,
+  "status_accuracy": 0.99,
+  "unanswerable_refusal_accuracy": 1.0,
+  "provider": "offline_evidence",
+  "prompt_policy_version": "1.0.0"
+}

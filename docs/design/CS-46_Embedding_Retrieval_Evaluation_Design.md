@@ -734,7 +734,7 @@ These extensions must not be added silently to the MVP baseline.
 
 ## 14. References
 
-- `docs/CS-46_Corpus_Chunking_Design.md`
+- `docs/design/CS-46_Corpus_Chunking_Design.md`
 - `artifacts/manifest.json`
 - QwenLM, “Qwen3 Embedding,” <https://github.com/QwenLM/Qwen3-Embedding>
 - Qwen model card, `Qwen/Qwen3-Embedding-0.6B`, <https://huggingface.co/Qwen/Qwen3-Embedding-0.6B>
