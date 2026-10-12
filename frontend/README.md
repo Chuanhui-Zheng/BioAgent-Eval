@@ -1,6 +1,17 @@
 # React frontend and RAG API
 
-Run both processes from the same checkout. Python 3.10+ and Node.js 20+ are required. Prepare the chunks and BM25 index using the root README first.
+Run both processes from the same checkout. Python 3.10+ and Node.js 20+ are required.
+
+For a fresh checkout, rebuild the seven-collection corpus and matching BM25 index first. The tokenizer validation requires a locally cached `Qwen/Qwen3-Embedding-0.6B` tokenizer; download its tokenizer files from Hugging Face before this step. No embedding model inference is needed for BM25.
+
+```sh
+python -m pip install -r requirements-api.txt transformers huggingface-hub
+python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-Embedding-0.6B', allow_patterns=['*.json', '*.txt', '*.model'])"
+python scripts/prepare_api_corpus.py
+python scripts/build_bm25_index.py
+```
+
+The preparation script builds all added collections before publishing the shared manifest, avoiding missing intermediate manifests on a clean checkout. Generated chunks and manifests are local build outputs; existing retrieval evaluation scores refer to their original corpus versions.
 
 From the repository root:
 

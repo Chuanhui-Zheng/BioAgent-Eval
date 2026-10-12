@@ -160,7 +160,7 @@ def health_check():
         "collections": ALL_COLLECTIONS,
         "indexed_genes": len(_GENE_INDEX),
         "glossary_terms": len(get_glossary()._entries),
-        "total_chunks": 41103,
+        "total_chunks": len(get_pipeline().retriever.backend.records),
     }
 
 
