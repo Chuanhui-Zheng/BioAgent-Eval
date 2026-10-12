@@ -183,23 +183,51 @@ def query_rag(req: QueryRequest):
     )
 
     start_time = time.perf_counter()
-    run = active_pipeline.run(
-        RetrievalRequest(
-            req.question,
-            authorized_collections=collections,
-            top_k=req.top_k,
+    try:
+        run = active_pipeline.run(
+            RetrievalRequest(
+                req.question,
+                authorized_collections=collections,
+                top_k=req.top_k,
+            )
         )
-    )
+    except Exception as e:
+        logger.warning(f"Generator {provider_name} failed: {e}. Falling back to OfflineEvidenceGenerator.")
+        fallback_pipeline = RAGPipeline(
+            pipeline.retriever,
+            pipeline.context_builder,
+            OfflineEvidenceGenerator(),
+        )
+        run = fallback_pipeline.run(
+            RetrievalRequest(
+                req.question,
+                authorized_collections=collections,
+                top_k=req.top_k,
+            )
+        )
+        provider_name = "offline_fallback"
+        run.answer.limitations.append(f"Online LLM unavailable: {e}. Automatically used local verified evidence engine.")
+
     total_time = time.perf_counter() - start_time
 
     claims = [ClaimResponse(text=c.text, citations=c.citations) for c in run.answer.claims]
     latencies = {**run.latency_s, "total_api": total_time}
 
+    formatted_citations = []
+    for c in run.answer.citations:
+        if isinstance(c, dict):
+            item = dict(c)
+            item["id"] = item.get("chunk_id") or item.get("id", "source")
+            item["title"] = item.get("source_name") or item.get("title") or item["id"]
+            formatted_citations.append(item)
+        else:
+            formatted_citations.append({"id": str(c), "title": str(c), "chunk_id": str(c)})
+
     return QueryResponse(
         status=run.answer.status,
         answer=run.answer.answer,
         claims=claims,
-        citations=run.answer.citations,
+        citations=formatted_citations,
         limitations=run.answer.limitations,
         validation=asdict(run.validation),
         latency_s=latencies,

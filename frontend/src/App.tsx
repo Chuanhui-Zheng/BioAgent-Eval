@@ -39,10 +39,14 @@ import {
 type Page = "gene" | "phenotype" | "region" | "moa";
 
 interface CitationItem {
-  id: string;
-  title: string;
-  collection: string;
-  citation: string;
+  id?: string;
+  chunk_id?: string;
+  title?: string;
+  source_name?: string;
+  source_url?: string;
+  source_file?: string;
+  collection?: string;
+  citation?: string;
 }
 
 interface ClaimItem {
@@ -1659,11 +1663,19 @@ function ChatPanel({ page, onClose }: { page: Page; onClose: () => void }) {
                   <FileText size={12} /> Cited Sources ({message.citations.length})
                 </div>
                 <div>
-                  {message.citations.map((c) => (
-                    <span key={c.id} className="citation-tag" title={c.citation}>
-                      [{c.id}] {c.title.length > 30 ? c.title.slice(0, 28) + "…" : c.title}
-                    </span>
-                  ))}
+                  {message.citations.map((c, cIdx) => {
+                    const citId = c.chunk_id || c.id || `ref-${cIdx + 1}`;
+                    const citName = c.source_name || c.title || citId;
+                    return (
+                      <span
+                        key={c.chunk_id || c.id || cIdx}
+                        className="citation-tag"
+                        title={c.source_url || c.source_file || c.citation || citName}
+                      >
+                        [{citId}] {citName.length > 30 ? citName.slice(0, 28) + "…" : citName}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             )}
