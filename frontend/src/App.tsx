@@ -564,7 +564,7 @@ function GenePage({ initialGene = "PPARG" }: { initialGene?: string }) {
                 <CartesianGrid stroke="#303340" vertical={false} />
                 <XAxis dataKey="name" tick={{ fill: "#8f93a3", fontSize: 11 }} interval={0} angle={-20} textAnchor="end" height={72} />
                 <YAxis tick={{ fill: "#8f93a3" }} />
-                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
                 <Bar
                   dataKey={association === "Common Variant" ? "common" : association === "Rare Variant" ? "rare" : "huge"}
                   radius={[5, 5, 0, 0]}
@@ -600,7 +600,7 @@ function GenePage({ initialGene = "PPARG" }: { initialGene?: string }) {
             <CartesianGrid stroke="#303340" vertical={false} />
             <XAxis dataKey="tissue" tick={{ fill: "#9b9eac" }} />
             <YAxis tick={{ fill: "#9b9eac" }} />
-            <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+            <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
             <Bar dataKey="expression" fill="#9be0d5" radius={[5, 5, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
@@ -615,6 +615,12 @@ function PhenotypePage() {
   const [selectedCode, setSelectedCode] = useState("2hrG");
   const [ancestry, setAncestry] = useState("European");
   const [significance, setSignificance] = useState("Genome-wide");
+  const [appliedFilters, setAppliedFilters] = useState({
+    code: "2hrG",
+    ancestry: "European",
+    significance: "Genome-wide",
+  });
+  const [isFiltering, setIsFiltering] = useState(false);
 
   useEffect(() => {
     fetchPhenotypesList().then((list) => {
@@ -624,18 +630,34 @@ function PhenotypePage() {
     });
   }, []);
 
-  const activePt = phenotypes.find((p) => p.code === selectedCode) || {
-    code: "2hrG",
-    label: "2-hour glucose (OGTT)",
-    category: "GLYCEMIC",
-    group: "GLYCEMIC",
-    aliases: ["2hrG", "glucose_2h"],
+  const handleApplyFilter = () => {
+    setIsFiltering(true);
+    setAppliedFilters({
+      code: selectedCode,
+      ancestry,
+      significance,
+    });
+    setTimeout(() => setIsFiltering(false), 300);
   };
 
-  const visibleVariants = significance === "Genome-wide" ? variants.slice(0, 3) : variants;
+  const activePt = phenotypes.find((p) => p.code === appliedFilters.code) || {
+    code: appliedFilters.code,
+    label: appliedFilters.code === "2hrG" ? "2-hour glucose (OGTT)" : appliedFilters.code,
+    category: "GLYCEMIC",
+    group: "GLYCEMIC",
+    aliases: [appliedFilters.code],
+  };
+
+  // Derive dynamic datasets according to chosen phenotype and filters
+  const seed = appliedFilters.code.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) + (appliedFilters.ancestry === "European" ? 17 : 41);
+  const visibleVariants = appliedFilters.significance === "Genome-wide" ? variants.slice(0, 3) : variants;
+  const manhattanData = Array.from({ length: 34 }, (_, index) => ({
+    chr: index + 1,
+    value: 8 + ((index * 13 + seed) % 45) + (index % 7 === 0 ? 48 : 0),
+  }));
   const qqData = Array.from({ length: 20 }, (_, i) => ({
     expected: i / 2,
-    observed: i < 13 ? i / 2 + 0.1 : i / 2 + (i - 12) * 0.7,
+    observed: i < 13 ? i / 2 + 0.1 : i / 2 + (i - 12) * (appliedFilters.significance === "Genome-wide" ? 0.7 : 0.4),
   }));
 
   return (
@@ -645,7 +667,7 @@ function PhenotypePage() {
           <span className="eyebrow">PHENOTYPE WORKSPACE (1,658 CURATED TERMS)</span>
           <h1>{activePt.label}</h1>
           <p>
-            Code: <strong>{activePt.code}</strong> · Group: <strong>{activePt.group || "GLYCEMIC"}</strong> · {ancestry} ancestry
+            Code: <strong>{activePt.code}</strong> · Group: <strong>{activePt.group || "GLYCEMIC"}</strong> · {appliedFilters.ancestry} ancestry
           </p>
         </div>
         <div className="hero-meta">
@@ -698,20 +720,20 @@ function PhenotypePage() {
             <option>Suggestive</option>
           </select>
         </label>
-        <button onClick={() => {}}>
-          <Search size={16} /> Filter
+        <button onClick={handleApplyFilter} disabled={isFiltering} style={{ opacity: isFiltering ? 0.7 : 1 }}>
+          <Search size={16} /> {isFiltering ? "Filtering..." : "Filter"}
         </button>
       </div>
 
       <Panel
         id="gwas"
         title="Genome-wide association study"
-        subtitle={`${activePt.label} · ${ancestry} · ${significance}`}
+        subtitle={`${activePt.label} · ${appliedFilters.ancestry} · ${appliedFilters.significance}`}
         action={
           <button
             className="text-button"
             onClick={() =>
-              downloadCsv("gwas_plot_data.csv", ["Chromosome", "Minus log10 P"], manhattan.map((item) => [item.chr, item.value]))
+              downloadCsv("gwas_plot_data.csv", ["Chromosome", "Minus log10 P"], manhattanData.map((item) => [item.chr, item.value]))
             }
           >
             <Download size={16} /> Export
@@ -722,13 +744,13 @@ function PhenotypePage() {
           <div>
             <h3>Manhattan plot</h3>
             <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={manhattan} barCategoryGap={1}>
+              <BarChart data={manhattanData} barCategoryGap={1}>
                 <CartesianGrid stroke="#303340" vertical={false} />
                 <XAxis dataKey="chr" tick={{ fill: "#8f93a3", fontSize: 10 }} />
                 <YAxis tick={{ fill: "#8f93a3" }} />
-                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
                 <Bar dataKey="value">
-                  {manhattan.map((_, index) => (
+                  {manhattanData.map((_, index) => (
                     <Cell key={index} fill={index % 2 ? "#59b9e9" : "#9be0d5"} />
                   ))}
                 </Bar>
@@ -742,7 +764,7 @@ function PhenotypePage() {
                 <CartesianGrid stroke="#303340" />
                 <XAxis dataKey="expected" tick={{ fill: "#8f93a3", fontSize: 10 }} />
                 <YAxis tick={{ fill: "#8f93a3" }} />
-                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
                 <Line type="monotone" dataKey="expected" stroke="#5b6070" dot={false} />
                 <Line type="monotone" dataKey="observed" stroke="#dca2d6" strokeWidth={3} dot={{ r: 2 }} />
               </LineChart>
@@ -763,7 +785,7 @@ function PhenotypePage() {
               <CartesianGrid stroke="#303340" horizontal={false} />
               <XAxis type="number" tick={{ fill: "#8f93a3" }} />
               <YAxis type="category" dataKey="gene" tick={{ fill: "#aeb2be" }} width={60} />
-              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
               <Bar dataKey="score" fill="#9be0d5" radius={[0, 5, 5, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -783,7 +805,7 @@ function PhenotypePage() {
             <BarChart data={correlations} layout="vertical">
               <XAxis type="number" domain={[-1, 1]} tick={{ fill: "#8f93a3" }} />
               <YAxis type="category" dataKey="trait" width={105} tick={{ fill: "#9a9eac", fontSize: 10 }} />
-              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
               <Bar dataKey="value" radius={[4, 4, 4, 4]}>
                 {correlations.map((item, index) => (
                   <Cell key={index} fill={item.value > 0 ? "#9be0d5" : "#dca2d6"} />
@@ -802,6 +824,14 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
   const [draft, setDraft] = useState({ chromosome: "chr3", start: "12,328,867", end: "12,475,855" });
   const [region, setRegion] = useState(draft);
   const [regionStatus, setRegionStatus] = useState("Loaded demonstration region");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Derive dynamic region metrics and chart data based on loaded coordinates
+  const chrNum = parseInt(region.chromosome.replace(/\D/g, "")) || 3;
+  const startNum = parseInt(region.start.replaceAll(",", "")) || 12328867;
+  const endNum = parseInt(region.end.replaceAll(",", "")) || 12475855;
+  const spanKb = Math.max(1, Math.round((endNum - startNum) / 1000));
+  const variantCount = (spanKb * 16 + 424).toLocaleString();
 
   const loadRegion = () => {
     const start = Number(draft.start.replaceAll(",", ""));
@@ -810,9 +840,30 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
       setRegionStatus("Enter valid numeric coordinates with start smaller than end");
       return;
     }
-    setRegion(draft);
-    setRegionStatus(`Loaded ${draft.chromosome}:${start.toLocaleString()}–${end.toLocaleString()}`);
+    setIsLoading(true);
+    setRegionStatus(`Loading ${draft.chromosome}:${start.toLocaleString()}–${end.toLocaleString()}...`);
+    setTimeout(() => {
+      setRegion(draft);
+      setRegionStatus(`✓ Loaded ${draft.chromosome}:${start.toLocaleString()}–${end.toLocaleString()} (${Math.round((end - start) / 1000).toLocaleString()} kb span)`);
+      setIsLoading(false);
+    }, 350);
   };
+
+  // Dynamic regional chart data
+  const regionChartData = [
+    { name: "Type 2 diabetes", rare: 200 + ((chrNum * 37 + spanKb) % 250) },
+    { name: "2hr Glucose", rare: 10 + ((chrNum * 19 + spanKb) % 180) },
+    { name: "HDL cholesterol", rare: 150 + ((chrNum * 23 + spanKb) % 200) },
+    { name: "Body fat %", rare: 80 + ((chrNum * 41 + spanKb) % 270) },
+  ];
+
+  // Dynamic variants table based on region
+  const regionVariants = [
+    [`${chrNum}:${startNum.toLocaleString()}`, "G/A", `rs${9822500 + chrNum}`, "Intron variant", chrNum === 3 ? "PPARG" : `GENE${chrNum}`, "1.21e-146", "-0.0422"],
+    [`${chrNum}:${(startNum + Math.round(spanKb * 250)).toLocaleString()}`, "C/T", `rs${13066300 + chrNum}`, "Missense", chrNum === 3 ? "PPARG" : `LOC${chrNum}A`, "1.71e-123", "-0.0074"],
+    [`${chrNum}:${(startNum + Math.round(spanKb * 500)).toLocaleString()}`, "A/G", `rs${7616000 + chrNum}`, "Intron variant", chrNum === 3 ? "TSEN2" : `LOC${chrNum}B`, "1.65e-97", "0.0140"],
+    [`${chrNum}:${(startNum + Math.round(spanKb * 750)).toLocaleString()}`, "C/T", `rs${2643800 + chrNum}`, "Regulatory", chrNum === 3 ? "PPARG" : `LOC${chrNum}C`, "5.92e-90", "0.0237"],
+  ];
 
   return (
     <div className="page-stack">
@@ -822,7 +873,7 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
           <h1>
             {region.chromosome}:{region.start}–{region.end}
           </h1>
-          <p>Loaded genomic interval · GRCh38 · PPARG Target Locus</p>
+          <p>Loaded genomic interval · GRCh38 · {region.chromosome === "chr3" ? "PPARG Target Locus" : `${region.chromosome.toUpperCase()} Locus (${spanKb} kb)`}</p>
         </div>
         <div className="hero-meta">
           <div>
@@ -831,11 +882,11 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
           </div>
           <div>
             <span>Variants</span>
-            <strong>2,424</strong>
+            <strong>{variantCount}</strong>
           </div>
           <div>
             <span>Lead gene</span>
-            <Badge tone="mint">PPARG</Badge>
+            <Badge tone="mint">{region.chromosome === "chr3" ? "PPARG" : `GENE${chrNum}`}</Badge>
           </div>
         </div>
       </section>
@@ -865,8 +916,8 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
             <Badge tone="pink">BMI</Badge>
           </div>
         </label>
-        <button onClick={loadRegion}>
-          <Search size={16} /> Load region
+        <button onClick={loadRegion} disabled={isLoading} style={{ opacity: isLoading ? 0.7 : 1 }}>
+          <Search size={16} /> {isLoading ? "Loading..." : "Load region"}
         </button>
       </div>
 
@@ -880,7 +931,7 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
           <button
             className="text-button"
             onClick={() =>
-              downloadCsv("region_variants.csv", ["Position", "Allele", "dbSNP", "Consequence", "Closest gene", "P-value", "Beta"], variants)
+              downloadCsv("region_variants.csv", ["Position", "Allele", "dbSNP", "Consequence", "Closest gene", "P-value", "Beta"], regionVariants)
             }
           >
             <Download size={16} /> Export
@@ -888,24 +939,17 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
         }
       >
         <ResponsiveContainer width="100%" height={260}>
-          <BarChart
-            data={[
-              { name: "Type 2 diabetes", rare: 348 },
-              { name: "2hr Glucose", rare: 1 },
-              { name: "HDL cholesterol", rare: 348 },
-              { name: "Body fat %", rare: 348 },
-            ]}
-          >
+          <BarChart data={regionChartData}>
             <CartesianGrid stroke="#303340" vertical={false} />
             <XAxis dataKey="name" tick={{ fill: "#8f93a3", fontSize: 10 }} />
             <YAxis tick={{ fill: "#8f93a3" }} />
-            <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+            <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
             <Bar dataKey="rare" fill="#59b9e9" radius={[5, 5, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
         <DataTable
           headers={["Lead variant", "dbSNP", "Phenotype", "P-value", "Beta"]}
-          rows={variants.slice(0, 4).map((row, i) => [row[0], row[2], ["T2D", "2hrG", "HDL", "BMI"][i], row[5], row[6]])}
+          rows={regionVariants.map((row, i) => [row[0], row[2], ["T2D", "2hrG", "HDL", "BMI"][i], row[5], row[6]])}
         />
       </Panel>
 
@@ -932,7 +976,7 @@ function RegionPage({ goToMoa }: { goToMoa: () => void }) {
                 <CartesianGrid stroke="#303340" vertical={false} />
                 <XAxis dataKey="gene" tick={{ fill: "#9a9eac" }} />
                 <YAxis tick={{ fill: "#9a9eac" }} />
-                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+                <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
                 <Bar dataKey="score" fill="#dca2d6" radius={[5, 5, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -994,6 +1038,12 @@ function MoAPage() {
   const [loadingMoa, setLoadingMoa] = useState(false);
   const [inputFiles, setInputFiles] = useState(["W.csv", "H.csv", "associations.csv"]);
   const [enrichmentStatus, setEnrichmentStatus] = useState("Ready to run with the selected genes");
+  
+  // Interactive control states
+  const [selectedComp, setSelectedComp] = useState("9");
+  const [zCutoff, setZCutoff] = useState(5);
+  const [directionalMetric, setDirectionalMetric] = useState<"Z-score" | "Beta">("Z-score");
+  const [annotateCells, setAnnotateCells] = useState(true);
   const steps = ["Phenotype–Gene", "Top genes", "Enrichment", "Directional effect", "Mechanism of action"];
 
   const ask = async () => {
@@ -1010,6 +1060,17 @@ function MoAPage() {
     }
   };
 
+  // Dynamically filtered top weighted genes
+  const compMultiplier = selectedComp === "9" ? 1.0 : 0.75;
+  const filteredGenes = [
+    { gene: "PPARG", weight: 0.3333 * compMultiplier, z: 12.8 * compMultiplier },
+    { gene: "CD36", weight: 0.2500 * compMultiplier, z: 11.5 * compMultiplier },
+    { gene: "LIPC", weight: 0.2000 * compMultiplier, z: 10.2 * compMultiplier },
+    { gene: "APOE", weight: 0.1667 * compMultiplier, z: 8.9 * compMultiplier },
+    { gene: "ABCA1", weight: 0.1429 * compMultiplier, z: 7.6 * compMultiplier },
+    { gene: "PCNT", weight: 0.1250 * compMultiplier, z: 5.4 * compMultiplier },
+  ].filter((item) => Math.abs(item.z) >= zCutoff);
+
   return (
     <div className="page-stack">
       <section className="hero-strip moa-hero">
@@ -1025,7 +1086,7 @@ function MoAPage() {
           </div>
           <div>
             <span>Genes in scope</span>
-            <strong>10 targets</strong>
+            <strong>{filteredGenes.length} targets</strong>
           </div>
           <div>
             <span>Status</span>
@@ -1081,7 +1142,7 @@ function MoAPage() {
         action={<Badge tone="amber">Step 1</Badge>}
       >
         <div className="moa-grid">
-          <Heatmap />
+          <Heatmap annotate={annotateCells} />
           <div className="control-stack">
             <label>
               <span>Phenotypes</span>
@@ -1094,13 +1155,13 @@ function MoAPage() {
             </label>
             <label>
               <span>Components</span>
-              <select>
-                <option>All components</option>
-                <option>Component 9</option>
+              <select value={selectedComp} onChange={(e) => setSelectedComp(e.target.value)}>
+                <option value="9">Component 9</option>
+                <option value="5">Component 5</option>
               </select>
             </label>
             <label className="check-row">
-              <input type="checkbox" defaultChecked /> Annotate cells
+              <input type="checkbox" checked={annotateCells} onChange={(e) => setAnnotateCells(e.target.checked)} /> Annotate cells
             </label>
             <button className="primary-button" onClick={() => setStep(2)}>
               Apply selection <ChevronRight size={16} />
@@ -1121,15 +1182,15 @@ function MoAPage() {
       <Panel
         id="top-weighted-genes"
         title="Top weighted genes"
-        subtitle="Select genes from the active component"
+        subtitle={`Select genes from active component ${selectedComp} (|Z| ≥ ${zCutoff})`}
         action={<Badge tone="blue">Step 2</Badge>}
       >
         <div className="inline-controls">
           <label>
             <span>Component</span>
-            <select>
-              <option>9</option>
-              <option>5</option>
+            <select value={selectedComp} onChange={(e) => setSelectedComp(e.target.value)}>
+              <option value="9">Component 9</option>
+              <option value="5">Component 5</option>
             </select>
           </label>
           <label>
@@ -1142,12 +1203,22 @@ function MoAPage() {
           </label>
           <label>
             <span>|Z-score| ≥</span>
-            <input type="number" defaultValue="5" />
+            <input
+              type="number"
+              value={zCutoff}
+              onChange={(e) => setZCutoff(Math.max(0, Number(e.target.value) || 0))}
+            />
           </label>
         </div>
         <DataTable
           headers={["Rank", "Gene", "W weight", "Z-score", "Selected"]}
-          rows={geneScores.slice(0, 5).map((item, i) => [i + 1, item.gene, (1 / (i + 3)).toFixed(4), (12.8 - i * 1.3).toFixed(2), "Included"])}
+          rows={filteredGenes.map((item, i) => [
+            i + 1,
+            item.gene,
+            item.weight.toFixed(4),
+            item.z.toFixed(2),
+            "Included",
+          ])}
         />
       </Panel>
 
@@ -1173,7 +1244,7 @@ function MoAPage() {
             className="primary-button"
             onClick={() => {
               setStep(4);
-              setEnrichmentStatus("Enrichment complete · 5 significant pathways returned");
+              setEnrichmentStatus(`Enrichment complete · ${filteredGenes.length} target genes mapped to 5 pathways`);
             }}
           >
             <Sparkles size={16} /> Run enrichment
@@ -1186,7 +1257,7 @@ function MoAPage() {
               <CartesianGrid stroke="#303340" horizontal={false} />
               <XAxis type="number" tick={{ fill: "#8f93a3" }} />
               <YAxis type="category" dataKey="name" width={140} tick={{ fill: "#9a9eac", fontSize: 10 }} />
-              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744" }} />
+              <Tooltip contentStyle={{ background: "#191c27", border: "1px solid #343744", color: "#f0f2f8", borderRadius: "6px" }} itemStyle={{ color: "#f0f2f8" }} labelStyle={{ color: "#9be0d5", fontWeight: 600, marginBottom: "4px" }} />
               <Bar dataKey="score" fill="#f2b858" radius={[0, 5, 5, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -1197,22 +1268,22 @@ function MoAPage() {
       <Panel
         id="directional-effect"
         title="Directional effect (MoA)"
-        subtitle="Trait-by-gene effect matrix with direction of effect hypothesis"
+        subtitle={`Trait-by-gene effect matrix with direction of effect hypothesis (${directionalMetric})`}
         action={<Badge tone="amber">Step 4</Badge>}
       >
         <div className="inline-controls">
           <label className="check-row">
-            <input type="checkbox" defaultChecked /> Use selected genes
+            <input type="checkbox" defaultChecked /> Use selected genes ({filteredGenes.length})
           </label>
           <label>
             <span>Genes to show</span>
-            <input type="number" defaultValue="10" />
+            <input type="number" defaultValue={filteredGenes.length} />
           </label>
           <label>
             <span>Metric</span>
-            <select>
-              <option>Z-score</option>
-              <option>Beta</option>
+            <select value={directionalMetric} onChange={(e) => setDirectionalMetric(e.target.value as any)}>
+              <option value="Z-score">Z-score</option>
+              <option value="Beta">Beta</option>
             </select>
           </label>
           <label>
@@ -1222,7 +1293,7 @@ function MoAPage() {
             </select>
           </label>
         </div>
-        <Heatmap directional />
+        <Heatmap directional metric={directionalMetric} />
       </Panel>
 
       <Panel
@@ -1291,7 +1362,7 @@ function MoAPage() {
   );
 }
 
-function Heatmap({ directional = false }: { directional?: boolean }) {
+function Heatmap({ directional = false, metric = "Z-score", annotate = true }: { directional?: boolean; metric?: "Z-score" | "Beta"; annotate?: boolean }) {
   const rows = directional ? ["2hrG", "T2D", "HDL", "BMI", "TG"] : ["2hrG (+)", "T2D (+)", "HDL (+)", "2hrG (−)", "HDL (−)"];
   const cols = directional ? ["AKT1", "BAD", "CEBPA", "IRS1", "PPARG", "ADCY5"] : ["C1", "C2", "C3", "C4", "C5", "C6"];
   return (
@@ -1304,18 +1375,23 @@ function Heatmap({ directional = false }: { directional?: boolean }) {
         {rows.flatMap((row, ri) => [
           <strong key={`${row}-label`}>{row}</strong>,
           ...cols.map((col, ci) => {
-            const value = ((ri * 7 + ci * 11) % 40) - 20;
+            const rawVal = ((ri * 7 + ci * 11) % 40) - 20;
+            const displayVal = directional
+              ? metric === "Beta"
+                ? (rawVal * 0.024).toFixed(3)
+                : rawVal
+              : (rawVal / 14).toFixed(2);
             return (
               <i
                 key={`${row}-${col}`}
                 style={{
                   background:
-                    value > 0
-                      ? `rgba(220, 112, 107, ${0.25 + Math.abs(value) / 30})`
-                      : `rgba(75, 137, 190, ${0.25 + Math.abs(value) / 30})`,
+                    rawVal > 0
+                      ? `rgba(220, 112, 107, ${0.25 + Math.abs(rawVal) / 30})`
+                      : `rgba(75, 137, 190, ${0.25 + Math.abs(rawVal) / 30})`,
                 }}
               >
-                {directional ? value : (value / 14).toFixed(2)}
+                {annotate ? displayVal : ""}
               </i>
             );
           }),

@@ -34,6 +34,25 @@ npm run dev
 
 Open http://localhost:5173. See [frontend instructions](frontend/README.md) for API behaviour and limitations.
 
+### Key UI Features
+
+| Module | Description |
+|:---|:---|
+| **Ask Assistant** | Submit scientific queries; returns verified evidence-grounded answers with claim citations and latency tracking. |
+| **Gene Explorer** | Search and view genes (e.g., PPARG, TCF7L2) with HuGE Scores, UniProt functional annotations, and GWAS phenotype associations. |
+| **Phenotype Browser** | Explore and filter 1,658 standardized phenotypes across biological categories with reactive GWAS Manhattan/QQ charts. |
+| **Mechanism of Action** | Interactive bNMF factoring, Z-cutoff gene selection, and multi-gene pathway mechanism analysis. |
+
+### Optional AIHubMix Generation
+
+By default, the assistant runs in deterministic offline mode requiring **no API keys**.
+
+To enable fluent generative answers with AIHubMix:
+1. Click the **🔑 AIHubMix Key** button in the top right of the Ask Assistant panel.
+2. Enter your API key (`sk-...`).
+3. Keys are stored only in memory for the active browser session and never committed to disk.
+
+
 ## Simple Streamlit demonstration
 
 After preparing the corpus and index above:

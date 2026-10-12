@@ -14,9 +14,8 @@ htmlcov/
 # Environment
 .env
 .env.*
-!.env.example
-.venv/
 venv/
+.venv/
 
 # Retrieval artifacts
 artifacts/indexes/
@@ -35,3 +34,4 @@ frontend/node_modules/
 frontend/dist/
 frontend/*.tsbuildinfo
 *.tsbuildinfo
+
