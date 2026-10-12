@@ -10,7 +10,8 @@ Python 3.10+ and Node.js 20+ are required. Create and activate a virtual environ
 python -m venv .venv
 ```
 
-macOS/Linux: `source .venv/bin/activate`  
+macOS/Linux: `source .venv/bin/activate`
+
 Windows PowerShell: `.venv\Scripts\Activate.ps1`
 
 Prepare the corpus and index once on a fresh checkout:
