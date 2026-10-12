@@ -1,0 +1,6 @@
+{
+  "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-repo/artifacts/chunks/gene_info.chunks.jsonl": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72",
+  "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-repo/artifacts/chunks/ldsc_2hrI.chunks.jsonl": "2c5ec07ff30ed0a222706c5f40c8b9f9c39fd12aed7afcefa964a260299f0c86",
+  "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-repo/artifacts/chunks/gene_association_common_2hrG.chunks.jsonl": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590",
+  "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-repo/artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+}

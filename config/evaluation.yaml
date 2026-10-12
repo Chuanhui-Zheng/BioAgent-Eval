@@ -1,0 +1,8 @@
+retrieval_test: data/evaluation/retrieval_test.jsonl
+end_to_end_benchmark: data/evaluation/rag_e2e.jsonl
+output_dir: artifacts/evaluation/rag_e2e
+thresholds:
+  citation_correctness: 0.95
+  citation_completeness: 0.95
+  status_accuracy: 0.90
+  isolation: 1.00

@@ -1,0 +1,4 @@
+max_context_tokens: 1800
+max_passages: 5
+chars_per_token: 4
+require_resolvable_citations: true

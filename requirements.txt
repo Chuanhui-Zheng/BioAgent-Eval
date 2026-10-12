@@ -1,34 +1,5 @@
-# CS-46 RAG Pipeline Dependencies
-# Python >= 3.10 recommended
-
-# Install this project in editable mode so IDE resolves `chunking`:
-#   pip install -e .
-#
-# Chunking uses only the standard library.
-# Embedding extras:
-#   pip install -e ".[embed]"
-
-PyYAML>=6.0.1
-numpy>=1.24.0
-pandas>=2.0.0
-bm25s>=0.2.0
-faiss-cpu>=1.8.0
-sentence-transformers>=2.7.0
-# Windows + NVIDIA GPU: install CUDA torch separately, not the CPU wheel from PyPI:
-#   pip install torch --index-url https://download.pytorch.org/whl/cu126
-torch>=2.1.0
-
-# ---------------------------------------------------------------------------
-# Stage 2: Embedding & hybrid retrieval (BGE-M3)
-# Install with: pip install -e ".[embed]"
-# ---------------------------------------------------------------------------
-# FlagEmbedding>=1.2.11
-# sentence-transformers>=2.7.0
-# torch>=2.1.0
-
-# ---------------------------------------------------------------------------
-# Stage 3: API / evaluation (optional, add when implemented)
-# ---------------------------------------------------------------------------
-# fastapi>=0.110.0
-# uvicorn>=0.27.0
-# pydantic>=2.6.0
+# Tested offline BM25 RAG runtime (Python 3.13.3)
+PyYAML==6.0.3
+numpy==2.5.3
+pandas==3.0.6
+bm25s==0.3.11

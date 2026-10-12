@@ -41,7 +41,7 @@ dense:
   dimension: 1024
   batch_size: 8
   max_seq_length: 512
-  device: cuda
+  device: auto
   index_dir: artifacts/indexes/dense_qwen3_06b
 hybrid:
   candidate_k: 50

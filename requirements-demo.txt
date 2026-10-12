@@ -1,0 +1,2 @@
+-r requirements-llm.txt
+streamlit==1.65.0

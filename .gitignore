@@ -7,11 +7,24 @@ docs/individual/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+*.egg-info/
+.coverage
+htmlcov/
 
 # Environment
 .env
+.env.*
+!.env.example
 .venv/
+venv/
 
 # Retrieval artifacts
 artifacts/indexes/
 artifacts/ingestion_dev/
+
+# Downloaded model/cache directories
+.cache/
+models/
+
+# macOS
+.DS_Store

@@ -1,0 +1,3 @@
+Command: .venv/bin/pytest -q tests/augmentation
+Covered: deduplication, citation registry, medical refusal, non-significant qualification, token budget, collection leakage.
+Result: all augmentation tests passed; full suite 48/48 passed.

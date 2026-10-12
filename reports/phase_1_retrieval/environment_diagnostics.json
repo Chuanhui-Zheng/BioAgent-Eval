@@ -1,0 +1,53 @@
+{
+  "dependencies": {
+    "yaml": true,
+    "numpy": true,
+    "bm25s": true,
+    "faiss": true,
+    "sentence_transformers": true,
+    "torch": true
+  },
+  "indexes": {
+    "bm25": {
+      "path": "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/indexes/bm25_title_content",
+      "available": true,
+      "metadata": {
+        "library": "bm25s",
+        "library_version": "0.3.11",
+        "method": "lucene",
+        "k1": 1.5,
+        "b": 0.75,
+        "document_count": 41103,
+        "average_document_length": 111.73381504999635,
+        "text_fields": [
+          "title",
+          "content"
+        ],
+        "tokenizer": {
+          "unicode_form": "NFKC",
+          "lowercase": true,
+          "stem": false,
+          "document_stopwords": false,
+          "query_stopwords": true
+        },
+        "title_repeat": 2,
+        "chunk_hashes": {
+          "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/chunks/gene_info.chunks.jsonl": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72",
+          "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/chunks/ldsc_2hrI.chunks.jsonl": "2c5ec07ff30ed0a222706c5f40c8b9f9c39fd12aed7afcefa964a260299f0c86",
+          "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/chunks/gene_association_common_2hrG.chunks.jsonl": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590",
+          "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+        },
+        "collection_counts": {
+          "gene_info": 24825,
+          "ldsc_genetic_correlation": 781,
+          "gene_association_common": 11383,
+          "gene_association_rare": 4114
+        }
+      }
+    },
+    "dense": {
+      "path": "/Users/jay/Desktop/Capstone/5703/Evidence-Grounded-Scientific-RAG-Assistant-with-Citation-and-Quality-Evaluation-for-Drug-Discovery-main 2/artifacts/indexes/dense_qwen3_06b",
+      "available": false
+    }
+  }
+}
