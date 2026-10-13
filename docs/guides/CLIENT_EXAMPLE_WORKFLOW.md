@@ -1,5 +1,9 @@
 # Client example and analysis-context questions
 
+The source branch includes `data/reference/client_example/example.json`, so
+**Code → Download ZIP** needs no separate client archive to use this example.
+The preparation script is retained only for reproducing it from the original archive.
+
 ## Try it
 Open Gene MoA, then Load client example. In Explore genes, select T2D under Phenotype and set Minimum |Z-score| to 2. Component and W filters are under Advanced. With component C1 and W >= 0, the bundled example selects 75 of 200 genes. Run enrichment with a local library if desired, inspect directional effects, then choose Explain results and ask “Why were these genes selected?” in the embedded question box. The question uses server-owned run data and current filters. A named measured gene can also be explained, including why it was excluded.
 

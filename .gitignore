@@ -45,7 +45,8 @@ artifacts/runs/
 # GitHub source distribution: local data and generated outputs
 /artifacts/
 /data/raw/
-/data/reference/client_example/
+/data/reference/client_example/*
+!/data/reference/client_example/example.json
 /frontend/src.codex-backup/
 .ruff_cache/
 *.log

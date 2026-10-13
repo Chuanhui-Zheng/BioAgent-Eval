@@ -14,12 +14,6 @@ from tests.helpers import result
 
 ROOT = Path(__file__).resolve().parents[1]
 
-pytestmark = pytest.mark.skipif(
-    not (ROOT / "data/reference/client_example/example.json").is_file(),
-    reason="Client example is distributed separately; restore it to run client integration tests.",
-)
-
-
 def client(tmp_path):
     target = tmp_path / "data/reference/client_example"
     target.mkdir(parents=True)
