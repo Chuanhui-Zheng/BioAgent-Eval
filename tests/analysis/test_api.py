@@ -220,3 +220,50 @@ def test_phenotype_listing_uses_dictionary_glossary(client):
     assert [r["code"] for r in response.json()["phenotypes"]] == ["T1", "T2"]
     filtered = client.get("/api/analysis/phenotypes?q=Alias").json()["phenotypes"]
     assert [r["code"] for r in filtered] == ["T1"]
+
+
+def test_database_survives_relocation_and_timestamp_changes(raw_root, tmp_path):
+    import os
+    import shutil
+    import hashlib
+    store = DataStore(raw_root)
+    store.ensure()
+    before = hashlib.sha256(store.path.read_bytes()).hexdigest()
+    moved = tmp_path / "relocated"
+    shutil.copytree(raw_root / "data", moved / "data")
+    (moved / "artifacts/structured").mkdir(parents=True)
+    shutil.copy2(store.path, moved / "artifacts/structured/analysis.sqlite")
+    for file in (moved / "data/raw").rglob("*"):
+        if file.is_file():
+            os.utime(file, (1000000000, 1000000000))
+    relocated = DataStore(moved)
+    original_mtime = relocated.path.stat().st_mtime_ns
+    relocated.ensure()
+    assert relocated.path.stat().st_mtime_ns == original_mtime
+    assert hashlib.sha256(relocated.path.read_bytes()).hexdigest() == before
+    assert relocated.sources == store.sources
+
+
+def test_database_detects_same_size_source_edit_with_preserved_timestamp(raw_root):
+    import os
+    store = DataStore(raw_root)
+    store.ensure()
+    source = raw_root / "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv"
+    stat = source.stat()
+    source.write_text(source.read_text().replace("2,1,Liver,A", "9,1,Liver,A"))
+    os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+    changed = DataStore(raw_root)
+    changed.ensure()
+    with changed.connect() as db:
+        assert db.execute("SELECT MAX(value) FROM expression WHERE kind='protein'").fetchone()[0] == 9
+
+
+def test_database_detects_removed_source(raw_root):
+    store = DataStore(raw_root)
+    store.ensure()
+    source = raw_root / "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv"
+    source.unlink()
+    changed = DataStore(raw_root)
+    changed.ensure()
+    with changed.connect() as db:
+        assert db.execute("SELECT COUNT(*) FROM expression WHERE kind='protein'").fetchone()[0] == 0

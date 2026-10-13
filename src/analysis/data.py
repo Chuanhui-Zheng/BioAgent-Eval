@@ -53,15 +53,14 @@ class DataStore:
                 if f.is_file()
                 and f.suffix in {".csv", ".gz", ".zst", ".json", ".jsonl"}
             )
+            # Content identity survives clone/unzip and detects changes even when
+            # file size and timestamp are preserved. Relative paths are portable.
+            source_identity = {
+                str(f.relative_to(self.root)): provenance(f, self.root) for f in files
+            }
             fingerprint = json.dumps(
-                [
-                    (
-                        str(f.relative_to(self.root)),
-                        f.stat().st_size,
-                        f.stat().st_mtime_ns,
-                    )
-                    for f in files
-                ]
+                [(name, info["bytes"], info["sha256"])
+                 for name, info in source_identity.items()]
             )
             self.path.parent.mkdir(parents=True, exist_ok=True)
             if self.path.exists():
@@ -255,7 +254,7 @@ class DataStore:
                         continue
                     sources.append(
                         {
-                            **provenance(file, self.root),
+                            **source_identity[rel],
                             "accepted_records": count,
                             "rejected_records": rejected,
                         }
