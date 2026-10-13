@@ -47,6 +47,7 @@ class RAGPipeline:
                 claims=[],
                 citations=[],
                 limitations=validation.errors,
+                provider=getattr(self.generator, "provider", "unknown"),
             )
         finished = time.perf_counter()
         seed = f"{request.question}|{time.time_ns()}".encode()

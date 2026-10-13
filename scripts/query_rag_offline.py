@@ -42,7 +42,7 @@ def main() -> int:
     args = parse_args()
     config = load_retrieval_config(PROJECT_ROOT)
     corpus = load_corpus_from_config(config)
-    backend = load_bm25_index(config.index_dir, corpus.records)
+    backend = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
     pipeline = RAGPipeline(
         RetrieverService(backend, "bm25"),
         ContextBuilder(),

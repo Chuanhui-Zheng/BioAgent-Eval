@@ -35,3 +35,25 @@ frontend/dist/
 frontend/*.tsbuildinfo
 *.tsbuildinfo
 
+
+# Rebuildable structured data indexes
+artifacts/structured/
+
+# Local query audit records (may contain client evidence)
+artifacts/runs/
+
+# GitHub source distribution: local data and generated outputs
+/artifacts/
+/data/raw/
+/data/reference/client_example/
+/frontend/src.codex-backup/
+.ruff_cache/
+*.log
+*.zip
+*.tar.gz
+*.sqlite
+*.sqlite3
+*.db
+
+# Commit the empty environment template, never actual credentials
+!.env.example

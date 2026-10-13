@@ -28,6 +28,6 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:5173. Vite forwards `/api` requests to the local Python server. The assistant uses retrieved evidence offline by default; entering an AIHubMix key enables hosted generation. Hosted failures fall back to offline evidence and include a limitation message. Keys must not be committed. Some charts and MoA workflows still contain prototype data; live API connectivity does not imply every panel is backed by real data.
+Open http://localhost:5173. Vite forwards `/api` requests to the local Python server. The assistant uses retrieved evidence offline by default; entering an AIHubMix key enables hosted generation. Hosted failures fall back to offline evidence and include a limitation message. Keys must not be committed. Prototype analysis is labelled on each affected page. File selection does not parse matrices and enrichment is a sample preview. Gene fields and scores are shown as unavailable when missing, while zero scores are preserved. The seven-collection query service displays limitations, provider fallback and expandable source passages. Citation validation checks reference structure only, not scientific entailment.
 
 `npm run build` checks TypeScript and builds the frontend. Production serving requires routing `/api` to the Python server separately.

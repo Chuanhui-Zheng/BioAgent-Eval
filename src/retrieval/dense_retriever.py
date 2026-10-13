@@ -217,9 +217,13 @@ class DenseIndex:
         allowed_set = set(allowed)
         n_docs = len(self.records)
         filtered = collections is not None or filters
-        retrieve_k = min(n_docs, top_k if not filtered else min(n_docs, max(top_k * 20, 200)))
+        retrieve_k = min(len(allowed), top_k)
         query_vec = _l2_normalize(self.encoder.encode_queries([query]))
-        scores, indices = self.faiss_index.search(query_vec, retrieve_k)
+        # IndexFlatIP supports an ID selector: excluded vectors cannot consume k.
+        params = faiss.SearchParameters()
+        selector = faiss.IDSelectorBatch(np.asarray(allowed, dtype=np.int64))
+        params.sel = selector
+        scores, indices = self.faiss_index.search(query_vec, retrieve_k, params=params)
         ranked: list[SearchResult] = []
         for rank_pos, (doc_index, score) in enumerate(zip(indices[0], scores[0]), start=1):
             doc_index = int(doc_index)

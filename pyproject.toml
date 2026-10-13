@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cs46-scientific-rag"
-version = "0.2.0"
+version = "0.3.0"
 requires-python = ">=3.10"
 dependencies = [
   "PyYAML>=6.0.1",
@@ -14,6 +14,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+analysis = ["scipy>=1.14,<2", "zstandard>=0.23,<1"]
 retrieval = ["faiss-cpu>=1.8.0"]
 embed = [
   "faiss-cpu>=1.8.0",

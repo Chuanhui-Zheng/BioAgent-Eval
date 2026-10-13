@@ -1,0 +1,15 @@
+.git
+.venv
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+frontend/dist
+**/*.tsbuildinfo
+.env
+.env.*
+artifacts/indexes
+artifacts/structured
+artifacts/model-cache
+
+# Local query audit records (may contain client evidence)
+artifacts/runs/

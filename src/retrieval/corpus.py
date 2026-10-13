@@ -60,6 +60,12 @@ def load_corpus(
     if entries and set(entries) != {source.collection for source in sources}:
         raise ValueError("Manifest collections do not match configured source collections")
 
+    source_versions = {}
+    if manifest_file:
+        payload = json.loads(manifest_file.read_text())
+        source_versions = {s["path"]: s["sha256"] for s in payload.get("sources", {}).values()
+                           if isinstance(s, dict) and "path" in s and "sha256" in s}
+        manifest_version = file_sha256(manifest_file)
     for source in sources:
         if not source.path.exists():
             raise FileNotFoundError(f"Chunk artifact not found: {source.path}")
@@ -84,6 +90,14 @@ def load_corpus(
             if record.chunk_id in seen_ids:
                 raise ValueError(f"Duplicate chunk_id: {record.chunk_id}")
             seen_ids.add(record.chunk_id)
+            if manifest_file:
+                citation = record.citation
+                source_hash = citation.get("source_sha256") or source_versions.get(citation.get("source_file"))
+                if source_hash:
+                    citation["source_sha256"] = source_hash
+                    citation.setdefault("source_version", "sha256:" + source_hash)
+                citation["corpus_version"] = "sha256:" + manifest_version
+                citation["chunk_file_sha256"] = chunk_hashes[source.path.as_posix()]
             records.append(record)
             count += 1
         collection_counts[source.collection] = count

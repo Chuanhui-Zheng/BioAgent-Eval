@@ -71,22 +71,16 @@ class BM25Index:
             )
         )
 
-        n_docs = len(self.records)
-        filtered = collections is not None or filters
-        retrieve_k = min(n_docs, top_k if not filtered else min(n_docs, max(top_k * 20, 200)))
-        query_tokens = [tokens]
-        doc_ids = np.arange(n_docs)
-        retrieved, scores = self.model.retrieve(
-            query_tokens, corpus=doc_ids, k=retrieve_k, sorted=True, show_progress=False
-        )
-        bm25_rank: dict[int, tuple[int, float]] = {}
-        for rank_pos, (doc_index, score) in enumerate(zip(retrieved[0], scores[0]), start=1):
-            doc_index = int(doc_index)
-            if doc_index < 0 or doc_index >= n_docs:
-                continue
-            if filtered and doc_index not in allowed_set:
-                continue
-            bm25_rank[doc_index] = (rank_pos, float(score))
+        # Score once, then rank ONLY eligible documents. Global top-k followed
+        # by filtering loses all matches when a large excluded collection dominates.
+        scores = self.model.get_scores(tokens)
+        eligible = np.asarray(allowed, dtype=np.int64)
+        eligible = eligible[np.isfinite(scores[eligible]) & (scores[eligible] > 0)]
+        ordered = eligible[np.argsort(-scores[eligible], kind="stable")][:top_k]
+        bm25_rank = {
+            int(index): (rank, float(scores[index]))
+            for rank, index in enumerate(ordered, 1)
+        }
 
         ranked: list[SearchResult] = []
         used: set[int] = set()
@@ -226,10 +220,19 @@ def save_bm25_index(index: BM25Index, index_dir: Path) -> None:
         handle.write("\n")
 
 
-def load_bm25_index(index_dir: Path, records: list[ChunkRecord]) -> BM25Index:
+def load_bm25_index(index_dir: Path, records: list[ChunkRecord], *, expected_chunk_hashes: dict[str, str] | None = None) -> BM25Index:
     meta_path = index_dir / "index_meta.json"
     with meta_path.open("r", encoding="utf-8") as handle:
         meta = json.load(handle)
+    if expected_chunk_hashes is not None:
+        stored = {Path(k).name: v for k, v in meta.get("chunk_hashes", {}).items()}
+        current = {Path(k).name: v for k, v in expected_chunk_hashes.items()}
+        if stored != current:
+            raise ValueError("BM25 index is stale; rebuild it from the current corpus")
+    with (index_dir / "doc_map.jsonl").open() as handle:
+        mapping = [json.loads(line) for line in handle if line.strip()]
+    if [(r["chunk_id"], r["collection"]) for r in mapping] != [(r.chunk_id, r.collection) for r in records]:
+        raise ValueError("BM25 document order does not match the corpus; rebuild required")
     model = bm25s.BM25.load(str(index_dir / "bm25s"), load_corpus=False)
     text_fields = tuple(meta.get("text_fields", ["title", "content"]))
     if len(records) != int(meta.get("document_count", len(records))):

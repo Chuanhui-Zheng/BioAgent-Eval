@@ -4,6 +4,7 @@ import json
 import logging
 import sys
 import time
+from contextlib import asynccontextmanager
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Optional
@@ -18,6 +19,9 @@ SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
+from fastapi.responses import JSONResponse
+from retrieval.access import WORKSPACES, workspace_id, allowed_collections, path_is_allowed
+from generation.fallback import FallbackGenerator
 from augmentation.builder import ContextBuilder
 from chunking.phenotype_glossary import PhenotypeGlossary
 from generation.aihubmix import AIHubMixGenerator
@@ -26,16 +30,24 @@ from rag.pipeline import RAGPipeline
 from retrieval.bm25_retriever import load_bm25_index
 from retrieval.config import load_retrieval_config
 from retrieval.corpus import load_corpus_from_config
-from retrieval.router import ALL_COLLECTIONS
+from retrieval.router import SUPPORTED_COLLECTIONS as ALL_COLLECTIONS
 from retrieval.service import RetrievalRequest, RetrieverService
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("rag-api")
 
+
+@asynccontextmanager
+async def lifespan(application):
+    startup_event()
+    yield
+
+
 app = FastAPI(
     title="GenEngine Evidence-Grounded Scientific RAG API",
     description="Scientific RAG assistant API with claim citations and quality evaluation for drug discovery.",
-    version="1.2.0",
+    version="1.3.0",
+    lifespan=lifespan,
 )
 
 # Enable CORS for React frontend (e.g., http://localhost:5173 or other local dev origins)
@@ -46,6 +58,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def simulated_workspace(request, call_next):
+    selected = request.headers.get("X-Workspace-ID", "all")
+    if selected not in WORKSPACES:
+        return JSONResponse({"detail": "Unknown simulated workspace."}, status_code=422)
+    token = workspace_id.set(selected)
+    try:
+        if not path_is_allowed(request.url.path):
+            return JSONResponse({"detail": "This resource is outside the selected simulated workspace."}, status_code=403)
+        response = await call_next(request)
+        response.headers["X-Workspace-ID"] = selected
+        response.headers["Vary"] = "X-Workspace-ID"
+        return response
+    finally:
+        workspace_id.reset(token)
+
+@app.get("/api/workspaces")
+def workspaces():
+    return {"mode": "simulated", "workspaces": WORKSPACES,
+            "notice": "Workspace selection demonstrates isolation; it is not authentication."}
 
 # Global in-memory pipeline state
 _PIPELINE: Optional[RAGPipeline] = None
@@ -61,7 +94,7 @@ def get_pipeline() -> RAGPipeline:
         logger.info("Initializing RAG pipeline from disk...")
         config = load_retrieval_config(PROJECT_ROOT)
         corpus = load_corpus_from_config(config)
-        backend = load_bm25_index(config.index_dir, corpus.records)
+        backend = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
         _PIPELINE = RAGPipeline(
             RetrieverService(backend, "bm25"),
             ContextBuilder(),
@@ -91,7 +124,9 @@ def load_gene_indexes():
             for line in f:
                 if line.strip():
                     item = json.loads(line)
-                    gene = item.get("metadata", {}).get("gene") or item.get("title", "").replace("Gene ", "")
+                    gene = item.get("metadata", {}).get("gene") or item.get(
+                        "title", ""
+                    ).replace("Gene ", "")
                     if gene:
                         _GENE_INDEX[gene.upper()] = item
 
@@ -118,7 +153,6 @@ def load_gene_indexes():
                         _RARE_ASSOC.setdefault(gene, []).append(item)
 
 
-@app.on_event("startup")
 def startup_event():
     get_pipeline()
     get_glossary()
@@ -127,11 +161,22 @@ def startup_event():
 
 # --- Models ---
 class QueryRequest(BaseModel):
-    question: str = Field(..., description="The scientific question to ask.")
-    authorized_collections: Optional[list[str]] = Field(None, description="Collections to restrict search to.")
+    question: str = Field(
+        ...,
+        min_length=1,
+        max_length=10000,
+        description="The scientific question to ask.",
+    )
+    authorized_collections: Optional[list[str]] = Field(
+        None, description="Collections to restrict search to."
+    )
     top_k: int = Field(10, ge=1, le=50, description="Max passages to retrieve.")
-    api_key: Optional[str] = Field(None, description="Optional AIHubMix API key for online LLM synthesis.")
-    model: Optional[str] = Field("gpt-4o-mini", description="LLM model name if using API key.")
+    api_key: Optional[str] = Field(
+        None, description="Optional AIHubMix API key for online LLM synthesis."
+    )
+    model: Optional[str] = Field(
+        "gpt-4o-mini", description="LLM model name if using API key."
+    )
 
 
 class ClaimResponse(BaseModel):
@@ -149,6 +194,9 @@ class QueryResponse(BaseModel):
     latency_s: dict[str, float]
     retrieved_count: int
     provider: str
+    run_id: str = ""
+    workspace: str = "all"
+    usage: dict[str, Any] = Field(default_factory=dict)
 
 
 # --- Endpoints ---
@@ -157,60 +205,63 @@ def health_check():
     get_pipeline()
     return {
         "status": "healthy",
-        "collections": ALL_COLLECTIONS,
+        "collections": list(allowed_collections()),
         "indexed_genes": len(_GENE_INDEX),
         "glossary_terms": len(get_glossary()._entries),
-        "total_chunks": len(get_pipeline().retriever.backend.records),
+        "total_chunks": sum(r.collection in allowed_collections() for r in get_pipeline().retriever.backend.records),
     }
 
 
 @app.post("/api/rag/query", response_model=QueryResponse)
 def query_rag(req: QueryRequest):
     pipeline = get_pipeline()
-    collections = tuple(req.authorized_collections or ALL_COLLECTIONS)
+    collections = tuple(
+        ALL_COLLECTIONS
+        if req.authorized_collections is None
+        else req.authorized_collections
+    )
+    try:
+        if set(collections) - set(ALL_COLLECTIONS):
+            raise ValueError("Unknown authorized collection")
+        request = RetrievalRequest(
+            req.question, authorized_collections=tuple(c for c in collections if c in allowed_collections()), top_k=req.top_k
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     generator = OfflineEvidenceGenerator()
-    provider_name = "offline_evidence"
+    initialization_failed = False
     if req.api_key and req.api_key.strip():
-        generator = AIHubMixGenerator(api_key=req.api_key.strip(), model=req.model or "gpt-4o-mini")
-        provider_name = f"aihubmix:{req.model}"
-
-    # Swap generator for this query
-    active_pipeline = RAGPipeline(
-        pipeline.retriever,
-        pipeline.context_builder,
-        generator,
-    )
-
+        try:
+            pricing_path = PROJECT_ROOT / "config/model_pricing.json"
+            pricing = json.loads(pricing_path.read_text()) if pricing_path.exists() else {}
+            rates = pricing.get(req.model or "gpt-4o-mini", {})
+            primary = AIHubMixGenerator(api_key=req.api_key.strip(), model=req.model or "gpt-4o-mini",
+                                       input_cost_per_million=rates.get("input_usd_per_million"),
+                                       output_cost_per_million=rates.get("output_usd_per_million"))
+            generator = FallbackGenerator(primary, OfflineEvidenceGenerator())
+        except Exception as exc:
+            logger.warning("Hosted provider initialization failed (%s)", type(exc).__name__)
+            initialization_failed = True
+    active_pipeline = RAGPipeline(pipeline.retriever, pipeline.context_builder, generator)
     start_time = time.perf_counter()
-    try:
-        run = active_pipeline.run(
-            RetrievalRequest(
-                req.question,
-                authorized_collections=collections,
-                top_k=req.top_k,
-            )
-        )
-    except Exception as e:
-        logger.warning(f"Generator {provider_name} failed: {e}. Falling back to OfflineEvidenceGenerator.")
-        fallback_pipeline = RAGPipeline(
-            pipeline.retriever,
-            pipeline.context_builder,
-            OfflineEvidenceGenerator(),
-        )
-        run = fallback_pipeline.run(
-            RetrievalRequest(
-                req.question,
-                authorized_collections=collections,
-                top_k=req.top_k,
-            )
-        )
-        provider_name = "offline_fallback"
-        run.answer.limitations.append(f"Online LLM unavailable: {e}. Automatically used local verified evidence engine.")
+    run = active_pipeline.run(request)
+    if initialization_failed or run.answer.diagnostics.get("fallback_from"):
+        run.answer.provider = "offline_fallback"
+        run.answer.diagnostics["fallback_from"] = "aihubmix"
+        if initialization_failed:
+            run.answer.limitations.append("Hosted generation was unavailable; the answer uses local evidence excerpts.")
+    run.retrieval.diagnostics["workspace"] = workspace_id.get()
+    run.retrieval.diagnostics["index_metadata"] = getattr(pipeline.retriever.backend, "meta", {})
+    # No request/API key or raw provider exception is serialized.
+    RAGPipeline.save_run(run, PROJECT_ROOT / "artifacts/runs" / workspace_id.get())
+    provider_name = run.answer.provider
 
     total_time = time.perf_counter() - start_time
 
-    claims = [ClaimResponse(text=c.text, citations=c.citations) for c in run.answer.claims]
+    claims = [
+        ClaimResponse(text=c.text, citations=c.citations) for c in run.answer.claims
+    ]
     latencies = {**run.latency_s, "total_api": total_time}
 
     formatted_citations = []
@@ -221,7 +272,9 @@ def query_rag(req: QueryRequest):
             item["title"] = item.get("source_name") or item.get("title") or item["id"]
             formatted_citations.append(item)
         else:
-            formatted_citations.append({"id": str(c), "title": str(c), "chunk_id": str(c)})
+            formatted_citations.append(
+                {"id": str(c), "title": str(c), "chunk_id": str(c)}
+            )
 
     return QueryResponse(
         status=run.answer.status,
@@ -233,18 +286,51 @@ def query_rag(req: QueryRequest):
         latency_s=latencies,
         retrieved_count=len(run.retrieval.results),
         provider=run.answer.provider or provider_name,
+        run_id=run.run_id,
+        workspace=workspace_id.get(),
+        usage=run.answer.diagnostics.get("usage", {"api_calls": 0, "estimated_cost_usd": 0.0}),
     )
+
+
+@app.get("/api/evidence/{chunk_id:path}")
+def get_evidence(chunk_id: str, corpus_version: str | None = None):
+    """Return a corpus passage and its provenance for citation inspection."""
+    for record in get_pipeline().retriever.backend.records:
+        if record.chunk_id == chunk_id and record.collection in allowed_collections():
+            if corpus_version and record.citation.get("corpus_version") != corpus_version:
+                raise HTTPException(status_code=409, detail="The corpus version changed. Re-run the query to inspect current evidence.")
+            return record.to_dict()
+    raise HTTPException(status_code=404, detail="Evidence passage not found in corpus.")
 
 
 @app.get("/api/genes")
 def list_genes(q: Optional[str] = None):
     """List sample high-priority genes or search by symbol/alias query."""
-    featured = ["PPARG", "TCF7L2", "ADCY5", "LPCAT2", "SLC30A8", "INS", "KCNJ11", "GCK", "HNF1A", "CDKAL1", "AKT1", "BAD", "CEBPA", "IRS1", "CD36", "LIPC"]
+    featured = [
+        "PPARG",
+        "TCF7L2",
+        "ADCY5",
+        "LPCAT2",
+        "SLC30A8",
+        "INS",
+        "KCNJ11",
+        "GCK",
+        "HNF1A",
+        "CDKAL1",
+        "AKT1",
+        "BAD",
+        "CEBPA",
+        "IRS1",
+        "CD36",
+        "LIPC",
+    ]
     if q and q.strip():
         q_upper = q.strip().upper()
         matches = [g for g in _GENE_INDEX.keys() if g.startswith(q_upper)]
         if len(matches) < 15:
-            matches += [g for g in _GENE_INDEX.keys() if q_upper in g and g not in matches]
+            matches += [
+                g for g in _GENE_INDEX.keys() if q_upper in g and g not in matches
+            ]
         selected = matches[:15]
     else:
         selected = featured
@@ -253,13 +339,15 @@ def list_genes(q: Optional[str] = None):
     for g in selected:
         entry = _GENE_INDEX.get(g)
         if entry:
-            out.append({
-                "symbol": g,
-                "title": entry.get("title", f"Gene {g}"),
-                "metadata": entry.get("metadata", {}),
-                "has_common_evidence": g in _COMMON_ASSOC,
-                "has_rare_evidence": g in _RARE_ASSOC,
-            })
+            out.append(
+                {
+                    "symbol": g,
+                    "title": entry.get("title", f"Gene {g}"),
+                    "metadata": entry.get("metadata", {}),
+                    "has_common_evidence": g in _COMMON_ASSOC and "gene_association_common" in allowed_collections(),
+                    "has_rare_evidence": g in _RARE_ASSOC and "gene_association_rare" in allowed_collections(),
+                }
+            )
     return {"genes": out, "total_indexed": len(_GENE_INDEX)}
 
 
@@ -267,21 +355,49 @@ def list_genes(q: Optional[str] = None):
 def get_gene_details(symbol: str):
     sym = symbol.strip().upper()
     entry = _GENE_INDEX.get(sym)
+    if entry is None:
+        for candidate, record in _GENE_INDEX.items():
+            metadata = record.get("metadata", {})
+            identifiers = [
+                *(metadata.get("alternative_names") or []),
+                *(
+                    metadata.get(key)
+                    for key in (
+                        "ensembl_gene_id",
+                        "hgnc_id",
+                        "entrezgene",
+                        "uniprot_accession",
+                    )
+                ),
+            ]
+            if any(
+                str(identifier).upper() == sym
+                for identifier in identifiers
+                if identifier is not None
+            ):
+                sym, entry = candidate, record
+                break
     if not entry:
-        raise HTTPException(status_code=404, detail=f"Gene {symbol} not found in approved corpus.")
-    
-    common = _COMMON_ASSOC.get(sym, [])
-    rare = _RARE_ASSOC.get(sym, [])
+        raise HTTPException(
+            status_code=404, detail=f"Gene {symbol} not found in approved corpus."
+        )
 
-    common_bf = common[0].get("metadata", {}).get("bf_common", 1.0) if common else 1.0
-    rare_bf = rare[0].get("metadata", {}).get("bf_rare", 1.0) if rare else 1.0
-    huge_score = float(common_bf) * float(rare_bf)
+    common = _COMMON_ASSOC.get(sym, []) if "gene_association_common" in allowed_collections() else []
+    rare = _RARE_ASSOC.get(sym, []) if "gene_association_rare" in allowed_collections() else []
+
+    common_bf = common[0].get("metadata", {}).get("bf_common") if common else None
+    rare_bf = rare[0].get("metadata", {}).get("bf_rare") if rare else None
+    huge_score = (
+        float(common_bf) * float(rare_bf)
+        if common_bf is not None and rare_bf is not None
+        else None
+    )
 
     phenotype_map: dict[str, dict[str, Any]] = {}
     for c in common:
         meta = c.get("metadata", {})
         pt = meta.get("phenotype", "2hrG")
-        phenotype_map.setdefault(pt, {})["common_bf"] = meta.get("bf_common", 1.0)
+        phenotype_map.setdefault(pt, {})["common_bf"] = meta.get("bf_common")
         phenotype_map[pt]["label"] = meta.get("phenotype_label", pt)
         phenotype_map[pt]["evidence_tier"] = meta.get("evidence_tier", "baseline")
         phenotype_map[pt]["has_causal"] = meta.get("has_causal_annotation", False)
@@ -290,7 +406,7 @@ def get_gene_details(symbol: str):
     for r in rare:
         meta = r.get("metadata", {})
         pt = meta.get("phenotype", "2hrG")
-        phenotype_map.setdefault(pt, {})["rare_bf"] = meta.get("bf_rare", 1.0)
+        phenotype_map.setdefault(pt, {})["rare_bf"] = meta.get("bf_rare")
         phenotype_map[pt]["label"] = meta.get("phenotype_label", pt)
         phenotype_map[pt]["beta"] = meta.get("beta")
         phenotype_map[pt]["z"] = meta.get("z")
@@ -298,19 +414,25 @@ def get_gene_details(symbol: str):
 
     assoc_summary = []
     for pt, vals in phenotype_map.items():
-        c_bf = float(vals.get("common_bf", 1.0))
-        r_bf = float(vals.get("rare_bf", 1.0))
-        assoc_summary.append({
-            "phenotype": pt,
-            "label": vals.get("label", pt),
-            "common_bf": c_bf,
-            "rare_bf": r_bf,
-            "huge_score": round(c_bf * r_bf, 2),
-            "beta": vals.get("beta"),
-            "z": vals.get("z"),
-            "p_value": vals.get("p_value") or vals.get("causal_p"),
-            "evidence_tier": vals.get("evidence_tier", "standard"),
-        })
+        c_bf = float(vals["common_bf"]) if vals.get("common_bf") is not None else None
+        r_bf = float(vals["rare_bf"]) if vals.get("rare_bf") is not None else None
+        assoc_summary.append(
+            {
+                "phenotype": pt,
+                "label": vals.get("label", pt),
+                "common_bf": c_bf,
+                "rare_bf": r_bf,
+                "huge_score": round(c_bf * r_bf, 2)
+                if c_bf is not None and r_bf is not None
+                else None,
+                "beta": vals.get("beta"),
+                "z": vals.get("z"),
+                "p_value": vals.get("p_value")
+                if vals.get("p_value") is not None
+                else vals.get("causal_p"),
+                "evidence_tier": vals.get("evidence_tier", "standard"),
+            }
+        )
 
     return {
         "symbol": sym,
@@ -318,7 +440,7 @@ def get_gene_details(symbol: str):
         "content": entry.get("content"),
         "metadata": entry.get("metadata"),
         "citation": entry.get("citation"),
-        "huge_score": round(huge_score, 2),
+        "huge_score": round(huge_score, 2) if huge_score is not None else None,
         "common_evidence_count": len(common),
         "rare_evidence_count": len(rare),
         "associations": assoc_summary,
@@ -335,30 +457,54 @@ def list_phenotypes(q: Optional[str] = None):
         q_lower = q.strip().lower()
         count = 0
         for code, entry in glossary._entries.items():
-            label = entry.label or code
-            if q_lower in code.lower() or q_lower in label.lower() or any(q_lower in a.lower() for a in entry.aliases):
-                items.append({
-                    "code": code,
-                    "label": label,
-                    "category": entry.category,
-                    "group": entry.group,
-                    "aliases": entry.aliases,
-                })
+            label, _ = glossary.get_label(code)
+            if (
+                q_lower in code.lower()
+                or q_lower in label.lower()
+                or any(q_lower in a.lower() for a in glossary.get_aliases(code))
+            ):
+                items.append(
+                    {
+                        "code": code,
+                        "label": label,
+                        "category": glossary.get_category(code),
+                        "group": glossary.get_group(code),
+                        "aliases": glossary.get_aliases(code),
+                    }
+                )
                 count += 1
                 if count >= 25:
                     break
     else:
-        priority = ["2hrG", "2hrI", "T2D", "BMI", "2hrFFA", "Alb_invn", "ALT", "AD", "FG", "FI", "HbA1c", "CAD", "HDL", "LDL", "TG"]
+        priority = [
+            "2hrG",
+            "2hrI",
+            "T2D",
+            "BMI",
+            "2hrFFA",
+            "Alb_invn",
+            "ALT",
+            "AD",
+            "FG",
+            "FI",
+            "HbA1c",
+            "CAD",
+            "HDL",
+            "LDL",
+            "TG",
+        ]
         for code in priority:
             if code in glossary._entries:
                 label, _ = glossary.get_label(code)
-                items.append({
-                    "code": code,
-                    "label": label,
-                    "category": glossary.get_category(code),
-                    "group": glossary.get_group(code),
-                    "aliases": glossary.get_aliases(code),
-                })
+                items.append(
+                    {
+                        "code": code,
+                        "label": label,
+                        "category": glossary.get_category(code),
+                        "group": glossary.get_group(code),
+                        "aliases": glossary.get_aliases(code),
+                    }
+                )
     return {"phenotypes": items, "total_terms": len(glossary._entries)}
 
 
@@ -378,3 +524,11 @@ def get_phenotype_details(code: str):
         "aliases": glossary.get_aliases(resolved),
         "curation_status": origin,
     }
+
+
+# Structured data queries are kept separate from RAG text retrieval.
+from analysis.routes import create_router
+
+app.include_router(
+    create_router(PROJECT_ROOT, get_pipeline, get_gene_details, get_glossary)
+)

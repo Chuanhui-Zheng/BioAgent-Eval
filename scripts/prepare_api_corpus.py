@@ -19,6 +19,8 @@ def main():
         if report["status"] != "passed":
             raise RuntimeError(f"{build.__name__}: {report.get('error', report)}")
         print(f"{build.__name__}: {report['chunks']} chunks validated")
+    from chunking.gtex_chunker import build_gtex
+    print(build_gtex(ROOT))
     result = prepare_manifest(ROOT / "config/retrieval.yaml", project_root=ROOT)
     print(result)
 

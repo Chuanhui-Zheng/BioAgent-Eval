@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    ports: ["127.0.0.1:8000:8000"]
+    volumes:
+      - analysis-artifacts:/app/artifacts
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports: ["127.0.0.1:5173:80"]
+    depends_on: [api]
+    restart: unless-stopped
+volumes:
+  analysis-artifacts:

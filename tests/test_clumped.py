@@ -135,8 +135,8 @@ class ClumpedPipelineTests(unittest.TestCase):
              patch.object(chunk_corpus, "build_clumped", return_value={"status": "passed"}) as build, \
              patch.object(chunk_corpus, "prepare_manifest", return_value={}) as publish:
             self.assertEqual(chunk_corpus.main(), 0)
-        build.assert_called_once_with(self.config, project_root=self.root,
-                                      paths_config_file=self.root / "paths.yaml")
+        build.assert_called_once_with(self.config, project_root=self.root.resolve(),
+                                      paths_config_file=(self.root / "paths.yaml").resolve())
         publish.assert_called_once()
         self.assertFalse((self.root / "artifacts/manifest.json").exists())
 

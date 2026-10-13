@@ -25,9 +25,11 @@ class FallbackGenerator:
             return answer
         except Exception as exc:
             answer = self.fallback.generate(context)
+            answer.limitations = list(dict.fromkeys([*answer.limitations, "Hosted generation was unavailable or failed validation; local evidence excerpts were used."]))
             answer.diagnostics = {
                 **answer.diagnostics,
                 "fallback_from": getattr(self.primary, "provider", type(self.primary).__name__),
                 "fallback_error_type": type(exc).__name__,
+                "usage": self.primary.usage_summary() if hasattr(self.primary, "usage_summary") else {"estimated_cost_usd": None},
             }
             return answer

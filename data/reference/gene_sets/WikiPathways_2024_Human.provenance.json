@@ -1,0 +1,8 @@
+{
+  "library": "WikiPathways_2024_Human",
+  "source_url": "https://maayanlab.cloud/Enrichr/geneSetLibrary?mode=text&libraryName=WikiPathways_2024_Human",
+  "sha256": "f19d9f9ff601da24362a5990dfb95b8df1e1995dd003e3b68c5937f340d92e7e",
+  "terms": 829,
+  "retrieved_date": "2026-10-13",
+  "method": "Public library download; user genes never transmitted"
+}
