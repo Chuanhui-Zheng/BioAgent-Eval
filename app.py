@@ -18,7 +18,7 @@ from rag.pipeline import RAGPipeline
 from retrieval.bm25_retriever import load_bm25_index
 from retrieval.config import load_retrieval_config
 from retrieval.corpus import load_corpus_from_config
-from retrieval.router import ALL_COLLECTIONS
+from retrieval.router import SUPPORTED_COLLECTIONS as ALL_COLLECTIONS
 from retrieval.service import RetrievalRequest, RetrieverService
 
 
@@ -34,7 +34,7 @@ def load_environment() -> None:
 def load_retriever() -> RetrieverService:
     config = load_retrieval_config(PROJECT_ROOT)
     corpus = load_corpus_from_config(config)
-    backend = load_bm25_index(config.index_dir, corpus.records)
+    backend = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
     return RetrieverService(backend, "bm25")
 
 

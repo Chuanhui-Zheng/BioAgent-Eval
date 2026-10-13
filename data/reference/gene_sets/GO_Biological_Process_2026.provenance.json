@@ -1,0 +1,8 @@
+{
+  "library": "GO_Biological_Process_2026",
+  "source_url": "https://maayanlab.cloud/Enrichr/geneSetLibrary?mode=text&libraryName=GO_Biological_Process_2026",
+  "sha256": "93de35589130a5f4f1571764ec86e209d0f46d53d0ebdf5de5c7d869dd7046da",
+  "terms": 5954,
+  "retrieved_date": "2026-10-13",
+  "method": "Public library download; user genes never transmitted"
+}

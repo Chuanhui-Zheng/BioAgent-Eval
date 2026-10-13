@@ -29,6 +29,9 @@ _EXPLICIT_COMMON_RE = re.compile(r"\b(common[- ]variant|common variants|bf_commo
 PARTITIONED_COLLECTION = "ldsc_partitioned_heritability"
 CLUMPED_COLLECTION = "variant_association_clumped"
 WES_COLLECTION = "gene_association_wes"
+GTEX_COLLECTION = "gtex_tissue_expression"
+SUPPORTED_COLLECTIONS = [*ALL_COLLECTIONS, PARTITIONED_COLLECTION, CLUMPED_COLLECTION, WES_COLLECTION, GTEX_COLLECTION]
+_GTEX_RE = re.compile(r"\b(tissue|tissues|expression|expressed|proteomics|rnaseq|tpm|adipose|liver|brain|pancreas|heart|lung|muscle|gtex)\b|组织表达|表达量", re.IGNORECASE)
 _WES_RE = re.compile(r"\b(wes|whole[- ]exome|masks?|LoF_HC|5of5|5of5_LoF_LC|0of5_1pct|1of5_1pct|11of11|16of16)\b|外显子组", re.IGNORECASE)
 _CLUMPED_RE = re.compile(
     r"\b(clumps?|clumped|lead[_ -]?snp|lead variants?|association (?:regions?|loci))\b|关联区域|先导变异",
@@ -44,7 +47,7 @@ _RARE_RE = re.compile(
     re.IGNORECASE,
 )
 _ASSOC_RE = re.compile(
-    r"\b(association|associated with|gene-phenotype|gene phenotype|huge)\b",
+    r"\b(association|associated with|gene-phenotype|gene phenotype|evidence tiers?|huge)\b",
     re.IGNORECASE,
 )
 _BOTH_ASSOC_RE = re.compile(
@@ -52,7 +55,7 @@ _BOTH_ASSOC_RE = re.compile(
     re.IGNORECASE,
 )
 _GENE_RE = re.compile(
-    r"\b(gene function|function of|alternative names?|alias|ensembl|hgnc|entrez|uniprot|"
+    r"\b(gene function|function|role of|role does|alternative names?|alias|ensembl|hgnc|entrez|uniprot|"
     r"genomic location|coordinates|which gene|identified by|ensg[0-9]+)\b",
     re.IGNORECASE,
 )
@@ -60,7 +63,7 @@ _GENE_RE = re.compile(
 
 def route_query(query: str, *, available_collections: list[str] | tuple[str, ...] | None = None) -> RouteDecision:
     available = list(ALL_COLLECTIONS if available_collections is None else available_collections)
-    known_order = [*ALL_COLLECTIONS, PARTITIONED_COLLECTION, CLUMPED_COLLECTION, WES_COLLECTION]
+    known_order = [*ALL_COLLECTIONS, PARTITIONED_COLLECTION, CLUMPED_COLLECTION, WES_COLLECTION, GTEX_COLLECTION]
     if set(available) - set(known_order):
         raise ValueError("Router received an unsupported collection")
     available = [name for name in known_order if name in available]
@@ -107,6 +110,9 @@ def route_query(query: str, *, available_collections: list[str] | tuple[str, ...
     if clumped:
         collections.add(CLUMPED_COLLECTION)
         matched.append("clumped_region_or_lead_variant")
+    if _GTEX_RE.search(query):
+        collections.add(GTEX_COLLECTION)
+        matched.append("gtex_tissue_expression")
 
     if ldsc or (generic_ldsc and not partitioned):
         collections.add("ldsc_genetic_correlation")

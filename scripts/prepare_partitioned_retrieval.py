@@ -43,6 +43,10 @@ def prepare_manifest(config_file: Path, *, project_root: Path = PROJECT_ROOT) ->
     if expanded.chunk_sources[:baseline_size] != baseline_config.chunk_sources:
         raise ValueError("Expanded sources must preserve baseline sources and their order")
     new_sources = expanded.chunk_sources[baseline_size:]
+    gtex_sources = tuple(s for s in new_sources if s.collection == "gtex_tissue_expression")
+    if gtex_sources and (len(gtex_sources) != 1 or new_sources[-1] != gtex_sources[0]):
+        raise ValueError("GTEx must be the final, unique expanded collection")
+    new_sources = tuple(s for s in new_sources if s.collection != "gtex_tissue_expression")
     names = [source.collection for source in new_sources]
     if names not in [list(ADDITIONS)[:n] for n in range(1, len(ADDITIONS)+1)]:
         raise ValueError("Expected partitioned heritability, optionally followed by clumped association and WES")
@@ -117,6 +121,14 @@ def prepare_manifest(config_file: Path, *, project_root: Path = PROJECT_ROOT) ->
         glossaries[f"{prefix}_glossary"] = built["glossary"]
         provenance[f"{prefix}_build_manifest"] = {
             "path": relative_source_path(development_manifest, root), "sha256": file_sha256(development_manifest)}
+    for source in gtex_sources:
+        from chunking.gtex_chunker import validate_gtex
+        built = validate_gtex(root, source.path)
+        counts.update(load_corpus([source], expected_total=built["output"]["chunks"]).collection_counts)
+        added_sources.update({"gtex_" + kind: {"path": value["source_file"], "sha256": value["source_sha256"]}
+                              for kind, value in built["sources"].items()})
+        provenance["gtex_build_manifest"] = {"path": "artifacts/ingestion_dev/gtex/manifest.json",
+                                              "sha256": file_sha256(root / "artifacts/ingestion_dev/gtex/manifest.json")}
     previous = json.loads(baseline_config.manifest_file.read_text(encoding="utf-8"))
     manifest = {
         "pipeline_version": previous["pipeline_version"] + ".expanded-dev",

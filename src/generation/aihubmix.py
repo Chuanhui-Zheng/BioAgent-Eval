@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from augmentation.schema import ContextPackage
@@ -92,7 +92,10 @@ def _parse_answer(payload: dict[str, Any], context: ContextPackage, model: str) 
     citations = [context.citation_registry[cid] for cid in cited_ids if cid in context.citation_registry]
     return GeneratedAnswer(
         status=status,
-        answer=answer_text.strip(),
+        # The displayed answer is constructed from cited claims, never an
+        # independent unvalidated prose field from the provider.
+        answer="\n\n".join(claim.text for claim in claims) if claims else
+            "I cannot answer this question from the authorized approved corpus.",
         claims=claims,
         citations=citations,
         limitations=limitations,
@@ -109,7 +112,7 @@ def _messages(context: ContextPackage) -> list[dict[str, str]]:
             "collection": passage.collection,
             "title": passage.title,
             "content": passage.content,
-            "metadata": passage.metadata,
+            "metadata": ({"gene_symbol": passage.metadata.get("gene_symbol"), "units": None} if passage.collection == "gtex_tissue_expression" else passage.metadata),
         }
         for passage in context.passages
     ]
@@ -146,6 +149,20 @@ class AIHubMixGenerator:
     timeout_s: float = 60.0
     repair_attempts: int = 1
     client: Any | None = None
+    input_cost_per_million: float | None = None
+    output_cost_per_million: float | None = None
+    usage_records: list[dict[str, Any]] = field(default_factory=list, init=False)
+
+    def usage_summary(self):
+        known = all(r.get("input_tokens") is not None and r.get("output_tokens") is not None for r in self.usage_records)
+        inputs = sum(r["input_tokens"] for r in self.usage_records) if known else None
+        outputs = sum(r["output_tokens"] for r in self.usage_records) if known else None
+        priced = self.input_cost_per_million is not None and self.output_cost_per_million is not None
+        cost = ((inputs * self.input_cost_per_million + outputs * self.output_cost_per_million) / 1_000_000) if known and priced else None
+        return {"api_calls": len(self.usage_records), "input_tokens": inputs, "output_tokens": outputs,
+                "estimated_cost_usd": cost, "pricing_configured": priced,
+                "cost_note": "Estimate from configured per-million-token rates; not an invoice." if priced else "No model rates configured; cost unavailable."}
+
 
     provider = "aihubmix"
     prompt_policy_version = "1.1.0"
@@ -168,6 +185,7 @@ class AIHubMixGenerator:
             )
 
     def _request(self, messages: list[dict[str, str]]) -> str:
+        self.usage_records.append({"input_tokens": None, "output_tokens": None})
         response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
@@ -175,6 +193,9 @@ class AIHubMixGenerator:
             response_format={"type": "json_object"},
             stream=False,
         )
+        usage = getattr(response, "usage", None)
+        self.usage_records[-1] = {"input_tokens": getattr(usage, "prompt_tokens", None),
+                                  "output_tokens": getattr(usage, "completion_tokens", None)}
         content = response.choices[0].message.content
         if not isinstance(content, str) or not content.strip():
             raise AIHubMixGenerationError("provider returned empty content")
@@ -201,12 +222,15 @@ class AIHubMixGenerator:
                 diagnostics={"model": self.model, "api_called": False},
             )
 
+        self.usage_records.clear()
         messages = _messages(context)
         last_error: Exception | None = None
         for attempt in range(self.repair_attempts + 1):
             try:
                 content = self._request(messages)
-                return _parse_answer(_json_content(content), context, self.model)
+                answer = _parse_answer(_json_content(content), context, self.model)
+                answer.diagnostics["usage"] = self.usage_summary()
+                return answer
             except _AIHubMixQuotaError:
                 raise
             except (AIHubMixGenerationError, KeyError, IndexError, TypeError) as exc:

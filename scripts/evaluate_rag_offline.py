@@ -18,6 +18,8 @@ from retrieval.bm25_retriever import load_bm25_index
 from retrieval.config import load_retrieval_config
 from retrieval.corpus import load_corpus_from_config
 from retrieval.service import RetrievalRequest, RetrieverService
+from retrieval.router import SUPPORTED_COLLECTIONS
+from chunking.utils import file_sha256
 
 
 def parse_args():
@@ -25,6 +27,7 @@ def parse_args():
     parser.add_argument("--benchmark", type=Path, default=PROJECT_ROOT / "data/evaluation/rag_e2e.jsonl")
     parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "artifacts/evaluation/rag_e2e")
     parser.add_argument("--top-k", type=int, default=10)
+    parser.add_argument("--oracle-collections", action="store_true", help="Historical diagnostic only: supply gold collection labels. Default uses all collections like the API.")
     return parser.parse_args()
 
 
@@ -37,7 +40,7 @@ def main() -> int:
     args = parse_args()
     config = load_retrieval_config(PROJECT_ROOT)
     corpus = load_corpus_from_config(config)
-    bm25 = load_bm25_index(config.index_dir, corpus.records)
+    bm25 = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
     pipeline = RAGPipeline(
         RetrieverService(bm25, "bm25"),
         ContextBuilder(),
@@ -53,7 +56,7 @@ def main() -> int:
         run = pipeline.run(
             RetrievalRequest(
                 item["query"],
-                authorized_collections=tuple(item["target_collections"]),
+                authorized_collections=tuple(item["target_collections"] if args.oracle_collections else SUPPORTED_COLLECTIONS),
                 top_k=args.top_k,
             )
         )
@@ -84,7 +87,7 @@ def main() -> int:
                 "citation_completeness": run.validation.citation_completeness,
                 "claim_support_contract": 1.0 if run.validation.valid else 0.0,
                 "isolation_pass": all(
-                    p.collection in item["target_collections"] for p in run.context.passages
+                    p.collection in run.retrieval.authorized_collections for p in run.context.passages
                 ),
                 "latency_s": run.latency_s,
                 "limitations": run.answer.limitations,
@@ -94,6 +97,9 @@ def main() -> int:
     metrics = {
         "pipeline": "bm25 -> context_builder -> offline_evidence_generator -> validator",
         "queries": len(rows),
+        "collection_mode": "oracle" if args.oracle_collections else "end_to_end",
+        "benchmark_sha256": file_sha256(args.benchmark),
+        "corpus_manifest_sha256": file_sha256(config.manifest_file),
         "retrieval_target_hit_at_10": sum(r["target_hit_at_10"] for r in answerable_rows) / len(answerable_rows),
         "status_accuracy": sum(r["status_correct"] for r in rows) / len(rows),
         "unanswerable_refusal_accuracy": sum(r["status_correct"] for r in rows if not r["answerable"]) / sum(not r["answerable"] for r in rows),

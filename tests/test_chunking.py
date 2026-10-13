@@ -32,11 +32,11 @@ class ChunkingTests(unittest.TestCase):
 
     def test_load_paths_from_yaml(self) -> None:
         paths = load_paths(PROJECT_ROOT)
-        self.assertTrue(paths.gene_file.exists())
-        self.assertTrue(paths.ldsc_file.exists())
-        self.assertTrue(paths.gene_id_map_file.exists())
-        self.assertTrue(paths.gene_association_common_2hrg_file.exists())
-        self.assertTrue(paths.gene_association_rare_2hrg_file.exists())
+        self.assertTrue(paths.gene_file.is_absolute())
+        self.assertTrue(paths.ldsc_file.is_absolute())
+        self.assertTrue(paths.gene_id_map_file.is_absolute())
+        self.assertTrue(paths.gene_association_common_2hrg_file.is_absolute())
+        self.assertTrue(paths.gene_association_rare_2hrg_file.is_absolute())
         self.assertEqual(paths.pipeline_version, "1.1.0")
         self.assertEqual(
             paths.gene_file,

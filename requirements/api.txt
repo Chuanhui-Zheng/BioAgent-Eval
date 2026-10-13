@@ -2,3 +2,5 @@
 -r llm.txt
 fastapi>=0.115,<1
 uvicorn>=0.30,<1
+scipy>=1.14,<2
+zstandard>=0.23,<1

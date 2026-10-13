@@ -23,7 +23,7 @@ def _claim_text(p: EvidencePassage) -> str:
         beta_val = m.get("beta")
         if beta_val is not None:
             try:
-                moa_dir = f", direction={'positive (agonist hypothesis)' if float(beta_val) > 0 else 'negative (inhibitor hypothesis)'}"
+                moa_dir = f", direction={'positive association' if float(beta_val) > 0 else 'negative association'}"
             except (ValueError, TypeError):
                 pass
         return (
@@ -35,6 +35,8 @@ def _claim_text(p: EvidencePassage) -> str:
             f"{m.get('gene')} has common-variant evidence for {m.get('phenotype_label')} "
             f"with bf_common={m.get('bf_common')} and evidence tier {m.get('evidence_tier')}."
         )
+    if p.collection in {"ldsc_partitioned_heritability", "variant_association_clumped", "gene_association_wes", "gtex_tissue_expression"}:
+        return f"{p.title}:\n{p.content}"
     function_line = next(
         (line.removeprefix("Function: ") for line in p.content.splitlines() if line.startswith("Function: ")),
         "Function information is not available in the approved corpus.",
@@ -58,7 +60,10 @@ class OfflineEvidenceGenerator:
             )
         claims = [Claim(text=_claim_text(p), citations=[p.chunk_id]) for p in context.passages]
         prefix = "The available evidence is limited. " if context.evidence_status == "qualified" else ""
-        answer = prefix + " ".join(claim.text for claim in claims)
+        comparison = any(term in context.question.lower() for term in ("compare", "comparison", "比较", "对比"))
+        if comparison:
+            prefix += "Evidence comparison by retrieved source; missing evidence is not evidence of absence.\n"
+        answer = prefix + "\n\n".join(claim.text for claim in claims)
         citations = [context.citation_registry[cid] for claim in claims for cid in claim.citations]
         return GeneratedAnswer(
             status=context.evidence_status,
