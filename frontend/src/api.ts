@@ -5,7 +5,7 @@ export function currentWorkspace(): string {
 }
 export function changeWorkspace(value: string) {
   sessionStorage.setItem(KEY, value);
-  // Clear all displayed data, chat history and in-memory credentials on switch.
+  // Reload to load the selected scope's conversations and clear in-memory credentials.
   window.location.reload();
 }
 export function scopedFetch(input: RequestInfo | URL, init?: RequestInit) {

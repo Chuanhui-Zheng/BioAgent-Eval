@@ -11,7 +11,8 @@ from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, SecretStr
+from fastapi.exceptions import RequestValidationError
 
 # Ensure src is on sys.path
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -25,6 +26,7 @@ from generation.fallback import FallbackGenerator
 from augmentation.builder import ContextBuilder
 from chunking.phenotype_glossary import PhenotypeGlossary
 from generation.aihubmix import AIHubMixGenerator
+from generation.hosted import OpenAIGenerator, AnthropicGenerator, GeminiGenerator, Provider, list_models, connection_error
 from generation.offline import OfflineEvidenceGenerator
 from rag.pipeline import RAGPipeline
 from retrieval.bm25_retriever import load_bm25_index
@@ -171,12 +173,87 @@ class QueryRequest(BaseModel):
         None, description="Collections to restrict search to."
     )
     top_k: int = Field(10, ge=1, le=50, description="Max passages to retrieve.")
-    api_key: Optional[str] = Field(
-        None, description="Optional AIHubMix API key for online LLM synthesis."
-    )
-    model: Optional[str] = Field(
-        "gpt-4o-mini", description="LLM model name if using API key."
-    )
+    api_key: Optional[SecretStr] = Field(None, description="Optional key for the selected provider.")
+    provider: Provider = "aihubmix"
+    model: Optional[str] = Field(None, max_length=200, description="Model ID from the selected provider.")
+
+
+class ProviderRequest(BaseModel):
+    provider: Provider
+    api_key: SecretStr
+    model: Optional[str] = Field(None, max_length=200)
+
+
+@app.exception_handler(RequestValidationError)
+async def safe_validation_error(request, exc):
+    # Pydantic includes rejected inputs by default; credentials must not be echoed.
+    return JSONResponse(status_code=422, content={"detail": [
+        {"loc": list(e["loc"]), "msg": e["msg"], "type": e["type"]} for e in exc.errors()
+    ]})
+
+
+def provider_settings(req, require_model=True):
+    key = req.api_key.get_secret_value().strip() if req.api_key else ""
+    model = (req.model or "").strip()
+    if require_model and not model:
+        if req.provider in {"aihubmix", "openai"}:
+            model = "gpt-4o-mini"
+        else:
+            raise HTTPException(422, "Choose a model ID from your provider account.")
+    return key, model
+
+
+def hosted_generator(provider, key, model):
+    classes = {"aihubmix": AIHubMixGenerator, "openai": OpenAIGenerator,
+               "anthropic": AnthropicGenerator, "gemini": GeminiGenerator}
+    # Existing model-only prices belong to AIHubMix; do not reuse them for direct APIs.
+    rates = {}
+    if provider == "aihubmix" and (PROJECT_ROOT / "config/model_pricing.json").exists():
+        rates = json.loads((PROJECT_ROOT / "config/model_pricing.json").read_text()).get(model, {})
+    return classes[provider](api_key=key, model=model,
+        input_cost_per_million=rates.get("input_usd_per_million"),
+        output_cost_per_million=rates.get("output_usd_per_million"))
+
+
+def close_generator(generator):
+    client = getattr(generator, "client", None)
+    if callable(getattr(client, "close", None)):
+        try:
+            client.close()
+        except Exception as exc:
+            logger.warning("Provider client cleanup failed (%s)", type(exc).__name__)
+
+
+@app.post("/api/llm/models")
+def available_models(req: ProviderRequest):
+    key, _ = provider_settings(req, require_model=False)
+    if not key:
+        raise HTTPException(422, "Enter an API key for the selected provider.")
+    try:
+        return {"models": list_models(req.provider, key)}
+    except Exception as exc:
+        raise HTTPException(502, connection_error(exc)) from None
+
+
+@app.post("/api/llm/test")
+def test_provider(req: ProviderRequest):
+    key, model = provider_settings(req)
+    if not key:
+        raise HTTPException(422, "Enter an API key for the selected provider.")
+    generator = None
+    try:
+        generator = hosted_generator(req.provider, key, model)
+        generator._request([
+            {"role": "system", "content": "Return only valid JSON."},
+            {"role": "user", "content": 'Return only this JSON: {"ok": true}'},
+        ])
+        return {"ok": True, "provider": req.provider, "model": model,
+                "message": "Model responded. This checks connectivity, not scientific answer quality."}
+    except Exception as exc:
+        raise HTTPException(502, connection_error(exc)) from None
+    finally:
+        if generator is not None:
+            close_generator(generator)
 
 
 class ClaimResponse(BaseModel):
@@ -194,6 +271,7 @@ class QueryResponse(BaseModel):
     latency_s: dict[str, float]
     retrieved_count: int
     provider: str
+    model: str | None = None
     run_id: str = ""
     workspace: str = "all"
     usage: dict[str, Any] = Field(default_factory=dict)
@@ -231,24 +309,26 @@ def query_rag(req: QueryRequest):
 
     generator = OfflineEvidenceGenerator()
     initialization_failed = False
-    if req.api_key and req.api_key.strip():
+    primary = None
+    key = req.api_key.get_secret_value().strip() if req.api_key else ""
+    if key:
+        key, model = provider_settings(req)
         try:
-            pricing_path = PROJECT_ROOT / "config/model_pricing.json"
-            pricing = json.loads(pricing_path.read_text()) if pricing_path.exists() else {}
-            rates = pricing.get(req.model or "gpt-4o-mini", {})
-            primary = AIHubMixGenerator(api_key=req.api_key.strip(), model=req.model or "gpt-4o-mini",
-                                       input_cost_per_million=rates.get("input_usd_per_million"),
-                                       output_cost_per_million=rates.get("output_usd_per_million"))
+            primary = hosted_generator(req.provider, key, model)
             generator = FallbackGenerator(primary, OfflineEvidenceGenerator())
         except Exception as exc:
             logger.warning("Hosted provider initialization failed (%s)", type(exc).__name__)
             initialization_failed = True
     active_pipeline = RAGPipeline(pipeline.retriever, pipeline.context_builder, generator)
     start_time = time.perf_counter()
-    run = active_pipeline.run(request)
+    try:
+        run = active_pipeline.run(request)
+    finally:
+        if primary is not None:
+            close_generator(primary)
     if initialization_failed or run.answer.diagnostics.get("fallback_from"):
         run.answer.provider = "offline_fallback"
-        run.answer.diagnostics["fallback_from"] = "aihubmix"
+        run.answer.diagnostics["fallback_from"] = req.provider
         if initialization_failed:
             run.answer.limitations.append("Hosted generation was unavailable; the answer uses local evidence excerpts.")
     run.retrieval.diagnostics["workspace"] = workspace_id.get()
@@ -286,6 +366,7 @@ def query_rag(req: QueryRequest):
         latency_s=latencies,
         retrieved_count=len(run.retrieval.results),
         provider=run.answer.provider or provider_name,
+        model=run.answer.diagnostics.get("model"),
         run_id=run.run_id,
         workspace=workspace_id.get(),
         usage=run.answer.diagnostics.get("usage", {"api_calls": 0, "estimated_cost_usd": 0.0}),

@@ -142,7 +142,7 @@ Preserve scientific numbers exactly and do not claim that association proves cau
 
 @dataclass
 class AIHubMixGenerator:
-    api_key: str
+    api_key: str = field(repr=False)
     model: str = "nemotron-3-ultra-550b-a55b-free"
     base_url: str = "https://aihubmix.com/v1"
     max_tokens: int = 800
@@ -229,6 +229,7 @@ class AIHubMixGenerator:
             try:
                 content = self._request(messages)
                 answer = _parse_answer(_json_content(content), context, self.model)
+                answer.provider = self.provider
                 answer.diagnostics["usage"] = self.usage_summary()
                 return answer
             except _AIHubMixQuotaError:
@@ -250,5 +251,5 @@ class AIHubMixGenerator:
                     },
                 ]
             except Exception as exc:
-                raise AIHubMixGenerationError("AIHubMix request failed") from exc
-        raise AIHubMixGenerationError("AIHubMix returned no valid structured answer") from last_error
+                raise AIHubMixGenerationError(f"{self.provider} request failed") from exc
+        raise AIHubMixGenerationError(f"{self.provider} returned no valid structured answer") from last_error
