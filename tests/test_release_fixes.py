@@ -61,7 +61,7 @@ class ReleaseFixTests(unittest.TestCase):
 
     def test_provider_initialization_failure_has_visible_fallback(self):
         pipeline = self.pipeline([result("gene:PPARG", "gene_info")])
-        with patch.object(server, "get_pipeline", return_value=pipeline), patch.object(server, "build_llm_generator", side_effect=RuntimeError("missing provider")):
+        with patch.object(server, "get_pipeline", return_value=pipeline), patch.object(server, "AIHubMixGenerator", side_effect=RuntimeError("missing provider")):
             response = server.query_rag(server.QueryRequest(question="Function of PPARG", api_key="test-key"))
         self.assertEqual(response.provider, "offline_fallback")
         self.assertTrue(any("unavailable" in note for note in response.limitations))

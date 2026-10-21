@@ -1,4 +1,4 @@
-# Active seven-collection configuration; indexes must match the configured corpus.
+# Active eight-collection configuration; indexes must match the configured corpus.
 project_root: .
 chunks:
 - collection: gene_info

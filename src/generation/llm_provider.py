@@ -15,9 +15,10 @@ from typing import Any
 from urllib.parse import urlparse
 
 from augmentation.schema import ContextPackage
-from generation.schema import Claim, GeneratedAnswer
+from generation.aihubmix import AIHubMixGenerationError, _json_content, _messages, _parse_answer
+from generation.schema import GeneratedAnswer
 
-PROMPT_POLICY_VERSION = "1.1.0"
+PROMPT_POLICY_VERSION = "1.1.0"  # same prompt as generation.aihubmix
 
 
 @dataclass(frozen=True)
@@ -46,8 +47,11 @@ PROVIDER_PRESETS: dict[str, ProviderPreset] = {
 _LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1", "host.docker.internal"}
 
 
-class LLMGenerationError(RuntimeError):
-    """Raised when the hosted provider cannot return a valid grounded answer."""
+class LLMGenerationError(AIHubMixGenerationError):
+    """Raised when an OpenAI-compatible provider cannot return a valid grounded answer.
+
+    Subclasses the shared hosted-generation error so callers catch one type.
+    """
 
 
 class LLMQuotaError(LLMGenerationError):
@@ -63,133 +67,6 @@ def validate_base_url(base_url: str) -> str:
     if parsed.username or parsed.password:
         raise ValueError("LLM base URL must not embed credentials")
     return base_url.strip()
-
-
-def _json_content(content: str) -> dict[str, Any]:
-    text = content.strip()
-    if text.startswith("```"):
-        lines = text.splitlines()
-        if lines and lines[0].strip().lower() in {"```", "```json"}:
-            lines = lines[1:]
-        if lines and lines[-1].strip() == "```":
-            lines = lines[:-1]
-        text = "\n".join(lines).strip()
-    try:
-        value = json.loads(text)
-    except json.JSONDecodeError:
-        # Some reasoning models prepend <think> blocks or explanatory text even
-        # when asked for JSON only. Extract the first object that matches the
-        # answer schema instead of rejecting an otherwise usable response.
-        decoder = json.JSONDecoder()
-        value = None
-        required_keys = {"status", "answer", "claims"}
-        for index, character in enumerate(text):
-            if character != "{":
-                continue
-            try:
-                candidate, _ = decoder.raw_decode(text[index:])
-            except json.JSONDecodeError:
-                continue
-            if isinstance(candidate, dict) and required_keys.issubset(candidate):
-                value = candidate
-                break
-        if value is None:
-            raise LLMGenerationError("provider returned invalid JSON")
-    if not isinstance(value, dict):
-        raise LLMGenerationError("provider response must be a JSON object")
-    return value
-
-
-def _parse_answer(payload: dict[str, Any], context: ContextPackage, model: str,
-                  provider: str = "llm") -> GeneratedAnswer:
-    status = payload.get("status")
-    if status not in {"answer", "qualified", "refuse"}:
-        raise LLMGenerationError("provider returned an invalid answer status")
-    answer_text = payload.get("answer")
-    if not isinstance(answer_text, str) or not answer_text.strip():
-        raise LLMGenerationError("provider returned an empty answer")
-
-    raw_claims = payload.get("claims", [])
-    if not isinstance(raw_claims, list):
-        raise LLMGenerationError("claims must be a list")
-    claims: list[Claim] = []
-    for item in raw_claims:
-        if not isinstance(item, dict):
-            raise LLMGenerationError("each claim must be an object")
-        text = item.get("text")
-        citations = item.get("citations")
-        if not isinstance(text, str) or not text.strip():
-            raise LLMGenerationError("each claim must contain text")
-        if not isinstance(citations, list) or not all(isinstance(cid, str) for cid in citations):
-            raise LLMGenerationError("each claim must contain a citation list")
-        claims.append(Claim(text=text.strip(), citations=list(dict.fromkeys(citations))))
-
-    if status in {"answer", "qualified"} and not claims:
-        raise LLMGenerationError("non-refusal answers must contain cited claims")
-    if status == "refuse" and claims:
-        raise LLMGenerationError("refusal answers must not contain factual claims")
-    if context.evidence_status == "qualified" and status == "answer":
-        status = "qualified"
-
-    raw_limitations = payload.get("limitations", [])
-    if not isinstance(raw_limitations, list) or not all(
-        isinstance(item, str) for item in raw_limitations
-    ):
-        raise LLMGenerationError("limitations must be a list of strings")
-    limitations = list(dict.fromkeys([*context.limitations, *raw_limitations]))
-
-    cited_ids = list(dict.fromkeys(cid for claim in claims for cid in claim.citations))
-    citations = [context.citation_registry[cid] for cid in cited_ids if cid in context.citation_registry]
-    return GeneratedAnswer(
-        status=status,
-        # The displayed answer is constructed from cited claims, never an
-        # independent unvalidated prose field from the provider.
-        answer="\n\n".join(claim.text for claim in claims) if claims else
-            "I cannot answer this question from the authorized approved corpus.",
-        claims=claims,
-        citations=citations,
-        limitations=limitations,
-        provider=provider,
-        prompt_policy_version=PROMPT_POLICY_VERSION,
-        diagnostics={"model": model, "claim_count": len(claims)},
-    )
-
-
-SYSTEM_PROMPT = """You are an evidence-grounded scientific assistant.
-Use only the supplied evidence. Do not use outside knowledge.
-Return JSON only with this exact structure:
-{
-  "status": "answer|qualified|refuse",
-  "answer": "concise natural-language answer",
-  "claims": [{"text": "one factual claim", "citations": ["exact chunk_id"]}],
-  "limitations": ["limitation text"]
-}
-Every factual claim must cite one or more exact chunk_id values from the evidence.
-Never invent a citation. If evidence is insufficient, return status "refuse" with no claims.
-Preserve scientific numbers exactly and do not claim that association proves causality."""
-
-
-def _messages(context: ContextPackage) -> list[dict[str, str]]:
-    evidence = [
-        {
-            "chunk_id": passage.chunk_id,
-            "collection": passage.collection,
-            "title": passage.title,
-            "content": passage.content,
-            "metadata": ({"gene_symbol": passage.metadata.get("gene_symbol"), "units": None} if passage.collection == "gtex_tissue_expression" else passage.metadata),
-        }
-        for passage in context.passages
-    ]
-    user = json.dumps(
-        {
-            "question": context.question,
-            "evidence_status": context.evidence_status,
-            "known_limitations": context.limitations,
-            "evidence": evidence,
-        },
-        ensure_ascii=False,
-    )
-    return [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}]
 
 
 def _is_quota_notice(content: str) -> bool:
@@ -289,6 +166,10 @@ class OpenAICompatibleGenerator:
             )
         return content
 
+    def _request(self, messages: list[dict[str, str]]) -> str:
+        """Interface shared with generation.hosted adapters (used by /api/llm/test)."""
+        return self.complete(messages)
+
     def generate(self, context: ContextPackage) -> GeneratedAnswer:
         if context.evidence_status == "refuse":
             return GeneratedAnswer(
@@ -309,13 +190,14 @@ class OpenAICompatibleGenerator:
         for attempt in range(self.repair_attempts + 1):
             try:
                 content = self.complete(messages)
-                answer = _parse_answer(_json_content(content), context, self.model, self.provider)
+                answer = _parse_answer(_json_content(content), context, self.model)
+                answer.provider = self.provider
                 answer.diagnostics["usage"] = self.usage_summary()
                 answer.diagnostics["llm"] = self.describe()
                 return answer
             except LLMQuotaError:
                 raise
-            except (LLMGenerationError, KeyError, IndexError, TypeError) as exc:
+            except (AIHubMixGenerationError, KeyError, IndexError, TypeError) as exc:
                 last_error = exc
                 if attempt >= self.repair_attempts:
                     break
@@ -356,11 +238,17 @@ def build_llm_generator(provider: str | None = None, api_key: str | None = None,
     """
     env = os.environ
     legacy = bool(env.get("AIHUBMIX_API_KEY")) and not env.get("LLM_API_KEY")
-    provider = (provider or env.get("LLM_PROVIDER") or ("aihubmix" if legacy else "openai")).strip().lower()
+    env_provider = (env.get("LLM_PROVIDER") or ("aihubmix" if legacy else "openai")).strip().lower()
+    provider = (provider or env_provider).strip().lower()
+    # LLM_* settings describe LLM_PROVIDER only; never send its key or URL to another provider.
+    use_env = provider == env_provider
+    legacy_aihubmix = provider == "aihubmix" and legacy
     api_key = api_key if api_key is not None and api_key.strip() else (
-        env.get("LLM_API_KEY") or (env.get("AIHUBMIX_API_KEY") if provider == "aihubmix" else "") or "")
-    model = model or env.get("LLM_MODEL") or (env.get("AIHUBMIX_MODEL") if provider == "aihubmix" else None)
-    base_url = base_url or env.get("LLM_BASE_URL") or (env.get("AIHUBMIX_BASE_URL") if provider == "aihubmix" else None)
+        (env.get("LLM_API_KEY") if use_env else None) or (env.get("AIHUBMIX_API_KEY") if legacy_aihubmix else "") or "")
+    model = model or (env.get("LLM_MODEL") if use_env else None) or (
+        env.get("AIHUBMIX_MODEL") if legacy_aihubmix else None)
+    base_url = base_url or (env.get("LLM_BASE_URL") if use_env else None) or (
+        env.get("AIHUBMIX_BASE_URL") if legacy_aihubmix else None)
     resolved_model = model or (PROVIDER_PRESETS[provider].default_model if provider in PROVIDER_PRESETS else "")
     rates = _pricing(resolved_model)
     kwargs.setdefault("input_cost_per_million", rates.get("input_usd_per_million"))

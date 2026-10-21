@@ -5,7 +5,6 @@ from types import SimpleNamespace
 
 import pytest
 
-from generation.aihubmix import AIHubMixGenerator
 from generation.llm_provider import (
     PROVIDER_PRESETS,
     LLMGenerationError,
@@ -114,13 +113,20 @@ def test_generic_quota_notice_is_not_retried():
     assert len(client.calls) == 1
 
 
-def test_legacy_class_is_generic_preset():
-    generator = AIHubMixGenerator("k", client=RecordingClient("{}"))
-    assert isinstance(generator, OpenAICompatibleGenerator)
-    assert generator.provider == "aihubmix" and generator.base_url == "https://aihubmix.com/v1"
-
-
 def test_catalog_contains_no_secrets():
     catalog = provider_catalog()
     assert {item["id"] for item in catalog} == set(PROVIDER_PRESETS)
     assert all("key" not in json.dumps(item).lower().replace("requires_key", "") for item in catalog)
+
+
+def test_environment_settings_are_not_sent_to_a_different_provider(monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER", "custom")
+    monkeypatch.setenv("LLM_API_KEY", "relay-key")
+    monkeypatch.setenv("LLM_BASE_URL", "https://relay.example/v1")
+    monkeypatch.setenv("LLM_MODEL", "relay-model")
+    other = build_llm_generator(provider="deepseek", api_key="k", client=RecordingClient("{}"))
+    assert (other.base_url, other.model, other.api_key) == ("https://api.deepseek.com/v1", "deepseek-chat", "k")
+    with pytest.raises(ValueError, match="API key"):
+        build_llm_generator(provider="openai", client=RecordingClient("{}"))
+    relay = build_llm_generator(client=RecordingClient("{}"))
+    assert (relay.base_url, relay.model, relay.api_key) == ("https://relay.example/v1", "relay-model", "relay-key")

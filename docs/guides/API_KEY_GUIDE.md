@@ -1,46 +1,38 @@
 # Hosted LLM Providers and API Keys
 
-Hosted generation works with **any OpenAI-compatible Chat Completions API**.
-AIHubMix is now one preset among several; the offline evidence engine remains
-the default and needs no key.
+The offline evidence engine is the default and needs no key. Hosted generation is
+available in the chat UI and API through:
 
-| Preset (`LLM_PROVIDER`) | Default base URL | Default model | Key |
-|---|---|---|---|
-| `openai` | https://api.openai.com/v1 | gpt-4o-mini | required |
-| `aihubmix` | https://aihubmix.com/v1 | gpt-4o-mini | required |
-| `deepseek` | https://api.deepseek.com/v1 | deepseek-chat | required |
-| `openrouter` | https://openrouter.ai/api/v1 | openai/gpt-4o-mini | required |
-| `anthropic` | https://api.anthropic.com/v1/ (OpenAI-compatible endpoint) | claude-sonnet-5-5 | required |
-| `siliconflow` | https://api.siliconflow.cn/v1 | Qwen/Qwen3-32B | required |
-| `ollama` | http://localhost:11434/v1 | qwen3:8b | not needed |
-| `custom` | set `LLM_BASE_URL` | set `LLM_MODEL` | optional |
+| `provider` | Interface | Endpoint |
+|---|---|---|
+| `aihubmix` | OpenAI-compatible chat | https://aihubmix.com/v1 |
+| `openai` | OpenAI Responses | https://api.openai.com/v1 |
+| `anthropic` | Anthropic Messages | https://api.anthropic.com/v1 |
+| `gemini` | Gemini generateContent | https://generativelanguage.googleapis.com/v1beta |
+| `custom` | OpenAI-compatible chat | **base URL you supply** (relays, DeepSeek, OpenRouter, Ollama, vLLM…) |
 
-`GET /api/llm/providers` returns the same list. The model and base URL can be
-overridden for every preset. Plain `http://` is accepted only for local model
-servers (localhost, 127.0.0.1, host.docker.internal); remote endpoints must use HTTPS.
-Presets that do not support `response_format=json_object` (Anthropic) are called
-without it; the parser extracts the answer JSON and validates it either way.
+`custom` URLs must be `https://`, or `http://` on localhost/127.0.0.1/host.docker.internal,
+and must not embed credentials. Your key and the retrieved passages are sent to that URL,
+so use only endpoints you trust. Every provider returns the same claim-cited schema and
+passes the same citation and numeric validation; failures fall back to the offline engine
+(`provider: offline_fallback`).
 
-Every provider returns the same claim-cited schema and passes the same citation
-and numeric validation. A provider error, quota notice or invalid answer falls
-back to the offline engine and the response says so (`provider: offline_fallback`).
+## Chat UI
 
-## React app
-
-Open the assistant panel, click the key icon, choose a provider, optionally edit
-model / base URL, and paste the key. **Gene MoA → Independent annotated evaluation**
-has the same selector. Keys are sent with each request and never stored or logged.
+Open **Model settings**, choose the provider, paste the key, click **Load models** (for
+Custom, enter the base URL first; you can also type a model ID), then **Test connection**.
+Keys stay in page memory only.
 
 ## REST API
 
 ```json
 POST /api/rag/query
-{"question": "What is the function of TCF7L2?",
- "llm_provider": "deepseek", "api_key": "...", "model": "deepseek-chat"}
+{"question": "What is the function of TCF7L2?", "provider": "custom",
+ "base_url": "https://api.example-relay.com/v1", "api_key": "...", "model": "gpt-4o-mini"}
 ```
 
-Omit `llm_provider` and `api_key` for offline generation. `base_url` overrides
-the preset (required for `custom`).
+`POST /api/llm/models` and `POST /api/llm/test` take the same `provider`, `api_key`,
+`model` and `base_url` fields. Omit `api_key` for offline generation.
 
 ## Command line and evaluation scripts
 
@@ -51,7 +43,10 @@ python scripts/evaluate_blind.py --label deepseek --llm-provider deepseek --limi
     --judge-provider openai --judge-model gpt-4o-mini
 ```
 
-`JUDGE_API_KEY` is used for the support judge when it differs from `LLM_API_KEY`.
+Scripts use `generation.llm_provider` presets (`openai`, `aihubmix`, `deepseek`,
+`openrouter`, `anthropic` via its OpenAI-compatible endpoint, `siliconflow`, `ollama`,
+`custom`). `LLM_*` values apply only to `LLM_PROVIDER`; they are never sent to another
+provider. `JUDGE_API_KEY` is used for the support judge when it differs from `LLM_API_KEY`.
 Legacy `AIHUBMIX_API_KEY` / `AIHUBMIX_MODEL` / `AIHUBMIX_BASE_URL` variables are
 still honoured when `LLM_API_KEY` is empty. Cost estimates use per-million-token
 rates from `config/model_pricing.json`, e.g.
@@ -60,7 +55,7 @@ without rates the cost is reported as unavailable, never as zero.
 
 ## Streamlit demo
 
-Select **Hosted LLM**, choose the provider, then enter model, base URL and key.
+Select **Hosted LLM**, choose the preset, then enter model, base URL and key.
 
 ## Security
 
