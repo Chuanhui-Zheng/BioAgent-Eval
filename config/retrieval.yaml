@@ -9,8 +9,6 @@ chunks:
   path: artifacts/chunks/gene_association_common_2hrG.chunks.jsonl
 - collection: gene_association_rare
   path: artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl
-- collection: ldsc_partitioned_heritability
-  path: artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl
 - collection: variant_association_clumped
   path: artifacts/chunks/metaanalysis_clumped_2hrG_EU.chunks.jsonl
 - collection: gene_association_wes
@@ -20,8 +18,6 @@ chunks:
 manifest: artifacts/manifest_partitioned.json
 baseline_manifest: artifacts/manifest.json
 paths_config: config/paths.yaml
-partitioned_build_manifest: artifacts/ingestion_dev/ldsc_partitioned/manifest.json
-partitioned_validation_report: artifacts/ingestion_dev/ldsc_partitioned/validation_report.json
 clumped_build_manifest: artifacts/ingestion_dev/clumped/manifest.json
 clumped_validation_report: artifacts/ingestion_dev/clumped/validation_report.json
 wes_build_manifest: artifacts/ingestion_dev/wes/manifest.json

@@ -48,8 +48,10 @@ def prepare_manifest(config_file: Path, *, project_root: Path = PROJECT_ROOT) ->
         raise ValueError("GTEx must be the final, unique expanded collection")
     new_sources = tuple(s for s in new_sources if s.collection != "gtex_tissue_expression")
     names = [source.collection for source in new_sources]
-    if names not in [list(ADDITIONS)[:n] for n in range(1, len(ADDITIONS)+1)]:
-        raise ValueError("Expected partitioned heritability, optionally followed by clumped association and WES")
+    expected_orders = [list(ADDITIONS)[:n] for n in range(1, len(ADDITIONS)+1)]
+    expected_orders.append(["variant_association_clumped", "gene_association_wes"])
+    if names not in expected_orders:
+        raise ValueError("Expected validated expanded collections in configured order")
     allowed = (root / "artifacts/ingestion_dev").resolve()
     paths_config = None
     canonical_destination = None

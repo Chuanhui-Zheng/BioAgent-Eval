@@ -1,82 +1,35 @@
-# CS46 Scientific Evidence Assistant
+# CS46 Evidence-Grounded Scientific RAG Assistant
 
-React + FastAPI application for evidence retrieval and structured scientific analysis.
+A simple chat interface for exploring the currently supplied scientific evidence. Ask about genes, phenotypes, variants, tissue expression or evidence gaps. The assistant retrieves source passages, gives cited answers where supported, and qualifies or refuses answers when the evidence is insufficient. The interface is a test surface for the RAG system, not a separate analysis portal.
 
-## Implemented functionality
+## Evidence used by the chat
 
-- Eight-collection RAG with cited claims, visible limitations, hosted-provider fallback and source-passage inspection.
-- Gene function, identifiers, source associations, GO/pathway membership, target comparison and dossier export.
-- Actual RNA tissue summaries and individual protein observations; source units remain unconfirmed.
-- Actual GWAS Manhattan/QQ plots, significance filtering and exact interval queries for supplied 2hrG and 2hrFFA EU files. QQ uses all selected-region p-values before significance filtering.
-- Exact supplied nearest-gene, cS2G and burden annotation lookups. Coordinate builds are not silently joined.
-- Upload matrix.csv or W.csv + H.csv, with optional associations.csv and GMT. Calculate reproducible NMF or Bayesian NMF, select component genes, filter signed association z, calculate local hypergeometric enrichment with BH correction and export factors/results/provenance.
-- Independently annotated offline or AIHubMix evaluation with gold citation, required fact/number policies, fallback rate and an exported human-review rubric.
+The active retrieval corpus has seven collections from the nine ZIP packages in the client's October 2026 `newdata` delivery: gene information, 2hrI genetic correlation, 2hrG common and rare gene associations, 2hrG clumped variant associations, 2hrG WES gene associations, and GTEx RNA/protein expression. The ZIPs also include annotation and variant data used by other processing tools. The chat's active collection list is in [`config/retrieval.yaml`](config/retrieval.yaml). Old-only partitioned heritability, 2hrFFA GWAS and nearest-gene files are **not** in the active chat corpus.
+
+The source files needed for the chat are included under `data/raw/` in the repository. You do not need to separately download or merge the client's ZIPs. A downloaded source ZIP does not contain the generated BM25 index; the first-time setup below builds it from the included sources. The workspace dropdown demonstrates retrieval isolation between all evidence, annotations/expression, and genetic associations. It is not user authentication.
 
 ## Download ZIP and run locally
 
-You only need **Code → Download ZIP** from the
-`feature/scientific-analysis-update` branch (or a later version containing these
-instructions). Selecting `main` before downloading may give an older version.
-Unzip it, open a terminal and `cd` into the directory containing `server.py`.
-Git, a GitHub token, and the Release runtime ZIP are not needed after downloading.
-Repository access is required to download this private project.
+Download the latest code from this branch or from `main` once these changes have been merged: **Code → Download ZIP**. Extract it, open a terminal in the directory containing `server.py`, and keep the original folder structure. This private repository requires GitHub access to download; Git and a token are not needed to run the ZIP.
 
-The source ZIP includes `data/raw/`, public gene-set libraries, and the real
-200-gene/four-trait client example at
-`data/reference/client_example/example.json`. Do not merge a second data ZIP.
-Database, chunks and BM25 index are generated during first-time setup below.
-Keep the original relative paths and retain `data/raw/`.
+Prerequisites: Python 3.12+ and Node.js 20+ with npm. First setup needs internet access to install dependencies and download tokenizer files, plus several GB of disk space. macOS with Python 3.13 has been tested. On Windows use `python` for `python3` below.
 
-### 1. Check prerequisites
-
-Install Python 3.12+ (3.13 recommended) and Node.js 20+ (npm included). The pinned
-NumPy dependencies require Python 3.12 or newer. macOS with Python 3.13 has
-been tested; Windows commands are provided but have not been validated on Windows.
-First setup requires internet access for dependencies and tokenizer files, and
-several GB of free disk space for the environment and generated data.
-
-```sh
-python3 --version
-node --version
-npm --version
-```
-
-On Windows, use `python` instead of `python3`.
-
-### 2. First-time backend setup — from the project root
+### 1. Prepare the backend
 
 macOS/Linux:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-Windows PowerShell:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-With the virtual environment active, run each command in order. Stop if any
-command reports an error; do not start the application with a partial index.
-
-```sh
 python -m pip install -r requirements/api.txt transformers huggingface-hub
 python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-Embedding-0.6B', allow_patterns=['*.json', '*.txt', '*.model'])"
 python scripts/prepare_api_corpus.py
 python scripts/build_bm25_index.py
-python scripts/prepare_analysis.py
 ```
 
-These commands rebuild all eight collections (159,607 chunks), BM25 retrieval
-and the structured database. Allow several minutes, depending on your computer
-and network. The tokenizer download does not download the model weights;
-a warning that PyTorch is unavailable is harmless for this tokenizer-only step.
-Run preparation again only when source data or processing rules change.
+Windows PowerShell: create and activate the environment with `python -m venv .venv` and `.\.venv\Scripts\Activate.ps1`, then run the `python` commands above. Stop if preparation reports an error; a partial index cannot safely serve the chat. Tokenizer download does not fetch the model weights. Rebuild only if source files or processing rules change.
 
-### 3. Start the backend — terminal 1
+### 2. Start the backend
 
 In the project root with `.venv` active:
 
@@ -84,12 +37,11 @@ In the project root with `.venv` active:
 python -m uvicorn server:app --host 127.0.0.1 --port 8000
 ```
 
-Wait for `Application startup complete`. Keep this terminal running.
-Check <http://127.0.0.1:8000/api/health>: expect `healthy` and `total_chunks: 159607`.
+Wait for `Application startup complete`. Open <http://127.0.0.1:8000/api/health> and check `status: healthy` with seven collections. Keep this terminal running.
 
-### 4. Start the frontend — terminal 2
+### 3. Start the chat UI
 
-Open another terminal, `cd` into the **same project root**, then:
+In a second terminal, from the same project root:
 
 ```sh
 cd frontend
@@ -97,82 +49,43 @@ npm ci
 npm run dev
 ```
 
-Open the **Local** URL printed by Vite, normally <http://127.0.0.1:5173>.
-Keep both terminals running. On subsequent launches, activate `.venv` and start
-the backend, then run `npm run dev` in `frontend`; skip installation and data
-preparation. Press Ctrl+C in each terminal to stop.
+Open the local URL printed by Vite, usually <http://127.0.0.1:5173>. On subsequent launches, start the backend and frontend; skip installation and corpus preparation. Press Ctrl+C in each terminal to stop.
 
-### 5. Try the application
+## How to use the chat
 
-- Gene Search: search `ADCY5` and inspect source evidence.
-- Phenotype Search: select `2hrG` to view GWAS/QQ and gene associations.
-- Gene Region: inspect a region covered by the supplied variant statistics.
-- Gene MoA: click **Load client example** to load 200 genes and four traits,
-  explore the signed heatmap, then explain the selection. No extra file is needed.
-- Gene MoA also supports the corpus matrix, matrix/factor uploads, NMF/Bayesian
-  NMF, local enrichment and result export; follow the input formats below.
-- Ask RAG Assistant: ask which genes are associated with 2-hour glucose and open
-  the returned citations. Default generation is local/offline and needs no API key.
+Start with a suggested question or type your own. Example: “What evidence links ADCY5 to 2-hour glucose?” The first three cited claims appear as short evidence highlights; expand **Read full answer** for the complete response, and expand any source to inspect its indexed passage and metadata. Highlights are excerpts, not an additional scientific judgement. The answer shows its status, retrieved-passage count, provider and elapsed time; limitations are displayed separately. Choose an evidence scope before a question to demonstrate collection filtering. Changing scope shows that scope's separate chat history so responses from different scopes are not mixed.
 
-Not every gene or phenotype has supplied evidence. Empty results can reflect
-coverage, not an installation failure. This setup enables the default BM25 app;
-optional hosted generation/evaluation requires your own provider API key, and
-standalone Dense/Hybrid retrieval requires its additional dependencies, model
-weights and a newly built matching Dense index. Do not mix old Release indexes
-with this corpus. Docker and other operating systems remain separately unverified.
+The left sidebar saves up to 20 conversations per evidence scope in this browser. Use **New chat** to start another conversation, select a previous one to revisit its answers and citations, or use the trash icon to delete it. History is local to this browser and is not shared with teammates or the server. Your optional provider API key is not saved in conversation history.
 
-### Troubleshooting
+Without an API key, generation uses local evidence excerpts. Open **Model settings** to use **AIHubMix**, **OpenAI**, **Anthropic (Claude)** or **Google (Gemini)** with your own API key:
 
-- **Port 8000 already in use:** stop the other backend, or use another port:
-  `python -m uvicorn server:app --host 127.0.0.1 --port 8016`.
-  Put `VITE_API_TARGET=http://127.0.0.1:8016` in `frontend/.env.local`, then
-  restart Vite. Frontend and backend must use matching ports.
-- **Manifest mismatch or missing index:** run all three preparation commands in
-  step 2, in order, using this source directory.
-- **Tokenizer download failed:** check internet access and rerun the download
-  command before corpus preparation. Do not skip a failed preparation step.
-- **Client example missing:** confirm `data/reference/client_example/example.json`
-  exists. Older ZIPs omitted it; download the branch version containing this README.
-- **API connection failure:** keep terminal 1 running and check its error output.
+1. Install hosted-generation dependencies: `python -m pip install -r requirements/llm.txt` and restart the backend.
+2. Select the provider and enter a key issued by that provider. Switching provider clears the previous key.
+3. Click **Load models**, then select a model from the **Model ID** dropdown. No model is prefilled or automatically selected. Changing the provider or API key clears the list and selection; load models again. The returned list may be paginated and may include non-chat models; choose a text-generation model available to your account. Gemini's list is filtered to models supporting `generateContent`.
+4. Click **Test connection**. This sends a small prompt, may incur API charges, and checks connectivity—not scientific quality. ChatGPT, Claude and Gemini chat subscriptions do not themselves configure API access here.
+5. Ask a question. The app retrieves local evidence first, then sends the question and selected passages to your chosen provider for synthesis. Answers still pass the existing citation and numerical checks. Invalid or unavailable hosted answers fall back to local excerpts, visibly labelled `offline_fallback`.
 
-Public gene-set libraries and checksums are included. Refreshing them with
-`python scripts/prepare_analysis.py --download-libraries` is optional.
-The [prebuilt runtime package](docs/guides/RUNTIME_RELEASE.md) is an alternative
-for skipping preparation, not a requirement for Download ZIP setup.
-Never commit real API keys or local `.env` files.
+Keys are kept only in page memory, sent through the backend for model discovery, connection tests and questions, and cleared on refresh. They are not written to conversation history or application run logs. Use HTTPS when deploying beyond localhost; do not commit keys to `.env` files. No arbitrary API endpoint is accepted. The native integrations use [OpenAI Responses](https://developers.openai.com/api/reference/python/resources/responses/methods/create), [Anthropic Messages](https://platform.claude.com/docs/en/api/messages/create) and [Gemini generateContent](https://ai.google.dev/api/generate-content). AIHubMix retains its existing OpenAI-compatible interface. Azure OpenAI and Vertex AI credentials are not supported by these direct-provider presets.
 
-## Analysis input formats
+Provider payloads, failures, fallback and credential isolation have automated fixture tests; actual key validity, billing and model availability must be checked with your own account. Citation and numeric validation do not prove that a scientific interpretation is correct; verify claims against source passages.
 
-- X CSV: first column gene, subsequent columns phenotype names; finite nonnegative values, unique labels.
-- W CSV: gene rows and component columns. H CSV: component rows and phenotype columns. Component labels must match; order is aligned explicitly.
-- Associations CSV: gene,phenotype,beta plus z or positive stdErr; optional pValue. Inconsistent z versus beta/stdErr is rejected.
-- GMT: term,description,gene1,gene2... separated by tabs. The enrichment background is all measured matrix genes; all testable terms enter BH correction.
-
-Download format templates in Gene MoA. The templates are synthetic format examples and are not biological reference datasets. Bayesian sampling exposes its likelihood/priors, seed, posterior intervals and trace; a single chain does not establish convergence. Uploaded files and at most eight analysis runs remain in server memory, expire after eviction/restart and are exportable as JSON.
-
-## Tests and delivery
+## Tests and advanced work
 
 ```sh
 python -m pip install -r requirements/dev.txt
-TMPDIR=/private/tmp python -m pytest -q
+python -m pytest -q
 cd frontend
+npm run test
 npm run build
 ```
 
-Earlier implementation checks passed 206 tests and 55 subtests; run the commands above for the current checkout. Full FAISS tests are now included. The existing 100-question offline benchmark, now evaluated over all eight collections without oracle collection labels, reports 95.56% answerable TargetHit@10 and 99% status accuracy; it is not a new blind evaluation.
+The repository retains research/evaluation scripts, benchmark questions and structured-analysis code for development. Keyword retrieval is the default runnable chat mode; vector and hybrid retrieval are separate experiments that require additional model weights and matching indexes. Historical benchmark scores describe their original corpus and must be rerun before claiming performance for this seven-collection version. The API is documented at <http://127.0.0.1:8000/docs>.
 
-Docker packaging: `docker compose up --build`. The first API launch downloads tokenizer files and prepares its corpus/index. Docker was not executable on the development host, so container startup remains unverified. GitHub Actions configuration runs tests and the frontend build; no remote workflow run was triggered.
+For Docker, run `docker compose up --build`; its first API launch prepares the corpus and index. Docker startup has not been verified on every platform.
 
-Independent evaluation: `python scripts/evaluate_annotated.py questions.jsonl --output reports/review.json`. Add `--hosted` with AIHUBMIX_API_KEY in the environment to test hosted generation. Real hosted calls were not made during this work.
+## Troubleshooting
 
-## Scientific limits
-
-Citation structure and explicitly labelled scientific numbers are checked. This is not a semantic entailment or scientific correctness guarantee. Effect scale, allele convention, genome build and some source definitions remain unconfirmed. Invalid standard errors are excluded from z-based selection. No agonist/antagonist or clinical recommendation is inferred from effect sign. Blind annotations, human review and Bayesian convergence assessment require qualified reviewers.
-
-Historical design/evaluation material remains in docs/, reports/ and artifacts/evaluation/. The simple Streamlit demo remains available through setup_demo.py and run_demo.py.
-
-Current review changes, scope controls, run logging and reproducible checks: [Review fixes](docs/guides/REVIEW_FIXES_2026-10-13.md).
-
-## Client example and analysis explanations
-
-In Gene MoA, use **Load client example** for a traceable 200-gene, four-trait demonstration. The embedded question box explains the current run and filters with source records and approved gene-function citations. The original W matrix is missing; this demo independently refits NMF and does not reproduce the client factors. See [workflow and limitations](docs/guides/CLIENT_EXAMPLE_WORKFLOW.md). The bundled-example integration tests run with the source ZIP; missing example data is a test failure.
+- If port 8000 is occupied, choose another port for Uvicorn and set `VITE_API_TARGET=http://127.0.0.1:PORT` in `frontend/.env.local`, then restart Vite.
+- If the backend reports a manifest or index mismatch, rerun `prepare_api_corpus.py` and `build_bm25_index.py` in that order from this source directory.
+- If the tokenizer download fails, check internet access and rerun it before preparation.
+- If the UI says “Backend unavailable”, keep the backend terminal open and check its error output.
