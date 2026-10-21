@@ -3,9 +3,9 @@ from contextvars import ContextVar
 from retrieval.router import SUPPORTED_COLLECTIONS
 
 WORKSPACES = {
-    "all": {"label": "Current client evidence", "collections": tuple(c for c in SUPPORTED_COLLECTIONS if c != "ldsc_partitioned_heritability")},
+    "all": {"label": "All approved evidence", "collections": tuple(SUPPORTED_COLLECTIONS)},
     "annotations": {"label": "Annotations and expression", "collections": ("gene_info", "gtex_tissue_expression")},
-    "genetics": {"label": "Genetic association evidence", "collections": tuple(c for c in SUPPORTED_COLLECTIONS if c not in {"gene_info", "gtex_tissue_expression", "ldsc_partitioned_heritability"})},
+    "genetics": {"label": "Genetic association evidence", "collections": tuple(c for c in SUPPORTED_COLLECTIONS if c not in {"gene_info", "gtex_tissue_expression"})},
 }
 workspace_id = ContextVar("workspace_id", default="all")
 

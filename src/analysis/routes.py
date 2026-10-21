@@ -55,8 +55,10 @@ class EnrichmentRequest(BaseModel):
 
 class EvaluationRequest(BaseModel):
     benchmark_jsonl: str = Field(max_length=2_000_000)
+    llm_provider: str | None = Field(None, max_length=40)
     api_key: str | None = Field(None, max_length=1000)
-    model: str = Field("gpt-4o-mini", max_length=100)
+    base_url: str | None = Field(None, max_length=500)
+    model: str | None = Field(None, max_length=200)
 
 
 class CompareRequest(BaseModel):
@@ -579,8 +581,8 @@ def create_router(
     def evaluate(req: EvaluationRequest):
         try:
             active = pipeline()
-            if req.api_key and req.api_key.strip():
-                from generation.aihubmix import AIHubMixGenerator
+            if (req.api_key and req.api_key.strip()) or req.llm_provider:
+                from generation.llm_provider import build_llm_generator
                 from generation.fallback import FallbackGenerator
                 from generation.offline import OfflineEvidenceGenerator
                 from rag.pipeline import RAGPipeline
@@ -589,7 +591,8 @@ def create_router(
                     active.retriever,
                     active.context_builder,
                     FallbackGenerator(
-                        AIHubMixGenerator(api_key=req.api_key.strip(), model=req.model),
+                        build_llm_generator(provider=req.llm_provider, api_key=req.api_key,
+                                            model=req.model, base_url=req.base_url),
                         OfflineEvidenceGenerator(),
                     ),
                 )

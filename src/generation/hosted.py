@@ -7,7 +7,9 @@ import httpx
 
 from generation.aihubmix import AIHubMixGenerator, AIHubMixGenerationError
 
-Provider = Literal["aihubmix", "openai", "anthropic", "gemini"]
+# "custom" is any OpenAI-compatible endpoint (relay or local server) whose base URL
+# the user supplies; see generation.llm_provider.validate_base_url for the URL policy.
+Provider = Literal["aihubmix", "openai", "anthropic", "gemini", "custom"]
 PROVIDER_URLS = {
     "aihubmix": "https://aihubmix.com/v1",
     "openai": "https://api.openai.com/v1",
@@ -128,8 +130,16 @@ class GeminiGenerator(AIHubMixGenerator):
         return content
 
 
-def list_models(provider: Provider, api_key: str):
-    # Fixed hosts only: never forward a user's key to a user-supplied URL.
+def list_models(provider: Provider, api_key: str, base_url: str | None = None):
+    # Preset providers use fixed hosts. "custom" uses the caller's validated base URL,
+    # chosen explicitly by the user for their own key.
+    if provider == "custom":
+        if not base_url:
+            raise ValueError("custom provider requires a base URL")
+        response = httpx.get(f"{base_url.rstrip('/')}/models", headers={"Authorization": f"Bearer {api_key}"},
+                             timeout=20, follow_redirects=False)
+        response.raise_for_status()
+        return sorted({m["id"] for m in response.json().get("data", []) if isinstance(m.get("id"), str)})
     headers = ({"x-goog-api-key": api_key} if provider == "gemini" else
                {"x-api-key": api_key, "anthropic-version": "2023-06-01"}
                if provider == "anthropic" else {"Authorization": f"Bearer {api_key}"})

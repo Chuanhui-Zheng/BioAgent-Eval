@@ -1,0 +1,23 @@
+{
+  "benchmark": "data/evaluation/blind/blind_e2e_v1.jsonl",
+  "version": "blind_e2e_v1",
+  "sha256": "db71509716e95e5c835d610f9b794f21e892bb004daf0261cb48c4acdb3c3ee9",
+  "questions": 40,
+  "by_type": {
+    "gene_function": 5,
+    "gene_location": 3,
+    "common_association": 4,
+    "rare_association": 4,
+    "ldsc_correlation": 3,
+    "ldsc_partitioned_heritability": 4,
+    "gene_association_wes": 4,
+    "tissue_expression": 3,
+    "comparison": 4,
+    "unanswerable": 6
+  },
+  "seed": 20261021,
+  "excluded_existing_chunk_ids": 3293,
+  "excluded_existing_genes": 1122,
+  "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+  "policy": "Never use for tuning, prompt design or threshold selection. Report once per frozen system version."
+}

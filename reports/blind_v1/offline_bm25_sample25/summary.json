@@ -1,0 +1,18 @@
+{
+  "questions": 25,
+  "status_accuracy": 0.92,
+  "gold_retrieval_hit_rate": 1.0,
+  "gold_citation_precision": 0.652,
+  "gold_citation_recall": 0.88,
+  "numeric_policy_pass_rate": 0.88,
+  "fact_policy_pass_rate": 0.88,
+  "claim_grounding_rate": 1.0,
+  "fallback_rate": 0.0,
+  "mean_latency_s": 0.1460067667198018,
+  "cost": {
+    "estimated_usd": 0.0,
+    "unpriced_runs": 0
+  },
+  "llm_judge": null,
+  "retrieval_method": "bm25"
+}

@@ -134,7 +134,7 @@ def test_query_routes_selected_provider_without_logging_credentials(monkeypatch,
     assert response.status_code == 200
     assert response.json()["provider"] == provider
     assert response.json()["model"] == "account-model"
-    factory.assert_called_once_with(provider, "secret-fixture", "account-model")
+    factory.assert_called_once_with(provider, "secret-fixture", "account-model", None)
     for path in (tmp_path / "artifacts/runs").rglob("*.json"):
         assert "secret-fixture" not in path.read_text()
     assert "secret-fixture" not in response.text
@@ -149,3 +149,37 @@ def test_probe_uses_no_corpus_and_reports_selected_model(monkeypatch):
     assert response.status_code == 200 and response.json()["ok"]
     body = request.call_args.kwargs["json"]
     assert "evidence" not in json.dumps(body).lower()
+
+
+def test_custom_provider_uses_validated_user_base_url(monkeypatch, tmp_path):
+    from generation.llm_provider import OpenAICompatibleGenerator
+
+    created = server.hosted_generator("custom", "secret-fixture", "relay-model", "https://relay.example/v1")
+    assert isinstance(created, OpenAICompatibleGenerator)
+    assert (created.provider, created.base_url, created.model) == ("custom", "https://relay.example/v1", "relay-model")
+
+    factory = Mock(return_value=adapter("openai")[0])
+    monkeypatch.setattr(server, "hosted_generator", factory)
+    monkeypatch.setattr(server, "get_pipeline", lambda: pipeline([result("gene:TCF7L2", "gene_info")]))
+    monkeypatch.setattr(server, "PROJECT_ROOT", tmp_path)
+    client = TestClient(server.app)
+    body = {"question": "What is the function of TCF7L2?", "api_key": "secret-fixture", "provider": "custom",
+            "model": "relay-model", "base_url": "https://relay.example/v1"}
+    assert client.post("/api/rag/query", json=body).status_code == 200
+    factory.assert_called_once_with("custom", "secret-fixture", "relay-model", "https://relay.example/v1")
+    for bad in (None, "http://remote.example/v1", "ftp://relay.example/v1", "https://user:pw@relay.example/v1"):
+        response = client.post("/api/rag/query", json={**body, "base_url": bad})
+        assert response.status_code == 422
+        assert "secret-fixture" not in response.text
+
+
+def test_custom_model_listing_uses_base_url(monkeypatch):
+    seen = {}
+
+    def fake_get(url, headers, timeout, follow_redirects):
+        seen.update(url=url, auth=headers.get("Authorization"))
+        return Mock(raise_for_status=lambda: None, json=lambda: {"data": [{"id": "b"}, {"id": "a"}]})
+
+    monkeypatch.setattr(hosted.httpx, "get", fake_get)
+    assert hosted.list_models("custom", "k", base_url="https://relay.example/v1/") == ["a", "b"]
+    assert seen == {"url": "https://relay.example/v1/models", "auth": "Bearer k"}

@@ -107,6 +107,17 @@ class HybridRetriever:
     weight_bm25: float = 1.0
     weight_dense: float = 1.0
 
+    @property
+    def records(self):
+        return getattr(self.bm25, "records", None)
+
+    @property
+    def meta(self) -> dict[str, Any]:
+        dense_meta = {k: v for k, v in (getattr(self.dense, "meta", {}) or {}).items() if k != "chunk_hashes"}
+        return {**(getattr(self.bm25, "meta", {}) or {}), "dense": dense_meta,
+                "hybrid": {"candidate_k": self.candidate_k, "rrf_k": self.rrf_k,
+                           "weight_bm25": self.weight_bm25, "weight_dense": self.weight_dense}}
+
     def search(
         self,
         query: str,

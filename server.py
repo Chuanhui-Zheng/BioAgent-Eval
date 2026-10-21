@@ -27,9 +27,10 @@ from augmentation.builder import ContextBuilder
 from chunking.phenotype_glossary import PhenotypeGlossary
 from generation.aihubmix import AIHubMixGenerator
 from generation.hosted import OpenAIGenerator, AnthropicGenerator, GeminiGenerator, Provider, list_models, connection_error
+from generation.llm_provider import OpenAICompatibleGenerator, validate_base_url
 from generation.offline import OfflineEvidenceGenerator
 from rag.pipeline import RAGPipeline
-from retrieval.bm25_retriever import load_bm25_index
+from retrieval.factory import build_search_backend
 from retrieval.config import load_retrieval_config
 from retrieval.corpus import load_corpus_from_config
 from retrieval.router import SUPPORTED_COLLECTIONS as ALL_COLLECTIONS
@@ -85,6 +86,7 @@ def workspaces():
 # Global in-memory pipeline state
 _PIPELINE: Optional[RAGPipeline] = None
 _GLOSSARY: Optional[PhenotypeGlossary] = None
+_RETRIEVAL_STATUS: dict[str, Any] = {"method": "not_loaded"}
 _GENE_INDEX: dict[str, dict[str, Any]] = {}
 _COMMON_ASSOC: dict[str, list[dict[str, Any]]] = {}
 _RARE_ASSOC: dict[str, list[dict[str, Any]]] = {}
@@ -96,13 +98,16 @@ def get_pipeline() -> RAGPipeline:
         logger.info("Initializing RAG pipeline from disk...")
         config = load_retrieval_config(PROJECT_ROOT)
         corpus = load_corpus_from_config(config)
-        backend = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
+        bundle = build_search_backend(config, corpus)
+        global _RETRIEVAL_STATUS
+        _RETRIEVAL_STATUS = {"method": bundle.method, "requested_method": bundle.requested_method,
+                             "fallback_reasons": bundle.fallback_reasons}
         _PIPELINE = RAGPipeline(
-            RetrieverService(backend, "bm25"),
+            RetrieverService(bundle.backend, bundle.method),
             ContextBuilder(),
             OfflineEvidenceGenerator(),
         )
-        logger.info("RAG pipeline ready.")
+        logger.info("RAG pipeline ready (retrieval=%s, requested=%s).", bundle.method, bundle.requested_method)
     return _PIPELINE
 
 
@@ -176,12 +181,16 @@ class QueryRequest(BaseModel):
     api_key: Optional[SecretStr] = Field(None, description="Optional key for the selected provider.")
     provider: Provider = "aihubmix"
     model: Optional[str] = Field(None, max_length=200, description="Model ID from the selected provider.")
+    base_url: Optional[str] = Field(
+        None, max_length=500,
+        description="Required for provider 'custom': any OpenAI-compatible base URL (https, or http on localhost).")
 
 
 class ProviderRequest(BaseModel):
     provider: Provider
     api_key: SecretStr
     model: Optional[str] = Field(None, max_length=200)
+    base_url: Optional[str] = Field(None, max_length=500)
 
 
 @app.exception_handler(RequestValidationError)
@@ -203,16 +212,31 @@ def provider_settings(req, require_model=True):
     return key, model
 
 
-def hosted_generator(provider, key, model):
+def custom_base_url(req):
+    """Validated endpoint for provider 'custom' (OpenAI-compatible relays, local servers)."""
+    if req.provider != "custom":
+        return None
+    try:
+        return validate_base_url(req.base_url or "")
+    except ValueError as exc:
+        raise HTTPException(422, f"{exc}. Enter the provider's OpenAI-compatible base URL, e.g. https://api.example.com/v1.") from None
+
+
+def hosted_generator(provider, key, model, base_url=None):
     classes = {"aihubmix": AIHubMixGenerator, "openai": OpenAIGenerator,
                "anthropic": AnthropicGenerator, "gemini": GeminiGenerator}
-    # Existing model-only prices belong to AIHubMix; do not reuse them for direct APIs.
+    # Model-only prices are relay prices (AIHubMix or a custom relay); never reuse them for direct APIs.
     rates = {}
-    if provider == "aihubmix" and (PROJECT_ROOT / "config/model_pricing.json").exists():
+    if provider in {"aihubmix", "custom"} and (PROJECT_ROOT / "config/model_pricing.json").exists():
         rates = json.loads((PROJECT_ROOT / "config/model_pricing.json").read_text()).get(model, {})
-    return classes[provider](api_key=key, model=model,
-        input_cost_per_million=rates.get("input_usd_per_million"),
-        output_cost_per_million=rates.get("output_usd_per_million"))
+    pricing = {"input_cost_per_million": rates.get("input_usd_per_million"),
+               "output_cost_per_million": rates.get("output_usd_per_million")}
+    if provider == "custom":
+        # The user chose this endpoint; the URL is validated (https, or http only on localhost).
+        # Relays and large reasoning models often need well over 60 s for a full evidence answer.
+        return OpenAICompatibleGenerator(api_key=key, model=model, base_url=base_url,
+                                         provider_name="custom", timeout_s=120.0, **pricing)
+    return classes[provider](api_key=key, model=model, **pricing)
 
 
 def close_generator(generator):
@@ -230,7 +254,7 @@ def available_models(req: ProviderRequest):
     if not key:
         raise HTTPException(422, "Enter an API key for the selected provider.")
     try:
-        return {"models": list_models(req.provider, key)}
+        return {"models": list_models(req.provider, key, base_url=custom_base_url(req))}
     except Exception as exc:
         raise HTTPException(502, connection_error(exc)) from None
 
@@ -242,7 +266,7 @@ def test_provider(req: ProviderRequest):
         raise HTTPException(422, "Enter an API key for the selected provider.")
     generator = None
     try:
-        generator = hosted_generator(req.provider, key, model)
+        generator = hosted_generator(req.provider, key, model, custom_base_url(req))
         generator._request([
             {"role": "system", "content": "Return only valid JSON."},
             {"role": "user", "content": 'Return only this JSON: {"ok": true}'},
@@ -287,6 +311,7 @@ def health_check():
         "indexed_genes": len(_GENE_INDEX),
         "glossary_terms": len(get_glossary()._entries),
         "total_chunks": sum(r.collection in allowed_collections() for r in get_pipeline().retriever.backend.records),
+        "retrieval": _RETRIEVAL_STATUS,
     }
 
 
@@ -313,8 +338,9 @@ def query_rag(req: QueryRequest):
     key = req.api_key.get_secret_value().strip() if req.api_key else ""
     if key:
         key, model = provider_settings(req)
+        base_url = custom_base_url(req)  # invalid URL -> 422, not a silent offline fallback
         try:
-            primary = hosted_generator(req.provider, key, model)
+            primary = hosted_generator(req.provider, key, model, base_url)
             generator = FallbackGenerator(primary, OfflineEvidenceGenerator())
         except Exception as exc:
             logger.warning("Hosted provider initialization failed (%s)", type(exc).__name__)

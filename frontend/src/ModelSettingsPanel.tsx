@@ -13,9 +13,10 @@ export function ModelSettingsPanel({ settings, onChange, busy }: Props) {
   const [working, setWorking] = useState(false);
   const [notice, setNotice] = useState("");
   const [failed, setFailed] = useState(false);
+  const custom = settings.provider === "custom";
   function change(next: ModelSettings) {
     setNotice(""); setFailed(false);
-    if (next.apiKey !== settings.apiKey || next.provider !== settings.provider) {
+    if (next.apiKey !== settings.apiKey || next.provider !== settings.provider || next.baseUrl !== settings.baseUrl) {
       setModels([]);
       next = { ...next, model: "" };
     }
@@ -30,7 +31,8 @@ export function ModelSettingsPanel({ settings, onChange, busy }: Props) {
     try {
       const response = await scopedFetch(`/api/llm/${action}`, {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ provider: settings.provider, api_key: settings.apiKey.trim(), model: settings.model.trim() || undefined }),
+        body: JSON.stringify({ provider: settings.provider, api_key: settings.apiKey.trim(), model: settings.model.trim() || undefined,
+          base_url: custom ? settings.baseUrl.trim() || undefined : undefined }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(typeof result.detail === "string" ? result.detail : "Unable to check this provider.");
@@ -50,20 +52,26 @@ export function ModelSettingsPanel({ settings, onChange, busy }: Props) {
       <label>Provider<select aria-label="Provider" value={settings.provider} onChange={event => change(selectProvider(event.target.value as Provider))}>
         {Object.entries(PROVIDERS).map(([id, provider]) => <option key={id} value={id}>{provider.label}</option>)}
       </select></label>
-      <label>Model ID<select aria-label="Model ID" value={settings.model} disabled={!models.length} onChange={event => change({ ...settings, model: event.target.value })}>
+      {custom
+        // Relays do not always list models; allow typing an ID and suggest any loaded ones.
+        ? <label>Model ID<input aria-label="Model ID" list="custom-model-ids" value={settings.model} placeholder="e.g. gpt-4o-mini" onChange={event => change({ ...settings, model: event.target.value })} />
+            <datalist id="custom-model-ids">{models.map(model => <option key={model} value={model} />)}</datalist></label>
+        : <label>Model ID<select aria-label="Model ID" value={settings.model} disabled={!models.length} onChange={event => change({ ...settings, model: event.target.value })}>
         <option value="" disabled>{models.length ? "Choose a model" : "Load models first"}</option>
         {models.map(model => <option key={model} value={model}>{model}</option>)}
       </select>
-      </label>
+      </label>}
     </div>
+    {custom && <><label htmlFor="base-url">Base URL</label>
+      <input id="base-url" type="url" autoComplete="off" spellCheck={false} value={settings.baseUrl} onChange={event => change({ ...settings, baseUrl: event.target.value })} placeholder="https://api.example.com/v1 (http only for localhost)" /></>}
     <label htmlFor="api-key">{PROVIDERS[settings.provider].label} API key</label>
     <input id="api-key" type="password" autoComplete="off" spellCheck={false} value={settings.apiKey} onChange={event => change({ ...settings, apiKey: event.target.value })} placeholder="Leave empty for offline evidence excerpts" />
     <div className="model-actions">
-      <button type="button" disabled={!settings.apiKey.trim()} onClick={() => void check("models")}>Load models</button>
-      <button type="button" disabled={!settings.apiKey.trim() || !settings.model.trim()} onClick={() => void check("test")}>Test connection</button>
+      <button type="button" disabled={!settings.apiKey.trim() || (custom && !settings.baseUrl.trim())} onClick={() => void check("models")}>Load models</button>
+      <button type="button" disabled={!settings.apiKey.trim() || !settings.model.trim() || (custom && !settings.baseUrl.trim())} onClick={() => void check("test")}>Test connection</button>
       {settings.apiKey && <button type="button" onClick={() => change({ ...settings, apiKey: "" })}>Clear key · use offline</button>}
     </div>
     <p className="model-notice" role={failed ? "alert" : "status"}>{working ? "Contacting provider…" : notice}</p>
-    <small>Key held only in page memory; refresh clears it. Requests go through this app's backend to the selected provider. Questions send retrieved evidence; connection tests send a small test prompt and may incur API charges. A chat subscription is separate from API access.</small>
+    <small>Key held only in page memory; refresh clears it. Requests go through this app's backend to the selected provider{custom ? " — for Custom, to the base URL you entered, so only use an endpoint you trust" : ""}. Questions send retrieved evidence; connection tests send a small test prompt and may incur API charges. A chat subscription is separate from API access.</small>
   </fieldset>;
 }

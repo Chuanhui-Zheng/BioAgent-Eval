@@ -4,7 +4,7 @@ A simple chat interface for exploring the currently supplied scientific evidence
 
 ## Evidence used by the chat
 
-The active retrieval corpus has seven collections from the nine ZIP packages in the client's October 2026 `newdata` delivery: gene information, 2hrI genetic correlation, 2hrG common and rare gene associations, 2hrG clumped variant associations, 2hrG WES gene associations, and GTEx RNA/protein expression. The ZIPs also include annotation and variant data used by other processing tools. The chat's active collection list is in [`config/retrieval.yaml`](config/retrieval.yaml). Old-only partitioned heritability, 2hrFFA GWAS and nearest-gene files are **not** in the active chat corpus.
+The active retrieval corpus has eight collections (159,607 passages): gene information, 2hrI genetic correlation, 2hrG common and rare gene associations, 2hrG LDSC partitioned heritability, 2hrG clumped variant associations, 2hrG WES gene associations, and GTEx RNA/protein expression. Seven come from the client's October 2026 `newdata` delivery; partitioned heritability comes from the earlier supplied files and is kept because the retrieval and end-to-end benchmarks (dev, test and blind) are labelled on all eight collections. The active collection list is in [`config/retrieval.yaml`](config/retrieval.yaml). 2hrFFA GWAS and nearest-gene files are not in the chat corpus.
 
 The source files needed for the chat are included under `data/raw/` in the repository. You do not need to separately download or merge the client's ZIPs. A downloaded source ZIP does not contain the generated BM25 index; the first-time setup below builds it from the included sources. The workspace dropdown demonstrates retrieval isolation between all evidence, annotations/expression, and genetic associations. It is not user authentication.
 
@@ -37,7 +37,7 @@ In the project root with `.venv` active:
 python -m uvicorn server:app --host 127.0.0.1 --port 8000
 ```
 
-Wait for `Application startup complete`. Open <http://127.0.0.1:8000/api/health> and check `status: healthy` with seven collections. Keep this terminal running.
+Wait for `Application startup complete`. Open <http://127.0.0.1:8000/api/health> and check `status: healthy` with eight collections and `total_chunks: 159607`. Keep this terminal running.
 
 ### 3. Start the chat UI
 
@@ -57,15 +57,15 @@ Start with a suggested question or type your own. Example: “What evidence link
 
 The left sidebar saves up to 20 conversations per evidence scope in this browser. Use **New chat** to start another conversation, select a previous one to revisit its answers and citations, or use the trash icon to delete it. History is local to this browser and is not shared with teammates or the server. Your optional provider API key is not saved in conversation history.
 
-Without an API key, generation uses local evidence excerpts. Open **Model settings** to use **AIHubMix**, **OpenAI**, **Anthropic (Claude)** or **Google (Gemini)** with your own API key:
+Without an API key, generation uses local evidence excerpts. Open **Model settings** to use **AIHubMix**, **OpenAI**, **Anthropic (Claude)**, **Google (Gemini)** or **Custom (OpenAI-compatible URL)** with your own API key:
 
 1. Install hosted-generation dependencies: `python -m pip install -r requirements/llm.txt` and restart the backend.
-2. Select the provider and enter a key issued by that provider. Switching provider clears the previous key.
+2. Select the provider and enter a key issued by that provider. Switching provider clears the previous key. For **Custom**, also enter the provider's OpenAI-compatible base URL (for example a relay such as `https://api.fenno.ai/v1`, or a local server such as `http://localhost:11434/v1`); you can type a model ID directly if the endpoint does not list models.
 3. Click **Load models**, then select a model from the **Model ID** dropdown. No model is prefilled or automatically selected. Changing the provider or API key clears the list and selection; load models again. The returned list may be paginated and may include non-chat models; choose a text-generation model available to your account. Gemini's list is filtered to models supporting `generateContent`.
 4. Click **Test connection**. This sends a small prompt, may incur API charges, and checks connectivity—not scientific quality. ChatGPT, Claude and Gemini chat subscriptions do not themselves configure API access here.
 5. Ask a question. The app retrieves local evidence first, then sends the question and selected passages to your chosen provider for synthesis. Answers still pass the existing citation and numerical checks. Invalid or unavailable hosted answers fall back to local excerpts, visibly labelled `offline_fallback`.
 
-Keys are kept only in page memory, sent through the backend for model discovery, connection tests and questions, and cleared on refresh. They are not written to conversation history or application run logs. Use HTTPS when deploying beyond localhost; do not commit keys to `.env` files. No arbitrary API endpoint is accepted. The native integrations use [OpenAI Responses](https://developers.openai.com/api/reference/python/resources/responses/methods/create), [Anthropic Messages](https://platform.claude.com/docs/en/api/messages/create) and [Gemini generateContent](https://ai.google.dev/api/generate-content). AIHubMix retains its existing OpenAI-compatible interface. Azure OpenAI and Vertex AI credentials are not supported by these direct-provider presets.
+Keys are kept only in page memory, sent through the backend for model discovery, connection tests and questions, and cleared on refresh. They are not written to conversation history or application run logs. Use HTTPS when deploying beyond localhost; do not commit keys to `.env` files. Preset providers use fixed hosts. **Custom** sends your key and the retrieved passages to the base URL you enter, so only use an endpoint you trust; the backend accepts only `https://` URLs (or `http://` on localhost) without embedded credentials. The native integrations use [OpenAI Responses](https://developers.openai.com/api/reference/python/resources/responses/methods/create), [Anthropic Messages](https://platform.claude.com/docs/en/api/messages/create) and [Gemini generateContent](https://ai.google.dev/api/generate-content). AIHubMix retains its existing OpenAI-compatible interface. Azure OpenAI and Vertex AI credentials are not supported by these direct-provider presets.
 
 Provider payloads, failures, fallback and credential isolation have automated fixture tests; actual key validity, billing and model availability must be checked with your own account. Citation and numeric validation do not prove that a scientific interpretation is correct; verify claims against source passages.
 
@@ -79,9 +79,15 @@ npm run test
 npm run build
 ```
 
-The repository retains research/evaluation scripts, benchmark questions and structured-analysis code for development. Keyword retrieval is the default runnable chat mode; vector and hybrid retrieval are separate experiments that require additional model weights and matching indexes. Historical benchmark scores describe their original corpus and must be rerun before claiming performance for this seven-collection version. The API is documented at <http://127.0.0.1:8000/docs>.
+The repository retains research/evaluation scripts, benchmark questions and structured-analysis code for development. Keyword (BM25) retrieval is the default chat mode, selected on development questions only; see [Retrieval tuning](reports/phase_5_retrieval_tuning/README.md). Set `RAG_RETRIEVAL_METHOD` to `bm25_rerank` (BAAI/bge-reranker-base cross-encoder, tuned settings in `config/retrieval.yaml`), `dense`, `hybrid` or `hybrid_rerank` to try the alternatives; dense/hybrid need `requirements/embed.txt` and an index from `python scripts/build_dense_index.py --resume`, and missing components fall back to BM25 (reported by `/api/health` under `retrieval`). The API is documented at <http://127.0.0.1:8000/docs>.
 
 For Docker, run `docker compose up --build`; its first API launch prepares the corpus and index. Docker startup has not been verified on every platform.
+
+## Quality evaluation
+
+- **Frozen blind benchmark:** `data/evaluation/blind/blind_e2e_v1.jsonl` (40 questions, SHA-256 in its manifest; never used for tuning). Run `python scripts/evaluate_blind.py --label offline`. For a hosted model put `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL` (and `LLM_BASE_URL` for `custom`) in `.env`, then add `--llm-provider custom --limit 25 --judge-provider custom --judge-model <model>`. Reports, an LLM support-judge summary and a human review sheet are written to `reports/blind_v1/<label>/`; score them with [the rubric](reports/blind_v1/HUMAN_REVIEW_RUBRIC.md).
+- **Metrics:** status/refusal accuracy, gold-citation precision and recall, required facts and exact numbers, claim grounding (every number and identifier in a claim must appear in its cited passage), optional LLM-judge support labels, fallback rate, latency and cost.
+- **Retrieval tuning:** `python scripts/tune_retrieval.py --no-dense` (development sets only; refuses test/blind files) and `python scripts/evaluate_retrieval_methods.py --no-dense` (frozen test sets).
 
 ## Troubleshooting
 

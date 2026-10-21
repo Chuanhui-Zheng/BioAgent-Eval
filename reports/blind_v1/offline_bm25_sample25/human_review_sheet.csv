@@ -1,0 +1,511 @@
+query_id,query_type,question,status,answer,citations,auto_flags,correctness_1to5,relevance_1to5,completeness_1to5,citation_support_1to5,clarity_1to5,harmful_or_overclaiming(Y/N),notes,reviewer
+blind-009,common_association,What common-variant Bayes factor links TUSC7 to 2-hour glucose?,answer,TUSC7 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.,gassoc_common:2hrG:TUSC7,,,,,,,,,
+blind-031,comparison,Compare the recorded functions of CYC1 and CLDN10.,qualified,"The available evidence is limited. Evidence comparison by retrieved source; missing evidence is not evidence of absence.
+CYC1 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.
+
+Gene CLDN10: Forms paracellular channels: polymerizes in tight junction strands with cation- and anion-selective channels through the strands, conveying epithelial permeability in a process known as paracellular tight junction permeability
+
+Gene CCNI: Not available in the approved corpus.
+
+Gene CYC1: Component of the ubiquinol-cytochrome c oxidoreductase, a multisubunit transmembrane complex that is part of the mitochondrial electron transport chain which drives oxidative phosphorylation. The respiratory chain contains 3 multisubunit complexes succinate dehydrogenase (complex II, CII), ubiquinol-cytochrome c oxidoreductase (cytochrome b-c1 complex, complex III, CIII) and cytochrome c oxidase (complex IV, CIV), that cooperate to transfer electrons derived from NADH and succinate to molecular oxygen, creating an electrochemical gradient over the inner membrane that drives transmembrane transport and the ATP synthase. The cytochrome b-c1 complex catalyzes electron transfer from ubiquinol to cytochrome c, linking this redox reaction to translocation of protons across the mitochondrial inner membrane, with protons being carried across the membrane as hydrogens on the quinol. In the process called Q cycle, 2 protons are consumed from the matrix, 4 protons are released into the intermembrane space and 2 electrons are passed to cytochrome c. Cytochrome c1 is a catalytic core subunit containing a c-type heme. It transfers electrons from the [2Fe-2S] iron-sulfur cluster of the Rieske protein to cytochrome c
+
+GTEx Tissue Expression for CLDN10:
+Gene: CLDN10
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Kidney - Medulla (median 5486); Pancreas (median 4127); Minor Salivary Gland (median 2971); Brain - Amygdala (median 2309); Brain - Anterior cingulate cortex (BA24) (median 2307).
+Top protein tissues among 32 supplied tissues: Pancreas (median 1.49); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0); Artery - Tibial (median 0).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",gassoc_common:2hrG:CYC1 gene:CLDN10 gene:CCNI gene:CYC1 gtex:CLDN10,,,,,,,,,
+blind-024,gene_association_wes,What top-level WES association p-value is reported for HPS4 with 2-hour glucose?,qualified,"The available evidence is limited. WES mask 0of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 0of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.7058
+beta=0.1828
+stdErr=0.4841
+n=3576
+combinedAF=0.02852
+singleVariants=19
+passingVariants=32
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 11of11: HPS4 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 11of11 (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.3197
+beta=1.452
+stdErr=1.46
+n=347
+combinedAF=0.002882
+singleVariants=1
+passingVariants=1
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 1of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 1of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.6774
+beta=0.08951
+stdErr=0.2152
+n=3405
+combinedAF=0.01233
+singleVariants=12
+passingVariants=19
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5: HPS4 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5 (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.4095
+beta=0.6921
+stdErr=0.8391
+n=1424
+combinedAF=0.002107
+singleVariants=3
+passingVariants=3
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5_LoF_LC: HPS4 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5_LoF_LC (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.4095
+beta=0.6921
+stdErr=0.8391
+n=1424
+combinedAF=0.002107
+singleVariants=3
+passingVariants=3
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json",wes:2hrG:HPS4:mask:0of5_1pct wes:2hrG:HPS4:mask:11of11 wes:2hrG:HPS4:mask:1of5_1pct wes:2hrG:HPS4:mask:5of5 wes:2hrG:HPS4:mask:5of5_LoF_LC,number: pValue,,,,,,,,
+blind-001,gene_function,Summarise the biological function recorded for PSMB3.,answer,"Gene PSMB3: Non-catalytic component of the 20S core proteasome complex involved in the proteolytic degradation of most intracellular proteins. This complex plays numerous essential roles within the cell by associating with different regulatory particles. Associated with two 19S regulatory particles, forms the 26S proteasome and thus participates in the ATP-dependent degradation of ubiquitinated proteins. The 26S proteasome plays a key role in the maintenance of protein homeostasis by removing misfolded or damaged proteins that could impair cellular functions, and by removing proteins whose functions are no longer required. Associated with the PA200 or PA28, the 20S proteasome mediates ubiquitin-independent protein degradation. This type of proteolysis is required in several pathways including spermatogenesis (20S-PA200 complex) or generation of a subset of MHC class I-presented antigenic peptides (20S-PA28 complex)",gene:PSMB3,,,,,,,,,
+blind-006,gene_location,"Where is NFIC located in the genome, and what is its Ensembl identifier?",answer,Gene NFIC: Recognizes and binds the palindromic sequence 5'-TTGGCNNNNNGCCAA-3' present in viral and cellular promoters and in the origin of replication of adenovirus type 2. These proteins are individually capable of activating transcription and replication,gene:NFIC,missing fact: ENSG00000141905,,,,,,,,
+blind-017,ldsc_correlation,What is the LDSC genetic correlation between 2-hour insulin and Docosapentaenoic acid (DPA)?,refuse,I cannot answer this question from the authorized approved corpus.,,number: rg,,,,,,,,
+blind-020,ldsc_partitioned_heritability,What partitioned-heritability enrichment does 2hrG show for enhancer in kidney (kidney epithelial cell) for ancestry EA?,qualified,"The available evidence is limited. LDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_epithelial_cell | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_epithelial_cell (kidney epithelial cell).
+Source-reported statistics (4 significant digits):
+- SNPs=0.02239
+- h2_beta=0.6595
+- h2_stdErr=15.38
+- enrichment_beta=29.46
+- enrichment_stdErr=686.8
+- coefficient_beta=-9.367e-06
+- coefficient_stdErr=8.139e-06
+- diff_beta=-2.967e-06
+- diff_stdErr=3.487e-06
+- pValue=0.3958
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_glomerular_epithelial_cell | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_glomerular_epithelial_cell (kidney glomerular epithelial cell).
+Source-reported statistics (4 significant digits):
+- SNPs=0.02955
+- h2_beta=-1.034
+- h2_stdErr=29.47
+- enrichment_beta=-35
+- enrichment_stdErr=997.4
+- coefficient_beta=1.128e-05
+- coefficient_stdErr=9.533e-06
+- diff_beta=3.782e-06
+- diff_stdErr=3.63e-06
+- pValue=0.2987
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | kidney | glomerular_visceral_epithelial_cell | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: glomerular_visceral_epithelial_cell (glomerular visceral epithelial cell).
+Source-reported statistics (4 significant digits):
+- SNPs=0.02519
+- h2_beta=-0.5748
+- h2_stdErr=15.32
+- enrichment_beta=-22.82
+- enrichment_stdErr=608.2
+- coefficient_beta=5.655e-06
+- coefficient_stdErr=1.032e-05
+- diff_beta=2.491e-06
+- diff_stdErr=3.721e-06
+- pValue=0.5039
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | kidney | renal_cortical_epithelial_cell | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: renal_cortical_epithelial_cell (renal cortical epithelial cell).
+Source-reported statistics (4 significant digits):
+- SNPs=0.03377
+- h2_beta=0.267
+- h2_stdErr=5.831
+- enrichment_beta=7.906
+- enrichment_stdErr=172.7
+- coefficient_beta=-1.186e-05
+- coefficient_stdErr=8.457e-06
+- diff_beta=-7.286e-07
+- diff_stdErr=2.963e-06
+- pValue=0.806
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | kidney | epithelial_cell_of_proximal_tubule | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: epithelial_cell_of_proximal_tubule (epithelial cell of proximal tubule).
+Source-reported statistics (4 significant digits):
+- SNPs=0.02655
+- h2_beta=0.3195
+- h2_stdErr=6.673
+- enrichment_beta=12.03
+- enrichment_stdErr=251.3
+- coefficient_beta=-5.883e-06
+- coefficient_stdErr=8.429e-06
+- diff_beta=-1.155e-06
+- diff_stdErr=3.53e-06
+- pValue=0.7438
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",ldsc_partitioned:2hrG:enhancer:kidney:kidney_epithelial_cell:EA ldsc_partitioned:2hrG:enhancer:kidney:kidney_glomerular_epithelial_cell:EA ldsc_partitioned:2hrG:enhancer:kidney:glomerular_visceral_epithelial_cell:EA ldsc_partitioned:2hrG:enhancer:kidney:renal_cortical_epithelial_cell:EA ldsc_partitioned:2hrG:enhancer:kidney:epithelial_cell_of_proximal_tubule:EA,,,,,,,,,
+blind-013,rare_association,Is there rare-variant evidence that NIPA2 is associated with 2-hour glucose? Give the p-value.,answer,"NIPA2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.02767741259761003, beta=3.0605, direction=positive association, significant=True.",gassoc_rare:2hrG:NIPA2,,,,,,,,,
+blind-028,tissue_expression,In which tissues is SYNRG RNA expression highest in the supplied GTEx data?,qualified,"The available evidence is limited. GTEx Tissue Expression for SYNRG:
+Gene: SYNRG
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 7326); Spleen (median 5268); Testis (median 4320); Pituitary (median 4273); Small Intestine - Terminal Ileum (median 3909).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",gtex:SYNRG,,,,,,,,,
+blind-035,unanswerable,What is the function of the gene QZT7X9?,refuse,I cannot answer this question from the authorized approved corpus.,,,,,,,,,,
+blind-010,common_association,How strong is the common-variant (HuGE) evidence connecting ENSG00000272319 with 2hrG?,answer,ENSG00000272319 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.,gassoc_common:2hrG:ENSG00000272319,,,,,,,,,
+blind-032,comparison,How do the gene functions of SMPD2 and BAX differ?,qualified,"The available evidence is limited. SMPD2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.9995879555610931, beta=-0.21079, direction=negative association, significant=False.
+
+Gene BAX: Plays a role in the mitochondrial apoptotic process (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:36361894, PubMed:8358790, PubMed:8521816). Under normal conditions, BAX is largely cytosolic via constant retrotranslocation from mitochondria to the cytosol mediated by BCL2L1/Bcl-xL, which avoids accumulation of toxic BAX levels at the mitochondrial outer membrane (MOM) (PubMed:21458670). Under stress conditions, undergoes a conformation change that causes translocation to the mitochondrion membrane, leading to the release of cytochrome c that then triggers apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816). Promotes activation of CASP3, and thereby apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816)
+
+Gene SMPD2: Catalyzes, at least in vitro, the hydrolysis of sphingomyelin to form ceramide and phosphocholine (PubMed:10608884). Also hydrolyzes 1-O-alkyl-2-lyso-sn-glycero-3-phosphocholine (lyso-platelet-activating factor) in vivo (PubMed:10608884). Also acts on 1-acyl-2-lyso-sn-glycero-3-phosphocholine (lyso-PC) and sphingosylphosphocholine (PubMed:10608884, PubMed:14741383)
+
+GTEx Tissue Expression for BAX:
+Gene: BAX
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 9165); Cells - Cultured fibroblasts (median 6614.5); Spleen (median 4526); Small Intestine - Terminal Ileum (median 3032); Whole Blood (median 2821).
+Top protein tissues among 32 supplied tissues: Small Intestine - Terminal Ileum (median 1.06); Spleen (median 0.67); Artery - Aorta (median 0.265); Lung (median 0.265); Colon - Transverse (median 0.18).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.
+
+GTEx Tissue Expression for SMPD2:
+Gene: SMPD2
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Testis (median 4649); Esophagus - Mucosa (median 1222); Skin - Not Sun Exposed (Suprapubic) (median 1046); Skin - Sun Exposed (Lower leg) (median 1038); Kidney - Medulla (median 891).
+Top protein tissues among 26 supplied tissues: Skin - Sun Exposed (Lower leg) (median 0.74); Thyroid (median 0.455); Stomach (median 0.365); Adrenal Gland (median 0.33); Lung (median 0.325).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",gassoc_rare:2hrG:SMPD2 gene:BAX gene:SMPD2 gtex:BAX gtex:SMPD2,,,,,,,,,
+blind-025,gene_association_wes,Summarise the whole-exome sequencing evidence for TTC39A and 2hrG.,qualified,"The available evidence is limited. WES mask 0of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 0of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.7323
+beta=-0.1611
+stdErr=0.471
+n=3576
+combinedAF=0.01818
+singleVariants=15
+passingVariants=27
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 1of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 1of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.7475
+beta=-0.07166
+stdErr=0.2226
+n=3080
+combinedAF=0.01396
+singleVariants=11
+passingVariants=18
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5: TTC39A and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5 (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.9691
+beta=0.02265
+stdErr=0.5855
+n=1906
+combinedAF=0.003673
+singleVariants=5
+passingVariants=6
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5_LoF_LC: TTC39A and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5_LoF_LC (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.5407
+beta=-0.3003
+stdErr=0.4909
+n=1906
+combinedAF=0.005247
+singleVariants=5
+passingVariants=7
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES gene summary: TTC39A and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source top-level pValue=0.9555; beta=-0.3003.
+Supplied mask results: 4.
+Top-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json",wes:2hrG:TTC39A:mask:0of5_1pct wes:2hrG:TTC39A:mask:1of5_1pct wes:2hrG:TTC39A:mask:5of5 wes:2hrG:TTC39A:mask:5of5_LoF_LC wes:2hrG:TTC39A:summary,,,,,,,,,
+blind-002,gene_function,What role does the gene MCM2 play according to the approved gene annotations?,answer,"Gene MCM2: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for the entry in S phase and for cell division (PubMed:8175912). Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis (PubMed:26196677)
+
+Gene MCM7: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:25661590, PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232, PubMed:9305914). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for S-phase checkpoint activation upon UV-induced damage",gene:MCM2 gene:MCM7,,,,,,,,,
+blind-007,gene_location,Which chromosome carries KCNK17 and what are its genomic coordinates?,answer,"Gene KCNK17: K(+) channel that conducts voltage-dependent outward rectifying currents upon membrane depolarization. Voltage sensing is coupled to K(+) electrochemical gradient in an 'ion flux gating' mode where outward but not inward ion flow opens the gate (PubMed:11248242, PubMed:11263999, PubMed:26919430, PubMed:36063992). Homo- and heterodimerizes to form functional channels with distinct regulatory and gating properties (PubMed:36063992). Present in the cardiac conduction system where it may regulate action potential duration and beating frequency of cardiac myocytes (PubMed:24972929). Permeable to other monovalent cations such as Rb(+) and Cs(+) (By similarity) (PubMed:26919430)",gene:KCNK17,missing fact: chr6,,,,,,,,
+blind-018,ldsc_correlation,Is 2hrI genetically correlated with CCS phenotypic cryptogenic? Report rg.,refuse,I cannot answer this question from the authorized approved corpus.,,number: rg,,,,,,,,
+blind-021,ldsc_partitioned_heritability,"Report enrichment_beta for 2-hour glucose, annotation enhancer, tissue cardiovascular system, biosample right atrium, ancestry code EU.",qualified,"The available evidence is limited. LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EU:
+LDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).
+Source-reported statistics (4 significant digits):
+- SNPs=0.01016
+- h2_beta=0.0514
+- h2_stdErr=0.07159
+- enrichment_beta=5.06
+- enrichment_stdErr=7.047
+- coefficient_beta=4e-07
+- coefficient_stdErr=5.564e-07
+- diff_beta=1.605e-07
+- diff_stdErr=2.772e-07
+- pValue=0.5631
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium_auricular_region | EU:
+LDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium_auricular_region (right atrium auricular region).
+Source-reported statistics (4 significant digits):
+- SNPs=0.01183
+- h2_beta=0.0126
+- h2_stdErr=0.07155
+- enrichment_beta=1.065
+- enrichment_stdErr=6.048
+- coefficient_beta=-4.915e-07
+- coefficient_stdErr=4.786e-07
+- diff_beta=2.567e-09
+- diff_stdErr=2.384e-07
+- pValue=0.9914
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EA:
+LDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).
+Source-reported statistics (4 significant digits):
+- SNPs=0.01017
+- h2_beta=0.706
+- h2_stdErr=44.33
+- enrichment_beta=69.45
+- enrichment_stdErr=4361
+- coefficient_beta=1.584e-05
+- coefficient_stdErr=1.201e-05
+- diff_beta=-7.159e-06
+- diff_stdErr=5.52e-06
+- pValue=0.1962
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | HS:
+LDSC partitioned heritability. Ancestry code: HS. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).
+Source-reported statistics (4 significant digits):
+- SNPs=0.01014
+- h2_beta=0.2878
+- h2_stdErr=0.2793
+- enrichment_beta=28.38
+- enrichment_stdErr=27.54
+- coefficient_beta=-3.972e-05
+- coefficient_stdErr=1.483e-05
+- diff_beta=-9.306e-06
+- diff_stdErr=5.906e-06
+- pValue=0.1167
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.
+
+LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | Mixed:
+LDSC partitioned heritability. Ancestry code: Mixed. Phenotype: 2-hour glucose (OGTT) (2hrG).
+Annotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).
+Source-reported statistics (4 significant digits):
+- SNPs=0.01016
+- h2_beta=0.06597
+- h2_stdErr=0.06935
+- enrichment_beta=6.493
+- enrichment_stdErr=6.828
+- coefficient_beta=3.768e-07
+- coefficient_stdErr=5.554e-07
+- diff_beta=1.214e-07
+- diff_stdErr=2.766e-07
+- pValue=0.6611
+Population-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EU ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium_auricular_region:EU ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EA ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:HS ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:Mixed,,,,,,,,,
+blind-014,rare_association,What rare-variant gene-based p-value and beta are reported for AC025335 and 2hrG?,answer,"AC025335 has rare-variant evidence for 2-hour glucose (OGTT): p=0.018299999999999983, beta=0.191, direction=positive association, significant=True.",gassoc_rare:2hrG:AC025335,,,,,,,,,
+blind-029,tissue_expression,Where is CTNNAL1 most highly expressed across GTEx tissues?,qualified,"The available evidence is limited. GTEx Tissue Expression for CTNNAL1:
+Gene: CTNNAL1
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Adrenal Gland (median 21889); Nerve - Tibial (median 10799); Ovary (median 9315.5); Thyroid (median 6437); Cells - Cultured fibroblasts (median 4505.5).
+Top protein tissues among 32 supplied tissues: Ovary (median 1.155); Esophagus - Gastroesophageal Junction (median 1.15); Esophagus - Muscularis (median 1.095); Nerve - Tibial (median 1.07); Colon - Sigmoid (median 0.9).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",gtex:CTNNAL1,,,,,,,,,
+blind-036,unanswerable,What rare-variant association does KRTAP99-1 have with 2-hour glucose?,refuse,I cannot answer this question from the authorized approved corpus.,,,,,,,,,,
+blind-011,common_association,Report bf_common for PEBP1P3 and the 2-hour glucose phenotype.,answer,PEBP1P3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.,gassoc_common:2hrG:PEBP1P3,,,,,,,,,
+blind-033,comparison,Compare the rare-variant association evidence for CD200R1 and SLC25A13 with 2-hour glucose.,qualified,"The available evidence is limited. Evidence comparison by retrieved source; missing evidence is not evidence of absence.
+CD200R1 has rare-variant evidence for 2-hour glucose (OGTT): p=0.737399766531676, beta=0.26185, direction=positive association, significant=False.
+
+SLC25A13 has rare-variant evidence for 2-hour glucose (OGTT): p=0.16057011545182842, beta=0.65875, direction=positive association, significant=False.",gassoc_rare:2hrG:CD200R1 gassoc_rare:2hrG:SLC25A13,,,,,,,,,
+blind-026,gene_association_wes,Which WES masks were supplied for SPTBN1 and 2-hour glucose?,qualified,"The available evidence is limited. WES mask 0of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 0of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.9109
+beta=0.04068
+stdErr=0.3637
+n=3576
+combinedAF=0.02657
+singleVariants=41
+passingVariants=58
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Related baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 1of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 1of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.8693
+beta=-0.02431
+stdErr=0.1478
+n=3576
+combinedAF=0.02461
+singleVariants=38
+passingVariants=54
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Related baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5: SPTBN1 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5 (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.3451
+beta=0.3671
+stdErr=0.3889
+n=2777
+combinedAF=0.005041
+singleVariants=8
+passingVariants=10
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Related baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 5of5_LoF_LC: SPTBN1 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 5of5_LoF_LC (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.3451
+beta=0.3671
+stdErr=0.3889
+n=2777
+combinedAF=0.005041
+singleVariants=8
+passingVariants=10
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Related baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES gene summary: SPTBN1 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source top-level pValue=0.816; beta=0.3671.
+Supplied mask results: 4.
+Top-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.
+Related baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json",wes:2hrG:SPTBN1:mask:0of5_1pct wes:2hrG:SPTBN1:mask:1of5_1pct wes:2hrG:SPTBN1:mask:5of5 wes:2hrG:SPTBN1:mask:5of5_LoF_LC wes:2hrG:SPTBN1:summary,,,,,,,,,
+blind-003,gene_function,Describe what is known about the function of RHOT2 in the corpus.,answer,"Gene RHOT2: Atypical mitochondrial nucleoside-triphosphatase (NTPase) involved in mitochondrial trafficking (PubMed:16630562, PubMed:22396657, PubMed:30513825). Probably involved in control of anterograde transport of mitochondria and their subcellular distribution (PubMed:22396657). Can hydrolyze GTP (By similarity). Can hydrolyze ATP and UTP (PubMed:30513825)",gene:RHOT2,,,,,,,,,
+blind-008,gene_location,What database identifiers are listed for SYN3?,qualified,"The available evidence is limited. SYN3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.
+
+Gene SYN3: May be involved in the regulation of neurotransmitter release and synaptogenesis
+
+GTEx Tissue Expression for SYN3:
+Gene: SYN3
+GTEx tissue expression. Units and transformations are unconfirmed.
+Top rna tissues among 54 supplied tissues: Testis (median 538); Brain - Frontal Cortex (BA9) (median 433); Brain - Cortex (median 369); Brain - Nucleus accumbens (basal ganglia) (median 250); Brain - Anterior cingulate cortex (BA24) (median 244.5).
+Top protein tissues among 32 supplied tissues: Brain - Cortex (median 5.21); Brain - Cerebellum (median 1.77); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0).
+Expression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.
+
+WES mask 0of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 0of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.9564
+beta=-0.03534
+stdErr=0.6465
+n=3576
+combinedAF=0.01035
+singleVariants=6
+passingVariants=11
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json
+
+WES mask 1of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):
+Client-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).
+Source label: AMP T2D-GENES.
+Source mask label: 1of5_1pct (selection rules unconfirmed).
+Mask results (displayed to 4 significant digits):
+pValue=0.9117
+beta=-0.02954
+stdErr=0.2664
+n=2570
+combinedAF=0.01245
+singleVariants=6
+passingVariants=9
+This mask result is not the gene-level aggregate; different masks are not independent corroboration.
+Population-level association, not causal proof or an individual diagnosis.
+Mask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.
+Source: data/raw/wes/2hrG/part-00000.json",gassoc_common:2hrG:SYN3 gene:SYN3 gtex:SYN3 wes:2hrG:SYN3:mask:0of5_1pct wes:2hrG:SYN3:mask:1of5_1pct,missing fact: ENSG00000185666,,,,,,,,

@@ -1,6 +1,6 @@
 {
   "pipeline_version": "1.1.0.expanded-dev",
-  "created_at": "2026-10-20T06:10:43.826010+00:00",
+  "created_at": "2026-10-21T03:25:18.652569+00:00",
   "scope": "expanded-development-corpus-not-an-index-release",
   "sources": {
     "gene_info": {
@@ -30,6 +30,10 @@
       "raw_rows": 4114
     },
     "paths_config": "config/paths.yaml",
+    "ldsc_partitioned_2hrG": {
+      "path": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+      "sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e"
+    },
     "metaanalysis_clumped_2hrG_EU": {
       "path": "data/raw/metaanalysis/bottom-line/ancestry-clumped/2hrG/ancestry=EU/part-00000-ddaf2613-61d9-48db-b24e-3c0a67a82ad8-c000.json",
       "sha256": "d0d5fe4b246053f58a4a6c6cb82e4c6f214eea46a072d9a37f2c86a7c7f568b2"
@@ -47,6 +51,10 @@
       "sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176"
     }
   },
+  "partitioned_glossary": {
+    "path": "config/phenotype_glossary.json",
+    "sha256": "9629c4527ae2dea4b507e039f4c7936cb8cde277230b9888b6b6f3ab9cb88785"
+  },
   "clumped_glossary": {
     "path": "config/phenotype_glossary.json",
     "sha256": "9629c4527ae2dea4b507e039f4c7936cb8cde277230b9888b6b6f3ab9cb88785"
@@ -58,15 +66,19 @@
   "provenance": {
     "baseline_manifest": {
       "path": "artifacts/manifest.json",
-      "sha256": "43b82a04717443d2a584b2971b60324e77b80347f85461a2cf5d2a3c979ae061"
+      "sha256": "5f1c2c53951990e67cc4e0aa81b59f51aa668e2a0ca8d2ed6fb2951ad8d1b822"
+    },
+    "partitioned_build_manifest": {
+      "path": "artifacts/ingestion_dev/ldsc_partitioned/manifest.json",
+      "sha256": "c1652e93717f053755716fcc041bc212cbaa75bd5dd269bf1176ad5e1a110133"
     },
     "clumped_build_manifest": {
       "path": "artifacts/ingestion_dev/clumped/manifest.json",
-      "sha256": "1b1549096e841681b9e20bdaa8eabe71e6c7e4ecdd89537b891be38109fc7f09"
+      "sha256": "48c0e6605c95098a5f836527e81e28fdce602e4fcbd9eaa8cf5f624499df991f"
     },
     "wes_build_manifest": {
       "path": "artifacts/ingestion_dev/wes/manifest.json",
-      "sha256": "845612109217207c79555abd71ed8893726fb3c6cbd1e44fd8ecc9d52a2a9995"
+      "sha256": "859996a15390a22a67e4f43c879e3633e05943cffc36945477ef1f191e9f4ec4"
     },
     "gtex_build_manifest": {
       "path": "artifacts/ingestion_dev/gtex/manifest.json",
@@ -97,6 +109,12 @@
       "path": "artifacts/chunks/gene_association_rare_2hrG.chunks.jsonl",
       "chunks": 4114,
       "sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+    },
+    "ldsc_partitioned_2hrG.chunks.jsonl": {
+      "collection": "ldsc_partitioned_heritability",
+      "path": "artifacts/chunks/ldsc_partitioned_2hrG.chunks.jsonl",
+      "chunks": 7924,
+      "sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
     },
     "metaanalysis_clumped_2hrG_EU.chunks.jsonl": {
       "collection": "variant_association_clumped",

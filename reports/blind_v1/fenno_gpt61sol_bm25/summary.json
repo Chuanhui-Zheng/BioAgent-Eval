@@ -1,0 +1,36 @@
+{
+  "questions": 25,
+  "status_accuracy": 0.92,
+  "gold_retrieval_hit_rate": 1.0,
+  "gold_citation_precision": 0.848,
+  "gold_citation_recall": 0.88,
+  "numeric_policy_pass_rate": 0.92,
+  "fact_policy_pass_rate": 1.0,
+  "claim_grounding_rate": 1.0,
+  "fallback_rate": 0.0,
+  "mean_latency_s": 63.770895163399985,
+  "cost": {
+    "estimated_usd": null,
+    "unpriced_runs": 21
+  },
+  "llm_judge": {
+    "judge": {
+      "provider": "custom",
+      "model": "gpt-6.1-sol",
+      "base_url_host": "api.fenno.ai",
+      "json_mode": true
+    },
+    "labels": {
+      "supported": 38,
+      "partial": 3,
+      "unsupported": 2,
+      "contradicted": 0,
+      "judge_error": 8
+    },
+    "supported_rate": 0.8837209302325582,
+    "supported_or_partial_rate": 0.9534883720930233,
+    "contradicted_claims": 0,
+    "judge_errors": 8
+  },
+  "retrieval_method": "bm25"
+}
