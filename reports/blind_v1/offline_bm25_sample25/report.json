@@ -1,0 +1,3429 @@
+{
+  "benchmark_sha256": "75e136b2ce77eb294fb8bcc39779fc48f6a6b750f7c2792d4b8c82e7c1b8a7da",
+  "questions": 25,
+  "provider_mode": "offline_evidence",
+  "annotation_origins": [
+    "programmatic_from_source_records_v1; independent human verification pending"
+  ],
+  "gold_retrieval_hit_rate": 1.0,
+  "fallback_rate": 0.0,
+  "mean_latency_s": 0.1460067667198018,
+  "cost": {
+    "estimated_usd": 0.0,
+    "unpriced_runs": 0
+  },
+  "status_accuracy": 0.92,
+  "gold_citation_precision": 0.652,
+  "gold_citation_recall": 0.88,
+  "numeric_policy_pass_rate": 0.88,
+  "fact_policy_pass_rate": 0.88,
+  "claim_grounding_rate": 1.0,
+  "llm_judge": null,
+  "retrieval_method": "bm25",
+  "by_query_type": {
+    "common_association": {
+      "n": 3,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 1.0,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "comparison": {
+      "n": 3,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 0.6,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "gene_association_wes": {
+      "n": 3,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 0.6666666666666666,
+      "gold_citation_precision": 0.13333333333333333,
+      "numeric_policy_pass_rate": 0.6666666666666666,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "gene_function": {
+      "n": 3,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 0.8333333333333334,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "gene_location": {
+      "n": 3,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 0.7333333333333334,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 0.0,
+      "claim_grounding_rate": 1.0
+    },
+    "ldsc_correlation": {
+      "n": 2,
+      "status_accuracy": 0.0,
+      "gold_citation_recall": 0.0,
+      "gold_citation_precision": 0.0,
+      "numeric_policy_pass_rate": 0.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": null
+    },
+    "ldsc_partitioned_heritability": {
+      "n": 2,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 0.2,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "rare_association": {
+      "n": 2,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 1.0,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "tissue_expression": {
+      "n": 2,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 1.0,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": 1.0
+    },
+    "unanswerable": {
+      "n": 2,
+      "status_accuracy": 1.0,
+      "gold_citation_recall": 1.0,
+      "gold_citation_precision": 1.0,
+      "numeric_policy_pass_rate": 1.0,
+      "fact_policy_pass_rate": 1.0,
+      "claim_grounding_rate": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "blind-009",
+      "query_type": "common_association",
+      "question": "What common-variant Bayes factor links TUSC7 to 2-hour glucose?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "TUSC7 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+        "claims": [
+          {
+            "text": "TUSC7 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+            "citations": [
+              "gassoc_common:2hrG:TUSC7"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+            "chunk_id": "gassoc_common:2hrG:TUSC7",
+            "method": "HuGE_common",
+            "phenotype": "2hrG",
+            "gene": "TUSC7",
+            "source_sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "source_version": "sha256:5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.0898724590006168,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-031",
+      "query_type": "comparison",
+      "question": "Compare the recorded functions of CYC1 and CLDN10.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.4,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. Evidence comparison by retrieved source; missing evidence is not evidence of absence.\nCYC1 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.\n\nGene CLDN10: Forms paracellular channels: polymerizes in tight junction strands with cation- and anion-selective channels through the strands, conveying epithelial permeability in a process known as paracellular tight junction permeability\n\nGene CCNI: Not available in the approved corpus.\n\nGene CYC1: Component of the ubiquinol-cytochrome c oxidoreductase, a multisubunit transmembrane complex that is part of the mitochondrial electron transport chain which drives oxidative phosphorylation. The respiratory chain contains 3 multisubunit complexes succinate dehydrogenase (complex II, CII), ubiquinol-cytochrome c oxidoreductase (cytochrome b-c1 complex, complex III, CIII) and cytochrome c oxidase (complex IV, CIV), that cooperate to transfer electrons derived from NADH and succinate to molecular oxygen, creating an electrochemical gradient over the inner membrane that drives transmembrane transport and the ATP synthase. The cytochrome b-c1 complex catalyzes electron transfer from ubiquinol to cytochrome c, linking this redox reaction to translocation of protons across the mitochondrial inner membrane, with protons being carried across the membrane as hydrogens on the quinol. In the process called Q cycle, 2 protons are consumed from the matrix, 4 protons are released into the intermembrane space and 2 electrons are passed to cytochrome c. Cytochrome c1 is a catalytic core subunit containing a c-type heme. It transfers electrons from the [2Fe-2S] iron-sulfur cluster of the Rieske protein to cytochrome c\n\nGTEx Tissue Expression for CLDN10:\nGene: CLDN10\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Kidney - Medulla (median 5486); Pancreas (median 4127); Minor Salivary Gland (median 2971); Brain - Amygdala (median 2309); Brain - Anterior cingulate cortex (BA24) (median 2307).\nTop protein tissues among 32 supplied tissues: Pancreas (median 1.49); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0); Artery - Tibial (median 0).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+        "claims": [
+          {
+            "text": "CYC1 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+            "citations": [
+              "gassoc_common:2hrG:CYC1"
+            ]
+          },
+          {
+            "text": "Gene CLDN10: Forms paracellular channels: polymerizes in tight junction strands with cation- and anion-selective channels through the strands, conveying epithelial permeability in a process known as paracellular tight junction permeability",
+            "citations": [
+              "gene:CLDN10"
+            ]
+          },
+          {
+            "text": "Gene CCNI: Not available in the approved corpus.",
+            "citations": [
+              "gene:CCNI"
+            ]
+          },
+          {
+            "text": "Gene CYC1: Component of the ubiquinol-cytochrome c oxidoreductase, a multisubunit transmembrane complex that is part of the mitochondrial electron transport chain which drives oxidative phosphorylation. The respiratory chain contains 3 multisubunit complexes succinate dehydrogenase (complex II, CII), ubiquinol-cytochrome c oxidoreductase (cytochrome b-c1 complex, complex III, CIII) and cytochrome c oxidase (complex IV, CIV), that cooperate to transfer electrons derived from NADH and succinate to molecular oxygen, creating an electrochemical gradient over the inner membrane that drives transmembrane transport and the ATP synthase. The cytochrome b-c1 complex catalyzes electron transfer from ubiquinol to cytochrome c, linking this redox reaction to translocation of protons across the mitochondrial inner membrane, with protons being carried across the membrane as hydrogens on the quinol. In the process called Q cycle, 2 protons are consumed from the matrix, 4 protons are released into the intermembrane space and 2 electrons are passed to cytochrome c. Cytochrome c1 is a catalytic core subunit containing a c-type heme. It transfers electrons from the [2Fe-2S] iron-sulfur cluster of the Rieske protein to cytochrome c",
+            "citations": [
+              "gene:CYC1"
+            ]
+          },
+          {
+            "text": "GTEx Tissue Expression for CLDN10:\nGene: CLDN10\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Kidney - Medulla (median 5486); Pancreas (median 4127); Minor Salivary Gland (median 2971); Brain - Amygdala (median 2309); Brain - Anterior cingulate cortex (BA24) (median 2307).\nTop protein tissues among 32 supplied tissues: Pancreas (median 1.49); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0); Artery - Tibial (median 0).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:CLDN10"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+            "chunk_id": "gassoc_common:2hrG:CYC1",
+            "method": "HuGE_common",
+            "phenotype": "2hrG",
+            "gene": "CYC1",
+            "source_sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "source_version": "sha256:5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:CLDN10",
+            "extracted_at_unix": 1767881409,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:CCNI",
+            "extracted_at_unix": 1767880809,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:CYC1",
+            "extracted_at_unix": 1767882354,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "chunk_id": "gtex:CLDN10",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  21655
+                ],
+                "record_key": {
+                  "gene": "CLDN10",
+                  "statistic": "50%"
+                }
+              },
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv",
+                "source_sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+                "source_rows": [
+                  245618,
+                  245619,
+                  245620,
+                  245621,
+                  245622,
+                  245623,
+                  245624,
+                  245625,
+                  245626,
+                  245627,
+                  245628,
+                  245629,
+                  245630,
+                  245631,
+                  245632,
+                  245633,
+                  245634,
+                  245635,
+                  245636,
+                  245637,
+                  245638,
+                  245639,
+                  245640,
+                  245641,
+                  245642,
+                  245643,
+                  245644,
+                  245645,
+                  245646,
+                  245647,
+                  245648,
+                  245649,
+                  245650,
+                  245651,
+                  245652,
+                  245653,
+                  245654,
+                  245655,
+                  245656,
+                  245657,
+                  245658,
+                  245659,
+                  245660,
+                  245661,
+                  245662,
+                  245663,
+                  245664,
+                  245665,
+                  245666,
+                  245667,
+                  245668,
+                  245669,
+                  245670,
+                  245671,
+                  245672,
+                  245673,
+                  245674,
+                  245675,
+                  245676,
+                  245677,
+                  245678,
+                  245679,
+                  245680,
+                  245681,
+                  245682,
+                  245683,
+                  245684,
+                  245685,
+                  245686,
+                  245687,
+                  245688,
+                  245689,
+                  245690,
+                  245691,
+                  245692,
+                  245693,
+                  245694,
+                  245695,
+                  245696,
+                  245697,
+                  245698,
+                  245699,
+                  245700,
+                  245701,
+                  245702,
+                  245703,
+                  245704,
+                  245705,
+                  245706,
+                  245707,
+                  245708,
+                  245709,
+                  245710,
+                  245711,
+                  245712,
+                  245713,
+                  245714,
+                  245715,
+                  245716,
+                  245717,
+                  245718,
+                  245719,
+                  245720,
+                  245721,
+                  245722,
+                  245723,
+                  245724,
+                  245725,
+                  245726,
+                  245727,
+                  245728,
+                  245729,
+                  245730,
+                  245731,
+                  245732,
+                  245733,
+                  245734,
+                  245735,
+                  245736,
+                  245737,
+                  245738,
+                  245739,
+                  245740,
+                  245741,
+                  245742,
+                  245743,
+                  245744,
+                  245745,
+                  245746,
+                  245747,
+                  245748,
+                  245749,
+                  245750,
+                  245751,
+                  245752,
+                  245753,
+                  245754,
+                  245755,
+                  245756,
+                  245757,
+                  245758,
+                  245759,
+                  245760,
+                  245761,
+                  245762,
+                  245763,
+                  245764,
+                  245765,
+                  245766,
+                  245767,
+                  245768,
+                  245769,
+                  245770,
+                  245771,
+                  245772,
+                  245773,
+                  245774,
+                  245775,
+                  245776,
+                  245777,
+                  245778,
+                  245779,
+                  245780,
+                  245781,
+                  245782,
+                  245783,
+                  245784,
+                  245785,
+                  245786,
+                  245787,
+                  245788,
+                  245789,
+                  245790,
+                  245791,
+                  245792,
+                  245793,
+                  245794,
+                  245795,
+                  245796,
+                  245797,
+                  245798,
+                  245799,
+                  245800,
+                  245801,
+                  245802,
+                  245803,
+                  245804,
+                  245805,
+                  245806,
+                  245807,
+                  245808,
+                  245809,
+                  245810,
+                  245811,
+                  245812,
+                  245813,
+                  245814,
+                  245815,
+                  245816,
+                  245817,
+                  245818
+                ],
+                "record_key": {
+                  "gene": "CLDN10",
+                  "statistic": "individual observations"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations.",
+          "The approved corpus does not provide a function summary for one or more genes."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.31859541599988006,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-024",
+      "query_type": "gene_association_wes",
+      "question": "What top-level WES association p-value is reported for HPS4 with 2-hour glucose?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.0,
+      "gold_citation_recall": 0.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [
+        "pValue"
+      ],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. WES mask 0of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7058\nbeta=0.1828\nstdErr=0.4841\nn=3576\ncombinedAF=0.02852\nsingleVariants=19\npassingVariants=32\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 11of11: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 11of11 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3197\nbeta=1.452\nstdErr=1.46\nn=347\ncombinedAF=0.002882\nsingleVariants=1\npassingVariants=1\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 1of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.6774\nbeta=0.08951\nstdErr=0.2152\nn=3405\ncombinedAF=0.01233\nsingleVariants=12\npassingVariants=19\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.4095\nbeta=0.6921\nstdErr=0.8391\nn=1424\ncombinedAF=0.002107\nsingleVariants=3\npassingVariants=3\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5_LoF_LC: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.4095\nbeta=0.6921\nstdErr=0.8391\nn=1424\ncombinedAF=0.002107\nsingleVariants=3\npassingVariants=3\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+        "claims": [
+          {
+            "text": "WES mask 0of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7058\nbeta=0.1828\nstdErr=0.4841\nn=3576\ncombinedAF=0.02852\nsingleVariants=19\npassingVariants=32\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:HPS4:mask:0of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 11of11: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 11of11 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3197\nbeta=1.452\nstdErr=1.46\nn=347\ncombinedAF=0.002882\nsingleVariants=1\npassingVariants=1\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:HPS4:mask:11of11"
+            ]
+          },
+          {
+            "text": "WES mask 1of5_1pct: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.6774\nbeta=0.08951\nstdErr=0.2152\nn=3405\ncombinedAF=0.01233\nsingleVariants=12\npassingVariants=19\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:HPS4:mask:1of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 5of5: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.4095\nbeta=0.6921\nstdErr=0.8391\nn=1424\ncombinedAF=0.002107\nsingleVariants=3\npassingVariants=3\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:HPS4:mask:5of5"
+            ]
+          },
+          {
+            "text": "WES mask 5of5_LoF_LC: HPS4 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: HPS4 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.4095\nbeta=0.6921\nstdErr=0.8391\nn=1424\ncombinedAF=0.002107\nsingleVariants=3\npassingVariants=3\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:HPS4:mask:5of5_LoF_LC"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 14653,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:HPS4:mask:0of5_1pct",
+            "source_mask_index": 2,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 14653,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:HPS4:mask:11of11",
+            "source_mask_index": 4,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 14653,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:HPS4:mask:1of5_1pct",
+            "source_mask_index": 3,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 14653,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:HPS4:mask:5of5",
+            "source_mask_index": 0,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 14653,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:HPS4:mask:5of5_LoF_LC",
+            "source_mask_index": 1,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.30518095899606124,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-001",
+      "query_type": "gene_function",
+      "question": "Summarise the biological function recorded for PSMB3.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "Gene PSMB3: Non-catalytic component of the 20S core proteasome complex involved in the proteolytic degradation of most intracellular proteins. This complex plays numerous essential roles within the cell by associating with different regulatory particles. Associated with two 19S regulatory particles, forms the 26S proteasome and thus participates in the ATP-dependent degradation of ubiquitinated proteins. The 26S proteasome plays a key role in the maintenance of protein homeostasis by removing misfolded or damaged proteins that could impair cellular functions, and by removing proteins whose functions are no longer required. Associated with the PA200 or PA28, the 20S proteasome mediates ubiquitin-independent protein degradation. This type of proteolysis is required in several pathways including spermatogenesis (20S-PA200 complex) or generation of a subset of MHC class I-presented antigenic peptides (20S-PA28 complex)",
+        "claims": [
+          {
+            "text": "Gene PSMB3: Non-catalytic component of the 20S core proteasome complex involved in the proteolytic degradation of most intracellular proteins. This complex plays numerous essential roles within the cell by associating with different regulatory particles. Associated with two 19S regulatory particles, forms the 26S proteasome and thus participates in the ATP-dependent degradation of ubiquitinated proteins. The 26S proteasome plays a key role in the maintenance of protein homeostasis by removing misfolded or damaged proteins that could impair cellular functions, and by removing proteins whose functions are no longer required. Associated with the PA200 or PA28, the 20S proteasome mediates ubiquitin-independent protein degradation. This type of proteolysis is required in several pathways including spermatogenesis (20S-PA200 complex) or generation of a subset of MHC class I-presented antigenic peptides (20S-PA28 complex)",
+            "citations": [
+              "gene:PSMB3"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:PSMB3",
+            "extracted_at_unix": 1767891055,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.1130283749953378,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-006",
+      "query_type": "gene_location",
+      "question": "Where is NFIC located in the genome, and what is its Ensembl identifier?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [
+        "ENSG00000141905"
+      ],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "Gene NFIC: Recognizes and binds the palindromic sequence 5'-TTGGCNNNNNGCCAA-3' present in viral and cellular promoters and in the origin of replication of adenovirus type 2. These proteins are individually capable of activating transcription and replication",
+        "claims": [
+          {
+            "text": "Gene NFIC: Recognizes and binds the palindromic sequence 5'-TTGGCNNNNNGCCAA-3' present in viral and cellular promoters and in the origin of replication of adenovirus type 2. These proteins are individually capable of activating transcription and replication",
+            "citations": [
+              "gene:NFIC"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:NFIC",
+            "extracted_at_unix": 1767888883,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.11350145900360076,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-017",
+      "query_type": "ldsc_correlation",
+      "question": "What is the LDSC genetic correlation between 2-hour insulin and Docosapentaenoic acid (DPA)?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "refuse",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": false,
+      "support": {
+        "claims": 0,
+        "grounded_claims": 0,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0,
+      "gold_citation_recall": 0.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [
+        "rg"
+      ],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "refuse",
+        "answer": "I cannot answer this question from the authorized approved corpus.",
+        "claims": [],
+        "citations": [],
+        "limitations": [
+          "Retrieved passages do not match the requested entity in the authorized corpus."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {}
+      },
+      "latency_s": 0.06424912500369828,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-020",
+      "query_type": "ldsc_partitioned_heritability",
+      "question": "What partitioned-heritability enrichment does 2hrG show for enhancer in kidney (kidney epithelial cell) for ancestry EA?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.2,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. LDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_epithelial_cell (kidney epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02239\n- h2_beta=0.6595\n- h2_stdErr=15.38\n- enrichment_beta=29.46\n- enrichment_stdErr=686.8\n- coefficient_beta=-9.367e-06\n- coefficient_stdErr=8.139e-06\n- diff_beta=-2.967e-06\n- diff_stdErr=3.487e-06\n- pValue=0.3958\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_glomerular_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_glomerular_epithelial_cell (kidney glomerular epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02955\n- h2_beta=-1.034\n- h2_stdErr=29.47\n- enrichment_beta=-35\n- enrichment_stdErr=997.4\n- coefficient_beta=1.128e-05\n- coefficient_stdErr=9.533e-06\n- diff_beta=3.782e-06\n- diff_stdErr=3.63e-06\n- pValue=0.2987\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | kidney | glomerular_visceral_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: glomerular_visceral_epithelial_cell (glomerular visceral epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02519\n- h2_beta=-0.5748\n- h2_stdErr=15.32\n- enrichment_beta=-22.82\n- enrichment_stdErr=608.2\n- coefficient_beta=5.655e-06\n- coefficient_stdErr=1.032e-05\n- diff_beta=2.491e-06\n- diff_stdErr=3.721e-06\n- pValue=0.5039\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | kidney | renal_cortical_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: renal_cortical_epithelial_cell (renal cortical epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.03377\n- h2_beta=0.267\n- h2_stdErr=5.831\n- enrichment_beta=7.906\n- enrichment_stdErr=172.7\n- coefficient_beta=-1.186e-05\n- coefficient_stdErr=8.457e-06\n- diff_beta=-7.286e-07\n- diff_stdErr=2.963e-06\n- pValue=0.806\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | kidney | epithelial_cell_of_proximal_tubule | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: epithelial_cell_of_proximal_tubule (epithelial cell of proximal tubule).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02655\n- h2_beta=0.3195\n- h2_stdErr=6.673\n- enrichment_beta=12.03\n- enrichment_stdErr=251.3\n- coefficient_beta=-5.883e-06\n- coefficient_stdErr=8.429e-06\n- diff_beta=-1.155e-06\n- diff_stdErr=3.53e-06\n- pValue=0.7438\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+        "claims": [
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_epithelial_cell (kidney epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02239\n- h2_beta=0.6595\n- h2_stdErr=15.38\n- enrichment_beta=29.46\n- enrichment_stdErr=686.8\n- coefficient_beta=-9.367e-06\n- coefficient_stdErr=8.139e-06\n- diff_beta=-2.967e-06\n- diff_stdErr=3.487e-06\n- pValue=0.3958\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:kidney:kidney_epithelial_cell:EA"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | kidney | kidney_glomerular_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: kidney_glomerular_epithelial_cell (kidney glomerular epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02955\n- h2_beta=-1.034\n- h2_stdErr=29.47\n- enrichment_beta=-35\n- enrichment_stdErr=997.4\n- coefficient_beta=1.128e-05\n- coefficient_stdErr=9.533e-06\n- diff_beta=3.782e-06\n- diff_stdErr=3.63e-06\n- pValue=0.2987\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:kidney:kidney_glomerular_epithelial_cell:EA"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | kidney | glomerular_visceral_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: glomerular_visceral_epithelial_cell (glomerular visceral epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02519\n- h2_beta=-0.5748\n- h2_stdErr=15.32\n- enrichment_beta=-22.82\n- enrichment_stdErr=608.2\n- coefficient_beta=5.655e-06\n- coefficient_stdErr=1.032e-05\n- diff_beta=2.491e-06\n- diff_stdErr=3.721e-06\n- pValue=0.5039\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:kidney:glomerular_visceral_epithelial_cell:EA"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | kidney | renal_cortical_epithelial_cell | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: renal_cortical_epithelial_cell (renal cortical epithelial cell).\nSource-reported statistics (4 significant digits):\n- SNPs=0.03377\n- h2_beta=0.267\n- h2_stdErr=5.831\n- enrichment_beta=7.906\n- enrichment_stdErr=172.7\n- coefficient_beta=-1.186e-05\n- coefficient_stdErr=8.457e-06\n- diff_beta=-7.286e-07\n- diff_stdErr=2.963e-06\n- pValue=0.806\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:kidney:renal_cortical_epithelial_cell:EA"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | kidney | epithelial_cell_of_proximal_tubule | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: kidney (kidney). Biosample: epithelial_cell_of_proximal_tubule (epithelial cell of proximal tubule).\nSource-reported statistics (4 significant digits):\n- SNPs=0.02655\n- h2_beta=0.3195\n- h2_stdErr=6.673\n- enrichment_beta=12.03\n- enrichment_stdErr=251.3\n- coefficient_beta=-5.883e-06\n- coefficient_stdErr=8.429e-06\n- diff_beta=-1.155e-06\n- diff_stdErr=3.53e-06\n- pValue=0.7438\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:kidney:epithelial_cell_of_proximal_tubule:EA"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4709,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:kidney:kidney_epithelial_cell:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4713,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:kidney:kidney_glomerular_epithelial_cell:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4697,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:kidney:glomerular_visceral_epithelial_cell:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4745,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:kidney:renal_cortical_epithelial_cell:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4689,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:kidney:epithelial_cell_of_proximal_tubule:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.09224462500424124,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-013",
+      "query_type": "rare_association",
+      "question": "Is there rare-variant evidence that NIPA2 is associated with 2-hour glucose? Give the p-value.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "NIPA2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.02767741259761003, beta=3.0605, direction=positive association, significant=True.",
+        "claims": [
+          {
+            "text": "NIPA2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.02767741259761003, beta=3.0605, direction=positive association, significant=True.",
+            "citations": [
+              "gassoc_rare:2hrG:NIPA2"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+            "chunk_id": "gassoc_rare:2hrG:NIPA2",
+            "method": "HuGE_rare",
+            "phenotype": "2hrG",
+            "gene": "NIPA2",
+            "source_sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "source_version": "sha256:07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.06640529200376477,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-028",
+      "query_type": "tissue_expression",
+      "question": "In which tissues is SYNRG RNA expression highest in the supplied GTEx data?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. GTEx Tissue Expression for SYNRG:\nGene: SYNRG\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 7326); Spleen (median 5268); Testis (median 4320); Pituitary (median 4273); Small Intestine - Terminal Ileum (median 3909).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+        "claims": [
+          {
+            "text": "GTEx Tissue Expression for SYNRG:\nGene: SYNRG\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 7326); Spleen (median 5268); Testis (median 4320); Pituitary (median 4273); Small Intestine - Terminal Ileum (median 3909).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:SYNRG"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "gtex:SYNRG",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  111231
+                ],
+                "record_key": {
+                  "gene": "SYNRG",
+                  "statistic": "50%"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          }
+        ],
+        "limitations": [
+          "Selected evidence does not cover requested entities: RNA",
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.12014712499512825,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-035",
+      "query_type": "unanswerable",
+      "question": "What is the function of the gene QZT7X9?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "refuse",
+      "status": "refuse",
+      "accepted_statuses": [
+        "refuse"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 0,
+        "grounded_claims": 0,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": null,
+      "gold_citation_precision": 1,
+      "gold_citation_recall": 1,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "refuse",
+        "answer": "I cannot answer this question from the authorized approved corpus.",
+        "claims": [],
+        "citations": [],
+        "limitations": [
+          "No authorized supporting evidence was retrieved."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {}
+      },
+      "latency_s": 0.11533070799487177,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-010",
+      "query_type": "common_association",
+      "question": "How strong is the common-variant (HuGE) evidence connecting ENSG00000272319 with 2hrG?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "ENSG00000272319 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+        "claims": [
+          {
+            "text": "ENSG00000272319 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+            "citations": [
+              "gassoc_common:2hrG:ENSG00000272319"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+            "chunk_id": "gassoc_common:2hrG:ENSG00000272319",
+            "method": "HuGE_common",
+            "phenotype": "2hrG",
+            "gene": "ENSG00000272319",
+            "source_sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "source_version": "sha256:5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.1293014580005547,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-032",
+      "query_type": "comparison",
+      "question": "How do the gene functions of SMPD2 and BAX differ?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.4,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. SMPD2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.9995879555610931, beta=-0.21079, direction=negative association, significant=False.\n\nGene BAX: Plays a role in the mitochondrial apoptotic process (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:36361894, PubMed:8358790, PubMed:8521816). Under normal conditions, BAX is largely cytosolic via constant retrotranslocation from mitochondria to the cytosol mediated by BCL2L1/Bcl-xL, which avoids accumulation of toxic BAX levels at the mitochondrial outer membrane (MOM) (PubMed:21458670). Under stress conditions, undergoes a conformation change that causes translocation to the mitochondrion membrane, leading to the release of cytochrome c that then triggers apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816). Promotes activation of CASP3, and thereby apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816)\n\nGene SMPD2: Catalyzes, at least in vitro, the hydrolysis of sphingomyelin to form ceramide and phosphocholine (PubMed:10608884). Also hydrolyzes 1-O-alkyl-2-lyso-sn-glycero-3-phosphocholine (lyso-platelet-activating factor) in vivo (PubMed:10608884). Also acts on 1-acyl-2-lyso-sn-glycero-3-phosphocholine (lyso-PC) and sphingosylphosphocholine (PubMed:10608884, PubMed:14741383)\n\nGTEx Tissue Expression for BAX:\nGene: BAX\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 9165); Cells - Cultured fibroblasts (median 6614.5); Spleen (median 4526); Small Intestine - Terminal Ileum (median 3032); Whole Blood (median 2821).\nTop protein tissues among 32 supplied tissues: Small Intestine - Terminal Ileum (median 1.06); Spleen (median 0.67); Artery - Aorta (median 0.265); Lung (median 0.265); Colon - Transverse (median 0.18).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.\n\nGTEx Tissue Expression for SMPD2:\nGene: SMPD2\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Testis (median 4649); Esophagus - Mucosa (median 1222); Skin - Not Sun Exposed (Suprapubic) (median 1046); Skin - Sun Exposed (Lower leg) (median 1038); Kidney - Medulla (median 891).\nTop protein tissues among 26 supplied tissues: Skin - Sun Exposed (Lower leg) (median 0.74); Thyroid (median 0.455); Stomach (median 0.365); Adrenal Gland (median 0.33); Lung (median 0.325).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+        "claims": [
+          {
+            "text": "SMPD2 has rare-variant evidence for 2-hour glucose (OGTT): p=0.9995879555610931, beta=-0.21079, direction=negative association, significant=False.",
+            "citations": [
+              "gassoc_rare:2hrG:SMPD2"
+            ]
+          },
+          {
+            "text": "Gene BAX: Plays a role in the mitochondrial apoptotic process (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:36361894, PubMed:8358790, PubMed:8521816). Under normal conditions, BAX is largely cytosolic via constant retrotranslocation from mitochondria to the cytosol mediated by BCL2L1/Bcl-xL, which avoids accumulation of toxic BAX levels at the mitochondrial outer membrane (MOM) (PubMed:21458670). Under stress conditions, undergoes a conformation change that causes translocation to the mitochondrion membrane, leading to the release of cytochrome c that then triggers apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816). Promotes activation of CASP3, and thereby apoptosis (PubMed:10772918, PubMed:11060313, PubMed:16113678, PubMed:16199525, PubMed:18948948, PubMed:21199865, PubMed:21458670, PubMed:25609812, PubMed:8358790, PubMed:8521816)",
+            "citations": [
+              "gene:BAX"
+            ]
+          },
+          {
+            "text": "Gene SMPD2: Catalyzes, at least in vitro, the hydrolysis of sphingomyelin to form ceramide and phosphocholine (PubMed:10608884). Also hydrolyzes 1-O-alkyl-2-lyso-sn-glycero-3-phosphocholine (lyso-platelet-activating factor) in vivo (PubMed:10608884). Also acts on 1-acyl-2-lyso-sn-glycero-3-phosphocholine (lyso-PC) and sphingosylphosphocholine (PubMed:10608884, PubMed:14741383)",
+            "citations": [
+              "gene:SMPD2"
+            ]
+          },
+          {
+            "text": "GTEx Tissue Expression for BAX:\nGene: BAX\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Cells - EBV-transformed lymphocytes (median 9165); Cells - Cultured fibroblasts (median 6614.5); Spleen (median 4526); Small Intestine - Terminal Ileum (median 3032); Whole Blood (median 2821).\nTop protein tissues among 32 supplied tissues: Small Intestine - Terminal Ileum (median 1.06); Spleen (median 0.67); Artery - Aorta (median 0.265); Lung (median 0.265); Colon - Transverse (median 0.18).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:BAX"
+            ]
+          },
+          {
+            "text": "GTEx Tissue Expression for SMPD2:\nGene: SMPD2\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Testis (median 4649); Esophagus - Mucosa (median 1222); Skin - Not Sun Exposed (Suprapubic) (median 1046); Skin - Sun Exposed (Lower leg) (median 1038); Kidney - Medulla (median 891).\nTop protein tissues among 26 supplied tissues: Skin - Sun Exposed (Lower leg) (median 0.74); Thyroid (median 0.455); Stomach (median 0.365); Adrenal Gland (median 0.33); Lung (median 0.325).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:SMPD2"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+            "chunk_id": "gassoc_rare:2hrG:SMPD2",
+            "method": "HuGE_rare",
+            "phenotype": "2hrG",
+            "gene": "SMPD2",
+            "source_sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "source_version": "sha256:07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:BAX",
+            "extracted_at_unix": 1767879763,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:SMPD2",
+            "extracted_at_unix": 1767894629,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "chunk_id": "gtex:BAX",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  10015
+                ],
+                "record_key": {
+                  "gene": "BAX",
+                  "statistic": "50%"
+                }
+              },
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv",
+                "source_sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+                "source_rows": [
+                  130525,
+                  130526,
+                  130527,
+                  130528,
+                  130529,
+                  130530,
+                  130531,
+                  130532,
+                  130533,
+                  130534,
+                  130535,
+                  130536,
+                  130537,
+                  130538,
+                  130539,
+                  130540,
+                  130541,
+                  130542,
+                  130543,
+                  130544,
+                  130545,
+                  130546,
+                  130547,
+                  130548,
+                  130549,
+                  130550,
+                  130551,
+                  130552,
+                  130553,
+                  130554,
+                  130555,
+                  130556,
+                  130557,
+                  130558,
+                  130559,
+                  130560,
+                  130561,
+                  130562,
+                  130563,
+                  130564,
+                  130565,
+                  130566,
+                  130567,
+                  130568,
+                  130569,
+                  130570,
+                  130571,
+                  130572,
+                  130573,
+                  130574,
+                  130575,
+                  130576,
+                  130577,
+                  130578,
+                  130579,
+                  130580,
+                  130581,
+                  130582,
+                  130583,
+                  130584,
+                  130585,
+                  130586,
+                  130587,
+                  130588,
+                  130589,
+                  130590,
+                  130591,
+                  130592,
+                  130593,
+                  130594,
+                  130595,
+                  130596,
+                  130597,
+                  130598,
+                  130599,
+                  130600,
+                  130601,
+                  130602,
+                  130603,
+                  130604,
+                  130605,
+                  130606,
+                  130607,
+                  130608,
+                  130609,
+                  130610,
+                  130611,
+                  130612,
+                  130613,
+                  130614,
+                  130615,
+                  130616,
+                  130617,
+                  130618,
+                  130619,
+                  130620,
+                  130621,
+                  130622,
+                  130623,
+                  130624,
+                  130625,
+                  130626,
+                  130627,
+                  130628,
+                  130629,
+                  130630,
+                  130631,
+                  130632,
+                  130633,
+                  130634,
+                  130635,
+                  130636,
+                  130637,
+                  130638,
+                  130639,
+                  130640,
+                  130641,
+                  130642,
+                  130643,
+                  130644,
+                  130645,
+                  130646,
+                  130647,
+                  130648,
+                  130649,
+                  130650,
+                  130651,
+                  130652,
+                  130653,
+                  130654,
+                  130655,
+                  130656,
+                  130657,
+                  130658,
+                  130659,
+                  130660,
+                  130661,
+                  130662,
+                  130663,
+                  130664,
+                  130665,
+                  130666,
+                  130667,
+                  130668,
+                  130669,
+                  130670,
+                  130671,
+                  130672,
+                  130673,
+                  130674,
+                  130675,
+                  130676,
+                  130677,
+                  130678,
+                  130679,
+                  130680,
+                  130681,
+                  130682,
+                  130683,
+                  130684,
+                  130685,
+                  130686,
+                  130687,
+                  130688,
+                  130689,
+                  130690,
+                  130691,
+                  130692,
+                  130693,
+                  130694,
+                  130695,
+                  130696,
+                  130697,
+                  130698,
+                  130699,
+                  130700,
+                  130701,
+                  130702,
+                  130703,
+                  130704,
+                  130705,
+                  130706,
+                  130707,
+                  130708,
+                  130709,
+                  130710,
+                  130711,
+                  130712,
+                  130713,
+                  130714,
+                  130715,
+                  130716,
+                  130717,
+                  130718,
+                  130719,
+                  130720,
+                  130721,
+                  130722,
+                  130723,
+                  130724
+                ],
+                "record_key": {
+                  "gene": "BAX",
+                  "statistic": "individual observations"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          },
+          {
+            "chunk_id": "gtex:SMPD2",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  105951
+                ],
+                "record_key": {
+                  "gene": "SMPD2",
+                  "statistic": "50%"
+                }
+              },
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv",
+                "source_sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+                "source_rows": [
+                  1214728,
+                  1214729,
+                  1214730,
+                  1214731,
+                  1214732,
+                  1214733,
+                  1214734,
+                  1214735,
+                  1214736,
+                  1214737,
+                  1214738,
+                  1214739,
+                  1214740,
+                  1214741,
+                  1214742,
+                  1214743,
+                  1214744,
+                  1214745,
+                  1214746,
+                  1214747,
+                  1214748,
+                  1214749,
+                  1214750,
+                  1214751,
+                  1214752,
+                  1214753,
+                  1214754,
+                  1214755,
+                  1214756,
+                  1214757,
+                  1214758,
+                  1214759,
+                  1214760,
+                  1214761,
+                  1214762,
+                  1214763,
+                  1214764,
+                  1214765,
+                  1214766,
+                  1214767,
+                  1214768,
+                  1214769,
+                  1214770,
+                  1214771,
+                  1214772,
+                  1214773,
+                  1214774,
+                  1214775,
+                  1214776,
+                  1214777,
+                  1214778,
+                  1214779,
+                  1214780,
+                  1214781,
+                  1214782,
+                  1214783,
+                  1214784,
+                  1214785,
+                  1214786,
+                  1214787,
+                  1214788,
+                  1214789,
+                  1214790,
+                  1214791,
+                  1214792,
+                  1214793,
+                  1214794,
+                  1214795,
+                  1214796,
+                  1214797
+                ],
+                "record_key": {
+                  "gene": "SMPD2",
+                  "statistic": "individual observations"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          }
+        ],
+        "limitations": [
+          "stdErr in source row is non-positive; use pValue/beta/bf_rare from metadata for reporting.",
+          "Some source field definitions are unconfirmed; consult the cited source limitations.",
+          "Retrieved statistical evidence includes non-significant results."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.47178145900397794,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-025",
+      "query_type": "gene_association_wes",
+      "question": "Summarise the whole-exome sequencing evidence for TTC39A and 2hrG.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.2,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. WES mask 0of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7323\nbeta=-0.1611\nstdErr=0.471\nn=3576\ncombinedAF=0.01818\nsingleVariants=15\npassingVariants=27\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 1of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7475\nbeta=-0.07166\nstdErr=0.2226\nn=3080\ncombinedAF=0.01396\nsingleVariants=11\npassingVariants=18\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9691\nbeta=0.02265\nstdErr=0.5855\nn=1906\ncombinedAF=0.003673\nsingleVariants=5\npassingVariants=6\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5_LoF_LC: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.5407\nbeta=-0.3003\nstdErr=0.4909\nn=1906\ncombinedAF=0.005247\nsingleVariants=5\npassingVariants=7\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES gene summary: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource top-level pValue=0.9555; beta=-0.3003.\nSupplied mask results: 4.\nTop-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+        "claims": [
+          {
+            "text": "WES mask 0of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7323\nbeta=-0.1611\nstdErr=0.471\nn=3576\ncombinedAF=0.01818\nsingleVariants=15\npassingVariants=27\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:TTC39A:mask:0of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 1of5_1pct: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.7475\nbeta=-0.07166\nstdErr=0.2226\nn=3080\ncombinedAF=0.01396\nsingleVariants=11\npassingVariants=18\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:TTC39A:mask:1of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 5of5: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9691\nbeta=0.02265\nstdErr=0.5855\nn=1906\ncombinedAF=0.003673\nsingleVariants=5\npassingVariants=6\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:TTC39A:mask:5of5"
+            ]
+          },
+          {
+            "text": "WES mask 5of5_LoF_LC: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.5407\nbeta=-0.3003\nstdErr=0.4909\nn=1906\ncombinedAF=0.005247\nsingleVariants=5\npassingVariants=7\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:TTC39A:mask:5of5_LoF_LC"
+            ]
+          },
+          {
+            "text": "WES gene summary: TTC39A and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: TTC39A and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource top-level pValue=0.9555; beta=-0.3003.\nSupplied mask results: 4.\nTop-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:TTC39A:summary"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 10635,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:TTC39A:mask:0of5_1pct",
+            "source_mask_index": 2,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 10635,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:TTC39A:mask:1of5_1pct",
+            "source_mask_index": 3,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 10635,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:TTC39A:mask:5of5",
+            "source_mask_index": 0,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 10635,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:TTC39A:mask:5of5_LoF_LC",
+            "source_mask_index": 1,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 10635,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:TTC39A:summary",
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.2751053750034771,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-002",
+      "query_type": "gene_function",
+      "question": "What role does the gene MCM2 play according to the approved gene annotations?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 2,
+        "grounded_claims": 2,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.5,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "Gene MCM2: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for the entry in S phase and for cell division (PubMed:8175912). Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis (PubMed:26196677)\n\nGene MCM7: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:25661590, PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232, PubMed:9305914). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for S-phase checkpoint activation upon UV-induced damage",
+        "claims": [
+          {
+            "text": "Gene MCM2: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for the entry in S phase and for cell division (PubMed:8175912). Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis (PubMed:26196677)",
+            "citations": [
+              "gene:MCM2"
+            ]
+          },
+          {
+            "text": "Gene MCM7: Acts as a component of the MCM2-7 complex (MCM complex) which is the replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. Core component of CDC45-MCM-GINS (CMG) helicase, the molecular machine that unwinds template DNA during replication, and around which the replisome is built (PubMed:25661590, PubMed:32453425, PubMed:34694004, PubMed:34700328, PubMed:35585232, PubMed:9305914). The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity (PubMed:32453425). Required for S-phase checkpoint activation upon UV-induced damage",
+            "citations": [
+              "gene:MCM7"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:MCM2",
+            "extracted_at_unix": 1767887852,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:MCM7",
+            "extracted_at_unix": 1767887858,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 2
+        }
+      },
+      "latency_s": 0.1435291249945294,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-007",
+      "query_type": "gene_location",
+      "question": "Which chromosome carries KCNK17 and what are its genomic coordinates?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [
+        "chr6"
+      ],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "Gene KCNK17: K(+) channel that conducts voltage-dependent outward rectifying currents upon membrane depolarization. Voltage sensing is coupled to K(+) electrochemical gradient in an 'ion flux gating' mode where outward but not inward ion flow opens the gate (PubMed:11248242, PubMed:11263999, PubMed:26919430, PubMed:36063992). Homo- and heterodimerizes to form functional channels with distinct regulatory and gating properties (PubMed:36063992). Present in the cardiac conduction system where it may regulate action potential duration and beating frequency of cardiac myocytes (PubMed:24972929). Permeable to other monovalent cations such as Rb(+) and Cs(+) (By similarity) (PubMed:26919430)",
+        "claims": [
+          {
+            "text": "Gene KCNK17: K(+) channel that conducts voltage-dependent outward rectifying currents upon membrane depolarization. Voltage sensing is coupled to K(+) electrochemical gradient in an 'ion flux gating' mode where outward but not inward ion flow opens the gate (PubMed:11248242, PubMed:11263999, PubMed:26919430, PubMed:36063992). Homo- and heterodimerizes to form functional channels with distinct regulatory and gating properties (PubMed:36063992). Present in the cardiac conduction system where it may regulate action potential duration and beating frequency of cardiac myocytes (PubMed:24972929). Permeable to other monovalent cations such as Rb(+) and Cs(+) (By similarity) (PubMed:26919430)",
+            "citations": [
+              "gene:KCNK17"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:KCNK17",
+            "extracted_at_unix": 1767886273,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.13415666700166184,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-018",
+      "query_type": "ldsc_correlation",
+      "question": "Is 2hrI genetically correlated with CCS phenotypic cryptogenic? Report rg.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "refuse",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": false,
+      "support": {
+        "claims": 0,
+        "grounded_claims": 0,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0,
+      "gold_citation_recall": 0.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [
+        "rg"
+      ],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "refuse",
+        "answer": "I cannot answer this question from the authorized approved corpus.",
+        "claims": [],
+        "citations": [],
+        "limitations": [
+          "Retrieved passages do not match the requested entity in the authorized corpus."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {}
+      },
+      "latency_s": 0.04145795799558982,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-021",
+      "query_type": "ldsc_partitioned_heritability",
+      "question": "Report enrichment_beta for 2-hour glucose, annotation enhancer, tissue cardiovascular system, biosample right atrium, ancestry code EU.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.2,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EU:\nLDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01016\n- h2_beta=0.0514\n- h2_stdErr=0.07159\n- enrichment_beta=5.06\n- enrichment_stdErr=7.047\n- coefficient_beta=4e-07\n- coefficient_stdErr=5.564e-07\n- diff_beta=1.605e-07\n- diff_stdErr=2.772e-07\n- pValue=0.5631\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium_auricular_region | EU:\nLDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium_auricular_region (right atrium auricular region).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01183\n- h2_beta=0.0126\n- h2_stdErr=0.07155\n- enrichment_beta=1.065\n- enrichment_stdErr=6.048\n- coefficient_beta=-4.915e-07\n- coefficient_stdErr=4.786e-07\n- diff_beta=2.567e-09\n- diff_stdErr=2.384e-07\n- pValue=0.9914\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01017\n- h2_beta=0.706\n- h2_stdErr=44.33\n- enrichment_beta=69.45\n- enrichment_stdErr=4361\n- coefficient_beta=1.584e-05\n- coefficient_stdErr=1.201e-05\n- diff_beta=-7.159e-06\n- diff_stdErr=5.52e-06\n- pValue=0.1962\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | HS:\nLDSC partitioned heritability. Ancestry code: HS. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01014\n- h2_beta=0.2878\n- h2_stdErr=0.2793\n- enrichment_beta=28.38\n- enrichment_stdErr=27.54\n- coefficient_beta=-3.972e-05\n- coefficient_stdErr=1.483e-05\n- diff_beta=-9.306e-06\n- diff_stdErr=5.906e-06\n- pValue=0.1167\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.\n\nLDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | Mixed:\nLDSC partitioned heritability. Ancestry code: Mixed. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01016\n- h2_beta=0.06597\n- h2_stdErr=0.06935\n- enrichment_beta=6.493\n- enrichment_stdErr=6.828\n- coefficient_beta=3.768e-07\n- coefficient_stdErr=5.554e-07\n- diff_beta=1.214e-07\n- diff_stdErr=2.766e-07\n- pValue=0.6611\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+        "claims": [
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EU:\nLDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01016\n- h2_beta=0.0514\n- h2_stdErr=0.07159\n- enrichment_beta=5.06\n- enrichment_stdErr=7.047\n- coefficient_beta=4e-07\n- coefficient_stdErr=5.564e-07\n- diff_beta=1.605e-07\n- diff_stdErr=2.772e-07\n- pValue=0.5631\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EU"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium_auricular_region | EU:\nLDSC partitioned heritability. Ancestry code: EU. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium_auricular_region (right atrium auricular region).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01183\n- h2_beta=0.0126\n- h2_stdErr=0.07155\n- enrichment_beta=1.065\n- enrichment_stdErr=6.048\n- coefficient_beta=-4.915e-07\n- coefficient_stdErr=4.786e-07\n- diff_beta=2.567e-09\n- diff_stdErr=2.384e-07\n- pValue=0.9914\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium_auricular_region:EU"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | EA:\nLDSC partitioned heritability. Ancestry code: EA. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01017\n- h2_beta=0.706\n- h2_stdErr=44.33\n- enrichment_beta=69.45\n- enrichment_stdErr=4361\n- coefficient_beta=1.584e-05\n- coefficient_stdErr=1.201e-05\n- diff_beta=-7.159e-06\n- diff_stdErr=5.52e-06\n- pValue=0.1962\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EA"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | HS:\nLDSC partitioned heritability. Ancestry code: HS. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01014\n- h2_beta=0.2878\n- h2_stdErr=0.2793\n- enrichment_beta=28.38\n- enrichment_stdErr=27.54\n- coefficient_beta=-3.972e-05\n- coefficient_stdErr=1.483e-05\n- diff_beta=-9.306e-06\n- diff_stdErr=5.906e-06\n- pValue=0.1167\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:HS"
+            ]
+          },
+          {
+            "text": "LDSC partitioned heritability: 2hrG | enhancer | cardiovascular_system | right_atrium | Mixed:\nLDSC partitioned heritability. Ancestry code: Mixed. Phenotype: 2-hour glucose (OGTT) (2hrG).\nAnnotation: enhancer (enhancer). Tissue: cardiovascular_system (cardiovascular system). Biosample: right_atrium (right atrium).\nSource-reported statistics (4 significant digits):\n- SNPs=0.01016\n- h2_beta=0.06597\n- h2_stdErr=0.06935\n- enrichment_beta=6.493\n- enrichment_stdErr=6.828\n- coefficient_beta=3.768e-07\n- coefficient_stdErr=5.554e-07\n- diff_beta=1.214e-07\n- diff_stdErr=2.766e-07\n- pValue=0.6611\nPopulation-level estimates, not causal evidence or individual measurements. Field definitions, ancestry-code meanings, pValue test and source release are unconfirmed. Complete values and provenance are retained in metadata and citation.",
+            "citations": [
+              "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:Mixed"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4162,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EU",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4166,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium_auricular_region:EU",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4161,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EA",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4163,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:HS",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          },
+          {
+            "source_name": "Client-provided LDSC partitioned heritability results",
+            "source_release": null,
+            "source_file": "data/raw/ldsc/partitioned_heritability/2hrG/2hrG.json",
+            "source_row": 4164,
+            "source_sha256": "f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "chunk_id": "ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:Mixed",
+            "method": "LDSC",
+            "source_version": "sha256:f541abfaf4cd91d8083088dbd7e90439f6036f1efabea3f695d37f6117ad253e",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "93fded5eba7bd5d7f08b7c1810673f3555099b1a3ff2f4e3836de441ae365ff5"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.11079837499710266,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-014",
+      "query_type": "rare_association",
+      "question": "What rare-variant gene-based p-value and beta are reported for AC025335 and 2hrG?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "AC025335 has rare-variant evidence for 2-hour glucose (OGTT): p=0.018299999999999983, beta=0.191, direction=positive association, significant=True.",
+        "claims": [
+          {
+            "text": "AC025335 has rare-variant evidence for 2-hour glucose (OGTT): p=0.018299999999999983, beta=0.191, direction=positive association, significant=True.",
+            "citations": [
+              "gassoc_rare:2hrG:AC025335"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+            "chunk_id": "gassoc_rare:2hrG:AC025335",
+            "method": "HuGE_rare",
+            "phenotype": "2hrG",
+            "gene": "AC025335",
+            "source_sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "source_version": "sha256:07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.06844295799965039,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-029",
+      "query_type": "tissue_expression",
+      "question": "Where is CTNNAL1 most highly expressed across GTEx tissues?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. GTEx Tissue Expression for CTNNAL1:\nGene: CTNNAL1\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Adrenal Gland (median 21889); Nerve - Tibial (median 10799); Ovary (median 9315.5); Thyroid (median 6437); Cells - Cultured fibroblasts (median 4505.5).\nTop protein tissues among 32 supplied tissues: Ovary (median 1.155); Esophagus - Gastroesophageal Junction (median 1.15); Esophagus - Muscularis (median 1.095); Nerve - Tibial (median 1.07); Colon - Sigmoid (median 0.9).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+        "claims": [
+          {
+            "text": "GTEx Tissue Expression for CTNNAL1:\nGene: CTNNAL1\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Adrenal Gland (median 21889); Nerve - Tibial (median 10799); Ovary (median 9315.5); Thyroid (median 6437); Cells - Cultured fibroblasts (median 4505.5).\nTop protein tissues among 32 supplied tissues: Ovary (median 1.155); Esophagus - Gastroesophageal Junction (median 1.15); Esophagus - Muscularis (median 1.095); Nerve - Tibial (median 1.07); Colon - Sigmoid (median 0.9).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:CTNNAL1"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "chunk_id": "gtex:CTNNAL1",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  26023
+                ],
+                "record_key": {
+                  "gene": "CTNNAL1",
+                  "statistic": "50%"
+                }
+              },
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv",
+                "source_sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+                "source_rows": [
+                  306274,
+                  306275,
+                  306276,
+                  306277,
+                  306278,
+                  306279,
+                  306280,
+                  306281,
+                  306282,
+                  306283,
+                  306284,
+                  306285,
+                  306286,
+                  306287,
+                  306288,
+                  306289,
+                  306290,
+                  306291,
+                  306292,
+                  306293,
+                  306294,
+                  306295,
+                  306296,
+                  306297,
+                  306298,
+                  306299,
+                  306300,
+                  306301,
+                  306302,
+                  306303,
+                  306304,
+                  306305,
+                  306306,
+                  306307,
+                  306308,
+                  306309,
+                  306310,
+                  306311,
+                  306312,
+                  306313,
+                  306314,
+                  306315,
+                  306316,
+                  306317,
+                  306318,
+                  306319,
+                  306320,
+                  306321,
+                  306322,
+                  306323,
+                  306324,
+                  306325,
+                  306326,
+                  306327,
+                  306328,
+                  306329,
+                  306330,
+                  306331,
+                  306332,
+                  306333,
+                  306334,
+                  306335,
+                  306336,
+                  306337,
+                  306338,
+                  306339,
+                  306340,
+                  306341,
+                  306342,
+                  306343,
+                  306344,
+                  306345,
+                  306346,
+                  306347,
+                  306348,
+                  306349,
+                  306350,
+                  306351,
+                  306352,
+                  306353,
+                  306354,
+                  306355,
+                  306356,
+                  306357,
+                  306358,
+                  306359,
+                  306360,
+                  306361,
+                  306362,
+                  306363,
+                  306364,
+                  306365,
+                  306366,
+                  306367,
+                  306368,
+                  306369,
+                  306370,
+                  306371,
+                  306372,
+                  306373,
+                  306374,
+                  306375,
+                  306376,
+                  306377,
+                  306378,
+                  306379,
+                  306380,
+                  306381,
+                  306382,
+                  306383,
+                  306384,
+                  306385,
+                  306386,
+                  306387,
+                  306388,
+                  306389,
+                  306390,
+                  306391,
+                  306392,
+                  306393,
+                  306394,
+                  306395,
+                  306396,
+                  306397,
+                  306398,
+                  306399,
+                  306400,
+                  306401,
+                  306402,
+                  306403,
+                  306404,
+                  306405,
+                  306406,
+                  306407,
+                  306408,
+                  306409,
+                  306410,
+                  306411,
+                  306412,
+                  306413,
+                  306414,
+                  306415,
+                  306416,
+                  306417,
+                  306418,
+                  306419,
+                  306420,
+                  306421,
+                  306422,
+                  306423,
+                  306424,
+                  306425,
+                  306426,
+                  306427,
+                  306428,
+                  306429,
+                  306430,
+                  306431,
+                  306432,
+                  306433,
+                  306434,
+                  306435,
+                  306436,
+                  306437,
+                  306438,
+                  306439,
+                  306440,
+                  306441,
+                  306442,
+                  306443,
+                  306444,
+                  306445,
+                  306446,
+                  306447,
+                  306448,
+                  306449,
+                  306450,
+                  306451,
+                  306452,
+                  306453,
+                  306454,
+                  306455,
+                  306456,
+                  306457,
+                  306458,
+                  306459,
+                  306460,
+                  306461,
+                  306462,
+                  306463,
+                  306464,
+                  306465,
+                  306466,
+                  306467,
+                  306468
+                ],
+                "record_key": {
+                  "gene": "CTNNAL1",
+                  "statistic": "individual observations"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.07856683300633449,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-036",
+      "query_type": "unanswerable",
+      "question": "What rare-variant association does KRTAP99-1 have with 2-hour glucose?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "refuse",
+      "status": "refuse",
+      "accepted_statuses": [
+        "refuse"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 0,
+        "grounded_claims": 0,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": null,
+      "gold_citation_precision": 1,
+      "gold_citation_recall": 1,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "refuse",
+        "answer": "I cannot answer this question from the authorized approved corpus.",
+        "claims": [],
+        "citations": [],
+        "limitations": [
+          "Retrieved passages do not match the requested entity in the authorized corpus."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {}
+      },
+      "latency_s": 0.05075133300124435,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-011",
+      "query_type": "common_association",
+      "question": "Report bf_common for PEBP1P3 and the 2-hour glucose phenotype.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "PEBP1P3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+        "claims": [
+          {
+            "text": "PEBP1P3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+            "citations": [
+              "gassoc_common:2hrG:PEBP1P3"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+            "chunk_id": "gassoc_common:2hrG:PEBP1P3",
+            "method": "HuGE_common",
+            "phenotype": "2hrG",
+            "gene": "PEBP1P3",
+            "source_sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "source_version": "sha256:5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.06693758299661567,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-033",
+      "query_type": "comparison",
+      "question": "Compare the rare-variant association evidence for CD200R1 and SLC25A13 with 2-hour glucose.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 2,
+        "grounded_claims": 2,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. Evidence comparison by retrieved source; missing evidence is not evidence of absence.\nCD200R1 has rare-variant evidence for 2-hour glucose (OGTT): p=0.737399766531676, beta=0.26185, direction=positive association, significant=False.\n\nSLC25A13 has rare-variant evidence for 2-hour glucose (OGTT): p=0.16057011545182842, beta=0.65875, direction=positive association, significant=False.",
+        "claims": [
+          {
+            "text": "CD200R1 has rare-variant evidence for 2-hour glucose (OGTT): p=0.737399766531676, beta=0.26185, direction=positive association, significant=False.",
+            "citations": [
+              "gassoc_rare:2hrG:CD200R1"
+            ]
+          },
+          {
+            "text": "SLC25A13 has rare-variant evidence for 2-hour glucose (OGTT): p=0.16057011545182842, beta=0.65875, direction=positive association, significant=False.",
+            "citations": [
+              "gassoc_rare:2hrG:SLC25A13"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+            "chunk_id": "gassoc_rare:2hrG:CD200R1",
+            "method": "HuGE_rare",
+            "phenotype": "2hrG",
+            "gene": "CD200R1",
+            "source_sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "source_version": "sha256:07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/rare/2hrG/2hrG.rare.jsonl",
+            "chunk_id": "gassoc_rare:2hrG:SLC25A13",
+            "method": "HuGE_rare",
+            "phenotype": "2hrG",
+            "gene": "SLC25A13",
+            "source_sha256": "07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "source_version": "sha256:07938951a31908833e7a5515f49733e5611b718a9c1479528435f00e2d38aca9",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "e0b5c15c28eea37e6f9a56d4ed660e5db0564c70347b9628cb075913743d1f13"
+          }
+        ],
+        "limitations": [
+          "Retrieved statistical evidence includes non-significant results."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 2
+        }
+      },
+      "latency_s": 0.05684895799640799,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-026",
+      "query_type": "gene_association_wes",
+      "question": "Which WES masks were supplied for SPTBN1 and 2-hour glucose?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.2,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. WES mask 0of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9109\nbeta=0.04068\nstdErr=0.3637\nn=3576\ncombinedAF=0.02657\nsingleVariants=41\npassingVariants=58\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 1of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.8693\nbeta=-0.02431\nstdErr=0.1478\nn=3576\ncombinedAF=0.02461\nsingleVariants=38\npassingVariants=54\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3451\nbeta=0.3671\nstdErr=0.3889\nn=2777\ncombinedAF=0.005041\nsingleVariants=8\npassingVariants=10\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 5of5_LoF_LC: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3451\nbeta=0.3671\nstdErr=0.3889\nn=2777\ncombinedAF=0.005041\nsingleVariants=8\npassingVariants=10\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES gene summary: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource top-level pValue=0.816; beta=0.3671.\nSupplied mask results: 4.\nTop-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+        "claims": [
+          {
+            "text": "WES mask 0of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9109\nbeta=0.04068\nstdErr=0.3637\nn=3576\ncombinedAF=0.02657\nsingleVariants=41\npassingVariants=58\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SPTBN1:mask:0of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 1of5_1pct: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.8693\nbeta=-0.02431\nstdErr=0.1478\nn=3576\ncombinedAF=0.02461\nsingleVariants=38\npassingVariants=54\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SPTBN1:mask:1of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 5of5: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5 (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3451\nbeta=0.3671\nstdErr=0.3889\nn=2777\ncombinedAF=0.005041\nsingleVariants=8\npassingVariants=10\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SPTBN1:mask:5of5"
+            ]
+          },
+          {
+            "text": "WES mask 5of5_LoF_LC: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 5of5_LoF_LC (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.3451\nbeta=0.3671\nstdErr=0.3889\nn=2777\ncombinedAF=0.005041\nsingleVariants=8\npassingVariants=10\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SPTBN1:mask:5of5_LoF_LC"
+            ]
+          },
+          {
+            "text": "WES gene summary: SPTBN1 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SPTBN1 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource top-level pValue=0.816; beta=0.3671.\nSupplied mask results: 4.\nTop-level test/aggregation is unconfirmed; do not interpret this as the minimum mask pValue.\nRelated baseline summary: gassoc_rare:2hrG:SPTBN1; identical top-level pValue/beta, not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SPTBN1:summary"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 1673,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SPTBN1:mask:0of5_1pct",
+            "source_mask_index": 2,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 1673,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SPTBN1:mask:1of5_1pct",
+            "source_mask_index": 3,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 1673,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SPTBN1:mask:5of5",
+            "source_mask_index": 0,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 1673,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SPTBN1:mask:5of5_LoF_LC",
+            "source_mask_index": 1,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 1673,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SPTBN1:summary",
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.2295231669995701,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-003",
+      "query_type": "gene_function",
+      "question": "Describe what is known about the function of RHOT2 in the corpus.",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "answer",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 1,
+        "grounded_claims": 1,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 1.0,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "answer",
+        "answer": "Gene RHOT2: Atypical mitochondrial nucleoside-triphosphatase (NTPase) involved in mitochondrial trafficking (PubMed:16630562, PubMed:22396657, PubMed:30513825). Probably involved in control of anterograde transport of mitochondria and their subcellular distribution (PubMed:22396657). Can hydrolyze GTP (By similarity). Can hydrolyze ATP and UTP (PubMed:30513825)",
+        "claims": [
+          {
+            "text": "Gene RHOT2: Atypical mitochondrial nucleoside-triphosphatase (NTPase) involved in mitochondrial trafficking (PubMed:16630562, PubMed:22396657, PubMed:30513825). Probably involved in control of anterograde transport of mitochondria and their subcellular distribution (PubMed:22396657). Can hydrolyze GTP (By similarity). Can hydrolyze ATP and UTP (PubMed:30513825)",
+            "citations": [
+              "gene:RHOT2"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:RHOT2",
+            "extracted_at_unix": 1767891693,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          }
+        ],
+        "limitations": [],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 1
+        }
+      },
+      "latency_s": 0.0963699589992757,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    },
+    {
+      "query_id": "blind-008",
+      "query_type": "gene_location",
+      "question": "What database identifiers are listed for SYN3?",
+      "annotation_origin": "programmatic_from_source_records_v1; independent human verification pending",
+      "expected_status": "answer",
+      "status": "qualified",
+      "accepted_statuses": [
+        "answer",
+        "qualified"
+      ],
+      "status_correct": true,
+      "support": {
+        "claims": 5,
+        "grounded_claims": 5,
+        "ungrounded": []
+      },
+      "gold_retrieval_hit": true,
+      "gold_citation_precision": 0.2,
+      "gold_citation_recall": 1.0,
+      "missing_required_facts": [
+        "ENSG00000185666"
+      ],
+      "missing_or_wrong_numbers": [],
+      "prohibited_phrases": [],
+      "validation_errors": [],
+      "answer": {
+        "status": "qualified",
+        "answer": "The available evidence is limited. SYN3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.\n\nGene SYN3: May be involved in the regulation of neurotransmitter release and synaptogenesis\n\nGTEx Tissue Expression for SYN3:\nGene: SYN3\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Testis (median 538); Brain - Frontal Cortex (BA9) (median 433); Brain - Cortex (median 369); Brain - Nucleus accumbens (basal ganglia) (median 250); Brain - Anterior cingulate cortex (BA24) (median 244.5).\nTop protein tissues among 32 supplied tissues: Brain - Cortex (median 5.21); Brain - Cerebellum (median 1.77); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.\n\nWES mask 0of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9564\nbeta=-0.03534\nstdErr=0.6465\nn=3576\ncombinedAF=0.01035\nsingleVariants=6\npassingVariants=11\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json\n\nWES mask 1of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9117\nbeta=-0.02954\nstdErr=0.2664\nn=2570\ncombinedAF=0.01245\nsingleVariants=6\npassingVariants=9\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+        "claims": [
+          {
+            "text": "SYN3 has common-variant evidence for 2-hour glucose (OGTT) with bf_common=1 and evidence tier baseline.",
+            "citations": [
+              "gassoc_common:2hrG:SYN3"
+            ]
+          },
+          {
+            "text": "Gene SYN3: May be involved in the regulation of neurotransmitter release and synaptogenesis",
+            "citations": [
+              "gene:SYN3"
+            ]
+          },
+          {
+            "text": "GTEx Tissue Expression for SYN3:\nGene: SYN3\nGTEx tissue expression. Units and transformations are unconfirmed.\nTop rna tissues among 54 supplied tissues: Testis (median 538); Brain - Frontal Cortex (BA9) (median 433); Brain - Cortex (median 369); Brain - Nucleus accumbens (basal ganglia) (median 250); Brain - Anterior cingulate cortex (BA24) (median 244.5).\nTop protein tissues among 32 supplied tissues: Brain - Cortex (median 5.21); Brain - Cerebellum (median 1.77); Adrenal Gland (median 0); Artery - Aorta (median 0); Artery - Coronary (median 0).\nExpression does not establish disease association or a therapeutic mechanism. Protein medians are derived summaries without inferred sample identity.",
+            "citations": [
+              "gtex:SYN3"
+            ]
+          },
+          {
+            "text": "WES mask 0of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 0of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9564\nbeta=-0.03534\nstdErr=0.6465\nn=3576\ncombinedAF=0.01035\nsingleVariants=6\npassingVariants=11\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SYN3:mask:0of5_1pct"
+            ]
+          },
+          {
+            "text": "WES mask 1of5_1pct: SYN3 and 2-hour glucose (OGTT) (2hrG):\nClient-reported WES association: SYN3 and 2-hour glucose (OGTT) (2hrG).\nSource label: AMP T2D-GENES.\nSource mask label: 1of5_1pct (selection rules unconfirmed).\nMask results (displayed to 4 significant digits):\npValue=0.9117\nbeta=-0.02954\nstdErr=0.2664\nn=2570\ncombinedAF=0.01245\nsingleVariants=6\npassingVariants=9\nThis mask result is not the gene-level aggregate; different masks are not independent corroboration.\nPopulation-level association, not causal proof or an individual diagnosis.\nMask rules, cohort/ancestry, effect scale, n, combinedAF, variant counts and release are unconfirmed.\nSource: data/raw/wes/2hrG/part-00000.json",
+            "citations": [
+              "wes:2hrG:SYN3:mask:1of5_1pct"
+            ]
+          }
+        ],
+        "citations": [
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_file": "data/raw/gene_association/common/2hrG/2hrG.common.jsonl",
+            "chunk_id": "gassoc_common:2hrG:SYN3",
+            "method": "HuGE_common",
+            "phenotype": "2hrG",
+            "gene": "SYN3",
+            "source_sha256": "5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "source_version": "sha256:5aefc31d81ed423519649fcce6fc0e15e0a7a95692559fea49362c11c926b46d",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "650f804b8e645c58944857d0c26d4cd98e3b24c7947e075250e5a239923de590"
+          },
+          {
+            "source_name": "T2D Knowledge Portal",
+            "source_url": "https://t2d.hugeamp.org/gene.html",
+            "source_file": "data/raw/gene_info/genes_function_info.json",
+            "chunk_id": "gene:SYN3",
+            "extracted_at_unix": 1767895267,
+            "source_sha256": "f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "source_version": "sha256:f4a4872052a85c3e51378d55bf7a04d25d4c046b8eb53e8bb31b864e722f6338",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "a310948bbb3cfb6b27af4471bc842144dae88a84aea9b65e92618d77550c6f72"
+          },
+          {
+            "chunk_id": "gtex:SYN3",
+            "source_name": "Client-supplied GTEx expression files",
+            "source_url": "https://gtexportal.org/",
+            "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+            "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+            "sources": [
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_RNAseq.csv",
+                "source_sha256": "485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae",
+                "source_rows": [
+                  111055
+                ],
+                "record_key": {
+                  "gene": "SYN3",
+                  "statistic": "50%"
+                }
+              },
+              {
+                "source_file": "data/raw/gtx_tissue_expression/ALL_GENES_GTEx_Proteomics.csv",
+                "source_sha256": "544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+                "source_rows": [
+                  1278403,
+                  1278404,
+                  1278405,
+                  1278406,
+                  1278407,
+                  1278408,
+                  1278409,
+                  1278410,
+                  1278411,
+                  1278412,
+                  1278413,
+                  1278414,
+                  1278415,
+                  1278416,
+                  1278417,
+                  1278418,
+                  1278419,
+                  1278420,
+                  1278421,
+                  1278422,
+                  1278423,
+                  1278424,
+                  1278425,
+                  1278426,
+                  1278427,
+                  1278428,
+                  1278429,
+                  1278430,
+                  1278431,
+                  1278432,
+                  1278433,
+                  1278434,
+                  1278435,
+                  1278436,
+                  1278437,
+                  1278438,
+                  1278439,
+                  1278440,
+                  1278441,
+                  1278442,
+                  1278443,
+                  1278444,
+                  1278445,
+                  1278446,
+                  1278447,
+                  1278448,
+                  1278449,
+                  1278450,
+                  1278451,
+                  1278452,
+                  1278453,
+                  1278454,
+                  1278455,
+                  1278456,
+                  1278457,
+                  1278458,
+                  1278459,
+                  1278460,
+                  1278461,
+                  1278462,
+                  1278463,
+                  1278464,
+                  1278465,
+                  1278466,
+                  1278467,
+                  1278468,
+                  1278469,
+                  1278470,
+                  1278471,
+                  1278472,
+                  1278473,
+                  1278474,
+                  1278475,
+                  1278476,
+                  1278477,
+                  1278478,
+                  1278479,
+                  1278480,
+                  1278481,
+                  1278482,
+                  1278483,
+                  1278484,
+                  1278485,
+                  1278486,
+                  1278487,
+                  1278488,
+                  1278489,
+                  1278490,
+                  1278491,
+                  1278492,
+                  1278493,
+                  1278494,
+                  1278495,
+                  1278496,
+                  1278497,
+                  1278498,
+                  1278499,
+                  1278500,
+                  1278501,
+                  1278502,
+                  1278503,
+                  1278504,
+                  1278505,
+                  1278506,
+                  1278507,
+                  1278508,
+                  1278509,
+                  1278510,
+                  1278511,
+                  1278512,
+                  1278513,
+                  1278514,
+                  1278515,
+                  1278516,
+                  1278517,
+                  1278518,
+                  1278519,
+                  1278520,
+                  1278521,
+                  1278522,
+                  1278523,
+                  1278524,
+                  1278525,
+                  1278526,
+                  1278527,
+                  1278528,
+                  1278529,
+                  1278530,
+                  1278531,
+                  1278532,
+                  1278533,
+                  1278534,
+                  1278535,
+                  1278536,
+                  1278537,
+                  1278538,
+                  1278539,
+                  1278540,
+                  1278541,
+                  1278542,
+                  1278543,
+                  1278544,
+                  1278545,
+                  1278546,
+                  1278547,
+                  1278548,
+                  1278549,
+                  1278550,
+                  1278551,
+                  1278552,
+                  1278553,
+                  1278554,
+                  1278555,
+                  1278556,
+                  1278557,
+                  1278558,
+                  1278559,
+                  1278560,
+                  1278561,
+                  1278562,
+                  1278563,
+                  1278564,
+                  1278565,
+                  1278566,
+                  1278567,
+                  1278568,
+                  1278569,
+                  1278570,
+                  1278571,
+                  1278572,
+                  1278573,
+                  1278574,
+                  1278575,
+                  1278576,
+                  1278577,
+                  1278578,
+                  1278579,
+                  1278580,
+                  1278581,
+                  1278582,
+                  1278583,
+                  1278584,
+                  1278585,
+                  1278586,
+                  1278587,
+                  1278588,
+                  1278589,
+                  1278590,
+                  1278591,
+                  1278592,
+                  1278593,
+                  1278594,
+                  1278595,
+                  1278596,
+                  1278597,
+                  1278598,
+                  1278599,
+                  1278600,
+                  1278601,
+                  1278602,
+                  1278603
+                ],
+                "record_key": {
+                  "gene": "SYN3",
+                  "statistic": "individual observations"
+                }
+              }
+            ],
+            "transform_version": "gtex-2.0",
+            "source_version": "sha256:485c00fa6f715425b94f74b68b4511e4568e3a714cf3d088be73eab65c2069ae:544ba13a1efe368aa349576810ac286a31a820a4bd268f475d234af7f6584176",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "1c16e6fd61c55ddf43a7a96b5b3fbf48b5580a906e2db043ee21f4f5af6a3fcc"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 8809,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SYN3:mask:0of5_1pct",
+            "source_mask_index": 2,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          },
+          {
+            "source_name": "AMP T2D-GENES",
+            "release": null,
+            "source_file": "data/raw/wes/2hrG/part-00000.json",
+            "source_row": 8809,
+            "source_sha256": "e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "chunk_id": "wes:2hrG:SYN3:mask:1of5_1pct",
+            "source_mask_index": 3,
+            "source_version": "sha256:e16bca91f22fb1583c410ace255b4941168b3840fced8dced3f34159fcc5ae65",
+            "corpus_version": "sha256:cb58ae9bdd23843e6241b400e11b8d8bcd340798479a1a6c863815019df26c25",
+            "chunk_file_sha256": "096db4f2ccb90d55d2b2efc0f277be359aa46bf9a2a69ae0f606a484e2809f05"
+          }
+        ],
+        "limitations": [
+          "Some source field definitions are unconfirmed; consult the cited source limitations."
+        ],
+        "provider": "offline_evidence",
+        "prompt_policy_version": "1.0.0",
+        "diagnostics": {
+          "claim_count": 5
+        }
+      },
+      "latency_s": 0.2980424170018523,
+      "provider": "offline_evidence",
+      "usage": {
+        "estimated_cost_usd": 0.0
+      },
+      "fallback_used": false,
+      "human_review": {
+        "correctness": null,
+        "relevance": null,
+        "completeness": null,
+        "citation_support": null,
+        "notes": ""
+      }
+    }
+  ],
+  "limitations": [
+    "Gold labels must be supplied independently by a reviewer; this tool does not establish their quality. Exact required-fact matching is a deterministic contract, not an entailment judge. Claim grounding checks numbers and identifiers only; LLM-judge labels are an automated estimate. Human correctness and citation-support review remains pending until the exported rubric is completed."
+  ],
+  "label": "offline_bm25_sample25",
+  "created_at": "2026-10-21T02:51:47.740383+00:00",
+  "frozen_benchmark_sha256": "db71509716e95e5c835d610f9b794f21e892bb004daf0261cb48c4acdb3c3ee9",
+  "sample": {
+    "questions": 25,
+    "limit": 25,
+    "strategy": "round-robin by query_type"
+  },
+  "retrieval_status": {
+    "method": "bm25",
+    "requested_method": "bm25",
+    "fallback_reasons": []
+  },
+  "generator": {
+    "provider": "offline_evidence"
+  }
+}

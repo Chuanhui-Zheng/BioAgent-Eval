@@ -12,7 +12,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from augmentation.builder import ContextBuilder
-from generation.aihubmix import AIHubMixGenerator
+from generation.llm_provider import PROVIDER_PRESETS, build_llm_generator
 from generation.offline import OfflineEvidenceGenerator
 from rag.pipeline import RAGPipeline
 from retrieval.bm25_retriever import load_bm25_index
@@ -38,23 +38,22 @@ def load_retriever() -> RetrieverService:
     return RetrieverService(backend, "bm25")
 
 
-def generator_for(provider: str, api_key: str):
+def generator_for(provider: str, api_key: str, llm_provider: str | None = None,
+                  model: str | None = None, base_url: str | None = None):
     if provider == "Offline":
         return OfflineEvidenceGenerator()
-    if not api_key.strip():
-        raise ValueError("Please enter an AIHubMix API Key.")
-    return AIHubMixGenerator(
-        api_key=api_key.strip(),
-        base_url=os.environ.get("AIHUBMIX_BASE_URL", "https://aihubmix.com/v1"),
-        model=os.environ.get("AIHUBMIX_MODEL", "nemotron-3-ultra-550b-a55b-free"),
-    )
+    preset = PROVIDER_PRESETS.get(llm_provider or os.environ.get("LLM_PROVIDER", "openai"))
+    if preset is not None and preset.requires_key and not api_key.strip():
+        raise ValueError("Please enter an API key for the selected LLM provider.")
+    return build_llm_generator(provider=llm_provider, api_key=api_key.strip(), model=model or None,
+                               base_url=base_url or None)
 
 
-def build_pipeline(provider: str, api_key: str = "") -> RAGPipeline:
+def build_pipeline(provider: str, api_key: str = "", **llm_settings) -> RAGPipeline:
     return RAGPipeline(
         load_retriever(),
         ContextBuilder(),
-        generator_for(provider, api_key),
+        generator_for(provider, api_key, **llm_settings),
     )
 
 
@@ -106,11 +105,22 @@ st.caption("Local MVP demo · answers are limited to the approved project corpus
 ask_tab, progress_tab, next_tab = st.tabs(["Ask", "Current Progress", "Next Steps"])
 
 with ask_tab:
-    provider = st.radio("Generator", ["Offline", "AIHubMix"], horizontal=True)
+    provider = st.radio("Generator", ["Offline", "Hosted LLM"], horizontal=True)
     api_key = ""
-    if provider == "AIHubMix":
+    llm_settings = {}
+    if provider == "Hosted LLM":
+        names = list(PROVIDER_PRESETS)
+        default = os.environ.get("LLM_PROVIDER", "openai")
+        llm_provider = st.selectbox("LLM provider", names, index=names.index(default) if default in names else 0,
+                                    format_func=lambda n: PROVIDER_PRESETS[n].label or n)
+        preset = PROVIDER_PRESETS[llm_provider]
+        llm_settings = {
+            "llm_provider": llm_provider,
+            "model": st.text_input("Model", value=preset.default_model),
+            "base_url": st.text_input("Base URL (OpenAI-compatible)", value=preset.base_url or ""),
+        }
         api_key = st.text_input(
-            "AIHubMix API Key",
+            "API Key",
             type="password",
             placeholder="sk-...",
             help="Kept only in this local app session and never written to disk.",
@@ -124,23 +134,23 @@ with ask_tab:
     if st.button("Generate answer", type="primary"):
         if not question.strip():
             st.warning("Please enter a question.")
-        elif provider == "AIHubMix" and not api_key.strip():
-            st.warning("Please enter an AIHubMix API Key.")
+        elif provider == "Hosted LLM" and PROVIDER_PRESETS[llm_settings["llm_provider"]].requires_key and not api_key.strip():
+            st.warning("Please enter an API key for the selected LLM provider.")
         else:
             try:
                 with st.spinner("Retrieving evidence and generating the answer..."):
-                    run = build_pipeline(provider, api_key).run(
+                    run = build_pipeline(provider, api_key, **llm_settings).run(
                         RetrievalRequest(
                             question.strip(),
                             authorized_collections=tuple(ALL_COLLECTIONS),
                             top_k=10,
                         )
                     )
-                if provider == "AIHubMix":
-                    st.success("AIHubMix connected successfully and generated this answer.")
+                if provider == "Hosted LLM" and not run.answer.diagnostics.get("fallback_from"):
+                    st.success(f"{llm_settings['llm_provider']} connected successfully and generated this answer.")
                 show_result(run)
             except Exception as exc:
-                prefix = "AIHubMix connection failed" if provider == "AIHubMix" else "Unable to run the demo"
+                prefix = "Hosted LLM connection failed" if provider == "Hosted LLM" else "Unable to run the demo"
                 st.error(f"{prefix}: {exc}")
 
 with progress_tab:
@@ -154,7 +164,7 @@ with progress_tab:
         """
         - BM25 retrieval and query routing are implemented.
         - Retrieved evidence is assembled into a controlled context package.
-        - Offline and AIHubMix answer generation are available.
+        - Offline and any OpenAI-compatible hosted LLM (OpenAI, AIHubMix, DeepSeek, OpenRouter, Anthropic, Ollama, custom) are available.
         - Claim-level citations, refusal, fallback, validation and latency reporting are implemented.
 
         **Important:** citation structure has been validated, but this is not yet a claim of

@@ -121,7 +121,7 @@ def test_api_falls_back_on_invalid_claim_citation_and_does_not_log_key(monkeypat
     monkeypatch.setattr(server, 'get_pipeline', lambda: p)
     monkeypatch.setattr(server, 'PROJECT_ROOT', tmp_path)
     bad = SimpleNamespace(provider='fixture-hosted', generate=lambda ctx: GeneratedAnswer('answer','Unsupported',[Claim('Unsupported',['external'])],[],[]))
-    monkeypatch.setattr(server, 'AIHubMixGenerator', lambda **kwargs: bad)
+    monkeypatch.setattr(server, 'build_llm_generator', lambda **kwargs: bad)
     response = TestClient(server.app).post('/api/rag/query', json={'question':'Function of PPARG','api_key':'DO-NOT-LOG-THIS'})
     assert response.status_code == 200
     assert response.json()['provider'] == 'offline_fallback'

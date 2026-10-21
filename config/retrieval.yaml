@@ -44,12 +44,29 @@ dense:
   batch_size: 8
   max_seq_length: 512
   device: auto
+  dtype: float32
   index_dir: artifacts/indexes/dense_qwen3_06b
 hybrid:
   candidate_k: 50
   rrf_k: 60
   weight_bm25: 1.0
   weight_dense: 1.0
+# Serving method: bm25 | dense | hybrid | bm25_rerank | hybrid_rerank.
+# Selected on development questions only (scripts/tune_retrieval.py, 2026-10-21:
+# bm25 nDCG@10 0.984 vs best reranker 0.981 on 61 dev queries); the reranker block
+# holds the best dev reranker settings for opt-in bm25_rerank. Override
+# with RAG_RETRIEVAL_METHOD. Missing dense/reranker components fall back to bm25.
+pipeline:
+  default_method: bm25
+reranker:
+  model: BAAI/bge-reranker-base
+  candidate_k: 10
+  alpha: 0.25
+  rrf_k: 60
+  max_length: 512
+  batch_size: 16
+  device: auto
+  dtype: float32
 retrieval:
   top_k: 10
   report_ks:

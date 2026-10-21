@@ -13,7 +13,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from augmentation.builder import ContextBuilder
-from generation.aihubmix import AIHubMixGenerator
+from generation.llm_provider import PROVIDER_PRESETS, build_llm_generator
 from generation.fallback import FallbackGenerator
 from generation.offline import OfflineEvidenceGenerator
 from rag.pipeline import RAGPipeline
@@ -27,7 +27,12 @@ from retrieval.service import RetrievalRequest, RetrieverService
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Query the evidence-grounded RAG pipeline.")
     parser.add_argument("question")
-    parser.add_argument("--provider", choices=("offline", "aihubmix"), default="offline")
+    parser.add_argument("--provider", choices=("offline", "llm"), default="offline",
+                        help="offline, or llm for a hosted OpenAI-compatible provider")
+    parser.add_argument("--llm-provider", choices=sorted(PROVIDER_PRESETS), default=None,
+                        help="Preset; defaults to LLM_PROVIDER from the environment")
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--base-url", default=None)
     parser.add_argument("--top-k", type=int, default=10)
     parser.add_argument(
         "--collection",
@@ -48,20 +53,14 @@ def load_environment() -> None:
     load_dotenv(PROJECT_ROOT / ".env", override=False)
 
 
-def generator_for(provider: str):
+def generator_for(args: argparse.Namespace):
     offline = OfflineEvidenceGenerator()
-    if provider == "offline":
+    if args.provider == "offline":
         return offline
-    api_key = os.environ.get("AIHUBMIX_API_KEY", "").strip()
-    if not api_key:
-        raise SystemExit(
-            "AIHUBMIX_API_KEY is missing. Copy .env.example to .env and add a new key."
-        )
-    primary = AIHubMixGenerator(
-        api_key=api_key,
-        base_url=os.environ.get("AIHUBMIX_BASE_URL", "https://aihubmix.com/v1"),
-        model=os.environ.get("AIHUBMIX_MODEL", "nemotron-3-ultra-550b-a55b-free"),
-    )
+    try:
+        primary = build_llm_generator(provider=args.llm_provider, model=args.model, base_url=args.base_url)
+    except ValueError as exc:
+        raise SystemExit(f"{exc}. Copy .env.example to .env and set LLM_PROVIDER/LLM_API_KEY.") from exc
     return FallbackGenerator(primary=primary, fallback=offline)
 
 
@@ -74,7 +73,7 @@ def main() -> int:
     pipeline = RAGPipeline(
         RetrieverService(backend, "bm25"),
         ContextBuilder(),
-        generator_for(args.provider),
+        generator_for(args),
     )
     run = pipeline.run(
         RetrievalRequest(

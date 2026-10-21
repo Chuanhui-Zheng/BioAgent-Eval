@@ -141,7 +141,7 @@ def test_provider_error_falls_back_without_exposing_error_text() -> None:
     answer = generator.generate(context)
 
     assert answer.provider == "offline_evidence"
-    assert answer.diagnostics["fallback_error_type"] == "AIHubMixGenerationError"
+    assert answer.diagnostics["fallback_error_type"] == "LLMGenerationError"
     assert "secret value" not in json.dumps(answer.diagnostics)
 
 
@@ -164,7 +164,7 @@ def test_free_trial_exhaustion_reports_quota_error_without_retry() -> None:
     fake = FakeClient([message])
     generator = AIHubMixGenerator(api_key="test-key", client=fake, repair_attempts=1)
 
-    with pytest.raises(AIHubMixGenerationError, match="free-trial quota"):
+    with pytest.raises(AIHubMixGenerationError, match="exhausted quota"):
         generator.generate(context)
 
     assert fake.completions.calls == 1

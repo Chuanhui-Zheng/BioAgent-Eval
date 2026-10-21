@@ -7,6 +7,14 @@ import {
 } from "./ScientificPages";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  LlmSettings,
+  LlmSettingsForm,
+  OFFLINE_SETTINGS,
+  llmLabel,
+  llmRequestFields,
+  useLlmProviders,
+} from "./llmSettings";
+import {
   Activity,
   AlertOctagon,
   AlertTriangle,
@@ -170,15 +178,14 @@ function downloadCsv(
 }
 
 // API client functions
-async function queryRAG(question: string, apiKey?: string, model?: string) {
+async function queryRAG(question: string, llm: LlmSettings) {
   const res = await fetch("/api/rag/query", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       question,
       top_k: 8,
-      api_key: apiKey ? apiKey.trim() : undefined,
-      model: model || "gpt-4o-mini",
+      ...llmRequestFields(llm),
     }),
   });
   if (!res.ok) {
@@ -741,7 +748,8 @@ function ChatPanel({
     setInput(initialQuestion);
   }, [initialQuestion]);
   const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState("");
+  const [llm, setLlm] = useState<LlmSettings>(OFFLINE_SETTINGS);
+  const providers = useLlmProviders();
   const [showConfig, setShowConfig] = useState(false);
 
   const suggestions = useMemo(
@@ -780,7 +788,7 @@ function ChatPanel({
     setLoading(true);
 
     try {
-      const data = await queryRAG(q, apiKey);
+      const data = await queryRAG(q, llm);
       const assistantMsg: ChatMessage = {
         role: "assistant",
         text: data.answer,
@@ -839,20 +847,17 @@ function ChatPanel({
             }}
           >
             <strong>LLM Generator Option</strong>
-            <Badge tone="blue">{apiKey ? "AIHubMix" : "Offline Engine"}</Badge>
+            <Badge tone="blue">{llmLabel(llm, providers)}</Badge>
           </div>
           <p
             style={{ margin: "4px 0", color: "var(--muted)", fontSize: "10px" }}
           >
-            Leave blank for local evidence excerpts, or enter an AIHubMix API
-            key for live GPT-4o-mini synthesis.
+            Use the offline engine for local evidence excerpts, or pick any
+            OpenAI-compatible provider (OpenAI, AIHubMix, DeepSeek, OpenRouter,
+            Anthropic, Ollama or a custom URL). Keys are sent per request and
+            never stored.
           </p>
-          <input
-            type="password"
-            placeholder="AIHubMix API key (optional)"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-          />
+          <LlmSettingsForm value={llm} onChange={setLlm} providers={providers} />
         </div>
       )}
 

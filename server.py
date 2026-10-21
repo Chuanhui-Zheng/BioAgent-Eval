@@ -24,10 +24,10 @@ from retrieval.access import WORKSPACES, workspace_id, allowed_collections, path
 from generation.fallback import FallbackGenerator
 from augmentation.builder import ContextBuilder
 from chunking.phenotype_glossary import PhenotypeGlossary
-from generation.aihubmix import AIHubMixGenerator
+from generation.llm_provider import build_llm_generator, provider_catalog
 from generation.offline import OfflineEvidenceGenerator
 from rag.pipeline import RAGPipeline
-from retrieval.bm25_retriever import load_bm25_index
+from retrieval.factory import build_search_backend
 from retrieval.config import load_retrieval_config
 from retrieval.corpus import load_corpus_from_config
 from retrieval.router import SUPPORTED_COLLECTIONS as ALL_COLLECTIONS
@@ -83,6 +83,7 @@ def workspaces():
 # Global in-memory pipeline state
 _PIPELINE: Optional[RAGPipeline] = None
 _GLOSSARY: Optional[PhenotypeGlossary] = None
+_RETRIEVAL_STATUS: dict[str, Any] = {"method": "not_loaded"}
 _GENE_INDEX: dict[str, dict[str, Any]] = {}
 _COMMON_ASSOC: dict[str, list[dict[str, Any]]] = {}
 _RARE_ASSOC: dict[str, list[dict[str, Any]]] = {}
@@ -94,13 +95,16 @@ def get_pipeline() -> RAGPipeline:
         logger.info("Initializing RAG pipeline from disk...")
         config = load_retrieval_config(PROJECT_ROOT)
         corpus = load_corpus_from_config(config)
-        backend = load_bm25_index(config.index_dir, corpus.records, expected_chunk_hashes=corpus.chunk_hashes)
+        bundle = build_search_backend(config, corpus)
+        global _RETRIEVAL_STATUS
+        _RETRIEVAL_STATUS = {"method": bundle.method, "requested_method": bundle.requested_method,
+                             "fallback_reasons": bundle.fallback_reasons}
         _PIPELINE = RAGPipeline(
-            RetrieverService(backend, "bm25"),
+            RetrieverService(bundle.backend, bundle.method),
             ContextBuilder(),
             OfflineEvidenceGenerator(),
         )
-        logger.info("RAG pipeline ready.")
+        logger.info("RAG pipeline ready (retrieval=%s, requested=%s).", bundle.method, bundle.requested_method)
     return _PIPELINE
 
 
@@ -171,11 +175,20 @@ class QueryRequest(BaseModel):
         None, description="Collections to restrict search to."
     )
     top_k: int = Field(10, ge=1, le=50, description="Max passages to retrieve.")
+    llm_provider: Optional[str] = Field(
+        None,
+        max_length=40,
+        description="Hosted LLM preset (see GET /api/llm/providers), e.g. openai, aihubmix, deepseek, "
+        "openrouter, anthropic, siliconflow, ollama or custom. Omit with no api_key for offline generation.",
+    )
     api_key: Optional[str] = Field(
-        None, description="Optional AIHubMix API key for online LLM synthesis."
+        None, max_length=1000, description="Optional API key for the selected hosted LLM provider; never stored."
+    )
+    base_url: Optional[str] = Field(
+        None, max_length=500, description="OpenAI-compatible base URL; overrides the preset (required for custom)."
     )
     model: Optional[str] = Field(
-        "gpt-4o-mini", description="LLM model name if using API key."
+        None, max_length=200, description="LLM model name; defaults to the provider preset."
     )
 
 
@@ -209,6 +222,7 @@ def health_check():
         "indexed_genes": len(_GENE_INDEX),
         "glossary_terms": len(get_glossary()._entries),
         "total_chunks": sum(r.collection in allowed_collections() for r in get_pipeline().retriever.backend.records),
+        "retrieval": _RETRIEVAL_STATUS,
     }
 
 
@@ -231,14 +245,14 @@ def query_rag(req: QueryRequest):
 
     generator = OfflineEvidenceGenerator()
     initialization_failed = False
-    if req.api_key and req.api_key.strip():
+    hosted_requested = bool((req.api_key and req.api_key.strip()) or req.llm_provider)
+    hosted_name = (req.llm_provider or "hosted_llm").strip().lower()
+    if hosted_requested:
         try:
-            pricing_path = PROJECT_ROOT / "config/model_pricing.json"
-            pricing = json.loads(pricing_path.read_text()) if pricing_path.exists() else {}
-            rates = pricing.get(req.model or "gpt-4o-mini", {})
-            primary = AIHubMixGenerator(api_key=req.api_key.strip(), model=req.model or "gpt-4o-mini",
-                                       input_cost_per_million=rates.get("input_usd_per_million"),
-                                       output_cost_per_million=rates.get("output_usd_per_million"))
+            primary = build_llm_generator(
+                provider=req.llm_provider, api_key=req.api_key, model=req.model, base_url=req.base_url
+            )
+            hosted_name = primary.provider
             generator = FallbackGenerator(primary, OfflineEvidenceGenerator())
         except Exception as exc:
             logger.warning("Hosted provider initialization failed (%s)", type(exc).__name__)
@@ -248,7 +262,7 @@ def query_rag(req: QueryRequest):
     run = active_pipeline.run(request)
     if initialization_failed or run.answer.diagnostics.get("fallback_from"):
         run.answer.provider = "offline_fallback"
-        run.answer.diagnostics["fallback_from"] = "aihubmix"
+        run.answer.diagnostics["fallback_from"] = hosted_name
         if initialization_failed:
             run.answer.limitations.append("Hosted generation was unavailable; the answer uses local evidence excerpts.")
     run.retrieval.diagnostics["workspace"] = workspace_id.get()
@@ -290,6 +304,12 @@ def query_rag(req: QueryRequest):
         workspace=workspace_id.get(),
         usage=run.answer.diagnostics.get("usage", {"api_calls": 0, "estimated_cost_usd": 0.0}),
     )
+
+
+@app.get("/api/llm/providers")
+def llm_providers():
+    """OpenAI-compatible provider presets accepted by /api/rag/query (no secrets)."""
+    return {"providers": provider_catalog()}
 
 
 @app.get("/api/evidence/{chunk_id:path}")

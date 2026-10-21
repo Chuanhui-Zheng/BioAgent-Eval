@@ -1,0 +1,86 @@
+query_id,query_type,question,status,answer,citations,auto_flags,correctness_1to5,relevance_1to5,completeness_1to5,citation_support_1to5,clarity_1to5,harmful_or_overclaiming(Y/N),notes,reviewer
+blind-009,common_association,What common-variant Bayes factor links TUSC7 to 2-hour glucose?,answer,The common-variant Bayes factor linking TUSC7 to 2-hour glucose (OGTT) is bf_common=1.,gassoc_common:2hrG:TUSC7,,,,,,,,,
+blind-031,comparison,Compare the recorded functions of CYC1 and CLDN10.,qualified,"CYC1 is a catalytic core subunit of mitochondrial complex III (ubiquinol-cytochrome c oxidoreductase), transferring electrons from the Rieske protein’s iron-sulfur cluster to cytochrome c as part of the electron transport chain supporting oxidative phosphorylation.
+
+CLDN10 polymerizes in tight junction strands to form cation- and anion-selective paracellular channels, contributing to epithelial permeability.",gene:CYC1 gene:CLDN10,,,,,,,,,
+blind-024,gene_association_wes,What top-level WES association p-value is reported for HPS4 with 2-hour glucose?,qualified,"The raw_parent metadata reports a top-level p-value of 0.8543250079909774 for HPS4 with 2-hour glucose (OGTT).
+
+The definition of the top-level test or aggregation is unconfirmed.",wes:2hrG:HPS4:mask:0of5_1pct wes:2hrG:HPS4:mask:0of5_1pct,,,,,,,,,
+blind-001,gene_function,Summarise the biological function recorded for PSMB3.,answer,"PSMB3 is a non-catalytic component of the 20S proteasome core involved in degradation of most intracellular proteins.
+
+Association of the 20S core with two 19S regulatory particles forms the 26S proteasome, which supports ATP-dependent degradation of ubiquitinated proteins and protein homeostasis.
+
+The 20S proteasome associated with PA200 or PA28 mediates ubiquitin-independent degradation involved in spermatogenesis or generation of a subset of MHC class I-presented antigenic peptides, respectively.",gene:PSMB3 gene:PSMB3 gene:PSMB3,,,,,,,,,
+blind-006,gene_location,"Where is NFIC located in the genome, and what is its Ensembl identifier?",answer,"NFIC is located at chr19:3359561-3469215 on the GRCh37 genome assembly.
+
+NFIC has the Ensembl identifier ENSG00000141905.",gene:NFIC gene:NFIC,,,,,,,,,
+blind-017,ldsc_correlation,What is the LDSC genetic correlation between 2-hour insulin and Docosapentaenoic acid (DPA)?,refuse,I cannot answer this question from the authorized approved corpus.,,number: rg,,,,,,,,
+blind-020,ldsc_partitioned_heritability,What partitioned-heritability enrichment does 2hrG show for enhancer in kidney (kidney epithelial cell) for ancestry EA?,qualified,"For 2hrG, enhancer annotations in kidney epithelial cells for ancestry EA have enrichment_beta = 29.46 and enrichment_stdErr = 686.8.
+
+The source reports pValue = 0.3958, but the pValue test, field definitions, ancestry-code meaning, and source release are unconfirmed.",ldsc_partitioned:2hrG:enhancer:kidney:kidney_epithelial_cell:EA ldsc_partitioned:2hrG:enhancer:kidney:kidney_epithelial_cell:EA,,,,,,,,,
+blind-013,rare_association,Is there rare-variant evidence that NIPA2 is associated with 2-hour glucose? Give the p-value.,answer,"The rare-variant gene-based test for NIPA2 and 2-hour glucose (OGTT) reported p = 0.0276774, significant at p < 0.05.",gassoc_rare:2hrG:NIPA2,,,,,,,,,
+blind-028,tissue_expression,In which tissues is SYNRG RNA expression highest in the supplied GTEx data?,qualified,"The highest median SYNRG RNA expression values among the 54 supplied tissues are Cells - EBV-transformed lymphocytes (7326), Spleen (5268), Testis (4320), Pituitary (4273), and Small Intestine - Terminal Ileum (3909), in descending order.",gtex:SYNRG,,,,,,,,,
+blind-035,unanswerable,What is the function of the gene QZT7X9?,refuse,I cannot answer this question from the authorized approved corpus.,,,,,,,,,,
+blind-010,common_association,How strong is the common-variant (HuGE) evidence connecting ENSG00000272319 with 2hrG?,answer,"For ENSG00000272319 and 2-hour glucose (OGTT) (2hrG), the HuGE common-variant evidence has bf_common=1 and is classified as baseline.
+
+The export has no causal annotation for this gene–trait pair.",gassoc_common:2hrG:ENSG00000272319 gassoc_common:2hrG:ENSG00000272319,,,,,,,,,
+blind-032,comparison,How do the gene functions of SMPD2 and BAX differ?,qualified,"SMPD2 catalyzes sphingomyelin hydrolysis to ceramide and phosphocholine, demonstrated at least in vitro.
+
+SMPD2 also hydrolyzes lyso-platelet-activating factor in vivo and acts on lyso-PC and sphingosylphosphocholine.
+
+BAX promotes mitochondrial apoptosis: under stress, it changes conformation and translocates to the mitochondrial membrane, leading to cytochrome c release; it also promotes CASP3 activation.
+
+The key functional distinction is lipid-substrate hydrolysis by SMPD2 versus promotion of mitochondrial apoptosis by BAX.",gene:SMPD2 gene:SMPD2 gene:BAX gene:SMPD2 gene:BAX,,,,,,,,,
+blind-025,gene_association_wes,Summarise the whole-exome sequencing evidence for TTC39A and 2hrG.,qualified,"The AMP T2D-GENES TTC39A–2hrG summary reports top-level pValue=0.9555 and beta=-0.3003, providing no convincing association signal in the supplied results.
+
+For mask 0of5_1pct, pValue=0.7323, beta=-0.1611, stdErr=0.471 and reported n=3576.
+
+For mask 1of5_1pct, pValue=0.7475, beta=-0.07166, stdErr=0.2226 and reported n=3080.
+
+For mask 5of5, pValue=0.9691, beta=0.02265, stdErr=0.5855 and reported n=1906.
+
+For mask 5of5_LoF_LC, pValue=0.5407, beta=-0.3003, stdErr=0.4909 and reported n=1906.
+
+The top-level test or aggregation is unconfirmed and must not be interpreted as the minimum mask pValue; the masks are not independent corroboration.
+
+Mask rules, cohort and ancestry, effect scale and allele, definitions of n, combinedAF and variant counts, and release are unconfirmed; these population-level results do not establish causality or an individual diagnosis.",wes:2hrG:TTC39A:summary wes:2hrG:TTC39A:mask:0of5_1pct wes:2hrG:TTC39A:mask:1of5_1pct wes:2hrG:TTC39A:mask:5of5 wes:2hrG:TTC39A:mask:5of5_LoF_LC wes:2hrG:TTC39A:summary wes:2hrG:TTC39A:mask:5of5 wes:2hrG:TTC39A:summary,,,,,,,,,
+blind-002,gene_function,What role does the gene MCM2 play according to the approved gene annotations?,answer,"MCM2 is a component of the MCM2-7 replicative helicase complex, which is essential for DNA replication initiation and elongation once per cell cycle.
+
+MCM2 is a core component of the CDC45-MCM-GINS (CMG) helicase, which unwinds template DNA during replication.
+
+MCM2 is required for S-phase entry and cell division.
+
+MCM2 also plays a role in the development of terminally differentiated cochlear hair cells and in inducing apoptosis.",gene:MCM2 gene:MCM2 gene:MCM2 gene:MCM2,,,,,,,,,
+blind-007,gene_location,Which chromosome carries KCNK17 and what are its genomic coordinates?,answer,KCNK17 is located on chromosome 6 at chr6:39266777-39282329 (GRCh37).,gene:KCNK17,,,,,,,,,
+blind-018,ldsc_correlation,Is 2hrI genetically correlated with CCS phenotypic cryptogenic? Report rg.,refuse,I cannot answer this question from the authorized approved corpus.,,number: rg,,,,,,,,
+blind-021,ldsc_partitioned_heritability,"Report enrichment_beta for 2-hour glucose, annotation enhancer, tissue cardiovascular system, biosample right atrium, ancestry code EU.",qualified,"For 2-hour glucose (OGTT), enhancer annotation, cardiovascular system, right atrium, and ancestry code EU, enrichment_beta is 5.059592947296131.
+
+The source marks field definitions, ancestry-code meanings, pValue test, and source release as unconfirmed.",ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EU ldsc_partitioned:2hrG:enhancer:cardiovascular_system:right_atrium:EU,,,,,,,,,
+blind-014,rare_association,What rare-variant gene-based p-value and beta are reported for AC025335 and 2hrG?,answer,The rare-variant gene-based association between AC025335 and 2hrG has p-value=0.0183 and beta=0.191.,gassoc_rare:2hrG:AC025335,,,,,,,,,
+blind-029,tissue_expression,Where is CTNNAL1 most highly expressed across GTEx tissues?,qualified,"Among 54 supplied tissues, the highest CTNNAL1 median RNA expression is in Adrenal Gland (21889), followed by Nerve - Tibial (10799), Ovary (9315.5), Thyroid (6437), and Cells - Cultured fibroblasts (4505.5).
+
+Among 32 supplied tissues, the highest CTNNAL1 median protein expression is in Ovary (1.155), followed by Esophagus - Gastroesophageal Junction (1.15), Esophagus - Muscularis (1.095), Nerve - Tibial (1.07), and Colon - Sigmoid (0.9).",gtex:CTNNAL1 gtex:CTNNAL1,,,,,,,,,
+blind-036,unanswerable,What rare-variant association does KRTAP99-1 have with 2-hour glucose?,refuse,I cannot answer this question from the authorized approved corpus.,,,,,,,,,,
+blind-011,common_association,Report bf_common for PEBP1P3 and the 2-hour glucose phenotype.,answer,PEBP1P3 has bf_common=1 for 2-hour glucose (OGTT) (2hrG).,gassoc_common:2hrG:PEBP1P3,,,,,,,,,
+blind-033,comparison,Compare the rare-variant association evidence for CD200R1 and SLC25A13 with 2-hour glucose.,qualified,"CD200R1 has p-value=0.7374, beta=0.26185, z=0.3352987102742113, and rare-variant Bayes factor=1.0; its result is not significant.
+
+SLC25A13 has p-value=0.16057, beta=0.65875, z=1.4031567030916745, and rare-variant Bayes factor=1.1324093614548085; its result is not significant.
+
+Both beta estimates are positive. SLC25A13 has a lower p-value, larger beta and z, and higher rare-variant Bayes factor than CD200R1, but neither provides strong rare-variant association evidence under this analysis.",gassoc_rare:2hrG:CD200R1 gassoc_rare:2hrG:SLC25A13 gassoc_rare:2hrG:CD200R1 gassoc_rare:2hrG:SLC25A13,,,,,,,,,
+blind-026,gene_association_wes,Which WES masks were supplied for SPTBN1 and 2-hour glucose?,qualified,"The four supplied WES masks for SPTBN1 and 2-hour glucose (OGTT) were 0of5_1pct, 1of5_1pct, 5of5, and 5of5_LoF_LC.
+
+The mask selection rules are unconfirmed.",wes:2hrG:SPTBN1:summary wes:2hrG:SPTBN1:summary,,,,,,,,,
+blind-003,gene_function,Describe what is known about the function of RHOT2 in the corpus.,answer,"RHOT2, also known as MIRO2 or MIRO-2, is an atypical mitochondrial NTPase involved in mitochondrial trafficking.
+
+RHOT2 is probably involved in controlling anterograde transport of mitochondria and their subcellular distribution.
+
+RHOT2 can hydrolyze ATP and UTP.
+
+RHOT2's ability to hydrolyze GTP is inferred by similarity.",gene:RHOT2 gene:RHOT2 gene:RHOT2 gene:RHOT2,,,,,,,,,
+blind-008,gene_location,What database identifiers are listed for SYN3?,qualified,"SYN3's Ensembl identifier is ENSG00000185666.
+
+SYN3's HGNC identifier is 11496.
+
+SYN3's Entrez identifier is 8224.
+
+SYN3's UniProt accession is O14994.",gene:SYN3 gene:SYN3 gene:SYN3 gene:SYN3,,,,,,,,,

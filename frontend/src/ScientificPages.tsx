@@ -1,6 +1,7 @@
 import { effectMatrix } from "./effectMatrix";
 import { scopedFetch as fetch, currentWorkspace, changeWorkspace } from "./api";
 import { useEffect, useRef, useState } from "react";
+import { LlmSettings, LlmSettingsForm, OFFLINE_SETTINGS, llmRequestFields, useLlmProviders } from "./llmSettings";
 import {
   Bar,
   BarChart,
@@ -1945,7 +1946,8 @@ function Heatmap({ rows = [], cols = [], values = [], annotate = true, signed = 
 }
 
 function EvaluationPanel() {
-  const [key, setKey] = useState("");
+  const [llm, setLlm] = useState<LlmSettings>(OFFLINE_SETTINGS);
+  const providers = useLlmProviders();
   const [text, setText] = useState("");
   const [report, setReport] = useState<any>(null);
   const [error, setError] = useState("");
@@ -1982,25 +1984,7 @@ function EvaluationPanel() {
         />
       </div>
       <div style={{ marginBottom: "14px" }}>
-        <label>
-          <span>Optional AIHubMix API Key</span>
-          <input
-            type="password"
-            autoComplete="off"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
-            placeholder="sk-..."
-            style={{
-              width: "100%",
-              background: "#1c1f2a",
-              border: "1px solid #303340",
-              color: "#e2e4ec",
-              padding: "8px 12px",
-              borderRadius: "6px",
-              marginTop: "4px",
-            }}
-          />
-        </label>
+        <LlmSettingsForm value={llm} onChange={setLlm} providers={providers} />
       </div>
       <button
         className="primary-button"
@@ -2013,7 +1997,7 @@ function EvaluationPanel() {
             setReport(
               await api("/evaluate", {
                 benchmark_jsonl: text,
-                api_key: key || undefined,
+                ...llmRequestFields(llm),
               }),
             );
           } catch (e: any) {
@@ -2023,7 +2007,7 @@ function EvaluationPanel() {
           }
         }}
       >
-        <Sparkles size={16} /> Run annotated offline evaluation
+        <Sparkles size={16} /> Run annotated {llm.provider === "offline" ? "offline" : llm.provider} evaluation
       </button>
       <Notice error={error} loading={busy} />
       {report && (

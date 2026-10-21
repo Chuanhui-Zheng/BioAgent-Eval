@@ -6,10 +6,15 @@ import time
 from generation.numeric_validation import ALIASES, NUMBER
 from retrieval.service import RetrievalRequest
 from retrieval.router import SUPPORTED_COLLECTIONS
+from analysis.support_judge import deterministic_grounding, summarise_support
 
 
-def evaluate_annotated(pipeline, text: str) -> dict:
-    """Score against user-supplied independent annotations, without inventing gold labels."""
+def evaluate_annotated(pipeline, text: str, judge=None) -> dict:
+    """Score against user-supplied independent annotations, without inventing gold labels.
+
+    ``judge`` is an optional ``LLMSupportJudge``; every run also gets the
+    deterministic claim-grounding check (numbers/identifiers vs cited passages).
+    """
     items = []
     for line in text.splitlines():
         if line.strip():
@@ -85,13 +90,21 @@ def evaluate_annotated(pipeline, text: str) -> dict:
                 for n in observed.get(ALIASES.get(field.lower(), field.lower()), [])
             ):
                 number_errors.append(field)
+        accepted = item.get("accepted_statuses") or [item["expected_status"]]
+        groundings = deterministic_grounding(run.answer, run.context.passages)
+        judgements = judge.judge(run.answer, run.context.passages) if judge is not None else None
+        support = summarise_support(groundings, judgements)
         rows.append(
             {
+                "query_id": item.get("query_id"),
+                "query_type": item.get("query_type", "unspecified"),
                 "question": item["question"],
                 "annotation_origin": item.get("annotation_origin", "user-supplied; independence not verified"),
                 "expected_status": item["expected_status"],
                 "status": run.answer.status,
-                "status_correct": run.answer.status == item["expected_status"],
+                "accepted_statuses": accepted,
+                "status_correct": run.answer.status in accepted,
+                "support": support,
                 "gold_retrieval_hit": bool(gold & retrieved) if gold else None,
                 "gold_citation_precision": len(gold & cited) / len(cited)
                 if cited
@@ -142,8 +155,55 @@ def evaluate_annotated(pipeline, text: str) -> dict:
             for r in rows
         )
         / len(rows),
+        "claim_grounding_rate": _ratio(sum(r["support"]["grounded_claims"] for r in rows),
+                                       sum(r["support"]["claims"] for r in rows)),
+        "llm_judge": _judge_summary(rows, judge),
+        "retrieval_method": getattr(getattr(pipeline, "retriever", None), "method", None),
+        "by_query_type": _by_type(rows),
         "results": rows,
         "limitations": [
-            "Gold labels must be supplied independently by a reviewer; this tool does not establish their quality. Exact required-fact matching is a deterministic contract, not an entailment judge. Human correctness and citation-support review remains pending until the exported rubric is completed."
+            "Gold labels must be supplied independently by a reviewer; this tool does not establish their quality. Exact required-fact matching is a deterministic contract, not an entailment judge. Claim grounding checks numbers and identifiers only; LLM-judge labels are an automated estimate. Human correctness and citation-support review remains pending until the exported rubric is completed."
         ],
     }
+
+
+def _ratio(numerator, denominator):
+    return numerator / denominator if denominator else None
+
+
+def _judge_summary(rows, judge):
+    if judge is None:
+        return None
+    counts = {}
+    for row in rows:
+        for label, value in row["support"].get("judge_labels", {}).items():
+            counts[label] = counts.get(label, 0) + value
+    judged = sum(v for k, v in counts.items() if k != "judge_error")
+    return {
+        "judge": judge.description,
+        "labels": counts,
+        "supported_rate": _ratio(counts.get("supported", 0), judged),
+        "supported_or_partial_rate": _ratio(counts.get("supported", 0) + counts.get("partial", 0), judged),
+        "contradicted_claims": counts.get("contradicted", 0),
+        "judge_errors": counts.get("judge_error", 0),
+    }
+
+
+def _by_type(rows):
+    groups = {}
+    for row in rows:
+        groups.setdefault(row["query_type"], []).append(row)
+    summary = {}
+    for name, items in sorted(groups.items()):
+        claims = sum(r["support"]["claims"] for r in items)
+        summary[name] = {
+            "n": len(items),
+            "status_accuracy": sum(r["status_correct"] for r in items) / len(items),
+            "gold_citation_recall": sum(r["gold_citation_recall"] for r in items) / len(items),
+            "gold_citation_precision": sum(r["gold_citation_precision"] for r in items) / len(items),
+            "numeric_policy_pass_rate": sum(not r["missing_or_wrong_numbers"] for r in items) / len(items),
+            "fact_policy_pass_rate": sum(not r["missing_required_facts"] and not r["prohibited_phrases"]
+                                         for r in items) / len(items),
+            "claim_grounding_rate": _ratio(sum(r["support"]["grounded_claims"] for r in items), claims),
+        }
+    return summary

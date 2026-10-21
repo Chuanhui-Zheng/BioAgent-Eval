@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "created_at": "2026-10-21T03:08:46.735014+00:00",
+    "dev_sets": [
+      "retrieval_comparison_dev.jsonl",
+      "retrieval_dev.jsonl",
+      "retrieval_expanded_dev.jsonl"
+    ],
+    "dev_queries": 61,
+    "selection_rule": "max nDCG@10; ties within 0.005 -> lowest latency",
+    "dense_index": null,
+    "rerank_seconds_per_pair": {
+      "BAAI/bge-reranker-base": 0.05197725839001459,
+      "BAAI/bge-reranker-v2-m3": 0.18921091075607543
+    },
+    "configs_within_tie_margin": 3
+  },
+  "selected": {
+    "method": "bm25",
+    "weights": null,
+    "model": null,
+    "candidate_k": null,
+    "alpha": null,
+    "dev_nDCG@10": 0.9843,
+    "best_dev_nDCG@10": 0.9843,
+    "est_latency_s": 0.03607635998375119
+  },
+  "best_reranker": {
+    "first_stage": "bm25",
+    "model": "BAAI/bge-reranker-base",
+    "candidate_k": 10,
+    "alpha": 0.25,
+    "dev_nDCG@10": 0.9811,
+    "est_latency_s": 0.555848943883897
+  }
+}
