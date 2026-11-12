@@ -1,6 +1,6 @@
-# CS-46 Embedding and Retrieval Evaluation Design
+# BioAgent-Eval Embedding and Retrieval Evaluation Design
 
-**Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery
+**Project:** BioAgent-Eval: An Evidence-Grounded Scientific Agent Harness and Automated Evaluation Platform for Drug Discovery
 **Document version:** v1.3
 **Date:** 2026-09-21
 **Last updated:** 2026-10-10
@@ -10,7 +10,7 @@
 
 ## 1. Purpose
 
-This document defines the CS-46 retrieval-stage design after corpus chunking. The stage compares three retrieval methods over the same corpus:
+This document defines the BioAgent-Eval retrieval-stage design after corpus chunking. The stage compares three retrieval methods over the same corpus:
 
 1. **Sparse retrieval:** BM25
 2. **Dense retrieval:** Qwen3-Embedding-0.6B with FAISS
@@ -734,7 +734,7 @@ These extensions must not be added silently to the MVP baseline.
 
 ## 14. References
 
-- `docs/design/CS-46_Corpus_Chunking_Design.md`
+- `docs/design/BioAgent_Corpus_Chunking_Design.md`
 - `artifacts/manifest.json`
 - QwenLM, “Qwen3 Embedding,” <https://github.com/QwenLM/Qwen3-Embedding>
 - Qwen model card, `Qwen/Qwen3-Embedding-0.6B`, <https://huggingface.co/Qwen/Qwen3-Embedding-0.6B>

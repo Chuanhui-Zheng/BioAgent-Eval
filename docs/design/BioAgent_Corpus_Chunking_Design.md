@@ -1,6 +1,6 @@
-# CS-46 Corpus Chunking Design
+# BioAgent-Eval Corpus Chunking Design
 
-**Project:** Evidence-Grounded Scientific RAG Assistant with Citation and Quality Evaluation for Drug Discovery  
+**Project:** BioAgent-Eval: An Evidence-Grounded Scientific Agent Harness and Automated Evaluation Platform for Drug Discovery  
 **Document version:** v1.2
 
 **Date:** 2026-09-16  
@@ -11,7 +11,7 @@
 
 ## 1. Purpose
 
-This document defines how the CS-46 prototype RAG system **splits, textifies, annotates with metadata, cites, and routes** multiple JSON source types in the current sample corpus. Goals:
+This document defines how the BioAgent-Eval scientific RAG foundation **splits, textifies, annotates with metadata, cites, and routes** multiple JSON source types in the current sample corpus. Goals:
 
 1. Support **entity-aware retrieval** (gene, phenotype/trait)
 2. Ensure **citations trace back to a specific source and version**
@@ -49,7 +49,7 @@ reference/gene_id_map     →  Pipeline reference table (not indexed in RAG)
 
 **There is no single join key for merged chunks.** Link evidence after retrieval via `gene` symbol / `ensembl`. **Do not** put gene annotation and association statistics in the same chunk.
 
-### 2.3 Mapping to CS-46 Requirements
+### 2.3 Mapping to BioAgent-Eval Requirements
 
 | Project requirement | This design |
 |---------------------|-------------|
@@ -676,7 +676,7 @@ All collections emit the same JSON shape for indexing, API, and evaluation:
 
 ### 10.2 Metrics Mapping
 
-| CS-46 metric | Supported by |
+| BioAgent-Eval metric | Supported by |
 |--------------|--------------|
 | Retrieval relevance | `chunk_id` hit rate |
 | Citation correctness | `citation.chunk_id` matches expected |
@@ -740,6 +740,6 @@ All collections emit the same JSON shape for indexing, API, and evaluation:
 
 | Version | Date | Notes |
 |---------|------|-------|
-| v1.0 | 2026-09-11 | Initial release from sample JSON measurements and CS-46 requirements |
+| v1.0 | 2026-09-11 | Initial release from sample JSON measurements and BioAgent-Eval requirements |
 | v1.1 | 2026-09-16 | HuGE gene association (common/rare 2hrG); `gene_id_map` not chunked; raw layout scheme A |
 | v1.2 | 2026-10-10 | Documented Partitioned ranking text, biosample space-separated spelling and matching index rebuild |

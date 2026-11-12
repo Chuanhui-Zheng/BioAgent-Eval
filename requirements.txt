@@ -1,4 +1,4 @@
-# CS-46 RAG Pipeline Dependencies
+# BioAgent-Eval Scientific RAG and Agent Harness Dependencies
 # Python >= 3.10 recommended
 
 PyYAML==6.0.3
@@ -6,7 +6,7 @@ numpy==2.5.3
 pandas==3.0.6
 bm25s==0.3.11
 
-# Web API server (for React frontend)
+# Optional HTTP API server for integrations
 fastapi>=0.110.0
 uvicorn>=0.27.0
 pydantic>=2.6.0

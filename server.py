@@ -47,13 +47,13 @@ async def lifespan(application):
 
 
 app = FastAPI(
-    title="GenEngine Evidence-Grounded Scientific RAG API",
-    description="Scientific RAG assistant API with claim citations and quality evaluation for drug discovery.",
+    title="BioAgent-Eval Scientific Agent API",
+    description="Evidence-grounded Scientific RAG API for the BioAgent-Eval Agent Harness and evaluation platform.",
     version="1.3.0",
     lifespan=lifespan,
 )
 
-# Enable CORS for React frontend (e.g., http://localhost:5173 or other local dev origins)
+# Enable CORS for local CLI/API integrations and automation clients.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

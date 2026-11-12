@@ -4,7 +4,7 @@ Start with the root [README](../README.md) for current setup. Documents below ar
 
 ## Operating guides
 
-- [React frontend and API](../frontend/README.md)
+- [CLI and API workflow](guides/DEMO_GUIDE.md)
 - [Simple demo](guides/DEMO_GUIDE.md)
 - [API keys](guides/API_KEY_GUIDE.md)
 
@@ -19,8 +19,8 @@ These notes predate the October 12 integration; consult Git history and the root
 
 ## Design and data
 
-- [Corpus and chunking](design/CS-46_Corpus_Chunking_Design.md)
-- [Embedding, retrieval and evaluation](design/CS-46_Embedding_Retrieval_Evaluation_Design.md)
+- [Corpus and chunking](design/BioAgent_Corpus_Chunking_Design.md)
+- [Embedding, retrieval and evaluation](design/BioAgent_Embedding_Retrieval_Evaluation_Design.md)
 - [Client data inventory](design/Client_Sample_Data_Inventory.md)
 - [Phase reports](../reports/)
 - [Evaluation outputs](../artifacts/evaluation/)

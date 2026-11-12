@@ -9,8 +9,7 @@ content is verified before the prebuilt database is reused.
 Install the backend dependencies in a fresh Python environment with
 `python -m pip install -r requirements/api.txt` and run
 `python -m uvicorn server:app --host 127.0.0.1 --port 8000`.
-In a second terminal run `cd frontend`, `npm ci`, and `npm run dev`.
-Open the URL printed by Vite. Dependencies require network access on first install.
+Run the retained API with `python -m uvicorn server:app --host 127.0.0.1 --port 8000`, or use the offline Agent Harness CLI documented in the root README. No Node or web frontend is required.
 The default offline BM25 application does not require an API key or Dense model.
 
 The archive contains the active eight-collection chunks, matching manifests,
