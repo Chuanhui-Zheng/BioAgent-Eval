@@ -23,13 +23,17 @@ class Usage:
         return self.input_tokens + self.output_tokens
 
     def add(self, other: "Usage") -> None:
-        if self.input_tokens is None or other.input_tokens is None:
+        was_empty = self.input_tokens is None and self.output_tokens is None and not self.metadata
+        if was_empty:
+            self.input_tokens = other.input_tokens
+            self.output_tokens = other.output_tokens
+        elif self.input_tokens is None or other.input_tokens is None:
             self.input_tokens = None
         else:
             self.input_tokens += other.input_tokens
-        if self.output_tokens is None or other.output_tokens is None:
+        if not was_empty and (self.output_tokens is None or other.output_tokens is None):
             self.output_tokens = None
-        else:
+        elif not was_empty:
             self.output_tokens += other.output_tokens
         self.estimated = self.estimated or other.estimated
 

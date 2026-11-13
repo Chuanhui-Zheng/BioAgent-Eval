@@ -62,3 +62,20 @@ def test_context_manager_preserves_task_and_latest_tool_result():
     assert prepared[0]["content"] == "task"
     assert prepared[-1]["content"].startswith("evidence")
     assert info["compressed"] is True
+
+
+def test_runtime_can_resume_checkpoint(tmp_path):
+    registry = ToolRegistry()
+    registry.register(Tool("add", "Add two integers", AddArgs, lambda left, right: left + right))
+    runtime = AgentRuntime(MockModel(), ToolExecutor(registry), RuntimeConfig(
+        max_steps=1, checkpoint_dir=str(tmp_path / "checkpoints")))
+    first = asyncio.run(runtime.run("add numbers"))
+    checkpoint = next((tmp_path / "checkpoints").glob("*.json"))
+
+    resumed_runtime = AgentRuntime(MockModel(), ToolExecutor(registry), RuntimeConfig(
+        max_steps=3, checkpoint_dir=str(tmp_path / "checkpoints")))
+    resumed = asyncio.run(resumed_runtime.resume(checkpoint))
+
+    assert first.status == "max_steps"
+    assert resumed.status == "completed"
+    assert resumed.answer == "result=5"

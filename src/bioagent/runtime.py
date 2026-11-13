@@ -41,19 +41,22 @@ class AgentRuntime:
         self.tools = tools
         self.config = config or RuntimeConfig()
 
-    async def run(self, task: str, *, run_id: str | None = None) -> RunResult:
+    async def run(self, task: str, *, run_id: str | None = None,
+                  _messages: list[dict[str, Any]] | None = None,
+                  _prior_calls: list[ToolExecution] | None = None,
+                  _start_step: int = 0) -> RunResult:
         if not task.strip():
             raise ValueError("task must not be empty")
         run_id = run_id or hashlib.sha256(f"{task}|{time.time_ns()}".encode()).hexdigest()[:16]
         trace = Trace(run_id, task, getattr(self.model, "model", "unknown"))
-        messages: list[dict[str, Any]] = [{"role": "user", "content": task}]
-        calls: list[ToolExecution] = []
-        seen_calls: set[str] = set()
+        messages: list[dict[str, Any]] = list(_messages or [{"role": "user", "content": task}])
+        calls: list[ToolExecution] = list(_prior_calls or [])
+        seen_calls: set[str] = {self.tools.cache_key(call.tool_name, call.arguments) for call in calls}
         usage = Usage()
         context_manager = ContextManager(self.config.max_context_tokens)
 
         async def loop() -> RunResult:
-            for step in range(1, self.config.max_steps + 1):
+            for step in range(_start_step + 1, self.config.max_steps + 1):
                 model_messages, context_info = context_manager.prepare(messages)
                 trace.event("context_prepared", step=step, **context_info)
                 decision = self.model.decide(task, model_messages, self.tools.registry.schemas())
@@ -99,6 +102,21 @@ class AgentRuntime:
                                [call.to_dict() for call in calls], trace.to_dict())
             self._persist(result, task, messages, calls, len(calls))
             return result
+
+    async def resume(self, checkpoint_path: Path) -> RunResult:
+        """Resume a non-completed run from a persisted checkpoint."""
+        checkpoint = Checkpoint.load(checkpoint_path)
+        if checkpoint.status == "completed":
+            raise ValueError("cannot resume a completed checkpoint")
+        calls = [ToolExecution(
+            tool_name=item["tool_name"], arguments=item.get("arguments", {}),
+            result=item.get("result"), status=item.get("status", "success"),
+            error_type=item.get("error_type"), latency_s=float(item.get("latency_s", 0.0)),
+            cache_hit=bool(item.get("cache_hit", False)), duplicate=bool(item.get("duplicate", False)),
+        ) for item in checkpoint.tool_calls]
+        return await self.run(checkpoint.task, run_id=checkpoint.run_id,
+                              _messages=checkpoint.messages, _prior_calls=calls,
+                              _start_step=checkpoint.step)
 
     async def _execute_with_retry(self, name: str, arguments: dict[str, Any]) -> ToolExecution:
         execution = await self.tools.execute(name, arguments)

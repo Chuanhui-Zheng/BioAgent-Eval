@@ -2,6 +2,8 @@
 
 BioAgent-Eval is an evidence-grounded Scientific Agent Harness and automated Evaluation Platform for drug-discovery research workflows. It preserves the existing Scientific RAG, LLM providers and evaluation assets, and adds a reusable execution layer for tool calling, context handling, retries, checkpoints and structured traces.
 
+The first Harness implementation includes structured tool selection, Pydantic argument validation, async/sync execution, timeout/retry/cache handling, checkpoint persistence and resume, JSONL tracing, execution metrics, and a provider-neutral adapter for the existing OpenAI-compatible LLM provider.
+
 ## Scientific RAG foundation
 
 The active retrieval corpus has eight collections (159,607 passages): gene information, 2hrI genetic correlation, 2hrG common and rare gene associations, 2hrG LDSC partitioned heritability, 2hrG clumped variant associations, 2hrG WES gene associations, and GTEx RNA/protein expression. Seven come from the client's October 2026 `newdata` delivery; partitioned heritability comes from the earlier supplied files and is kept because the retrieval and end-to-end benchmarks (dev, test and blind) are labelled on all eight collections. The active collection list is in [`config/retrieval.yaml`](config/retrieval.yaml). 2hrFFA GWAS and nearest-gene files are not in the chat corpus.
@@ -39,6 +41,17 @@ PYTHONPATH=src python -m bioagent run \
 ```
 
 This deterministic offline adapter exercises the real approved corpus and tool execution path without claiming LLM answer quality. The retained API can be started with `python -m uvicorn server:app --host 127.0.0.1 --port 8000` for integrations and automated tests.
+
+Additional CLI commands are available for the execution lifecycle:
+
+```sh
+PYTHONPATH=src python -m bioagent trace --trace-path artifacts/traces/demo.jsonl
+PYTHONPATH=src python -m bioagent evaluate --dataset data/evaluation/integration_regression.jsonl --output artifacts/evaluation/agent.json
+PYTHONPATH=src python -m bioagent fault-test --scenario tool_timeout
+PYTHONPATH=src python -m bioagent report --input artifacts/traces/demo.jsonl --output artifacts/reports/demo.html
+```
+
+`compare` reports configuration differences only; performance claims still require running the same benchmark against both configurations.
 
 Hosted generation remains available for CLI/API integrations through the existing provider adapters. Install `requirements/llm.txt`, configure the provider through the existing request or environment settings, and keep credentials out of source control. Provider usage metadata is recorded when supplied; otherwise cost and token values remain explicitly unavailable or estimated.
 
