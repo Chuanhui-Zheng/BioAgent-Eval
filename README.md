@@ -1,90 +1,290 @@
-# BioAgent-Eval: Scientific Agent Harness & Evaluation Platform
+<p align="center">
+  <img
+    src="assets/dna-black.svg#gh-light-mode-only"
+    width="100"
+    alt="BioAgent-Eval Logo"
+  />
+  <img
+    src="assets/dna-white.svg#gh-dark-mode-only"
+    width="100"
+    alt="BioAgent-Eval Logo"
+  />
+</p>
 
-BioAgent-Eval is an evidence-grounded Scientific Agent Harness and automated Evaluation Platform for drug-discovery research workflows. It preserves the existing Scientific RAG, LLM providers and evaluation assets, and adds a reusable execution layer for tool calling, context handling, retries, checkpoints and structured traces.
+<h1 align="center">BioAgent-Eval</h1>
 
-The Harness includes structured tool selection, Pydantic argument validation, async/sync execution, timeout/retry/cache handling, durable SQLite idempotency for side-effecting tools, permission checks, tool-call budgets, checkpoint persistence and resume, evidence-aware context compression, JSONL tracing, execution metrics, and a provider-neutral adapter for the existing OpenAI-compatible LLM provider.
+<p align="center">
+  <strong>Scientific RAG × Agent Runtime × Reproducible Evaluation</strong><br>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/Agent_Harness-Tool_Execution-6f42c1" alt="Agent Harness">
+  <img src="https://img.shields.io/badge/Scientific_RAG-BM25%20%7C%20Hybrid-0a7" alt="Scientific RAG">
+  <img src="https://img.shields.io/badge/Tests-285%20passed-2ea44f" alt="Tests">
+</p>
+
+<p align="center">
+  A Python execution layer for reliable, traceable and measurable scientific agents.
+</p>
+
+
+BioAgent-Eval addresses a practical research workflow: scientists need to examine whether a candidate gene has evidence related to a disease or phenotype, but the evidence is distributed across heterogeneous collections and must remain traceable to its source. The project preserves the existing Scientific RAG foundation and adds a reusable Agent Harness that controls tool execution, state, recovery, observability and evaluation.
+
+This is not a chatbot-first project. The primary deliverable is an execution and evaluation platform for evidence-grounded scientific agents.
+
+## Why this project exists
+
+```text
+Research question
+      │
+      ▼
+Gene / phenotype / variant evidence is spread across multiple collections
+      │
+      ▼
+Retrieval must be relevant, citations must resolve, and model actions must be controlled
+      │
+      ▼
+BioAgent-Eval = Scientific RAG + Agent Harness + Evaluation Harness
+```
+
+Example workflow:
+
+```mermaid
+flowchart LR
+    Q[Research question\nAnalyse candidate-gene evidence] --> R[Scientific Retrieval]
+    R --> E[Evidence passages\nsource IDs and metadata]
+    E --> A[Agent Harness]
+    A --> T[Controlled tools\nvalidate • authorize • execute]
+    T --> C[Context and checkpoint]
+    C --> L[LLM decision]
+    L --> F[Evidence-grounded response]
+    F --> V[Evaluation\ncitations • tokens • latency • cost]
+```
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Domain[Scientific reference application]
+        DATA[Gene / association / heritability / expression data]
+        RAG[Scientific RAG\nchunking • BM25 • dense/hybrid adapters • citations]
+        DATA --> RAG
+    end
+
+    subgraph Harness[Reusable Agent Harness]
+        MODEL[Model Adapter]
+        LOOP[Bounded Runtime Loop]
+        REG[Tool Registry + Pydantic schemas]
+        EXEC[Tool Executor]
+        CTX[Context Budget + Evidence Ledger]
+        STATE[Checkpoint + SQLite idempotency]
+        OBS[JSONL tracing + usage metrics]
+        MODEL --> LOOP
+        LOOP --> CTX
+        LOOP --> REG
+        REG --> EXEC
+        EXEC --> STATE
+        LOOP --> OBS
+    end
+
+    RAG --> EXEC
+    EXEC --> MODEL
+
+    subgraph Eval[Evaluation Harness]
+        BENCH[Benchmarks]
+        QUALITY[Retrieval / citation / grounding]
+        EFF[Token / latency / cost / tool calls]
+        FAULT[Fault injection / recovery]
+        BENCH --> QUALITY
+        BENCH --> EFF
+        BENCH --> FAULT
+    end
+
+    OBS --> Eval
+    RAG --> Eval
+```
+
+## What the Harness contributes
+
+| Capability | Engineering value |
+|---|---|
+| Bounded Agent Runtime | Prevents unbounded loops with step, timeout and tool-call budgets |
+| Tool Registry / Executor | Gives every tool one validation, permission, timeout and error boundary |
+| Context Engineering | Limits context growth while preserving task state and evidence IDs |
+| Cache and deduplication | Reduces repeated external calls and makes execution measurable |
+| Durable idempotency | Replays completed side-effect results instead of invoking the handler twice |
+| Checkpoint recovery | Resumes interrupted read-heavy research tasks from persisted state |
+| Structured tracing | Makes every decision, tool call, error, latency and usage record auditable |
+| Evaluation Harness | Tests answer quality, trajectory quality, efficiency and recovery separately |
 
 ## Scientific RAG foundation
 
-The active retrieval corpus has eight collections (159,607 passages): gene information, 2hrI genetic correlation, 2hrG common and rare gene associations, 2hrG LDSC partitioned heritability, 2hrG clumped variant associations, 2hrG WES gene associations, and GTEx RNA/protein expression. Seven come from the client's October 2026 `newdata` delivery; partitioned heritability comes from the earlier supplied files and is kept because the retrieval and end-to-end benchmarks (dev, test and blind) are labelled on all eight collections. The active collection list is in [`config/retrieval.yaml`](config/retrieval.yaml). 2hrFFA GWAS and nearest-gene files are not in the chat corpus.
+The active corpus contains **159,607 passages across 8 collections**, covering gene information, genetic correlation, common and rare gene associations, partitioned heritability, clumped variant associations, WES gene associations and GTEx tissue expression.
 
-The source files needed for the scientific retrieval tools are included under `data/raw/` in the repository. You do not need to separately download or merge the client's ZIPs. A downloaded source ZIP does not contain the generated BM25 index; the first-time setup below builds it from the included sources. Authorized collection selection demonstrates retrieval isolation; it is not user authentication.
+The scientific workflow is evidence-first:
 
-## CLI quick start
-
-Prerequisites: Python 3.10+. Install the Python dependencies with `python -m pip install -r requirements/dev.txt`. Retrieval indexes and corpus preparation remain available through the existing scripts.
-
-### 1. Prepare the backend
-
-macOS/Linux:
-
-```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements/api.txt transformers huggingface-hub
-python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-Embedding-0.6B', allow_patterns=['*.json', '*.txt', '*.model'])"
-python scripts/prepare_api_corpus.py
-python scripts/build_bm25_index.py
+```mermaid
+graph LR
+    G[Candidate gene] --> A[Association evidence]
+    G --> X[Expression evidence]
+    G --> H[Heritability / genetic evidence]
+    A --> S[Source metadata]
+    X --> S
+    H --> S
+    S --> C[Claim-linked citation]
+    C --> O[Qualified answer or evidence-based refusal]
 ```
 
-Windows PowerShell: create and activate the environment with `python -m venv .venv` and `.\.venv\Scripts\Activate.ps1`, then run the `python` commands above. Stop if preparation reports an error; a partial index cannot safely serve the chat. Tokenizer download does not fetch the model weights. Rebuild only if source files or processing rules change.
+The system does not claim that a retrieved association proves a clinically effective drug target. It supports early-stage evidence review, candidate prioritisation and hypothesis generation with explicit sources and limitations.
 
-### 2. Run the Agent Harness
+## Verified results
 
-From the project root:
+### Scientific (offline) RAG regression
 
-```sh
+- 100 end-to-end queries;
+- 99% status accuracy;
+- 96.67% TargetHit@10 on answerable queries;
+- 100% citation correctness;
+- 100% citation completeness;
+- 100% unanswerable-refusal accuracy.
+
+These are deterministic regression results, not production-level scientific correctness guarantees.
+
+### Agent Harness infrastructure benchmark
+
+100 deterministic tasks comparing baseline and optimized execution:
+
+| Metric | Baseline | Optimized | Change |
+|---|---:|---:|---:|
+| Estimated tokens/task | 3,226.69 | 2,277.62 | **−29.41%** |
+| Mean latency | 0.386s | 0.199s | **−48.55%** |
+| External tool calls/task | 2.0 | 1.0 | **−50%** |
+| Completion rate | 100% | 100% | preserved |
+
+The benchmark uses a deterministic fixture model, so these numbers measure Harness execution overhead rather than hosted-model scientific quality.
+
+### Hosted scientific evaluation
+
+An OpenRouter `openai/gpt-4o-mini` run over 16 annotated regression tasks achieved:
+
+- Citation Precision: **100%**;
+- Citation Recall: **92.75%**;
+- Deterministic Claim-Grounding Check: **100%**;
+- Status accuracy: **100%**;
+- Fallback rate: **0%**;
+- Mean latency: **4.88s**;
+- Mean tokens/task: **2,533.62**;
+- Estimated total cost: **US$0.00631**.
+
+The grounding score is a deterministic evidence-consistency check, not a claim that scientific reasoning is 100% correct. The hosted set is a small annotated regression set, not a production-scale benchmark.
+
+### Reliability and test quality
+
+- Controlled fault injection recovered **1/1** transient tool failures;
+- **285 tests passed**;
+- **55 subtests passed**;
+- Static JSON, JSONL, CSV and HTML evaluation outputs are supported.
+
+## CLI demo
+
+### Offline evidence-grounded run
+
+```bash
 PYTHONPATH=src python -m bioagent run \
   --query "Analyse TCF7L2 and 2-hour glucose evidence" \
   --trace-path artifacts/traces/demo.jsonl \
   --checkpoint-dir artifacts/checkpoints
 ```
 
-This deterministic offline adapter exercises the real approved corpus and tool execution path without claiming LLM answer quality. The retained API can be started with `python -m uvicorn server:app --host 127.0.0.1 --port 8000` for integrations and automated tests.
+### Hosted model run
 
-Additional CLI commands are available for the execution lifecycle:
+Create a local `.env` file and keep it out of version control:
 
-```sh
-PYTHONPATH=src python -m bioagent trace --trace-path artifacts/traces/demo.jsonl
-PYTHONPATH=src python -m bioagent evaluate --dataset data/evaluation/integration_regression.jsonl --output artifacts/evaluation/agent.json
-PYTHONPATH=src python -m bioagent fault-test --scenario tool_timeout
-PYTHONPATH=src python -m bioagent report --input artifacts/traces/demo.jsonl --output artifacts/reports/demo.html
+```dotenv
+LLM_PROVIDER=openrouter
+LLM_API_KEY=your_key_here
+LLM_MODEL=openai/gpt-4o-mini
 ```
 
-`compare` reports configuration differences only; performance claims still require running the same benchmark against both configurations.
+Then run:
 
-Hosted generation remains available for CLI/API integrations through the existing provider adapters. Install `requirements/llm.txt`, configure the provider through the existing request or environment settings, and keep credentials out of source control. Provider usage metadata is recorded when supplied; otherwise cost and token values remain explicitly unavailable or estimated.
+```bash
+PYTHONPATH=src python -m bioagent run \
+  --hosted \
+  --llm-provider openrouter \
+  --model openai/gpt-4o-mini \
+  --query "Analyse BRCA1 and breast cancer evidence"
+```
 
-Provider payloads, failures, fallback and credential isolation have automated fixture tests; actual key validity, billing and model availability must be checked with your own account. Citation and numeric validation do not prove that a scientific interpretation is correct; verify claims against source passages.
+### Inspect, evaluate and fault-test
 
-## Tests and advanced work
+```bash
+PYTHONPATH=src python -m bioagent trace \
+  --trace-path artifacts/traces/demo.jsonl
 
-```sh
+PYTHONPATH=src python -m bioagent evaluate \
+  --dataset data/evaluation/integration_regression.jsonl \
+  --output artifacts/evaluation/agent.json
+
+PYTHONPATH=src python -m bioagent fault-test \
+  --scenario tool_timeout
+
+python scripts/evaluate_agent_harness.py
+```
+
+## Installation and corpus preparation
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements/api.txt
+python -m pip install transformers huggingface-hub
+python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-Embedding-0.6B', allow_patterns=['*.json', '*.txt', '*.model'])"
+python scripts/prepare_api_corpus.py
+python scripts/build_bm25_index.py
+```
+
+Run the complete regression suite with:
+
+```bash
 python -m pytest -q
 ```
 
-The repository retains research/evaluation scripts, benchmark questions and structured-analysis code for development. Keyword (BM25) retrieval is the default chat mode, selected on development questions only; see [Retrieval tuning](reports/phase_5_retrieval_tuning/README.md). Set `RAG_RETRIEVAL_METHOD` to `bm25_rerank` (BAAI/bge-reranker-base cross-encoder, tuned settings in `config/retrieval.yaml`), `dense`, `hybrid` or `hybrid_rerank` to try the alternatives; dense/hybrid need `requirements/embed.txt` and an index from `python scripts/build_dense_index.py --resume`, and missing components fall back to BM25 (reported by `/api/health` under `retrieval`). The API is documented at <http://127.0.0.1:8000/docs>.
+## Repository map
 
-For Docker, run `docker compose up --build`; its first API launch prepares the corpus and index. Docker startup has not been verified on every platform.
+```text
+src/bioagent/       reusable Agent Harness runtime
+src/retrieval/      corpus, routing and retrieval backends
+src/chunking/       scientific data chunking and normalization
+src/rag/            retrieval-to-answer pipeline
+src/generation/    offline and OpenAI-compatible model providers
+scripts/            corpus, benchmark and report runners
+data/evaluation/    annotated, blind and retrieval benchmark datasets
+artifacts/          generated indexes, traces and evaluation outputs
+docs/project/       audit, limitations, roadmap and resume material
+tests/              unit, integration, provider and Harness tests
+```
 
-## Quality evaluation
+## Reports and documentation
 
-### Verified BioAgent-Eval results
+- [Agent Harness benchmark report](artifacts/evaluation/agent_harness_v1/report.html)
+- [Hosted OpenRouter evaluation](artifacts/evaluation/hosted_openrouter.json)
+- [Evaluation methodology and limitations](docs/project/BIOAGENT_EVAL_GAPS_AND_NEXT_STEPS.md)
+- [Repository audit](docs/project/BIOAGENT_REPOSITORY_AUDIT.md)
+- [Resume-ready project description](docs/project/BIOAGENT_RESUME_CONTENT.md)
 
-- Existing RAG regression: 100 queries, 99% status accuracy, 96.67% TargetHit@10, 100% citation correctness and 100% citation completeness.
-- Agent Harness infrastructure benchmark: 100 deterministic tasks. The optimized configuration reduced estimated fixture-model tokens/task from 3,226.69 to 2,277.62 (**29.41%**), mean latency from 0.386s to 0.199s (**48.55%**), and external tool executions/task from 2.0 to 1.0 (**50%**); completion remained 100%.
-- Fault injection smoke test: **1/1** transient tool failures recovered.
-- Hosted OpenRouter integration run: **16** annotated tasks, 0% fallback, 100% status accuracy, 100% citation precision, 92.75% citation recall, 100% claim grounding, 4.88s mean latency, 2,533.62 mean tokens/task and **US$0.00631 estimated total cost**. This is a small regression set, not a statistically conclusive production benchmark.
+## Scope and limitations
 
-The full methodology, limitations and interview-readiness gap list are in [`docs/project/BIOAGENT_EVAL_GAPS_AND_NEXT_STEPS.md`](docs/project/BIOAGENT_EVAL_GAPS_AND_NEXT_STEPS.md). Resume-ready wording is in [`docs/project/BIOAGENT_RESUME_CONTENT.md`](docs/project/BIOAGENT_RESUME_CONTENT.md).
+BioAgent-Eval is a portfolio-grade and research-oriented Agent Infrastructure Platform. It is designed for evidence-grounded, read-heavy scientific workflows. It is not presented as an autonomous clinical decision system or as proof that a gene is an effective therapeutic target.
 
-- **Frozen blind benchmark:** `data/evaluation/blind/blind_e2e_v1.jsonl` (40 questions, SHA-256 in its manifest; never used for tuning). Run `python scripts/evaluate_blind.py --label offline`. For a hosted model put `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL` (and `LLM_BASE_URL` for `custom`) in `.env`, then add `--llm-provider custom --limit 25 --judge-provider custom --judge-model <model>`. Reports, an LLM support-judge summary and a human review sheet are written to `reports/blind_v1/<label>/`; score them with [the rubric](reports/blind_v1/HUMAN_REVIEW_RUBRIC.md).
-- **Metrics:** status/refusal accuracy, gold-citation precision and recall, required facts and exact numbers, claim grounding (every number and identifier in a claim must appear in its cited passage), optional LLM-judge support labels, fallback rate, latency and cost.
-- **Retrieval tuning:** `python scripts/tune_retrieval.py --no-dense` (development sets only; refuses test/blind files) and `python scripts/evaluate_retrieval_methods.py --no-dense` (frozen test sets).
+Important limitations:
 
-## Troubleshooting
+- the 100-task Harness comparison uses a deterministic fixture model;
+- the hosted evaluation contains 16 annotated tasks;
+- semantic entailment and independent human citation review remain separate from deterministic grounding checks;
+- production deployment would still require enterprise authentication, multi-tenant authorization, OpenTelemetry infrastructure, queueing, rate limits and broader red-team evaluation.
 
-- If port 8000 is occupied, choose another port for Uvicorn and use that port for API clients.
-- If the backend reports a manifest or index mismatch, rerun `prepare_api_corpus.py` and `build_bm25_index.py` in that order from this source directory.
-- If the tokenizer download fails, check internet access and rerun it before preparation.
-- If the API reports an unavailable backend or retrieval index, keep the API process running and inspect its error output.
+## License and data use
+
+Check the repository's data provenance and licensing records before redistributing source data or generated indexes. Do not commit API keys, private research data or unapproved customer information.
