@@ -21,7 +21,7 @@
   <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/Agent_Harness-Tool_Execution-6f42c1" alt="Agent Harness">
   <img src="https://img.shields.io/badge/Scientific_RAG-BM25%20%7C%20Hybrid-0a7" alt="Scientific RAG">
-  <img src="https://img.shields.io/badge/Tests-285%20passed-2ea44f" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-282%20passed-2ea44f" alt="Tests">
 </p>
 
 <p align="center">
@@ -182,15 +182,20 @@ The grounding score is a deterministic evidence-consistency check, not a claim t
 ### Reliability and test quality
 
 - Controlled fault injection recovered **1/1** transient tool failures;
-- **285 tests passed**;
+- **282 tests passed**;
 - **55 subtests passed**;
+- 3 raw-fixture tests are skipped when the private data root is not mounted;
 - Static JSON, JSONL, CSV and HTML evaluation outputs are supported.
 
 ## CLI demo
 
 ### Offline evidence-grounded run
 
+After configuring `BIOAGENT_DATA_ROOT` in the private-data section above:
+
 ```bash
+export BIOAGENT_DATA_ROOT=/Users/your-user/Desktop/BioAgent/private_data
+
 PYTHONPATH=src python -m bioagent run \
   --query "Analyse TCF7L2 and 2-hour glucose evidence" \
   --trace-path artifacts/traces/demo.jsonl \
@@ -235,11 +240,39 @@ python scripts/evaluate_agent_harness.py
 
 ## Installation and corpus preparation
 
+### Private client-data mode
+
+The repository does not require client raw files to be stored inside the public project. For an authorized local deployment, keep the private data and generated retrieval artifacts outside the repository:
+
+```text
+/Users/your-user/Desktop/BioAgent/private_data/
+├── data/raw/          # private source files
+└── artifacts/         # private chunks, manifests and indexes
+```
+
+Point the runtime at that directory before building or querying:
+
+```bash
+export BIOAGENT_DATA_ROOT=/Users/your-user/Desktop/BioAgent/private_data
+```
+
+Then rebuild the private corpus and index:
+
+```bash
+PYTHONPATH=src python scripts/prepare_api_corpus.py
+PYTHONPATH=src python scripts/build_bm25_index.py
+PYTHONPATH=src python -m bioagent run \
+  --query "Analyse BRCA1 and breast cancer evidence"
+```
+
+`BIOAGENT_DATA_ROOT` changes the data and artifact root only. The Python source, chunk schema, citation validation, Agent Harness and Evaluation Harness remain unchanged. Processed chunks and indexes may still contain derived client content, so they should remain private unless redistribution is explicitly approved.
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements/api.txt
 python -m pip install transformers huggingface-hub
+export BIOAGENT_DATA_ROOT=/Users/your-user/Desktop/BioAgent/private_data
 python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-Embedding-0.6B', allow_patterns=['*.json', '*.txt', '*.model'])"
 python scripts/prepare_api_corpus.py
 python scripts/build_bm25_index.py

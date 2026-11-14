@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import os
 import statistics
 from collections import defaultdict
 from pathlib import Path
@@ -11,12 +12,13 @@ from chunking.utils import file_sha256
 VERSION = "gtex-2.0"
 
 def build_gtex(root: Path) -> dict:
-    raw = root / "data/raw/gtx_tissue_expression"
+    data_root = Path(os.environ.get("BIOAGENT_DATA_ROOT", str(root))).resolve()
+    raw = data_root / "data/raw/gtx_tissue_expression"
     paths = {"rna": raw / "ALL_GENES_GTEx_RNAseq.csv", "protein": raw / "ALL_GENES_GTEx_Proteomics.csv"}
     for path in paths.values():
         if not path.is_file():
             raise FileNotFoundError(f"Required GTEx source missing: {path}")
-    sources = {kind: {"source_file": str(path.relative_to(root)), "source_sha256": file_sha256(path)} for kind, path in paths.items()}
+    sources = {kind: {"source_file": str(path.relative_to(data_root)), "source_sha256": file_sha256(path)} for kind, path in paths.items()}
     rna = defaultdict(list)
     proteins = defaultdict(lambda: defaultdict(list))
     rejected = 0
@@ -44,7 +46,7 @@ def build_gtex(root: Path) -> dict:
                 rejected += 1
                 continue
             proteins[row["gene"].strip().upper()][row["tissue"]].append((value, rowno))
-    output = root / "artifacts/chunks/gtex_tissue_expression.chunks.jsonl"
+    output = data_root / "artifacts/chunks/gtex_tissue_expression.chunks.jsonl"
     output.parent.mkdir(parents=True, exist_ok=True)
     count = 0
     temporary = output.with_suffix(".tmp")
@@ -76,19 +78,20 @@ def build_gtex(root: Path) -> dict:
             count += 1
     temporary.replace(output)
     report = {"version": VERSION, "collection": "gtex_tissue_expression", "status": "passed", "sources": sources,
-              "output": {"path": str(output.relative_to(root)), "chunks": count, "sha256": file_sha256(output)}, "rejected_values": rejected}
-    report_path = root / "artifacts/ingestion_dev/gtex/manifest.json"
+              "output": {"path": str(output.relative_to(data_root)), "chunks": count, "sha256": file_sha256(output)}, "rejected_values": rejected}
+    report_path = data_root / "artifacts/ingestion_dev/gtex/manifest.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2) + "\n")
     return report
 
 def validate_gtex(root: Path, path: Path) -> dict:
-    report = json.loads((root / "artifacts/ingestion_dev/gtex/manifest.json").read_text())
+    data_root = Path(os.environ.get("BIOAGENT_DATA_ROOT", str(root))).resolve()
+    report = json.loads((data_root / "artifacts/ingestion_dev/gtex/manifest.json").read_text())
     if report.get("version") != VERSION or report.get("status") != "passed":
         raise ValueError("GTEx build is outdated or failed; rebuild required")
-    if (root / report["output"]["path"]).resolve() != path.resolve() or file_sha256(path) != report["output"]["sha256"]:
+    if (data_root / report["output"]["path"]).resolve() != path.resolve() or file_sha256(path) != report["output"]["sha256"]:
         raise ValueError("GTEx output path/hash mismatch")
     for source in report["sources"].values():
-        if file_sha256(root / source["source_file"]) != source["source_sha256"]:
+        if file_sha256(data_root / source["source_file"]) != source["source_sha256"]:
             raise ValueError("GTEx source changed; rebuild required")
     return report

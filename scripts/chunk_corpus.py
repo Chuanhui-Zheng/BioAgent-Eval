@@ -200,7 +200,9 @@ def main() -> int:
                 "sha256": file_sha256(paths.gene_association_rare_2hrg_file),
                 "raw_rows": gassoc_rare_raw_rows,
             },
-            "paths_config": paths.config_file.relative_to(paths.project_root).as_posix(),
+                # The config remains public in the repository; data and artifacts
+                # may live under BIOAGENT_DATA_ROOT.
+                "paths_config": paths.config_file.relative_to(PROJECT_ROOT).as_posix(),
         },
         outputs={
             "gene_info.chunks.jsonl": {

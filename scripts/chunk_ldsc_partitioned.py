@@ -4,6 +4,7 @@ import argparse
 from collections import Counter
 from datetime import datetime, timezone
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -75,19 +76,22 @@ def build_collection(
         raise ValueError("limit must be a nonnegative integer")
     if collection not in ("ldsc_partitioned_heritability", CLUMPED_COLLECTION, WES_COLLECTION):
         raise ValueError("Unsupported evidence collection")
-    root = project_root.resolve()
+    project_config_root = project_root.resolve()
+    root = Path(os.environ.get("BIOAGENT_DATA_ROOT", str(project_config_root))).resolve()
     config_file = config_file.resolve()
     config = yaml.safe_load(config_file.read_text(encoding="utf-8"))
-    paths = {k: (root / config[k]).resolve()
-             for k in ("raw_file", "glossary_file", "retrieval_config", "output_dir")}
+    paths = {
+        key: ((root if key in {"raw_file", "output_dir"} else project_config_root) / config[key]).resolve()
+        for key in ("raw_file", "glossary_file", "retrieval_config", "output_dir")
+    }
     output_dir = paths["output_dir"]
     output_name = {CLUMPED_COLLECTION: CLUMPED_OUTPUT, WES_COLLECTION: WES_OUTPUT}.get(collection, "ldsc_partitioned_2hrG.chunks.jsonl")
     final_chunks = output_dir / output_name
     paths_config = None
     canonical_inputs: set[Path] = set()
     if paths_config_file is not None or config.get("paths_config"):
-        paths_config = (paths_config_file or root / config["paths_config"]).resolve()
-        canonical = load_paths(root, paths_config)
+        paths_config = (paths_config_file or project_config_root / config["paths_config"]).resolve()
+        canonical = load_paths(project_config_root, paths_config)
         if (canonical.project_root != root or not canonical.chunks_dir.is_relative_to(root)
                 or canonical.chunks_dir != (root / "artifacts/chunks").resolve()):
             raise ValueError("Canonical chunks_dir must be artifacts/chunks under project_root")

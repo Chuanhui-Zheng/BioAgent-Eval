@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime, timezone
 from dataclasses import replace
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -24,9 +25,10 @@ ADDITIONS = {
 
 def prepare_manifest(config_file: Path, *, project_root: Path = PROJECT_ROOT) -> dict:
     """Prepare a hash-checked expanded corpus manifest, not indexes."""
-    root = project_root.resolve()
-    baseline_config = load_retrieval_config(root)
-    expanded = load_retrieval_config(root, config_file)
+    config_root = project_root.resolve()
+    root = Path(os.environ.get("BIOAGENT_DATA_ROOT", str(config_root))).resolve()
+    baseline_config = load_retrieval_config(config_root)
+    expanded = load_retrieval_config(config_root, config_file)
     # The active primary config may already select the expanded corpus. Read the
     # immutable baseline from its manifest instead of treating active sources as baseline.
     baseline_reference = expanded.raw.get("baseline_manifest") or baseline_config.raw.get("baseline_manifest")
@@ -56,8 +58,15 @@ def prepare_manifest(config_file: Path, *, project_root: Path = PROJECT_ROOT) ->
     paths_config = None
     canonical_destination = None
     if expanded.raw.get("paths_config"):
-        paths_config = (root / expanded.raw["paths_config"]).resolve()
-        registered = load_paths(root, paths_config)
+        configured_paths = Path(expanded.raw["paths_config"])
+        if configured_paths.is_absolute():
+            paths_config = configured_paths.resolve()
+        else:
+            candidate = (root / configured_paths).resolve()
+            paths_config = candidate if candidate.exists() else (
+                config_root / configured_paths
+            ).resolve()
+            registered = load_paths(config_root, paths_config)
         canonical_destination = registered.partitioned_manifest_file
         if (registered.project_root != root or not registered.chunks_dir.is_relative_to(root)
                 or registered.chunks_dir != (root / "artifacts/chunks").resolve()):
