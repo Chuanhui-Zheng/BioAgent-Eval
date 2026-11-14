@@ -138,6 +138,9 @@ def evaluate_annotated(pipeline, text: str, judge=None) -> dict:
         "gold_retrieval_hit_rate": sum(r["gold_retrieval_hit"] for r in rows if r["gold_retrieval_hit"] is not None) / max(1, sum(r["gold_retrieval_hit"] is not None for r in rows)),
         "fallback_rate": sum(r["fallback_used"] for r in rows) / len(rows),
         "mean_latency_s": sum(r["latency_s"] for r in rows) / len(rows),
+        "mean_input_tokens": _mean_usage(rows, "input_tokens"),
+        "mean_output_tokens": _mean_usage(rows, "output_tokens"),
+        "mean_total_tokens": _mean_usage(rows, "total_tokens"),
         "cost": {
             "estimated_usd": sum(r["usage"]["estimated_cost_usd"] for r in rows)
                 if all(r["usage"].get("estimated_cost_usd") is not None for r in rows) else None,
@@ -169,6 +172,20 @@ def evaluate_annotated(pipeline, text: str, judge=None) -> dict:
 
 def _ratio(numerator, denominator):
     return numerator / denominator if denominator else None
+
+
+def _mean_usage(rows, field):
+    values = []
+    for row in rows:
+        usage = row["usage"]
+        value = usage.get(field)
+        if field == "total_tokens" and value is None:
+            input_tokens, output_tokens = usage.get("input_tokens"), usage.get("output_tokens")
+            if isinstance(input_tokens, (int, float)) and isinstance(output_tokens, (int, float)):
+                value = input_tokens + output_tokens
+        if isinstance(value, (int, float)):
+            values.append(value)
+    return sum(values) / len(values) if values else None
 
 
 def _judge_summary(rows, judge):

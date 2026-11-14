@@ -2,7 +2,7 @@
 
 BioAgent-Eval is an evidence-grounded Scientific Agent Harness and automated Evaluation Platform for drug-discovery research workflows. It preserves the existing Scientific RAG, LLM providers and evaluation assets, and adds a reusable execution layer for tool calling, context handling, retries, checkpoints and structured traces.
 
-The first Harness implementation includes structured tool selection, Pydantic argument validation, async/sync execution, timeout/retry/cache handling, checkpoint persistence and resume, JSONL tracing, execution metrics, and a provider-neutral adapter for the existing OpenAI-compatible LLM provider.
+The Harness includes structured tool selection, Pydantic argument validation, async/sync execution, timeout/retry/cache handling, durable SQLite idempotency for side-effecting tools, permission checks, tool-call budgets, checkpoint persistence and resume, evidence-aware context compression, JSONL tracing, execution metrics, and a provider-neutral adapter for the existing OpenAI-compatible LLM provider.
 
 ## Scientific RAG foundation
 
@@ -68,6 +68,15 @@ The repository retains research/evaluation scripts, benchmark questions and stru
 For Docker, run `docker compose up --build`; its first API launch prepares the corpus and index. Docker startup has not been verified on every platform.
 
 ## Quality evaluation
+
+### Verified BioAgent-Eval results
+
+- Existing RAG regression: 100 queries, 99% status accuracy, 96.67% TargetHit@10, 100% citation correctness and 100% citation completeness.
+- Agent Harness infrastructure benchmark: 100 deterministic tasks. The optimized configuration reduced estimated fixture-model tokens/task from 3,226.69 to 2,277.62 (**29.41%**), mean latency from 0.386s to 0.199s (**48.55%**), and external tool executions/task from 2.0 to 1.0 (**50%**); completion remained 100%.
+- Fault injection smoke test: **1/1** transient tool failures recovered.
+- Hosted OpenRouter integration run: **16** annotated tasks, 0% fallback, 100% status accuracy, 100% citation precision, 92.75% citation recall, 100% claim grounding, 4.88s mean latency, 2,533.62 mean tokens/task and **US$0.00631 estimated total cost**. This is a small regression set, not a statistically conclusive production benchmark.
+
+The full methodology, limitations and interview-readiness gap list are in [`docs/project/BIOAGENT_EVAL_GAPS_AND_NEXT_STEPS.md`](docs/project/BIOAGENT_EVAL_GAPS_AND_NEXT_STEPS.md). Resume-ready wording is in [`docs/project/BIOAGENT_RESUME_CONTENT.md`](docs/project/BIOAGENT_RESUME_CONTENT.md).
 
 - **Frozen blind benchmark:** `data/evaluation/blind/blind_e2e_v1.jsonl` (40 questions, SHA-256 in its manifest; never used for tuning). Run `python scripts/evaluate_blind.py --label offline`. For a hosted model put `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL` (and `LLM_BASE_URL` for `custom`) in `.env`, then add `--llm-provider custom --limit 25 --judge-provider custom --judge-model <model>`. Reports, an LLM support-judge summary and a human review sheet are written to `reports/blind_v1/<label>/`; score them with [the rubric](reports/blind_v1/HUMAN_REVIEW_RUBRIC.md).
 - **Metrics:** status/refusal accuracy, gold-citation precision and recall, required facts and exact numbers, claim grounding (every number and identifier in a claim must appear in its cited passage), optional LLM-judge support labels, fallback rate, latency and cost.

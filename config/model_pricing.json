@@ -1,1 +1,9 @@
-{}
+{
+  "openai/gpt-4o-mini": {
+    "input_usd_per_million": 0.15,
+    "output_usd_per_million": 0.6,
+    "checked_at": "2026-11-13",
+    "source": "https://openrouter.ai/openai/gpt-4o-mini",
+    "note": "OpenRouter listed rate; actual billed cost can vary with provider routing, caching, discounts, and account terms."
+  }
+}

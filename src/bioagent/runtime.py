@@ -23,6 +23,7 @@ class RuntimeConfig:
     checkpoint_dir: str | None = None
     trace_path: str | None = None
     max_context_tokens: int = 6000
+    max_tool_calls: int = 16
 
 
 @dataclass
@@ -73,8 +74,19 @@ class AgentRuntime:
                 if not decision.tool_name:
                     trace.final_status = "failed"
                     return RunResult(run_id, "failed", "Model selected no tool.", step, [], trace.to_dict())
+                if len(calls) >= self.config.max_tool_calls:
+                    trace.final_status = "tool_budget_exceeded"
+                    trace.usage = usage.to_dict()
+                    result = RunResult(run_id, "tool_budget_exceeded",
+                                       "Agent reached the maximum tool-call budget.", step,
+                                       [call.to_dict() for call in calls], trace.to_dict())
+                    self._persist(result, task, messages, calls, step)
+                    return result
                 call_key = self.tools.cache_key(decision.tool_name, decision.tool_arguments)
-                execution = await self._execute_with_retry(decision.tool_name, decision.tool_arguments)
+                execution = await self._execute_with_retry(
+                    decision.tool_name, decision.tool_arguments,
+                    idempotency_key=f"{run_id}:{step}:{call_key}",
+                )
                 execution.duplicate = call_key in seen_calls
                 seen_calls.add(call_key)
                 calls.append(execution)
@@ -113,19 +125,20 @@ class AgentRuntime:
             result=item.get("result"), status=item.get("status", "success"),
             error_type=item.get("error_type"), latency_s=float(item.get("latency_s", 0.0)),
             cache_hit=bool(item.get("cache_hit", False)), duplicate=bool(item.get("duplicate", False)),
+            idempotency_replay=bool(item.get("idempotency_replay", False)),
         ) for item in checkpoint.tool_calls]
         return await self.run(checkpoint.task, run_id=checkpoint.run_id,
                               _messages=checkpoint.messages, _prior_calls=calls,
                               _start_step=checkpoint.step)
 
-    async def _execute_with_retry(self, name: str, arguments: dict[str, Any]) -> ToolExecution:
-        execution = await self.tools.execute(name, arguments)
+    async def _execute_with_retry(self, name: str, arguments: dict[str, Any], *, idempotency_key: str) -> ToolExecution:
+        execution = await self.tools.execute(name, arguments, idempotency_key=idempotency_key)
         attempts = 1
         while execution.status == "error" and self.config.retry.retryable(execution.error_type) \
                 and attempts < self.config.retry.max_attempts:
             await asyncio.sleep(min(self.config.retry.max_delay_s,
                                     self.config.retry.base_delay_s * (2 ** (attempts - 1))))
-            execution = await self.tools.execute(name, arguments)
+            execution = await self.tools.execute(name, arguments, idempotency_key=idempotency_key)
             attempts += 1
         return execution
 

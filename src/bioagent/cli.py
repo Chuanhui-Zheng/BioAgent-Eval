@@ -81,6 +81,10 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--query", required=True)
     run.add_argument("--trace-path")
     run.add_argument("--checkpoint-dir")
+    run.add_argument("--hosted", action="store_true", help="Use the configured OpenAI-compatible provider")
+    run.add_argument("--llm-provider", default=None)
+    run.add_argument("--model", default=None)
+    run.add_argument("--base-url", default=None)
     trace = sub.add_parser("trace", help="Inspect a JSONL execution trace")
     trace.add_argument("--trace-path", required=True, type=Path)
     trace.add_argument("--run-id")
@@ -178,7 +182,24 @@ def main(argv: list[str] | None = None) -> int:
         registry = ToolRegistry()
         registry.register(Tool("retrieve_evidence", "Retrieve approved scientific evidence.", EvidenceArgs,
                                _rag_tool(), cache_ttl_s=60.0))
-        runtime = AgentRuntime(DemoModel(), ToolExecutor(registry), RuntimeConfig(
+        model: Any = DemoModel()
+        if args.hosted:
+            try:
+                try:
+                    from dotenv import load_dotenv
+                    load_dotenv()
+                except ModuleNotFoundError:
+                    pass
+                from generation.llm_provider import build_llm_generator
+                from bioagent.llm_adapter import StructuredToolModelAdapter
+
+                provider = build_llm_generator(provider=args.llm_provider, model=args.model,
+                                               base_url=args.base_url)
+                model = StructuredToolModelAdapter(provider)
+            except (ValueError, TypeError) as exc:
+                print(f"Hosted model configuration error: {exc}. Set LLM_PROVIDER and LLM_API_KEY.", flush=True)
+                return 2
+        runtime = AgentRuntime(model, ToolExecutor(registry), RuntimeConfig(
             trace_path=args.trace_path, checkpoint_dir=args.checkpoint_dir))
         result = asyncio.run(runtime.run(args.query))
         print(json.dumps({"run_id": result.run_id, "status": result.status,

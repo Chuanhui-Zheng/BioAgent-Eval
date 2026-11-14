@@ -26,7 +26,10 @@ class ContextManager:
         first = messages[:1]
         latest = messages[-1:] if len(messages) > 1 else []
         omitted = messages[1:-1] if len(messages) > 2 else []
+        ledger = self._evidence_ledger(messages)
         summary = " ".join(str(item.get("content", ""))[:400] for item in omitted)
+        if ledger:
+            summary = f"Evidence ledger: {json.dumps(ledger, ensure_ascii=False)} {summary}"
         compressed = [*first, {"role": "context_summary", "content": summary[: self.max_tokens * self.chars_per_token]}, *latest]
         while self.estimate_tokens(compressed) > self.max_tokens:
             if len(summary) > 200:
@@ -43,4 +46,26 @@ class ContextManager:
             "estimated_tokens": self.estimate_tokens(compressed),
             "compressed": True,
             "estimated": True,
+            "preserved_evidence_ids": [item["id"] for item in ledger],
         }
+
+    @staticmethod
+    def _evidence_ledger(messages: list[dict[str, Any]]) -> list[dict[str, str]]:
+        ledger: list[dict[str, str]] = []
+        seen: set[str] = set()
+        for message in messages:
+            content = message.get("content")
+            if not isinstance(content, dict):
+                continue
+            passages = content.get("passages", [])
+            if not isinstance(passages, list):
+                continue
+            for passage in passages:
+                if not isinstance(passage, dict):
+                    continue
+                identifier = passage.get("chunk_id") or passage.get("source_id") or passage.get("id")
+                if not identifier or str(identifier) in seen:
+                    continue
+                seen.add(str(identifier))
+                ledger.append({"id": str(identifier), "title": str(passage.get("title", ""))[:160]})
+        return ledger[:64]
