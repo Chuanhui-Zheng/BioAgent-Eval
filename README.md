@@ -35,32 +35,54 @@ This is not a chatbot-first project. The primary deliverable is an execution and
 
 ## Why this project exists
 
-```text
-Research question
-      │
-      ▼
-Gene / phenotype / variant evidence is spread across multiple collections
-      │
-      ▼
-Retrieval must be relevant, citations must resolve, and model actions must be controlled
-      │
-      ▼
-BioAgent-Eval = Scientific RAG + Agent Harness + Evaluation Harness
-```
+<div align="center">
+<pre>
+┌──────────────────────────────────────────────┐
+│              Research question               │
+└──────────────────────────────────────────────┘
+↓
+┌──────────────────────────────────────────────┐
+│     Gene / phenotype / variant evidence       │
+│          across multiple collections          │
+└──────────────────────────────────────────────┘
+↓
+┌──────────────────────────────────────────────┐
+│        Retrieval must be relevant             │
+│    citations must resolve; actions controlled │
+└──────────────────────────────────────────────┘
+↓
+┌──────────────────────────────────────────────┐
+│       BioAgent-Eval = Scientific RAG         │
+│         Harness + Evaluation Harness         │
+└──────────────────────────────────────────────┘
+</pre>
+</div>
 
 Example workflow:
 
-```mermaid
-flowchart LR
-    Q[Research question\nAnalyse candidate-gene evidence] --> R[Scientific Retrieval]
-    R --> E[Evidence passages\nsource IDs and metadata]
-    E --> A[Agent Harness]
-    A --> T[Controlled tools\nvalidate • authorize • execute]
-    T --> C[Context and checkpoint]
-    C --> L[LLM decision]
-    L --> F[Evidence-grounded response]
-    F --> V[Evaluation\ncitations • tokens • latency • cost]
-```
+<table align="center" border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Research question</strong><br><small>candidate-gene evidence</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Scientific retrieval</strong><br><small>BM25 / evidence search</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Evidence passages</strong><br><small>source IDs and metadata</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Agent Harness</strong><br><small>bounded runtime loop</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Controlled tools</strong><br><small>validate • authorize • execute</small></td></tr></table></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Context &amp; checkpoint</strong><br><small>state and recovery</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>LLM decision</strong><br><small>tool or final answer</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Evidence-grounded response</strong><br><small>citations and limitations</small></td></tr></table></td>
+    <td align="center">→</td>
+    <td align="center"><table border="1" cellpadding="10" cellspacing="0"><tr><td align="center"><strong>Evaluation</strong><br><small>tokens • latency • cost</small></td></tr></table></td>
+  </tr>
+</table>
 
 ## Architecture
 
